@@ -74,11 +74,14 @@ def main():
         logits_dataset, true_ids_dataset, loss_fct, args.device
     )
 
-    # Print results
-    print(f"Average Loss: {avg_loss:.4f}")
-    print(f"Perplexity: {perplexity:.4f}")
-    print(f"Masked Token Accuracy: {accuracy:.4%}")
+    # save metrics
+    if '.h5' in args.output:
+        args.output = args.output.replace('.h5', '')
 
+    with open(args.output + '-metrics.txt', 'w') as f:
+        f.write(f"Average Loss: {avg_loss}\n")
+        f.write(f"Perplexity: {perplexity}\n")
+        f.write(f"Accuracy: {accuracy}\n")
 
 if __name__ == '__main__':
     main()
