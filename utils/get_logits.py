@@ -6,17 +6,30 @@ from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import argparse, os
 from tqdm import tqdm
+import logging
 
 def maskedTokenLogit(model, tokenizer, loader, device, output_path):
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+
+    try:
+        with h5py.File(output_path, 'r+') as hf:
+            if 'predicted_logits' not in hf or 'true_token_ids' not in hf or 'processed_batches' not in hf.attrs:
+                raise ValueError("Incomplete h5py file")
+    except (OSError, ValueError):
+        if os.path.exists(output_path):
+            os.remove(output_path)
+            logger.info(f"Deleted incomplete file: {output_path}")
+        logger.info(f"Creating new file: {output_path}")
+
     with h5py.File(output_path, 'a') as hf:
         # Initialize processed_batches
         if 'processed_batches' not in hf.attrs:
             hf.attrs['processed_batches'] = 0
         processed_batches = hf.attrs['processed_batches']
         feature_dim = 8
-        # Initialize datasets if they do not exist
-        if 'predicted_logits' not in hf or 'true_token_ids' not in hf:
 
+        if 'predicted_logits' not in hf or 'true_token_ids' not in hf:
             if 'predicted_logits' not in hf:
                 hf.create_dataset('predicted_logits',
                                   shape=(0, feature_dim),
@@ -63,4 +76,5 @@ def maskedTokenLogit(model, tokenizer, loader, device, output_path):
             hf.attrs['processed_batches'] = batch_idx + 1
             hf.flush()  # Ensure all changes are written to disk
 
+    logger.info(f"Finished processing. Total batches processed: {processed_batches}")
     return True
