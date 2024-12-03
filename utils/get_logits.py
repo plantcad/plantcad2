@@ -1,8 +1,5 @@
 import pandas as pd
 import torch, sys, h5py, os
-from transformers import AutoModelForMaskedLM, AutoTokenizer
-from Bio import SeqIO
-from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import argparse, os
 from tqdm import tqdm
@@ -52,14 +49,16 @@ def maskedTokenLogit(model, tokenizer, loader, device, output_path):
                 continue
 
             curIDs = batch['masked_ids'].to(device).squeeze(1)
-            true_token_ids = batch['true_ids'].to(device)
+            true_token_ids = batch['true_ids'].to(device)  
+            true_token_ids = true_token_ids.flatten()
 
             with torch.inference_mode():
                 all_logits = model(input_ids=curIDs).logits
 
-            # Select logits for the masked positions
+            # Select logits for all masked positions
             masked_positions = (curIDs == tokenizer.mask_token_id).unsqueeze(-1).expand(-1, -1, all_logits.size(-1))
             predicted_logits = torch.masked_select(all_logits, masked_positions).view(-1, all_logits.size(-1))
+
 
             # Resize and append datasets to disk
             current_size_logits = logits_dataset.shape[0]
@@ -74,7 +73,7 @@ def maskedTokenLogit(model, tokenizer, loader, device, output_path):
 
             # Update processed_batches and write to disk
             hf.attrs['processed_batches'] = batch_idx + 1
-            hf.flush()  # Ensure all changes are written to disk
+            hf.flush()
 
-    logger.info(f"Finished processing. Total batches processed: {processed_batches}")
+    logger.info(f"Finished processing. Total batches processed: {batch_idx + 1}")
     return True

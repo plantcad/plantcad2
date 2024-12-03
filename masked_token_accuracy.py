@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on 13:58 2024/12/03
+@author: JINGJING ZHAI (jz963@cornell.edu; zhaijingjing603@gmail.com)
+Description: Get masked token accuracy, loss and perplexity
+"""
+
 import h5py
 import sys
 import os
@@ -22,8 +30,10 @@ def parse_arguments():
                         help="The device to run the model")
     parser.add_argument("-batchSize", dest="batchSize", type=int, default=128,
                         help="The batch size for the model")
-    parser.add_argument("-tokenIdx", dest="tokenIdx", type=int, default=255,
-                        help="The index of the token to be masked")
+    parser.add_argument("-tokenIdx", dest="tokenIdx", type=lambda x: [int(i.strip()) for i in x.split(',')], 
+                    default="255,256",
+                    help="The indices of the tokens to be masked (comma-separated)")
+    parser.add_argument("-logit_only", dest="logit_only", action="store_true", help="Only save logits")
     return parser.parse_args()
 
 
@@ -62,26 +72,28 @@ def main():
 
     # Generate logits and save to HDF5
     maskedTokenLogit(model, tokenizer, loader, args.device, args.output)
-    torch.cuda.empty_cache()
 
-    # Load saved logits and calculate metrics
-    loss_fct = torch.nn.CrossEntropyLoss()
-    with h5py.File(args.output, 'a') as hf:
-        logits_dataset = torch.tensor(hf['predicted_logits'][:])
-        true_ids_dataset = torch.tensor(hf['true_token_ids'][:])
+    if not args.logit_only:
+        torch.cuda.empty_cache()
 
-    avg_loss, perplexity, accuracy = calculate_accuracy_and_loss(
-        logits_dataset, true_ids_dataset, loss_fct, args.device
-    )
+        # Load saved logits and calculate metrics
+        loss_fct = torch.nn.CrossEntropyLoss()
+        with h5py.File(args.output, 'a') as hf:
+            logits_dataset = torch.tensor(hf['predicted_logits'][:])
+            true_ids_dataset = torch.tensor(hf['true_token_ids'][:])
 
-    # save metrics
-    if '.h5' in args.output:
-        args.output = args.output.replace('.h5', '')
+        avg_loss, perplexity, accuracy = calculate_accuracy_and_loss(
+            logits_dataset, true_ids_dataset, loss_fct, args.device
+        )
 
-    with open(args.output + '-metrics.txt', 'w') as f:
-        f.write(f"Average Loss: {avg_loss}\n")
-        f.write(f"Perplexity: {perplexity}\n")
-        f.write(f"Accuracy: {accuracy}\n")
+        # save metrics
+        if '.h5' in args.output:
+            args.output = args.output.replace('.h5', '')
+
+        with open(args.output + '-metrics.txt', 'w') as f:
+            f.write(f"Average Loss: {avg_loss}\n")
+            f.write(f"Perplexity: {perplexity}\n")
+            f.write(f"Accuracy: {accuracy}\n")
 
 if __name__ == '__main__':
     main()
