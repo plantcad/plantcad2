@@ -1,8 +1,10 @@
-### max_exp_angiosperm dataset
+## Task Overview
 
-This dataset is adapted from the following paper: [https://www.pnas.org/doi/epub/10.1073/pnas.2319811121](https://www.pnas.org/doi/epub/10.1073/pnas.2319811121). We utilized the maximum expression values reported in the paper, training the model on Arabidopsis and testing it on other Angiosperms. Note that Ppa and Cre species were excluded from the analysis.
+| Task Name                                                                                     | Problem Type     | Description                                                                 |
+|-----------------------------------------------------------------------------------------------|------------------|-----------------------------------------------------------------------------|
+| [max_exp_angiosperm](https://huggingface.co/datasets/kuleshov-group/PlantCAD2_tasks/tree/main/max_exp_angiosperm)       | Regression       | Predict the maximum expression across different libraries                  |
+| [high_off_exp_angiosperm](https://huggingface.co/datasets/kuleshov-group/PlantCAD2_tasks/tree/main/high_off_exp_angiosperm) | Classification   | Predict highly expressed genes (labeled as 1) versus non-expressed genes (labeled as 0) |
+| [on_off_exp_angiosperm](https://huggingface.co/datasets/kuleshov-group/PlantCAD2_tasks/tree/main/on_off_exp_angiosperm) | Classification   | Predict expressed genes (labeled as 1) versus non-expressed genes (labeled as 0)       |
 
-Due to the varying number of libraries across species—some having many and others very few—this dataset is not suitable for generating pseudo-gene classification tasks. Therefore, we decided not to use this dataset for such purposes.
-
-
-### max_exp_andropogoneae dataset
+## Note
+This dataset is adapted from the following paper: [link](https://www.pnas.org/doi/epub/10.1073/pnas.2319811121). The original paper trains the model on multiple species and tests the performance on hold-out species. In this dataset, we train the model only on the model plant Arabidopsis and test its performance on 14 other Angiosperm species, excluding Ppa and Cre.
