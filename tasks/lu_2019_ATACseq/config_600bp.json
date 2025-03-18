@@ -1,0 +1,11 @@
+{
+  "paths": {
+    "intervals": "peaks",
+    "genomes": "genomes",
+    "annotations": "annotations"
+  },
+  "preprocessing": {
+    "window_size": 600,
+    "proximal_cutoff": 2000
+  }
+}
