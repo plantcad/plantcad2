@@ -7,9 +7,15 @@ from Bio import SeqIO
 def load_fastas(args):
     sequences = []
     names = []
-    for record in SeqIO.parse(args.inputFASTA, "fasta"):
-        sequences.append(str(record.seq))
-        names.append(record.id)
+    
+    opener = gzip.open if args.inputFASTA.endswith('.gz') else open
+    mode = 'rt' if args.inputFASTA.endswith('.gz') else 'r'
+    
+    with opener(args.inputFASTA, mode) as handle:
+        for record in SeqIO.parse(handle, "fasta"):
+            sequences.append(str(record.seq))
+            names.append(record.id)
+    
     return sequences, names
 
 class maskedTokenDataset(Dataset):
