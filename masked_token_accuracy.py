@@ -34,6 +34,8 @@ def parse_arguments():
                     default="255,256",
                     help="The indices of the tokens to be masked (comma-separated)")
     parser.add_argument("-logit_only", dest="logit_only", action="store_true", help="Only save logits")
+    parser.add_argument("-short_sequence_length", dest="short_sequence_length", type=int, default=0,
+                        help="Specify the length of shorter sequences to process")
     return parser.parse_args()
 
 
@@ -63,6 +65,12 @@ def main():
     # Load model, tokenizer, and dataset
     model, tokenizer = load_model(args)
     sequences, names = load_fastas(args)
+    seqLen = len(sequences[0]) # assuming all sequences have the same length, TODO: support variable length
+    
+    if args.short_sequence_length > 0:
+        start = (seqLen - args.short_sequence_length) // 2
+        sequences = [seq[start:(start+args.short_sequence_length)] for seq in sequences]
+    
     dataset = maskedTokenDataset(
         sequences=sequences,
         tokenizer=tokenizer,
