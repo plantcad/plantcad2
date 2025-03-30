@@ -7,13 +7,16 @@ import numpy as np
 
 evo2_model = Evo2('evo2_7b')
 
-def read_fasta(fasta_file, length=1000):
+def read_fasta(fasta_file, length=1000, reverse=False):
     """
     Read sequences from FASTA file
     """
     seqs = []
     for record in SeqIO.parse(fasta_file, "fasta"):
-        seqs.append(str(record.seq)[0:length])
+        if reverse:
+            seqs.append(str(record.seq.reverse_complement())[0:length])
+        else:
+            seqs.append(str(record.seq)[0:length])
     return seqs
 
 def evo2_generate(seqs, batch_size=32, n_tokens=3, top_k=4):
@@ -37,13 +40,16 @@ def main():
     parser = argparse.ArgumentParser(description="Extract logit scores from Evo2 model")
     parser.add_argument("--fasta", type=str, help="Path to input FASTA file")
     parser.add_argument("--length", type=int, default=1000, help="Length of sequences to extract (default: 1000)")
+    parser.add_argument("--reverse", action='store_true', help="Reverse complement the sequences")
     parser.add_argument("--output", type=str, help="Path to output logit scores")
     parser.add_argument("--batch-size", type=int, default=32, help="Batch size for processing sequences (default: 32)")
     parser.add_argument("--n-tokens", type=int, default=3, help="Number of tokens to generate (default: 3)")
     parser.add_argument("--top-k", type=int, default=1, help="Top k tokens to consider (default: 1)")
     args = parser.parse_args()
-
-    seqs = read_fasta(args.fasta, length=args.length)
+    if args.reverse:
+        seqs = read_fasta(args.fasta, length=args.length, reverse=True)
+    else:
+        seqs = read_fasta(args.fasta, length=args.length, reverse=False)
     logits, sequences = evo2_generate(seqs, batch_size=args.batch_size, n_tokens=args.n_tokens, top_k=args.top_k)
     np.savez_compressed(args.output, logits=logits)
     np.savetxt(f'{args.output}.tsv', sequences, fmt='%s')

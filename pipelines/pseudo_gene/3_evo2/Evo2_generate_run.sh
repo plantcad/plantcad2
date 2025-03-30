@@ -26,3 +26,36 @@ CUDA_VISIBLE_DEVICES=0 python ../../tasks/pseudo_gene/evo2_generate.py --fasta s
 
 # using the downstream 4096 base pairs as prompts, T[AG] is provided, try to predict [AG]
 CUDA_VISIBLE_DEVICES=1 python ../../tasks/pseudo_gene/evo2_generate.py --fasta splice_junctions/B73_stop_sites_filtered.fasta --length 4096 --output splice_junctions/B73_stop_sites_evo2_7b_ntokens_1 --batch-size 2 --n-tokens 1
+
+#########################Input reverse complement sequences#######################
+DATA_DIR="/workdir/jz963/utils/plantcad2/results/pseudo_gene/splice_junctions/"
+OUTPUT="/workdir/jz963/utils/plantcad2/results/pseudo_gene/outputs/"
+TAXA="B73"
+
+CUDA_VISIBLE_DEVICES=0 python evo2_generate.py --fasta ${DATA_DIR}${TAXA}_start_sites_filtered.fasta \
+    --length 4095 \
+    --output ${OUTPUT}${TAXA}_start_sites_evo2_7b_rc_ntokens_3 \
+    --batch-size 2 \
+    --n-tokens 3 \
+    --reverse
+
+CUDA_VISIBLE_DEVICES=1 python evo2_generate.py --fasta ${DATA_DIR}${TAXA}_stop_sites_filtered.fasta \
+    --length 4095 \
+    --output ${OUTPUT}${TAXA}_stop_sites_evo2_7b_rc_ntokens_3 \
+    --batch-size 2 \
+    --n-tokens 3 \
+    --reverse
+
+CUDA_VISIBLE_DEVICES=0 python evo2_generate.py --fasta ${DATA_DIR}${TAXA}_donor_filtered.fasta \
+    --length 4095 \
+    --output ${OUTPUT}${TAXA}_donor_evo2_7b_rc_ntokens_2 \
+    --batch-size 2 \
+    --n-tokens 2 \
+    --reverse
+
+CUDA_VISIBLE_DEVICES=1 python evo2_generate.py --fasta ${DATA_DIR}${TAXA}_acceptor_filtered.fasta \
+    --length 4095 \
+    --output ${OUTPUT}${TAXA}_acceptor_evo2_7b_rc_ntokens_2 \
+    --batch-size 2 \
+    --n-tokens 2 \
+    --reverse
