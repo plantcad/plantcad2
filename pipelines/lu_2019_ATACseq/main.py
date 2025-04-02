@@ -398,7 +398,7 @@ def evaluate(
     # Load the dataset to evaluate
     logger.info(f"Loading dataset from {data_dir}")
     eval_dataset = Dataset.from_parquet(
-        str(Path(data_dir) / f"valid.parquet"),
+        data_dir,
         split="test",
         keep_in_memory=False,
     )
