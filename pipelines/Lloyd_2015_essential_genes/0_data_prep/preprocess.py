@@ -93,15 +93,14 @@ def extract_gene_and_transcript_ids(gff3_file):
     
     return pd.DataFrame(data, columns=["Gene", "Transcript ID"])
 
-def extract_sequences(genome_file, cds_info, upstream_length, downstream_length):
+def extract_sequences(genome_file, cds_info, upstream_length):
     """
-    Extract promoter and terminator sequences from the genome.
+    Extract upstream from ATG and until 8192 bp of each transcript.
     
     Parameters:
         genome_file (str): Path to the genome file.
         cds_info (pd.DataFrame): DataFrame with columns ['Gene', 'Chr', 'CDS Start', 'CDS End', 'Strand'].
         upstream_length (int): Length of the upstream region to extract.
-        downstream_length (int): Length of the downstream region to extract.
     
     Returns:
         pd.DataFrame: DataFrame with columns ['Gene', 'Promoter Sequence', 'Terminator Sequence'].
@@ -112,11 +111,12 @@ def extract_sequences(genome_file, cds_info, upstream_length, downstream_length)
     results = []
     
     # Iterate over each transcript/gene and extract promoter/terminator sequences
-    for _, row in tqdm(cds_info.iterrows(), total=len(cds_info), desc="Extracting promoter and terminator sequences"):
+    for _, row in tqdm(cds_info.iterrows(), total=len(cds_info), desc="Extracting sequences"):
         if "Transcript ID" in row:
             gene_id = row['Transcript ID']
         else:
             gene_id = row['Gene']
+        
         chrom = str(row['Chr'])
         cds_start = row['CDS Start'] - 1  # Convert to 0-based index
         cds_end = row['CDS End']
@@ -125,27 +125,22 @@ def extract_sequences(genome_file, cds_info, upstream_length, downstream_length)
         # Get the length of the chromosome to avoid fetching sequences out of bounds
         chrom_length = fasta.get_reference_length(chrom)
         
-        # Extract promoter and terminator based on strand orientation
+        # Extract sequences based on strand orientation
         if strand == "+":
-            promoter_start = max(0, cds_start - upstream_length)
-            promoter_seq = fasta.fetch(reference=chrom, start=promoter_start, end=cds_start)
+            seq_start = max(0, cds_start - upstream_length)
+            seq_end = min(chrom_length, cds_start + 8192)
+            seq = fasta.fetch(reference=chrom, start=seq_start, end=seq_end)
             
-            terminator_end = min(chrom_length, cds_end + downstream_length)
-            terminator_seq = fasta.fetch(reference=chrom, start=cds_end, end=terminator_end)
         else:
-            promoter_end = min(chrom_length, cds_end + upstream_length)
-            promoter_seq = fasta.fetch(reference=chrom, start=cds_end, end=promoter_end)
-            promoter_seq = str(Seq(promoter_seq).reverse_complement())
-            
-            terminator_start = max(0, cds_start - downstream_length)
-            terminator_seq = fasta.fetch(reference=chrom, start=terminator_start, end=cds_start)
-            terminator_seq = str(Seq(terminator_seq).reverse_complement())
-        
+            seq_end = min(chrom_length, cds_end + upstream_length)
+            seq_start = max(0, cds_end - 8192)
+            seq = fasta.fetch(reference=chrom, start=seq_start, end=seq_end)
+            seq = str(Seq(seq).reverse_complement())
+
         results.append({
             'Gene': gene_id,
             'Strand': strand,
-            'Promoter Sequence': promoter_seq,
-            'Terminator Sequence': terminator_seq
+            'Sequence': seq
         })
     
     fasta.close()
@@ -157,10 +152,8 @@ def main():
     parser.add_argument("--gff3_file", type=str, required=True, help="Path to the GFF3 file.")
     parser.add_argument("--genome_file", type=str, required=True, help="Path to the genome file.")
     parser.add_argument("--upstream_length", type=int, default=500, help="Length of the upstream region to extract.")
-    parser.add_argument("--downstream_length", type=int, default=1000, help="Length of the downstream region to extract.")
     parser.add_argument("--output_file", type=str, default="promoter_terminator_sequences.csv", help="Output file name.")
     parser.add_argument("--sheet_name", type=str, default="A. thaliana", help="Sheet name for the Excel file.")
-    parser.add_argument("--split", action=True, help="Split the output file into train and test sets.")
     
     args = parser.parse_args()
     
@@ -170,11 +163,11 @@ def main():
     # Merge dataframes on Transcript ID
     merged_df = pd.merge(gene_tx_df, cds_df, on="Transcript ID")
     
-    # Group by Gene ID and get min/max CDS coordinates
-    result = merged_df.groupby('Gene ID').agg({'Chr': 'first', 'CDS Start': 'min', 'CDS End': 'max', 'Strand': 'first'}).reset_index()
+    result = merged_df.groupby('Gene').agg({'Chr': 'first', 'CDS Start': 'min', 'CDS End': 'max', 'Strand': 'first'}).reset_index()
     
     # Extract sequences
-    result_df = extract_sequences(args.genome_file, result, args.upstream_length, args.downstream_length)
+    result_df = extract_sequences(args.genome_file, result, args.upstream_length)
+    result_df['Gene'] = result_df['Gene'].str.replace("gene:", "")
     df = pd.read_excel("TPC2015-00051-LSBR3_Supplemental_Data_set_1.xls", sheet_name="A. thaliana", skiprows=3)
     df.columns = ['Gene', 'Phenotype', 'Predicted']
 
