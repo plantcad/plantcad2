@@ -1,6 +1,5 @@
 # PlantCad2
-
-Focusing on zero-shot evaluation of PlantCaduceus v2 models
+Pipelines for PlantCAD2 evaluation
 
 # Contact
 Jingjing Zhai (jz963@cornell.edu; zhaijingjing603@gmail.com)
