@@ -128,19 +128,19 @@ def extract_sequences(genome_file, cds_info, upstream_length):
         # Extract sequences based on strand orientation
         if strand == "+":
             seq_start = max(0, cds_start - upstream_length)
-            seq_end = min(chrom_length, cds_start + 8192)
+            seq_end = min(chrom_length, seq_start + 8192)
             seq = fasta.fetch(reference=chrom, start=seq_start, end=seq_end)
             
         else:
             seq_end = min(chrom_length, cds_end + upstream_length)
-            seq_start = max(0, cds_end - 8192)
+            seq_start = max(0, seq_end - 8192)
             seq = fasta.fetch(reference=chrom, start=seq_start, end=seq_end)
             seq = str(Seq(seq).reverse_complement())
 
         results.append({
             'Gene': gene_id,
             'Strand': strand,
-            'Sequence': seq
+            'Seq': seq
         })
     
     fasta.close()
@@ -158,6 +158,11 @@ def main():
     args = parser.parse_args()
     
     cds_df = extract_cds_coordinates(args.gff3_file)
+    if args.sheet_name == 'S. cerevisiae': # only for S. cerevisiae because its weird gff file
+        temp_df = cds_df.copy()
+        temp_df['Transcript ID'] = temp_df['Transcript ID'].str.split(',')
+        cds_df = temp_df.explode('Transcript ID', ignore_index=True)
+
     gene_tx_df = extract_gene_and_transcript_ids(args.gff3_file)
     
     # Merge dataframes on Transcript ID
@@ -167,15 +172,24 @@ def main():
     
     # Extract sequences
     result_df = extract_sequences(args.genome_file, result, args.upstream_length)
-    result_df['Gene'] = result_df['Gene'].str.replace("gene:", "")
-    df = pd.read_excel("TPC2015-00051-LSBR3_Supplemental_Data_set_1.xls", sheet_name="A. thaliana", skiprows=3)
-    df.columns = ['Gene', 'Phenotype', 'Predicted']
+    df = pd.read_excel("TPC2015-00051-LSBR3_Supplemental_Data_set_1.xls", sheet_name=args.sheet_name, skiprows=3)
+    
+    if args.sheet_name == 'A. thaliana':
+        result_df['Gene'] = result_df['Gene'].str.replace("gene:", "")
+        df.columns = ['Gene', 'Phenotype', 'Predicted']
+        df = df[df['Predicted'] == '-']
+    elif args.sheet_name == 'O. sativa':
+        result_df['Gene'] = result_df['Gene'].str.replace(".MSUv7.0", "")
+    elif args.sheet_name == 'S. cerevisiae':
+        pass
+    else:
+        raise ValueError(f"Unsupported sheet name '{args.sheet_name}'. Supported sheet names are 'A. thaliana', 'O. sativa', and 'S. cerevisiae'.")
 
-    df = df[df['Predicted'] == '-']
 
     df['Label'] = df['Phenotype'].apply(lambda x: 1 if x=='Lethal' else 0)
-
     res = pd.merge(df, result_df, on='Gene', how='left')
+    res = res[['Gene', 'Seq', 'Label']]
+    res = res[res['Seq'].str.len() == 8192]
     res.to_csv(args.output_file, index=False, sep="\t")
 
 if __name__ == "__main__":
