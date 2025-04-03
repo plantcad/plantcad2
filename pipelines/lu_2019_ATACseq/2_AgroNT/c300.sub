@@ -1,0 +1,63 @@
+#!/bin/bash
+
+#SBATCH -J  accessible_angiosperm_c300_agront # Job name
+#SBATCH -o logs/%x.log      # Name of stdout output file
+#SBATCH -e logs/%x.log      # Name of stderr error file
+#SBATCH -p gh               # Queue (partition) name
+#SBATCH -N 1                # Total # of nodes (must be 1 for serial)
+#SBATCH -n 1                # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 24:00:00         # Run time (hh:mm:ss)
+#SBATCH --mail-type=BEGAN,END,FAIL     # Send email at begin and end of job
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+export DATA_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/PlantCAD2_tasks/accessible_angiosperm_c300
+export OUTPUT_DIR="${DATA_DIR}/agront-checkpoints"
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+# Tokenize text splits as parquet
+# - Results saved as ${DATA_DIR}/train.parquet and ${DATA_DIR}/valid.parquet
+# - Use `--max_batches=10` to test on less data
+# python main.py tokenize \
+#     --data_dir=$DATA_DIR/train.tsv \
+#     --model_name "InstaDeepAI/agro-nucleotide-transformer-1b" \
+#     --sequence_length 300 \
+#     --output_path $DATA_DIR/train.agront.parquet
+
+# python main.py tokenize \
+#     --data_dir=$DATA_DIR/valid.tsv \
+#     --model_name "InstaDeepAI/agro-nucleotide-transformer-1b" \
+#     --sequence_length 300 \
+#     --output_path $DATA_DIR/valid.agront.parquet
+
+# Train model
+python main.py train \
+    --data_dir=$DATA_DIR \
+    --output_dir=$OUTPUT_DIR \
+    --model_name "InstaDeepAI/agro-nucleotide-transformer-1b" \
+    --train_batch_size 128 \
+    --eval_batch_size 128 \
+    --max_steps -1 \
+    --seed 42 \
+    --use_wandb True \
+    --wandb_project PlantCAD2 \
+    --wandb_run_name "accessible_angiosperm_c300_agront-lr-1e-3" \
+    --learning_rate 1e-3 \
+    --warmup_steps 50 \
+    --lr_scheduler_type "linear" \
+    --gradient_accumulation_steps 1 \
+    --bf16 True \
+    --num_train_epochs 2 \
+    --weight_decay 0.01 \
+    --eval_strategy "steps" \
+    --eval_steps 250 \
+    --save_strategy "steps" \
+    --save_steps 250 \
+    --logging_steps 250 \
+    --remove_unused_columns False
+
