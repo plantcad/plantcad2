@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J  accessible_angiosperm_c1000_agront # Job name
+#SBATCH -J  accessible_angiosperm_c1000_agront-lr-1e-3 # Job name
 #SBATCH -o logs/%x.log      # Name of stdout output file
 #SBATCH -e logs/%x.log      # Name of stderr error file
 #SBATCH -p gh               # Queue (partition) name
@@ -15,7 +15,7 @@ module load python3/3.11.8
 export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
 
 export DATA_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/PlantCAD2_tasks/accessible_angiosperm_c1000
-export OUTPUT_DIR="${DATA_DIR}/agront-checkpoints"
+export OUTPUT_DIR="${DATA_DIR}/agront-checkpoints-lr-1e-3"
 
 source $WORK/envs/PlantCAD/bin/activate
 source ~/.bashrc
@@ -34,6 +34,15 @@ source ~/.bashrc
 #     --model_name "InstaDeepAI/agro-nucleotide-transformer-1b" \
 #     --sequence_length 1000 \
 #     --output_path $DATA_DIR/valid.agront.parquet
+
+# for species in test_brachypodium_distachyon test_eutrema_salsugineum test_glycine_max test_hordeum_vulgare test_oryza_sativa test_phaseolus_vulgaris test_populus_trichocarpa test_setaria_viridis test_sorghum_bicolor test_zea_mays
+# do
+#     python main.py tokenize \
+#         --data_dir=$DATA_DIR/${species}.tsv \
+#         --model_name "InstaDeepAI/agro-nucleotide-transformer-1b" \
+#         --sequence_length 1000 \
+#         --output_path $DATA_DIR/${species}.agront.parquet
+# done
 
 # Train model
 python main.py train \

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J  accessible_angiosperm_c600_agront # Job name
+#SBATCH -J  accessible_angiosperm_c1000_agront-lr-1e-5 # Job name
 #SBATCH -o logs/%x.log      # Name of stdout output file
 #SBATCH -e logs/%x.log      # Name of stderr error file
 #SBATCH -p gh               # Queue (partition) name
@@ -14,8 +14,8 @@ module load gcc/13.2.0 cuda/12.4
 module load python3/3.11.8
 export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
 
-export DATA_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/PlantCAD2_tasks/accessible_angiosperm_c600
-export OUTPUT_DIR="${DATA_DIR}/agront-checkpoints"
+export DATA_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/PlantCAD2_tasks/accessible_angiosperm_c1000
+export OUTPUT_DIR="${DATA_DIR}/agront-checkpoints-lr-1e-5"
 
 source $WORK/envs/PlantCAD/bin/activate
 source ~/.bashrc
@@ -26,13 +26,13 @@ source ~/.bashrc
 # python main.py tokenize \
 #     --data_dir=$DATA_DIR/train.tsv \
 #     --model_name "InstaDeepAI/agro-nucleotide-transformer-1b" \
-#     --sequence_length 600 \
+#     --sequence_length 1000 \
 #     --output_path $DATA_DIR/train.agront.parquet
 
 # python main.py tokenize \
 #     --data_dir=$DATA_DIR/valid.tsv \
 #     --model_name "InstaDeepAI/agro-nucleotide-transformer-1b" \
-#     --sequence_length 600 \
+#     --sequence_length 1000 \
 #     --output_path $DATA_DIR/valid.agront.parquet
 
 # Train model
@@ -46,8 +46,8 @@ python main.py train \
     --seed 42 \
     --use_wandb True \
     --wandb_project PlantCAD2 \
-    --wandb_run_name "accessible_angiosperm_c600_agront-lr-1e-3" \
-    --learning_rate 1e-3 \
+    --wandb_run_name "accessible_angiosperm_c1000_agront-lr-1e-5" \
+    --learning_rate 1e-5 \
     --warmup_steps 50 \
     --lr_scheduler_type "linear" \
     --gradient_accumulation_steps 1 \

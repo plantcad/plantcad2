@@ -101,21 +101,11 @@ def tokenize(
             examples['seq'],
             padding='max_length',
             truncation=True,
-            max_length=sequence_length,
-            # This is crucial to avoid EOS tokens being suffixed to sequences
-            # and extending them beyond the expected length `sequence_length`
-            add_special_tokens=False,
+            return_tensors='pt',
+            max_length=sequence_length // 6 + 2,
         )
-
-        # Validate sequence lengths
-        lengths = set(map(len, tokenized["input_ids"]))
-        if lengths != {sequence_length}:
-            raise ValueError(
-                f"All sequences must be of length {sequence_length}; "
-                f"found sequence batch with lengths {lengths}"
-            )
         
-        return {'input_ids': tokenized['input_ids']}
+        return tokenized
 
     # Process in batches and save
     logger.info(f"Tokenizing sequences in batches of {batch_size}")
@@ -123,7 +113,7 @@ def tokenize(
         tokenize_batch,
         batched=True,
         batch_size=batch_size,
-        remove_columns=["seq"],
+        remove_columns=["seq", "chr", "start", "end", "type", "species"],
         num_proc=num_proc,
     )
 
