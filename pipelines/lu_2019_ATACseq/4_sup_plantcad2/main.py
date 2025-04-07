@@ -528,10 +528,18 @@ def load_base_model(model_name: str) -> AutoModelForSequenceClassification:
         num_labels=2,
         id2label={0: "NEGATIVE", 1: "POSITIVE"},
         label2id={"NEGATIVE": 0, "POSITIVE": 1},
-        trust_remote_code=True  # if your model requires remote code
+        trust_remote_code=True 
     )
     # Instantiate the model from the configuration (randomly initialized weights)
     base_model = AutoModelForSequenceClassification.from_config(config, trust_remote_code=True)
+    
+    # Monkey-patch the save_pretrained method to disable safe serialization.
+    old_save_pretrained = base_model.save_pretrained
+    def new_save_pretrained(save_directory, *args, **kwargs):
+        kwargs["safe_serialization"] = False
+        return old_save_pretrained(save_directory, *args, **kwargs)
+    base_model.save_pretrained = new_save_pretrained
+
     # Handle unsupported arguments in base_model;
     # See `Notes` in README for more details
     original_forward = base_model.forward
@@ -543,7 +551,6 @@ def load_base_model(model_name: str) -> AutoModelForSequenceClassification:
     base_model.forward = forward_with_logging
 
     return base_model
-
 
 # ------------------------------------------------------------------------------
 # Main
