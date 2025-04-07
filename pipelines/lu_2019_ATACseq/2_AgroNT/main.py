@@ -215,9 +215,7 @@ def train(
     """Train a LoRA adapter on top of a base model for sequence classification.
 
     Performs fine-tuning using Low-Rank Adaptation (LoRA) on a pre-trained model.
-    Uses an 80/20 train/validation split of the training data for monitoring.
-    With default settings, approximately 1.4% of model parameters are trainable.
-
+    
     Parameters
     ----------
     data_dir : str
