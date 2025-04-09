@@ -12,9 +12,9 @@ import os
 import torch
 from torch.utils.data import DataLoader
 from argparse import ArgumentParser
-from utils.data_utils import maskedTokenDataset, load_fastas
-from utils.get_logits import maskedTokenLogit
-from utils.model_utils import load_model
+from data_utils import maskedTokenDataset, load_fastas
+from get_logits import maskedTokenLogit
+from model_utils import load_model
 
 
 def parse_arguments():
