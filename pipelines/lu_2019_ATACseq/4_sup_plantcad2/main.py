@@ -476,7 +476,7 @@ def predict(
         per_device_eval_batch_size=batch_size,
         seed=seed,
         report_to="none",
-        remove_unused_columns=False,
+        remove_unused_columns=True,
     )
 
     trainer = Trainer(

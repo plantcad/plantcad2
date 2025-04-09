@@ -23,22 +23,22 @@ UDA_VISIBLE_DEVICES=1 python main.py train  \
 
 # predict
 DATA_DIR=/local/workdir/jz963/utils/plantcad2/results/PlantCAD2_tasks/accessible_angiosperm_c600
-CKPT_DIR=${DATA_DIR}/cnn-lstm-imbalance-lr-1e-3
+CKPT_DIR=${DATA_DIR}/models/cnn-lstm-imbalance-lr-1e-3
 for species in test_brachypodium_distachyon test_eutrema_salsugineum test_glycine_max test_hordeum_vulgare test_oryza_sativa test_phaseolus_vulgaris test_populus_trichocarpa test_setaria_viridis test_sorghum_bicolor test_zea_mays
 do
     CUDA_VISIBLE_DEVICES=1 python main.py predict \
-        --test ${DATA_DIR}/${species}.tsv \
+        --test ${DATA_DIR}/data/${species}.tsv \
         --model_path ${CKPT_DIR}/bestmodel.ckpt \
         --output_file ${CKPT_DIR}/${species}_scores.tsv
 done
 
 
 DATA_DIR=/local/workdir/jz963/utils/plantcad2/results/PlantCAD2_tasks/accessible_angiosperm_c600
-CKPT_DIR=${DATA_DIR}/cnn-lstm-balance-lr-1e-3
+CKPT_DIR=${DATA_DIR}/models/cnn-lstm-balance-lr-1e-3
 for species in test_brachypodium_distachyon test_eutrema_salsugineum test_glycine_max test_hordeum_vulgare test_oryza_sativa test_phaseolus_vulgaris test_populus_trichocarpa test_setaria_viridis test_sorghum_bicolor test_zea_mays
 do
     CUDA_VISIBLE_DEVICES=1 python main.py predict \
-        --test ${DATA_DIR}/${species}.tsv \
+        --test ${DATA_DIR}/data/${species}.tsv \
         --model_path ${CKPT_DIR}/bestmodel.ckpt \
         --output_file ${CKPT_DIR}/${species}_scores.tsv
 done
