@@ -216,6 +216,7 @@ def train(
     logging_steps: int = 100,
     remove_unused_columns: bool = False,
     resume_from_checkpoint: Optional[str] = None,
+    crop_length: int = 0
 ) -> None:
     """Train a LoRA adapter on top of a base model for sequence classification.
 
@@ -302,6 +303,22 @@ def train(
         keep_in_memory=False,
     )
 
+    if crop_length > 0:
+        logger.info(f"Limiting sequences to {crop_length} tokens")
+        def crop_middle(example):
+            input_ids = example["input_ids"]
+            seq_len = len(input_ids)
+            if seq_len < crop_length:
+                raise ValueError(f"Sequence too short: {seq_len} < {crop_length}")
+            start = (seq_len - crop_length) // 2
+            end = start + crop_length
+            example["input_ids"] = input_ids[start:end]
+            return example
+        
+        train_dataset = train_dataset.map(crop_middle, desc=f"Cropping to middle {crop_length}")
+        eval_dataset = eval_dataset.map(crop_middle, desc=f"Cropping to middle {crop_length}")
+
+
     logger.info(f"Train dataset:\n{train_dataset}")
     logger.info(f"Eval dataset:\n{eval_dataset}")
 
@@ -362,6 +379,7 @@ def evaluate(
     batch_size: int = 32,
     sampling_rate: Optional[float] = None,
     seed: int = 42,
+    crop_length: int = 0,
 ) -> None:
     """Evaluate a fine-tuned model checkpoint on validation data.
 
@@ -405,6 +423,20 @@ def evaluate(
     )
     logger.info(f"Evaluation dataset:\n{eval_dataset}")
 
+    if crop_length > 0:
+        logger.info(f"Cropping evaluation sequences to {crop_length} tokens")
+        def crop_middle(example):
+            input_ids = example["input_ids"]
+            seq_len = len(input_ids)
+            if seq_len < crop_length:
+                raise ValueError(f"Sequence too short: {seq_len} < {crop_length}")
+            start = (seq_len - crop_length) // 2
+            end = start + crop_length
+            example["input_ids"] = input_ids[start:end]
+            return example
+        
+        eval_dataset = eval_dataset.map(crop_middle, desc=f"Cropping to middle {crop_length}")
+
     if sampling_rate:
         if sampling_rate > 1 or sampling_rate <= 0:
             raise ValueError(f"sampling_rate must be a float in (0, 1]; got {sampling_rate}")
@@ -445,6 +477,7 @@ def predict(
     batch_size: int = 32,
     sampling_rate: Optional[float] = None,
     seed: int = 42,
+    crop_length: int = 0,
 ) -> None:
     """Generate predictions for a dataset and save them to a CSV file.
 
@@ -486,6 +519,19 @@ def predict(
         keep_in_memory=False,
     )
     logger.info(f"Dataset:\n{dataset}")
+
+    if crop_length > 0:
+        logger.info(f"Cropping prediction sequences to {crop_length} tokens")
+        def crop_middle(example):
+            input_ids = example["input_ids"]
+            seq_len = len(input_ids)
+            if seq_len < crop_length:
+                raise ValueError(f"Sequence too short: {seq_len} < {crop_length}")
+            start = (seq_len - crop_length) // 2
+            end = start + crop_length
+            example["input_ids"] = input_ids[start:end]
+            return example
+        dataset = dataset.map(crop_middle, desc=f"Cropping to middle {crop_length}")
 
     if sampling_rate:
         if sampling_rate > 1 or sampling_rate <= 0:
