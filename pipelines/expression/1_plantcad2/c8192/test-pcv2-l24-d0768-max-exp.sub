@@ -34,4 +34,5 @@ python main.py predict \
     --data_dir ${DATA_DIR}/data/${species}.parquet \
     --output_file ${OUTPUT_DIR}/${species}_scores.tsv \
     --model_name 'kuleshov-group/compo-cad2-l24-dna-chtk-c8192-v2-b2-NpnkD-ba240000' \
-    --batch_size 16
+    --batch_size 16 \
+    --task_type 'regression'
