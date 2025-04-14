@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH -J  test_accessible_angiosperm_c300_pcv2-l24-d0768 # Job name
+#SBATCH -J  test_high_off_exp_angiosperm_c300_pcv2-l24-d0768 # Job name
 #SBATCH -o logs/%x_%A_%a.log  # Name of stdout output file (includes array task ID)
 #SBATCH -e logs/%x_%A_%a.log  # Name of stderr error file (includes array task ID)
 #SBATCH -p gh                 # Queue (partition) name
