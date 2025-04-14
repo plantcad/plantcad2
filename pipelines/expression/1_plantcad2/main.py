@@ -12,6 +12,8 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer, Trai
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel, PeftModelForSequenceClassification
 from sklearn.metrics import accuracy_score, f1_score, roc_auc_score, average_precision_score
 import pandas as pd
+from scipy.stats import spearmanr, pearsonr
+
 
 logger = logging.getLogger(__name__)
 
@@ -610,12 +612,17 @@ def compute_metrics_regression(eval_pred):
     ss_tot = ((labels - labels.mean()) ** 2).sum()
     ss_res = ((labels - predictions) ** 2).sum()
     r2 = 1 - (ss_res / (ss_tot + 1e-8))  # Add small epsilon to avoid division by zero
+
+    pearson_corr, _ = pearsonr(predictions, labels)
+    spearman_corr, _ = spearmanr(predictions, labels)
     
     return {
         'mse': mse,
         'rmse': rmse,
         'mae': mae,
         'r2': r2,
+        'pearson_r': pearson_corr,
+        'spearman_r': spearman_corr,
     }
 
 
