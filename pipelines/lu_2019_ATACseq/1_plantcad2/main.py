@@ -219,6 +219,7 @@ def train(
     save_steps: int = 100,
     logging_steps: int = 100,
     remove_unused_columns: bool = False,
+    exlcude_genic: bool = False,
     resume_from_checkpoint: Optional[str] = None,
 ) -> None:
     """Train a LoRA adapter on top of a base model for sequence classification.
@@ -275,6 +276,8 @@ def train(
         Number of steps between saving checkpoints, by default 100
     logging_steps : int, optional
         Number of steps between logging, by default 100
+    exlcude_genic : bool, optional
+        Whether to exclude genic regions from training, by default False
     remove_unused_columns : bool, optional
         Whether to remove unused columns from the dataset, by default False
 
@@ -303,6 +306,12 @@ def train(
         str(Path(data_dir) / f"valid.parquet"),
         keep_in_memory=False,
     )
+
+    # Exclude genic regions if specified
+    if exlcude_genic:
+        logger.info("Excluding genic regions from training")
+        train_dataset = train_dataset.filter(lambda x: x['type'] != 'genic')
+        eval_dataset = eval_dataset.filter(lambda x: x['type'] != 'genic')
 
     logger.info(f"Train dataset:\n{train_dataset}")
     logger.info(f"Eval dataset:\n{eval_dataset}")
