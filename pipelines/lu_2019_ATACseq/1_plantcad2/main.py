@@ -451,6 +451,7 @@ def predict(
     model_name: str = None,
     batch_size: int = 32,
     sampling_rate: Optional[float] = None,
+    exlcude_genic: bool = False,
     seed: int = 42,
 ) -> None:
     """Generate predictions for a dataset and save them to a CSV file.
@@ -492,7 +493,14 @@ def predict(
         split="test",
         keep_in_memory=False,
     )
-    logger.info(f"Dataset:\n{dataset}")
+
+    # Exclude genic regions if specified
+    if exlcude_genic:
+        logger.info("Excluding genic regions from prediction")
+        dataset = dataset.filter(lambda x: x['type'] != 'genic')
+        logger.info(f"Dataset after excluding genic regions:\n{dataset}")
+    else:
+        logger.info(f"Dataset:\n{dataset}")
 
     if sampling_rate:
         if sampling_rate > 1 or sampling_rate <= 0:
