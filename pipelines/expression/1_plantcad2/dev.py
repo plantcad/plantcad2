@@ -290,11 +290,11 @@ def train(
     # Configure dataloaders and splits
     logger.info("Loading datasets")
     train_dataset = Dataset.from_parquet(
-        str(Path(data_dir) / f"train.parquet"),
+        str(Path(data_dir) / f"train_tokenize_TE_2k.parquet"),
         keep_in_memory=False,
     )
     eval_dataset = Dataset.from_parquet(
-        str(Path(data_dir) / f"valid.parquet"),
+        str(Path(data_dir) / f"valid_tokenize_TE_2k.parquet"),
         keep_in_memory=False,
     )
 
