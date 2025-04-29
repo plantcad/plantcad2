@@ -15,7 +15,7 @@ module load python3/3.11.8
 export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
 
 export DATA_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/PlantCAD2_tasks/max_exp_angiosperm
-export OUTPUT_DIR="${DATA_DIR}/models/max_exp_angiosperm_c2048_tokenize_TE_pcv2-l24-d0768-checkpoints-lr-1e-4"
+export OUTPUT_DIR="${DATA_DIR}/models/c2048_tokenize_TE_pcv2-l24-d0768-checkpoints-lr-1e-4"
 
 source $WORK/envs/PlantCAD/bin/activate
 source ~/.bashrc

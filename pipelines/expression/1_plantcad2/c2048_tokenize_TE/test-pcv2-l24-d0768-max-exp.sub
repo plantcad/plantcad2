@@ -1,0 +1,39 @@
+#!/bin/bash
+
+#SBATCH -J  test_max_exp_angiosperm_c2048_pcv2-l24-d0768 # Job name
+#SBATCH -o logs/%x_%A_%a.log  # Name of stdout output file (includes array task ID)
+#SBATCH -e logs/%x_%A_%a.log  # Name of stderr error file (includes array task ID)
+#SBATCH -p gh                 # Queue (partition) name
+#SBATCH -N 1                  # Total # of nodes (must be 1 for serial)
+#SBATCH -n 1                  # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 24:00:00           # Run time (hh:mm:ss)
+#SBATCH --mail-type=BEGIN,END,FAIL  # Send email at begin and end of job
+#SBATCH --mail-user=jz963@cornell.edu
+#SBATCH -a 0-3                # Array range (0-2 for 3 species)
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+export DATA_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/PlantCAD2_tasks/max_exp_angiosperm
+export OUTPUT_DIR="${DATA_DIR}/models/c2048_tokenize_TE_pcv2-l24-d0768-checkpoints-lr-1e-4"
+export CKPT_DIR="${OUTPUT_DIR}/checkpoint-688"
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+# Define the species array
+species_array=("test_Zma_tokenize_TE_2k")
+
+# Get the species for the current array task
+species=${species_array[$SLURM_ARRAY_TASK_ID]}
+
+# Run the command for the current species
+python ../dev.py predict \
+    --checkpoint_dir ${CKPT_DIR} \
+    --data_dir ${DATA_DIR}/data/${species}.parquet \
+    --output_file ${OUTPUT_DIR}/${species}_scores.tsv \
+    --model_name 'kuleshov-group/compo-cad2-l24-dna-chtk-c8192-v2-b2-NpnkD-ba240000' \
+    --batch_size 32 \
+    --crop_length 2048 \
+    --task_type 'regression'
