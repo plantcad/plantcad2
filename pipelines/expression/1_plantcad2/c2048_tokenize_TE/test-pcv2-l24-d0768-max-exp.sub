@@ -9,7 +9,7 @@
 #SBATCH -t 24:00:00           # Run time (hh:mm:ss)
 #SBATCH --mail-type=BEGIN,END,FAIL  # Send email at begin and end of job
 #SBATCH --mail-user=jz963@cornell.edu
-#SBATCH -a 0-3                # Array range (0-2 for 3 species)
+#SBATCH -a 0                # Array range (0-2 for 3 species)
 
 module load gcc/13.2.0 cuda/12.4
 module load python3/3.11.8
