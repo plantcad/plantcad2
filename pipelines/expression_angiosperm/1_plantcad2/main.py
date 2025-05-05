@@ -84,17 +84,10 @@ def tokenize(
         logger.info(f"Limited dataset to {max_examples} examples ({max_batches} batches)")
 
     def tokenize_batch(examples):
-        # Verify sequence lengths
-        for seq in examples['seq']:
-            if len(seq) != sequence_length:
-                raise ValueError(
-                    f"All sequences must be of length {sequence_length}; "
-                    f"found sequence with length {len(seq)}, sequence={seq}"
-                )
         
         # Tokenize the batch
         tokenized = tokenizer(
-            examples['seq'],
+            [str(seq) for seq in examples['seq']],
             padding='max_length',
             truncation=True,
             max_length=sequence_length,
@@ -192,7 +185,8 @@ def display(model_name: str = None) -> None:
     logger.info("Model display complete")
 
 def train(
-    data_dir: str,
+    train_dir: str,
+    valid_dir: str,
     output_dir: str = "/tmp/pcv2-ft",
     model_name: str = None,
     task_type: str = "classification",
@@ -228,8 +222,10 @@ def train(
 
     Parameters
     ----------
-    data_dir : str
-        Directory containing tokenized training data (train.parquet)
+    train_dir : str
+        Directory containing tokenized training data (train_tokenize_TE_2k.parquet)
+    valid_dir : str
+        Directory containing tokenized validation data (valid_tokenize_TE_2k.parquet)
     output_dir : str, optional
         Directory to save model checkpoints and training outputs
     model_name : str, optional
@@ -297,11 +293,11 @@ def train(
     # Configure dataloaders and splits
     logger.info("Loading datasets")
     train_dataset = Dataset.from_parquet(
-        str(Path(data_dir) / f"train.parquet"),
+        str(Path(train_dir)),
         keep_in_memory=False,
     )
     eval_dataset = Dataset.from_parquet(
-        str(Path(data_dir) / f"valid.parquet"),
+        str(Path(valid_dir)),
         keep_in_memory=False,
     )
 
