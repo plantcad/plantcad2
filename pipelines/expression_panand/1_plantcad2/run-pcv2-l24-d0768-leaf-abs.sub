@@ -22,7 +22,8 @@ source ~/.bashrc
 
 # Train model
 python main.py train \
-    --data_dir=$DATA_DIR \
+    --train_dir=$DATA_DIR/train.parquet \
+    --valid_dir=$DATA_DIR/valid.parquet \
     --output_dir=$OUTPUT_DIR \
     --model_name "kuleshov-group/compo-cad2-l24-dna-chtk-c8192-v2-b2-NpnkD-ba240000" \
     --train_batch_size 32 \
