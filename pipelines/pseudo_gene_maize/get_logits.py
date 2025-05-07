@@ -78,6 +78,29 @@ def maskedTokenLogit(model, tokenizer, loader, device, output_path):
     logger.info(f"Finished processing. Total batches processed: {batch_idx + 1}")
     return True
 
+def reverse_complement_ids(true_ids: torch.Tensor, tokenizer) -> torch.Tensor:
+    """
+    Given a tensor of token IDs representing nucleotides, return the reverse complement as token IDs.
+
+    Args:
+        true_ids (torch.Tensor): Tensor of token IDs (e.g., [5., 6., 5.]).
+        tokenizer: HuggingFace tokenizer or similar with get_vocab() method.
+
+    Returns:
+        torch.Tensor: Reverse complement sequence in token ID form.
+    """
+    vocab = tokenizer.get_vocab()
+    id_to_nt = {v: k for k, v in vocab.items()}
+    
+    valid_nts = {'a', 't', 'c', 'g'}
+    nt_id_to_nt = {k: v for k, v in id_to_nt.items() if v in valid_nts}
+    nt_to_complement = {'a': 't', 't': 'a', 'c': 'g', 'g': 'c'}
+    
+    nt_seq = [id_to_nt[int(i)] for i in true_ids if int(i) in nt_id_to_nt]
+    revcomp_nt = [nt_to_complement[nt] for nt in reversed(nt_seq)]
+    revcomp_ids = torch.tensor([vocab[nt] for nt in revcomp_nt], dtype=true_ids.dtype)
+    
+    return revcomp_ids
 
 def chunks(lst, n):
     return [''.join(lst[i:i+n]).upper() for i in range(0, len(lst), n)]
@@ -185,6 +208,9 @@ def get_averaged_probs(model_version, junction_idx, tokenizer, base_dir=None, ch
         file_path = file_paths[junction_idx]
         with h5py.File(file_path, 'a') as hf:
             true_ids = torch.tensor(hf['true_token_ids'][:])
+        
+        if 'evo2_rc' in model_version:
+            true_ids = reverse_complement_ids(true_ids, tokenizer)
     
     scores = process_array_by_groups(model_probs, true_ids, group_size=n_tokens, tokenizer=tokenizer)
     
