@@ -82,6 +82,17 @@ def maskedTokenLogit(model, tokenizer, loader, device, output_path):
 def chunks(lst, n):
     return [''.join(lst[i:i+n]).upper() for i in range(0, len(lst), n)]
 
+def process_array_by_groups(arr, true_token_ids, group_size=3, tokenizer=None):
+    nucleotides = list('acgt')
+    tokenProb = []
+    for row, token_id in zip(arr, true_token_ids):
+        curToken = tokenizer.convert_ids_to_tokens(int(token_id))
+        curProb = row[nucleotides.index(curToken)]
+        tokenProb.append(curProb)
+    
+    avg_tokenProb = [np.mean(tokenProb[i:i+group_size]) for i in range(0, len(tokenProb), group_size)]
+    return avg_tokenProb
+
 def predicted_masked_tokens(model_version, junction_idx, tokenizer, base_dir=None, chunk_size=None, JUNCTIONS=None):
     """
     Process data from a specific model version for a given junction type.
@@ -123,3 +134,61 @@ def predicted_masked_tokens(model_version, junction_idx, tokenizer, base_dir=Non
     true_tokens = chunks(tokenizer.convert_ids_to_tokens(true_ids), n=n_tokens)
     
     return predicted_codon, true_tokens
+
+
+def get_averaged_probs(model_version, junction_idx, tokenizer, base_dir=None, chunk_size=None, JUNCTIONS=None):
+    """
+    Get averaged probabilities for predicted tokens.
+    
+    Args:
+        model_version: Model version key (e.g., 'pcv1', 'pcv2_1')
+        junction_idx: Index of the junction in the JUNCTIONS list
+        tokenizer: Tokenizer object for converting IDs to tokens
+        base_dir: Optional base directory for file paths
+        chunk_size: Optional dictionary to override default chunk sizes
+        
+    Returns:
+        tuple: (predicted_probs, true_probs)
+    """
+    from config import JUNCTIONS, get_file_paths_list
+    
+    junction = JUNCTIONS[junction_idx]
+    
+    file_paths = get_file_paths_list(model_version, base_dir)
+    file_path = file_paths[junction_idx]
+    
+    if chunk_size is None:
+        chunk_size = {
+            'start_sites': 3, 
+            'stop_sites': 3,
+            'donor': 2,
+            'acceptor': 2
+        }
+    
+    n_tokens = chunk_size[junction]
+
+    if 'evo2' not in model_version:
+        with h5py.File(file_path, 'a') as hf:
+            model_logits = torch.tensor(hf['predicted_logits'][:])
+            true_ids = torch.tensor(hf['true_token_ids'][:])
+        
+        nucleotides = list('acgt')
+        model_logits = model_logits[:, [tokenizer.get_vocab()[nc] for nc in nucleotides]] # only retain atcg
+        model_logits = model_logits.clone().detach()
+        model_probs = torch.nn.functional.softmax(model_logits, dim=1).numpy()
+    else:
+        file_path = file_path.replace('.tsv', '.npz')
+        data = np.load(file_path)
+        model_probs = data['logits'].reshape(-1, 4)
+        # get true_ids from one of the pc models
+        file_paths = get_file_paths_list('pcv1', base_dir)
+        file_path = file_paths[junction_idx]
+        with h5py.File(file_path, 'a') as hf:
+            true_ids = torch.tensor(hf['true_token_ids'][:])
+    
+    scores = process_array_by_groups(model_probs, true_ids, group_size=n_tokens, tokenizer=tokenizer)
+    
+    return scores
+
+def create_binary_labels(label):
+    return 1 if label == "Core Gene" else 0
