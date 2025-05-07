@@ -1,0 +1,57 @@
+#!/bin/bash
+
+#SBATCH -J pcv2-l48-d1024 # Job name
+#SBATCH -o logs/%x_%A_%a.log # Name of stdout output file (includes job and array task IDs)
+#SBATCH -e logs/%x_%A_%a.log # Name of stderr error file (includes job and array task IDs)
+#SBATCH -p gh               # Queue (partition) name
+#SBATCH -N 1                # Total # of nodes (must be 1 for serial)
+#SBATCH -n 1                # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 24:00:00         # Run time (hh:mm:ss)
+#SBATCH --mail-type=BEGIN,END,FAIL # Send email at begin and end of job
+#SBATCH --mail-user=jz963@cornell.edu
+#SBATCH --array=0-3         # Array job with 4 tasks (0, 1, 2, 3)
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+export DATA_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/pseudo_gene_tomato/splice_junctions/
+export OUTPUT_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/pseudo_gene_tomato/outputs/
+export TAXA="SL3.0_ITAG3.2"
+export CHECKPOINT="kuleshov-group/compo-cad2-l48-dna-chtk-c8k-1t-v2d-b2-lr4e4-fcpffa-ba476838"
+export PREFIX="pcv2-l48-d1024"
+export BATCH_SIZE=16
+export DEVICE="cuda:0"
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+# Define input and output files for each task
+INPUT_FILES=(
+    "${DATA_DIR}${TAXA}_start_sites_filtered_rmless8192.fasta"
+    "${DATA_DIR}${TAXA}_stop_sites_filtered_rmless8192.fasta"
+    "${DATA_DIR}${TAXA}_donor_filtered_rmless8192.fasta"
+    "${DATA_DIR}${TAXA}_acceptor_filtered_rmless8192.fasta"
+)
+
+OUTPUT_FILES=(
+    "${OUTPUT_DIR}${TAXA}_start_sites_mask_ATG_${PREFIX}.h5"
+    "${OUTPUT_DIR}${TAXA}_stop_sites_mask_TAG_${PREFIX}.h5"
+    "${OUTPUT_DIR}${TAXA}_donor_mask_GT_${PREFIX}.h5"
+    "${OUTPUT_DIR}${TAXA}_acceptor_mask_AG_${PREFIX}.h5"
+)
+
+TOKEN_IDX=(
+    "4094,4095,4096"
+    "4094,4095,4096"
+    "4095,4096"
+    "4095,4096"
+)
+
+# Run the corresponding Python command for the current array task
+python ../main.py -input "${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}" \
+    -output "${OUTPUT_FILES[$SLURM_ARRAY_TASK_ID]}" \
+    -model "${CHECKPOINT}" \
+    -device "${DEVICE}" \
+    -batchSize "${BATCH_SIZE}" \
+    -tokenIdx "${TOKEN_IDX[$SLURM_ARRAY_TASK_ID]}"
