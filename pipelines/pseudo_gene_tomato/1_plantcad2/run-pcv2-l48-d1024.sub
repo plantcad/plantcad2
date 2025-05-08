@@ -49,7 +49,7 @@ TOKEN_IDX=(
 )
 
 # Run the corresponding Python command for the current array task
-python ../main.py -input "${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}" \
+python ../../pseudo_gene_maize/main.py -input "${INPUT_FILES[$SLURM_ARRAY_TASK_ID]}" \
     -output "${OUTPUT_FILES[$SLURM_ARRAY_TASK_ID]}" \
     -model "${CHECKPOINT}" \
     -device "${DEVICE}" \
