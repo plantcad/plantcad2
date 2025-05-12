@@ -80,27 +80,30 @@ def maskedTokenLogit(model, tokenizer, loader, device, output_path):
 
 def reverse_complement_ids(true_ids: torch.Tensor, tokenizer) -> torch.Tensor:
     """
-    Given a tensor of token IDs representing nucleotides, return the reverse complement as token IDs.
+    Return reverse complement of a token ID sequence, replacing unknowns with 'n'.
 
     Args:
-        true_ids (torch.Tensor): Tensor of token IDs (e.g., [5., 6., 5.]).
-        tokenizer: HuggingFace tokenizer or similar with get_vocab() method.
+        true_ids (torch.Tensor): Tensor of token IDs.
+        tokenizer: Tokenizer with get_vocab() method.
 
     Returns:
-        torch.Tensor: Reverse complement sequence in token ID form.
+        torch.Tensor: Reverse complement token IDs (unknowns → 'n').
     """
     vocab = tokenizer.get_vocab()
     id_to_nt = {v: k for k, v in vocab.items()}
-    
-    valid_nts = {'a', 't', 'c', 'g'}
-    nt_id_to_nt = {k: v for k, v in id_to_nt.items() if v in valid_nts}
     nt_to_complement = {'a': 't', 't': 'a', 'c': 'g', 'g': 'c'}
-    
-    nt_seq = [id_to_nt[int(i)] for i in true_ids if int(i) in nt_id_to_nt]
-    revcomp_nt = [nt_to_complement[nt] for nt in reversed(nt_seq)]
-    revcomp_ids = torch.tensor([vocab[nt] for nt in revcomp_nt], dtype=true_ids.dtype)
-    
-    return revcomp_ids
+
+    revcomp_ids = []
+    for i in reversed(true_ids):
+        nt = id_to_nt.get(int(i), None)
+        comp = nt_to_complement.get(nt, 'n')  # unknowns → 'n'
+        if comp not in vocab:
+            revcomp_ids.append(vocab['[UNK]'])  # unknowns → 'n'
+        else:
+            revcomp_ids.append(vocab[comp])
+
+    return torch.tensor(revcomp_ids, dtype=true_ids.dtype)
+
 
 def chunks(lst, n):
     return [''.join(lst[i:i+n]).upper() for i in range(0, len(lst), n)]
@@ -110,7 +113,10 @@ def process_array_by_groups(arr, true_token_ids, group_size=3, tokenizer=None):
     tokenProb = []
     for row, token_id in zip(arr, true_token_ids):
         curToken = tokenizer.convert_ids_to_tokens(int(token_id))
-        curProb = row[nucleotides.index(curToken)]
+        if curToken not in nucleotides:
+            curProb = 0
+        else:
+            curProb = row[nucleotides.index(curToken)]
         tokenProb.append(curProb)
     
     avg_tokenProb = [np.mean(tokenProb[i:i+group_size]) for i in range(0, len(tokenProb), group_size)]
