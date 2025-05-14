@@ -22,8 +22,7 @@ source ~/.bashrc
 
 # Train model
 python main.py train \
-    --train_dir=$DATA_DIR/train.parquet \
-    --valid_dir=$DATA_DIR/valid.parquet \
+    --data_dir=$DATA_DIR \
     --output_dir=$OUTPUT_DIR \
     --model_name "InstaDeepAI/agro-nucleotide-transformer-1b" \
     --train_batch_size 64 \
