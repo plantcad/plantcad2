@@ -41,7 +41,7 @@ python main.py train \
     --num_train_epochs 1 \
     --weight_decay 0.01 \
     --eval_strategy "steps" \
-    --eval_steps 9/15950 \
+    --eval_steps 700 \
     --save_strategy "steps" \
     --save_steps 700 \
     --logging_steps 700 \
