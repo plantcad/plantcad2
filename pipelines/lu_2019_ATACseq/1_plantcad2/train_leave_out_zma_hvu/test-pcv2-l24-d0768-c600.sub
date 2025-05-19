@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#SBATCH -J  test_accessible_angiosperm_c600_pcv2-l24-d0768 # Job name
+#SBATCH -o logs/%x_%A_%a.log  # Name of stdout output file (includes array task ID)
+#SBATCH -e logs/%x_%A_%a.log  # Name of stderr error file (includes array task ID)
+#SBATCH -p gh                 # Queue (partition) name
+#SBATCH -N 1                  # Total # of nodes (must be 1 for serial)
+#SBATCH -n 1                  # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 12:00:00           # Run time (hh:mm:ss)
+#SBATCH --mail-type=BEGIN,END,FAIL  # Send email at begin and end of job
+#SBATCH --mail-user=jz963@cornell.edu
+#SBATCH -a 0-15                # Array range (0-2 for 3 species)
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+export DATA_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/PlantCAD2_tasks/accessible_angiosperm_c600/data_leave_out_zma_hvu
+export OUTPUT_DIR="${DATA_DIR}/pcv2-l24-d0768-checkpoints-lr-1e-4"
+export CKPT_DIR="${OUTPUT_DIR}/checkpoint-44641"
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+# Define the species array
+species_array=("test_hordeum_vulgare_000" "test_hordeum_vulgare_001" "test_hordeum_vulgare_002" "test_hordeum_vulgare_003" "test_hordeum_vulgare_004" "test_hordeum_vulgare_005" "test_hordeum_vulgare_006" "test_hordeum_vulgare_007" "test_hordeum_vulgare_008" "test_hordeum_vulgare_009" "test_hordeum_vulgare_010" "test_zea_mays_000" "test_zea_mays_001" "test_zea_mays_002" "test_zea_mays_003" "test_zea_mays_004")
+# Get the species for the current array task
+species=${species_array[$SLURM_ARRAY_TASK_ID]}
+
+# Run the command for the current species
+python ../main.py predict \
+    --checkpoint_dir ${CKPT_DIR} \
+    --data_dir ${DATA_DIR}/${species}.parquet \
+    --output_file ${OUTPUT_DIR}/${species}_scores.tsv \
+    --model_name 'kuleshov-group/compo-cad2-l24-dna-chtk-c8192-v2-b2-NpnkD-ba240000' \
+    --batch_size 1024
