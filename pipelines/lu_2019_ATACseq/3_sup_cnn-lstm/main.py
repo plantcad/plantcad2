@@ -236,11 +236,11 @@ def train(
         trainNegSeq = trainNegSeq[:len(trainPosSeq)]
         trainSeq = trainPosSeq + trainNegSeq
         trainLabel = [1]*len(trainPosSeq) + [0]*len(trainNegSeq)
-        train_dataset = DNADataset(sequences=trainSeq, labels=trainLabel, device=device)
+        train_dataset = DNADataset(sequences=trainSeq, labels=trainLabel)
     else:
-        train_dataset = DNADataset(sequences=trainSeq, labels=trainLabel, device=device)
+        train_dataset = DNADataset(sequences=trainSeq, labels=trainLabel)
 
-    val_dataset = DNADataset(sequences=validSeq, labels=validLabel, device=device)
+    val_dataset = DNADataset(sequences=validSeq, labels=validLabel)
     
     # Create data loaders
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
