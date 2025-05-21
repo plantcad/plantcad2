@@ -426,6 +426,7 @@ def predict(
     batch_size: int = 32,
     sampling_rate: Optional[float] = None,
     seed: int = 42,
+    task_type: str = 'classification',
 ) -> None:
     """Generate predictions for a dataset and save them to a CSV file.
 
@@ -491,14 +492,16 @@ def predict(
 
     logger.info("Generating predictions...")
     predictions = trainer.predict(test_dataset=dataset).predictions
-    probs = torch.nn.functional.softmax(torch.tensor(predictions), dim=1).numpy()
-
-    # Save only the prediction scores to CSV
-    output_path = Path(output_file)
-    logger.info(f"Saving prediction scores to {output_path}")
-    scores = probs[:, 1]  # Extract the scores for the positive class
-    df = pd.DataFrame({"probability_positive": scores})
-    df.to_csv(output_path, index=False)
+    if task_type == "classification":
+        probs = torch.nn.functional.softmax(torch.tensor(predictions), dim=1).numpy()
+        scores = probs[:, 1]  # Extract the scores for the positive class
+        df = pd.DataFrame({"probability_positive": scores})
+    else:  # regression
+        # For regression, predictions are direct values
+        values = predictions.squeeze()
+        df = pd.DataFrame({"predicted_value": values})
+    
+    df.to_csv(output_file, index=False)
     logger.info("Prediction scores saved successfully")
 
 # ------------------------------------------------------------------------------
