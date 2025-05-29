@@ -8,6 +8,18 @@ CUDA_VISIBLE_DEVICES=0 python main.py train --train ${DATA_DIR}/train.tsv \
     --wandb_project PlantCAD2 \
     --task_type classification
 
+python main.py predict --model_path ${OUT_DIR}/bestmodel.ckpt \
+    --test ${DATA_DIR}/test.tsv \
+    --output_file ${OUT_DIR}/predictions.csv \
+    --device cuda:0 \
+    --batch_size 2048
+
+python main.py predict --model_path ${OUT_DIR}/bestmodel.ckpt \
+    --test ${DATA_DIR}/valid.tsv \
+    --output_file ${OUT_DIR}/valid_predictions.csv \
+    --device cuda:0 \
+    --batch_size 2048
+
 DATA_DIR=../../../results/PlantCAD2_tasks/exp-leaf-abs
 OUT_DIR=${DATA_DIR}/cnn_lstm
 CUDA_VISIBLE_DEVICES=0 python main.py train --train ${DATA_DIR}/train.tsv \
@@ -17,3 +29,15 @@ CUDA_VISIBLE_DEVICES=0 python main.py train --train ${DATA_DIR}/train.tsv \
     --learning_rate 0.001 \
     --wandb_project PlantCAD2 \
     --task_type regression
+
+python main.py predict --model_path ${OUT_DIR}/bestmodel.ckpt \
+    --test ${DATA_DIR}/test.tsv \
+    --output_file ${OUT_DIR}/predictions.csv \
+    --device cuda:0 \
+    --batch_size 2048
+
+python main.py predict --model_path ${OUT_DIR}/bestmodel.ckpt \
+    --test ${DATA_DIR}/valid.tsv \
+    --output_file ${OUT_DIR}/valid_predictions.csv \
+    --device cuda:0 \
+    --batch_size 2048
