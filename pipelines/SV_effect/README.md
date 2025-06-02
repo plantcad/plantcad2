@@ -8,7 +8,7 @@ To validate this, I compared ΔlogP against the mean phyloP conservation scores 
 
 
 <div align="center">
-    <img src="img/pipeline.png" alt="Deletion Length Distribution" width="400">
+    <img src="img/pipeline.png" alt="Deletion Length Distribution" width="600">
 </div>
 
 ---
@@ -42,7 +42,7 @@ python 1_Simulate_SV.py \
 
 The length distribution of the simulated deletions:
 <div align="center">
-    <img src="img/Ath_del_len_distribution.png" alt="Deletion Length Distribution" width="400">
+    <img src="img/Ath_del_len_distribution.png" alt="Deletion Length Distribution" width="600">
 </div>
 
 ---
