@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#SBATCH -J  scATAC_c1000_sup_pcv2-l24-d0768 # Job name
+#SBATCH -o logs/%x.log      # Name of stdout output file
+#SBATCH -e logs/%x.log      # Name of stderr error file
+#SBATCH -p gh               # Queue (partition) name
+#SBATCH -N 1                # Total # of nodes (must be 1 for serial)
+#SBATCH -n 1                # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 48:00:00         # Run time (hh:mm:ss)
+#SBATCH --mail-type=BEGAN,END,FAIL     # Send email at begin and end of job
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+export DATA_DIR=/work/10373/jzhai/vista/utils/plantcad2/results/PlantCAD2_tasks/maize_cell_type_accessible_c1000
+export OUTPUT_DIR="${DATA_DIR}/sup_pcv2-l24-d0768-checkpoints-lr-1e-4"
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+# Train model
+python main.py train \
+    --data_dir=$DATA_DIR \
+    --output_dir=$OUTPUT_DIR \
+    --model_name "kuleshov-group/compo-cad2-l24-dna-chtk-c8192-v2-b2-NpnkD-ba240000" \
+    --train_batch_size 32 \
+    --eval_batch_size 32 \
+    --max_steps -1 \
+    --seed 42 \
+    --use_wandb True \
+    --wandb_project PlantCAD2 \
+    --wandb_run_name "maize_cell_type_accessible_c1000_sup_pcv2-l24-d0768-lr-1e-4" \
+    --learning_rate 1e-4 \
+    --warmup_steps 50 \
+    --lr_scheduler_type "linear" \
+    --gradient_accumulation_steps 4 \
+    --bf16 True \
+    --num_train_epochs 1 \
+    --weight_decay 0.01 \
+    --eval_strategy "steps" \
+    --eval_steps 1000 \
+    --save_strategy "steps" \
+    --save_steps 1000 \
+    --logging_steps 1000 \
+    --remove_unused_columns False \
+    --num_labels 92
