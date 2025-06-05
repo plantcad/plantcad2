@@ -46,15 +46,34 @@ def extract_masked_sequences(sv_df, tokenizer, shift):
 
     return ref_masked_seqs, ref_row_ids, mut_masked_seqs, mut_row_ids
 
-def run_batched_inference(seqs, row_ids, tokenizer, model, N, batch_size, label):
-    logits_all = np.zeros((N, 10, 4), dtype=np.float32)
-    logits_dict = {i: [] for i in range(N)}
+def extract_unmasked_sequences(sv_df):
+    ref_unmasked_seqs, ref_row_ids = [], []
+    mut_unmasked_seqs, mut_row_ids = [], []
 
+    for i, row in tqdm(sv_df.iterrows(), total=len(sv_df), desc = "Extracting unmasked sequences......"):
+        ref_unmasked_seqs.append(row['RefSeq'])
+        ref_row_ids.append(i)
+        mut_unmasked_seqs.append(row['MutSeq'])
+        mut_row_ids.append(i)
+
+    return ref_unmasked_seqs, ref_row_ids, mut_unmasked_seqs, mut_row_ids
+
+def run_batched_inference(seqs, row_ids, tokenizer, model, N, batch_size, label, extract_unmasked_logits=False):
+    seq_len = None 
+    if extract_unmasked_logits and seqs:
+        seq_len = len(tokenizer.encode(seqs[0]))
+
+    if extract_unmasked_logits:
+        logits_all = np.zeros((N, seq_len, 4), dtype=np.float32)
+    else:
+        logits_all = np.zeros((N, 10, 4), dtype=np.float32)
+
+    logits_dict = {i: [] for i in range(N)}
+    
     for i in tqdm(range(0, len(seqs), batch_size), desc=f"Running inference for {label}"):
         batch_seqs = seqs[i:i+batch_size]
         batch_rows = row_ids[i:i+batch_size]
 
-        inputs = tokenizer(batch_seqs, return_tensors="pt", padding=True, truncation=True)
         inputs = tokenizer(
             batch_seqs,
             truncation=False,
@@ -68,19 +87,34 @@ def run_batched_inference(seqs, row_ids, tokenizer, model, N, batch_size, label)
             outputs = model(inputs)
         
         nucleotides = list('acgt')
-        logits = outputs.logits[..., [tokenizer.get_vocab()[nc] for nc in nucleotides]] # only retain atcg
+        logits = outputs.logits[..., [tokenizer.get_vocab()[nc] for nc in nucleotides]]
         probs = torch.nn.functional.softmax(logits, dim=2).cpu().numpy()
+        
+        if not extract_unmasked_logits:
+            for j in range(len(batch_seqs)):
+                mask_idx = (input_ids[j] == tokenizer.mask_token_id).nonzero(as_tuple=True)[0]
+                assert len(mask_idx) == 1, f"Expected one [MASK], got {len(mask_idx)}"
 
-        for j in range(len(batch_seqs)):
-            mask_idx = (inputs[j] == tokenizer.mask_token_id).nonzero(as_tuple=True)[0]
-            assert len(mask_idx) == 1, f"Expected one [MASK], got {len(mask_idx)}"
+                cur_logits = probs[j, mask_idx.item(), :]
+                row_id = batch_rows[j]
+                logits_dict[row_id].append(cur_logits)
+        else:
+            batch_logits_np = probs
+            for j in range(len(batch_seqs)):
+                row_id = batch_rows[j]
+                logits_dict[row_id] = batch_logits_np[j]
 
-            cur_logits = probs[j, mask_idx.item(), :]
-            row_id = batch_rows[j]
-            logits_dict[row_id].append(cur_logits)
-
-    for row_id, logits_list in logits_dict.items():
-        logits_all[row_id] = np.stack(logits_list, axis=0)
+    for row_id, logits_data in logits_dict.items():
+        if extract_unmasked_logits:
+            if logits_data.shape == (seq_len, 4): # Ensure correct shape before assignment
+                logits_all[row_id] = logits_data
+            else:
+                print(f"Warning: Logits for row_id {row_id} have unexpected shape {logits_data.shape}. Expected ({seq_len}, 4).")
+        else:
+            if logits_data: # Ensure list is not empty for masked data
+                logits_all[row_id] = np.stack(logits_data, axis=0)
+            else:
+                print(f"Warning: No masked logits found for row_id {row_id}.")
 
     return logits_all
 
@@ -93,21 +127,28 @@ def main():
     parser.add_argument("--device", default="cuda:0", help="Device to run the model on (e.g., 'cuda' or 'cpu')")
     parser.add_argument("--label", default="RefSeq", help="Label for the model (e.g., 'RefSeq' or 'MutSeq')")
     parser.add_argument("--shift", default=0, type=int, help="Shift base positions for the masked sequences")
+    parser.add_argument("--extract_unmasked_logits", action="store_true", 
+                        help="Flag to extract logits for unmasked sequences without [MASK] token. Assumes all sequences are same length.")
     args = parser.parse_args()
 
     sv_df = pd.read_csv(args.input, sep="\t")
 
     tokenizer, model = load_model(args.model)
     model.to(args.device)
-    ref_seqs, ref_ids, mut_seqs, mut_ids = extract_masked_sequences(sv_df, tokenizer, shift=args.shift)
+
+    if args.extract_unmasked_logits:
+        ref_seqs, ref_ids, mut_seqs, mut_ids = extract_unmasked_sequences(sv_df)
+    else:
+        ref_seqs, ref_ids, mut_seqs, mut_ids = extract_masked_sequences(sv_df, tokenizer, shift=args.shift)
 
     if args.label == "RefSeq":
-        logits = run_batched_inference(ref_seqs, ref_ids, tokenizer, model, len(sv_df), args.batch_size, args.label)
+        logits = run_batched_inference(ref_seqs, ref_ids, tokenizer, model, len(sv_df), 
+                                     args.batch_size, args.label, args.extract_unmasked_logits)
     elif args.label == "MutSeq":
-        logits = run_batched_inference(mut_seqs, mut_ids, tokenizer, model, len(sv_df), args.batch_size, args.label)
+        logits = run_batched_inference(mut_seqs, mut_ids, tokenizer, model, len(sv_df), 
+                                     args.batch_size, args.label, args.extract_unmasked_logits)
     else:
         raise ValueError("Invalid label. Use 'RefSeq' or 'MutSeq'.")
-
     
     np.savez_compressed(args.output, logits=logits)
     print(f"Saved logits to {args.output}")

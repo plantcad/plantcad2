@@ -40,6 +40,10 @@ def main():
     loaded = np.load(args.mut_logits)
     mutLogits = loaded['logits']
 
+    # check if refLogits, mutLogits and df have the same number of rows
+    if len(refLogits) != len(df) or len(mutLogits) != len(df):
+        raise ValueError("Number of rows in logits files does not match the number of rows in the input DataFrame.")
+
     res = zero_shot(df, refLogits, mutLogits, shift=shift)
     score_df = pd.DataFrame(res, columns=[f'score_{i}' for i in range(10)])
     df = pd.concat([df, score_df], axis=1)
