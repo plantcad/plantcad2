@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#SBATCH -J  pcv2-l24-d0768-array # Job name (updated for array)
+#SBATCH -a 0-8             # Creates an array of 7 tasks, indexed 0 through 6
+#SBATCH -o %x-%A_%a.log         # Unique stdout log for each task (%x=jobname, %A=jobID, %a=taskID)
+#SBATCH -e %x-%A_%a.log         # Unique stderr log for each task
+#SBATCH -p gh                   # Queue (partition) name
+#SBATCH -N 1                    # Total # of nodes (must be 1 for serial)
+#SBATCH -n 1                    # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 24:00:00             # Run time (hh:mm:ss)
+#SBATCH --mail-type=FAIL        # Send email only on failure
+#SBATCH --mail-user=jz963@cornell.edu
+
+# --- Environment Setup ---
+echo "Setting up environment..."
+echo "Job ID: $SLURM_JOB_ID, Task ID: $SLURM_ARRAY_TASK_ID"
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+export CHECKPOINT_DIR=$CAD2/results/PlantCAD2_tasks/exp-leaf-bin/pcv2-l24-d0768-checkpoints-lr-1e-4/checkpoint-7975
+
+# Base directory for input and output files
+export BASE_DIR=$CAD2/results/PlantCAD2_tasks/exp-leaf-bin
+export OUTPUT_BASE_DIR=$CAD2/results/PlantCAD2_tasks/exp-leaf-bin/pcv2-l24-d0768-checkpoints-lr-1e-4
+
+
+TASK_ID_PADDED=$(printf "%03d" $SLURM_ARRAY_TASK_ID)
+
+# Construct the full path for the input and output files for this specific task
+export INPUT_FILE="${BASE_DIR}/valid_pos_${TASK_ID_PADDED}.tsv"
+export OUTPUT_FILE="${OUTPUT_BASE_DIR}/valid_attribution_${TASK_ID_PADDED}.npz"
+
+echo "Processing Input: ${INPUT_FILE}"
+echo "Saving Output to: ${OUTPUT_FILE}"
+
+python main.py \
+    --checkpoint "${CHECKPOINT_DIR}" \
+    --input "${INPUT_FILE}" \
+    --model_name 'kuleshov-group/compo-cad2-l24-dna-chtk-c8192-v2-b2-NpnkD-ba240000' \
+    --sequence_length 2048 \
+    --output "${OUTPUT_FILE}"
+
