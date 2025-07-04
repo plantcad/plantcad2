@@ -1,0 +1,33 @@
+#!/bin/bash
+#SBATCH -J pcv2_l48_d1536
+#SBATCH -o logs/%x-%j.log
+#SBATCH -e logs/%x-%j.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 24:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+
+source $WORK/envs/transformers_440/bin/activate
+source ~/.bashrc
+
+# Environment variables
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+export DATA_DIR=${CAD2}/results/evolutionary_constraint/
+
+# get fname based on the SLURM_ARRAY_TASK_ID
+fname=${fnames[$SLURM_ARRAY_TASK_ID]}
+
+# the output is the replace .tsv with _pcv1_logits.tsv
+OUTPUT_DIR=valid_pcv2_l48_d1536_logits.tsv
+
+python main.py \
+    -input 'valid' \
+    -outLogit ${OUTPUT_DIR} \
+    -model 'kuleshov-group/compo-cad2-l48-d1536-dna-chtk-c8k-1t-v1-b2-lr4e4-NzqiLr' \
+    -device 'cuda:0'
