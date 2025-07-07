@@ -1,39 +1,39 @@
 #!/bin/bash
 
-#SBATCH -J pcv1
+#SBATCH -J pcv2-small-8k
 #SBATCH -o logs/%x-%j.log
 #SBATCH -e logs/%x-%j.log
 #SBATCH -p gh
 #SBATCH -N 1
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
-#SBATCH -t 24:00:00
+#SBATCH -t 12:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=jz963@cornell.edu
 #SBATCH -a 0-1
 
-module load gcc/13.2.0 cuda/12.4
+module load gcc/13.2.0 cuda/12.5
 module load python3/3.11.8
 
 source $WORK/envs/transformers_440/bin/activate
 source ~/.bashrc
 
 # Environment variables
-export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
-export DATA_DIR=${CAD2}/results/Poaceae_CDS_PhyloP/512/
+export TRITON_PTXAS_PATH=/home1/apps/nvidia/Linux_aarch64/24.7/cuda/12.5/bin/ptxas
+export DATA_DIR=${CAD2}/results/Poaceae_CDS_PhyloP/8192bp/
 
 fnames=(
-	"neutral_512_downsampled.tsv"
-	"conserved_512_downsampled.tsv"
+	"conserved_8k_downsampled.tsv"
+	"neutral_8k_downsampled.tsv"
 )
 
 # get fname based on the SLURM_ARRAY_TASK_ID
 fname=${fnames[$SLURM_ARRAY_TASK_ID]}
 
 # the output is the replace .tsv with _pcv1_logits.tsv
-OUTPUT_DIR=${DATA_DIR}${fname%.tsv}_pcv1_logits.tsv
+OUTPUT_DIR=${DATA_DIR}${fname%.tsv}_pcv2-l24-d0768_logits_batchSize_32.tsv
 
 python main.py -input ${DATA_DIR}${fname} \
      -outLogit ${OUTPUT_DIR} \
-     -model 'kuleshov-group/PlantCaduceus_l32' \
-     -device 'cuda:0' -batchSize 128 -tokenIdx 255
+     -model 'kuleshov-group/compo-cad2-l24-dna-chtk-c8192-v2-b2-NpnkD-ba240000' \
+     -device 'cuda:0' -batchSize 32 -tokenIdx 4095
