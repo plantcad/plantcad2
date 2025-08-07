@@ -37,3 +37,47 @@ python main.py -input ${DATA_DIR}${fname} \
      -outLogit ${OUTPUT_DIR} \
      -model 'kuleshov-group/PlantCaduceus_l32' \
      -device 'cuda:0' -batchSize 128 -tokenIdx 255
+
+
+OUTPUT_DIR=../../../results/Poaceae_CDS_PhyloP/8k/conserved_8k_TIS_1_pcv1.tsv
+python main.py \
+    -outLogit ${OUTPUT_DIR} \
+    -input ../../../results/Poaceae_CDS_PhyloP/8k/conserved_8k_TIS_1.tsv \
+    -model 'kuleshov-group/PlantCaduceus_l32' \
+    -device 'cuda:0'
+
+OUTPUT_DIR=../../../results/Poaceae_CDS_PhyloP/8k/conserved_8k_TIS_2_pcv1.tsv
+python main.py \
+    -outLogit ${OUTPUT_DIR} \
+    -input ../../../results/Poaceae_CDS_PhyloP/8k/conserved_8k_TIS_2.tsv \
+    -model 'kuleshov-group/PlantCaduceus_l32' \
+    -device 'cuda:0'
+
+OUTPUT_DIR=../../../results/Poaceae_CDS_PhyloP/8k/conserved_8k_TIS_3_pcv1.tsv
+python main.py \
+    -outLogit ${OUTPUT_DIR} \
+    -input ../../../results/Poaceae_CDS_PhyloP/8k/conserved_8k_TIS_3.tsv \
+    -model 'kuleshov-group/PlantCaduceus_l32' \
+    -device 'cuda:0'
+
+## neutral
+OUTPUT_DIR=../../../results/Poaceae_CDS_PhyloP/8k/neutral_8k_TIS_1_pcv1.tsv
+python main.py \
+    -outLogit ${OUTPUT_DIR} \
+    -input ../../../results/Poaceae_CDS_PhyloP/8k/neutral_8k_TIS_1.tsv \
+    -model 'kuleshov-group/PlantCaduceus_l32' \
+    -device 'cuda:0'
+
+OUTPUT_DIR=../../../results/Poaceae_CDS_PhyloP/8k/neutral_8k_TIS_2_pcv1.tsv
+python main.py \
+    -outLogit ${OUTPUT_DIR} \
+    -input ../../../results/Poaceae_CDS_PhyloP/8k/neutral_8k_TIS_2.tsv \
+    -model 'kuleshov-group/PlantCaduceus_l32' \
+    -device 'cuda:0'
+
+OUTPUT_DIR=../../../results/Poaceae_CDS_PhyloP/8k/neutral_8k_TIS_3_pcv1.tsv
+python main.py \
+    -outLogit ${OUTPUT_DIR} \
+    -input ../../../results/Poaceae_CDS_PhyloP/8k/neutral_8k_TIS_3.tsv \
+    -model 'kuleshov-group/PlantCaduceus_l32' \
+    -device 'cuda:0'

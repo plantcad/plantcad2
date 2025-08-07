@@ -67,6 +67,11 @@ tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
 
 df = pd.read_csv(args.inputDF, sep='\t')
 sequences = df['Seq'].tolist()
+if len(sequences[0]) == 8192:  # if the sequence length is 8192, we need to trim it to 512
+    df['Seq'] = df['Seq'].apply(lambda x: x[(len(x)-512)//2:(len(x)-512)//2+512])
+
+sequences = df['Seq'].tolist()
+
 names = df['OG'].tolist()
 # Create dataset
 dataset = SequenceDataset(
