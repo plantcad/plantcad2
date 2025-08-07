@@ -48,7 +48,7 @@ def evo2_token_logits(seqs, batch_size=32, tokenIdx=255, device='cuda:0', prepen
         with torch.inference_mode():
             output, _ = evo2_model(input_ids) # (batch, length, vocab)
 
-        output = output[0][:,tokenIdx,[65,67,71,84]] # A, C, G, T
+        output = output[0][:,tokenIdx-1,[65,67,71,84]] # A, C, G, T
         probs = torch.nn.functional.softmax(output, dim=1).float().cpu().numpy()
         logits.append(probs)
         
