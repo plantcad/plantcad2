@@ -200,7 +200,8 @@ def _check_ranks() -> Tuple[int, int]:
     return local_rank, global_rank
 
 def train(
-    data_dir: str,
+    train_dir: str,
+    valid_dir: str,
     output_dir: str = "/tmp/pcv2-ft",
     model_name: str = None,
     num_labels: int = 2,
@@ -237,8 +238,10 @@ def train(
 
     Parameters
     ----------
-    data_dir : str
-        Directory containing tokenized training data (train.parquet)
+    train_dir : str
+        Directory of training data (train.parquet)
+    valid_dir : str
+        Directory of validation data (valid.parquet)
     output_dir : str, optional
         Directory to save model checkpoints and training outputs
     model_name : str, optional
@@ -314,11 +317,11 @@ def train(
     # Configure dataloaders and splits
     logger.info("Loading datasets")
     train_dataset = Dataset.from_parquet(
-        str(Path(data_dir) / f"train.parquet"),
+        str(Path(train_dir)),
         keep_in_memory=False,
     )
     eval_dataset = Dataset.from_parquet(
-        str(Path(data_dir) / f"valid.parquet"),
+        str(Path(valid_dir)),
         keep_in_memory=False,
     )
 
