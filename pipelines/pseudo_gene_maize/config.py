@@ -1,6 +1,7 @@
 import os
 
 JUNCTIONS = ["start_sites", "stop_sites", "donor", "acceptor"]
+
 TAXA = "B73_"
 
 PCV1_PATHS = {
@@ -45,6 +46,34 @@ EVO2_RC_PATHS = {
     "acceptor": f"{TAXA}acceptor_evo2_7b_rc_ntokens_2.tsv"
 }
 
+PDLLM_FWD_PATHS = {
+    "start_sites": f"{TAXA}start_sites_pdllm_ntokens_3.tsv",
+    "stop_sites": f"{TAXA}stop_sites_pdllm_ntokens_3.tsv",
+    "donor": f"{TAXA}donor_pdllm_ntokens_2.tsv",
+    "acceptor": f"{TAXA}acceptor_pdllm_ntokens_2.tsv"
+}
+
+PDLLM_RC_PATHS = {
+    "start_sites": f"{TAXA}start_sites_pdllm_rc_ntokens_3.tsv",
+    "stop_sites": f"{TAXA}stop_sites_pdllm_rc_ntokens_3.tsv",
+    "donor": f"{TAXA}donor_pdllm_rc_ntokens_2.tsv",
+    "acceptor": f"{TAXA}acceptor_pdllm_rc_ntokens_2.tsv"
+}
+
+EVO2_NEW_PATHS = {
+    "start_sites": f"{TAXA}start_sites_logits_ATG_Evo2_New.tsv",
+    "stop_sites": f"{TAXA}stop_sites_logits_TAG_Evo2_New.tsv",
+    "donor": f"{TAXA}donor_logits_GT_Evo2_New.tsv",
+    "acceptor": f"{TAXA}acceptor_logits_AG_Evo2_New.tsv"
+}
+
+GPN_PATHS = {
+    "start_sites": f"{TAXA}start_sites_mask_ATG_gpn.tsv",
+    "stop_sites": f"{TAXA}stop_sites_mask_TAG_gpn.tsv",
+    "donor": f"{TAXA}donor_mask_GT_gpn.tsv",
+    "acceptor": f"{TAXA}acceptor_mask_AG_gpn.tsv"
+}
+
 LABEL_PATHS = {
     "start_sites": f"{TAXA}start_sites_filtered_labels.tsv",
     "stop_sites": f"{TAXA}stop_sites_filtered_labels.tsv",
@@ -60,6 +89,10 @@ ALL_PATHS = {
     "pcv2_3": PCV2_3_PATHS,
     "evo2_fwd": EVO2_FWD_PATHS,
     "evo2_rc": EVO2_RC_PATHS,
+    "evo2_new": EVO2_NEW_PATHS,
+    "pdllm_fwd": PDLLM_FWD_PATHS,
+    "pdllm_rc": PDLLM_RC_PATHS,
+    "gpn": GPN_PATHS,
     "labels": LABEL_PATHS
 }
 

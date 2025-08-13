@@ -196,7 +196,14 @@ def get_averaged_probs(model_version, junction_idx, tokenizer, base_dir=None, ch
     
     n_tokens = chunk_size[junction]
 
-    if 'evo2' not in model_version:
+    if model_version == 'evo2_new' or model_version == 'gpn':
+        model_probs = np.loadtxt(file_path, delimiter='\t')
+        # get true_ids from one of the pc models
+        file_paths = get_file_paths_list('pcv1', base_dir)
+        file_path = file_paths[junction_idx]
+        with h5py.File(file_path, 'a') as hf:
+            true_ids = torch.tensor(hf['true_token_ids'][:])
+    elif 'evo2' not in model_version:
         with h5py.File(file_path, 'a') as hf:
             model_logits = torch.tensor(hf['predicted_logits'][:])
             true_ids = torch.tensor(hf['true_token_ids'][:])
@@ -217,7 +224,7 @@ def get_averaged_probs(model_version, junction_idx, tokenizer, base_dir=None, ch
         
         if 'evo2_rc' in model_version:
             true_ids = reverse_complement_ids(true_ids, tokenizer)
-    
+
     scores = process_array_by_groups(model_probs, true_ids, group_size=n_tokens, tokenizer=tokenizer)
     
     return scores
