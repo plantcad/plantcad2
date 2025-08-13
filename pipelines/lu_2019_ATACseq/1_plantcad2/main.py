@@ -195,7 +195,8 @@ def display(model_name: str = None) -> None:
     logger.info("Model display complete")
 
 def train(
-    data_dir: str,
+    train_dir: str,
+    valid_dir: str,
     output_dir: str = "/tmp/pcv2-ft",
     model_name: str = None,
     train_batch_size: int = 3,
@@ -230,8 +231,10 @@ def train(
 
     Parameters
     ----------
-    data_dir : str
-        Directory containing tokenized training data (train.parquet)
+    train_dir : str
+        Directory of containing tokenized training data
+    valid_dir : str
+        Directory of containing tokenized validation data
     output_dir : str, optional
         Directory to save model checkpoints and training outputs
     model_name : str, optional
@@ -299,11 +302,11 @@ def train(
     # Configure dataloaders and splits
     logger.info("Loading datasets")
     train_dataset = Dataset.from_parquet(
-        str(Path(data_dir) / f"train.parquet"),
+        str(Path(train_dir)),
         keep_in_memory=False,
     )
     eval_dataset = Dataset.from_parquet(
-        str(Path(data_dir) / f"valid.parquet"),
+        str(Path(valid_dir)),
         keep_in_memory=False,
     )
 
