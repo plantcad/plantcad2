@@ -1,0 +1,41 @@
+#!/bin/bash
+#SBATCH -J pcv2-medium
+#SBATCH -o logs/%x-%A-%a.log
+#SBATCH -e logs/%x-%A-%a.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 4:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+#SBATCH -a 0-1
+
+module load gcc/13.2.0 cuda/12.5
+module load python3/3.11.8
+
+source $WORK/envs/transformers_440/bin/activate
+source ~/.bashrc
+
+# Environment variables
+export TRITON_PTXAS_PATH=/home1/apps/nvidia/Linux_aarch64/24.7/cuda/12.5/bin/ptxas
+export DATA_DIR=${CAD2}/results/SV_effect/
+
+# Arrays for job parameters
+labels=("RefSeq" "MutSeq")
+outputs=("Ref" "Mut")
+
+# Get current array task parameters
+label=${labels[$SLURM_ARRAY_TASK_ID]}
+output=${outputs[$SLURM_ARRAY_TASK_ID]}
+
+echo "Running array job $SLURM_ARRAY_TASK_ID: label=$label, output=$output"
+
+python 3_getLogits.py \
+    --input ${DATA_DIR}/Ath_Simulated_DEL_Len_1-50.tsv \
+    --model 'maize-genetics/pcv2-l48-d1024' \
+    --batch_size 16 \
+    --output ${DATA_DIR}/Ath_Simulated_DEL_Len_1-50_pcv2-l48-d1024-2nd-run_${output}.npz \
+    --device 'cuda:0' \
+    --label ${label} \
+    --extract_unmasked_logits

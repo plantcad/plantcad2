@@ -132,6 +132,9 @@ def main():
     args = parser.parse_args()
 
     sv_df = pd.read_csv(args.input, sep="\t")
+    sv_df['RefSeq'] = sv_df['RefSeq'].apply(lambda x: x[(len(x)-512)//2:(len(x)-512)//2+512])
+    sv_df['MutSeq'] = sv_df['MutSeq'].apply(lambda x: x[(len(x)-512)//2:(len(x)-512)//2+512])
+
 
     tokenizer, model = load_model(args.model)
     model.to(args.device)

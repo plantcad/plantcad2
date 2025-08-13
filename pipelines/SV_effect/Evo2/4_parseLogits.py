@@ -17,6 +17,11 @@ def zero_shot(df, refLogits, mutLogits, shift):
 
         left_pos = literal_eval(row['Left5_Positions']) if isinstance(row['Left5_Positions'], str) else row['Left5_Positions']
         right_pos = literal_eval(row['Right5_Positions']) if isinstance(row['Right5_Positions'], str) else row['Right5_Positions']
+
+        # every position -1
+        left_pos = [pos - 1 for pos in left_pos]
+        right_pos = [pos - 1 for pos in right_pos]
+
         ref_left = ref[np.array(left_pos) - shift - 1, :]
         ref_right = ref[np.array(right_pos) + shift - 1, :]
         ref = np.concatenate((ref_left, ref_right), axis=0)
