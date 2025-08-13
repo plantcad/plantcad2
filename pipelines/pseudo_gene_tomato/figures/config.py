@@ -45,6 +45,13 @@ EVO2_RC_PATHS = {
     "acceptor": f"{TAXA}acceptor_evo2_7b_rc_ntokens_2.tsv"
 }
 
+GPN_PATHS = {
+    "start_sites": f"{TAXA}start_sites_mask_ATG_gpn.tsv",
+    "stop_sites": f"{TAXA}stop_sites_mask_TAG_gpn.tsv",
+    "donor": f"{TAXA}donor_mask_GT_gpn.tsv",
+    "acceptor": f"{TAXA}acceptor_mask_AG_gpn.tsv"
+}
+
 LABEL_PATHS = {
     "start_sites": f"{TAXA}start_filtered_labels_rmless8192.tsv",
     "stop_sites": f"{TAXA}stop_filtered_labels_rmless8192.tsv",
@@ -60,6 +67,7 @@ ALL_PATHS = {
     "pcv2_3": PCV2_3_PATHS,
     "evo2_fwd": EVO2_FWD_PATHS,
     "evo2_rc": EVO2_RC_PATHS,
+    "gpn": GPN_PATHS,
     "labels": LABEL_PATHS
 }
 
