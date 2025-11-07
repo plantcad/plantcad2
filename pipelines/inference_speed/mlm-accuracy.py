@@ -167,11 +167,30 @@ df = raw_datasets['test'].to_pandas() # to pandas dataframe
 
 assemblies = df['assembly'].unique().tolist()
 
+sequences = df['seq'].tolist()
+length = int(sys.argv[2])
+if  length < 8192:
+    new_sequences = []
+    for seq in sequences:
+        mid = len(seq) // 2
+        half = length // 2
+        start = mid - half
+        if start < 0:
+            start = 0
+        if start + length > len(seq):
+            start = len(seq) - length
+        final_seq = seq[start:start + length]
+        
+        assert len(final_seq) == length, f"Got {len(final_seq)} instead of {length}"
+        
+        new_sequences.append(final_seq)
+    sequences = new_sequences
+
 model_path = sys.argv[1]
 model_name = os.path.basename(model_path)
 
 # Create output file
-output_file = f"mlm_results_{model_name}.txt"
+output_file = f"mlm_results_{model_name}_{length}.txt"
 
 # Write header
 with open(output_file, 'w') as f:

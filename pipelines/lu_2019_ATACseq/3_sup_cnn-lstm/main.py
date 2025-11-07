@@ -248,6 +248,8 @@ def train(
     
     # Initialize model
     model = DanQLightning(learning_rate=learning_rate)
+    total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print(f"Total trainable parameters: {total_params:,}")
     
     # Set up callbacks
     checkpoint_callback = ModelCheckpoint(
