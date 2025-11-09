@@ -373,6 +373,35 @@ def evaluate(model_pkl, test_embeddings_pkl, strategy=None, output_metrics=None)
     model = model_data['model']
     model_type = model_data.get('model_type', 'xgboost')  # Default to xgboost for backward compatibility
 
+    # Force XGBoost to use CPU for prediction to avoid GPU memory issues
+    if model_type == 'xgboost':
+        import json
+        import tempfile
+        try:
+            # Create a new model with CPU configuration
+            print("Reconfiguring XGBoost model to use CPU...")
+            old_booster = model.get_booster()
+
+            # Save the booster to a temporary file
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+                temp_path = f.name
+                old_booster.save_model(temp_path)
+
+            # Create new booster with CPU device
+            new_booster = xgb.Booster({'device': 'cpu'})
+            new_booster.load_model(temp_path)
+
+            # Replace the model's booster
+            model._Booster = new_booster
+
+            # Clean up
+            import os
+            os.unlink(temp_path)
+            print("Successfully configured XGBoost to use CPU")
+        except Exception as e:
+            print(f"Warning: Could not reconfigure to CPU: {e}")
+            print("Predictions may fail due to GPU memory constraints")
+
     # Use strategy from training if not specified
     if strategy is None:
         strategy = model_data.get('strategy', 'concatenate')
@@ -430,8 +459,23 @@ def evaluate(model_pkl, test_embeddings_pkl, strategy=None, output_metrics=None)
         if 'X_test' in model_data and 'y_test' in model_data:
             X_test = model_data['X_test']
             y_test = model_data['y_test']
-        y_pred_proba = model.predict_proba(X_test)[:, 1]
-        y_pred = model.predict(X_test)
+
+        # Batch predictions to avoid GPU memory issues
+        batch_size = 10000
+        y_pred_proba_list = []
+        y_pred_list = []
+
+        print(f"Predicting in batches of {batch_size} to avoid memory issues...")
+        for i in range(0, len(X_test), batch_size):
+            X_batch = X_test[i:i+batch_size]
+            # Use predict_proba on batches to get proper probabilities
+            proba_batch = model.predict_proba(X_batch)
+            y_pred_proba_list.append(proba_batch[:, 1])
+            y_pred_list.append(model.predict(X_batch))
+            print(f"  Processed {min(i+batch_size, len(X_test))}/{len(X_test)} samples")
+
+        y_pred_proba = np.concatenate(y_pred_proba_list)
+        y_pred = np.concatenate(y_pred_list)
 
     # Calculate metrics
     auroc = roc_auc_score(y_test, y_pred_proba)
