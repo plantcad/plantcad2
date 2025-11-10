@@ -80,7 +80,7 @@ if [ "$MODE" == "train" ]; then
         --train_dir=$DATA_DIR/train_8k.parquet \
         --valid_dir=$DATA_DIR/valid_8k.parquet \
         --output_dir=$OUTPUT_DIR \
-        --model_name "kuleshov-group/compo-cad2-l24-dna-chtk-c8192-v2-b2-NpnkD-ba240000" \
+        --model_name "kuleshov-group/PlantCAD2-Small-l24-d0768" \
         --train_batch_size 4 \
         --eval_batch_size 4 \
         --max_steps -1 \
