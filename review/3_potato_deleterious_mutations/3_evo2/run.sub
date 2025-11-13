@@ -1,0 +1,35 @@
+#SBATCH -J evo2
+#SBATCH -o logs/%x-%j.log
+#SBATCH -e logs/%x-%j.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 1:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+#SBATCH -a 1-12
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+module load nvidia_math/12.4
+export CUDA_HOME=/opt/apps/cuda/12.4
+export CUDA_PATH=$CUDA_HOME
+export GCC_HOME=/opt/apps/gcc/13.2.0
+export TRITON_PTXAS_PATH=$CUDA_HOME/bin/ptxas
+export TORCH_CUDA_ARCH_LIST="9.0"
+
+source $WORK/envs/evo2/bin/activate
+
+CHR=$(printf "chr%02d" ${SLURM_ARRAY_TASK_ID})
+
+INPUT=../../results/review/3_potato_deleterious_mutations/processed_v2/${CHR}_downsampled.tsv
+OUTPUT=../../results/review/3_potato_deleterious_mutations/logits_v2/${CHR}_downsampled_evo2.tsv
+
+echo "Processing $CHR"
+echo "Input:  $INPUT"
+echo "Output: $OUTPUT"
+python main.py \
+    --output ${OUTPUT} \
+    --input ${INPUT} \
+    --batch-size 16 --tokenIdx 4095
