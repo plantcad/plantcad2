@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#SBATCH -J  predict_leaf_abs_agront-seed123 # Job name
+#SBATCH -o logs/%x.log      # Name of stdout output file
+#SBATCH -e logs/%x.log      # Name of stderr error file
+#SBATCH -p gh               # Queue (partition) name
+#SBATCH -N 1                # Total # of nodes (must be 1 for serial)
+#SBATCH -n 1                # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 6:00:00          # Run time (hh:mm:ss)
+#SBATCH --mail-type=BEGAN,END,FAIL     # Send email at begin and end of job
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+export DATA_DIR=/scratch/10373/jzhai/utils/plantcad2/results/PlantCAD2_tasks/exp-leaf-abs
+export CHECKPOINT_DIR="${DATA_DIR}/agront-checkpoints-lr-1e-4-seed123/checkpoint-7975"
+export MODEL_NAME="InstaDeepAI/agro-nucleotide-transformer-1b"
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+# Predict on valid
+python main.py predict --checkpoint_dir $CHECKPOINT_DIR --data_dir ${DATA_DIR}/valid.agront.parquet \
+    --model_name ${MODEL_NAME} \
+    --task_type 'regression' \
+    --batch_size 32 \
+    --output_file ${DATA_DIR}/agront-checkpoints-lr-1e-4-seed123/valid_predictions.tsv
+
+# Predict on test
+python main.py predict --checkpoint_dir $CHECKPOINT_DIR --data_dir ${DATA_DIR}/test.agront.parquet \
+    --model_name ${MODEL_NAME} \
+    --task_type 'regression' \
+    --batch_size 32 \
+    --output_file ${DATA_DIR}/agront-checkpoints-lr-1e-4-seed123/test_predictions.tsv
