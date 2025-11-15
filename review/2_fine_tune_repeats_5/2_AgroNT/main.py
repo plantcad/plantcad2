@@ -5,7 +5,7 @@ import logging
 import numpy as np
 import multiprocessing
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List, Tuple, Dict, Any
 from datasets import Dataset, Features, Value
 
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, TrainingArguments, Trainer
