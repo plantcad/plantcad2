@@ -5,7 +5,7 @@ import logging
 import numpy as np
 import multiprocessing
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List, Tuple, Dict, Any
 from datasets import Dataset, Features, Value
 
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, TrainingArguments, Trainer, AutoConfig
@@ -504,6 +504,96 @@ def predict(
     df.to_csv(output_file, index=False)
     logger.info("Prediction scores saved successfully")
 
+def predict_distributed(
+    checkpoint_dir: str,
+    data_dir: str,
+    output_file: str = "/tmp/predictions.csv",
+    batch_size: int = 32,
+    sampling_rate: Optional[float] = None,
+    seed: int = 42,
+    task_type: str = "classification"
+) -> None:
+    def get_slurm_info() -> Dict[str, int]:
+        def _get_first_env_var(possible, default):
+            for var in possible:
+                if var in os.environ:
+                    return int(os.environ[var])
+            return default
+        return {
+            "rank": _get_first_env_var(["PMIX_RANK", "SLURM_PROCID", "PMI_RANK"], 0),
+            "world_size": _get_first_env_var(["PMIX_SIZE", "SLURM_NTASKS", "PMI_SIZE"], 1)
+        }
+
+    slurm = get_slurm_info()
+    rank, world_size = slurm["rank"], slurm["world_size"]
+    logger.info(f"[Rank {rank}] Starting distributed prediction ({rank + 1}/{world_size})")
+
+    model = AutoModelForSequenceClassification.from_pretrained(checkpoint_dir, trust_remote_code=True)
+
+    full_dataset = Dataset.from_parquet(data_dir, split="test", keep_in_memory=False)
+    total_len = len(full_dataset)
+
+    if sampling_rate:
+        sampled_n = int(sampling_rate * total_len)
+        full_dataset = full_dataset.shuffle(seed=seed).select(range(sampled_n))
+        total_len = sampled_n
+
+    def partition_indices(n, rank, world_size):
+        chunk = n // world_size
+        remainder = n % world_size
+        start = rank * chunk + min(rank, remainder)
+        end = start + chunk + (1 if rank < remainder else 0)
+        return start, end
+
+    start_idx, end_idx = partition_indices(total_len, rank, world_size)
+    local_dataset = full_dataset.select(range(start_idx, end_idx))
+    logger.info(f"[Rank {rank}] Processing {len(local_dataset)} samples (index {start_idx}–{end_idx})")
+
+    trainer_args = TrainingArguments(
+        output_dir="/tmp",
+        per_device_eval_batch_size=batch_size,
+        seed=seed,
+        report_to="none",
+        remove_unused_columns=True,
+    )
+
+    trainer = Trainer(model=model, args=trainer_args)
+
+    logger.info(f"[Rank {rank}] Generating predictions")
+    predictions = trainer.predict(test_dataset=local_dataset).predictions
+
+    if task_type == "classification":
+        probs = torch.nn.functional.softmax(torch.tensor(predictions), dim=1).numpy()
+        scores = probs[:, 1]
+        df = pd.DataFrame({"probability_positive": scores})
+    else:
+        values = predictions.squeeze()
+        df = pd.DataFrame({"predicted_value": values})
+
+    temp_output = Path(output_file).with_suffix(f".rank{rank}.csv")
+    df.to_csv(temp_output, index=False)
+    logger.info(f"[Rank {rank}] Saved local predictions to {temp_output}")
+
+    if rank == 0:
+        import time
+        logger.info(f"[Rank 0] Waiting for other ranks to finish...")
+        while True:
+            found = sum(1 for r in range(world_size)
+                        if Path(output_file).with_suffix(f".rank{r}.csv").exists())
+            if found == world_size:
+                break
+            time.sleep(1)
+
+        logger.info("[Rank 0] Aggregating results")
+        dfs = [pd.read_csv(Path(output_file).with_suffix(f".rank{r}.csv")) for r in range(world_size)]
+        full_df = pd.concat(dfs, axis=0)
+        full_df.to_csv(output_file, index=False)
+        logger.info(f"[Rank 0] Final predictions saved to {output_file}")
+
+        # Cleanup
+        for r in range(world_size):
+            Path(output_file).with_suffix(f".rank{r}.csv").unlink()
+
 # ------------------------------------------------------------------------------
 # Helper functions
 # ------------------------------------------------------------------------------
@@ -607,5 +697,6 @@ if __name__ == "__main__":
         "train": train,
         "evaluate": evaluate,
         "predict": predict,
+        "predict_distributed": predict_distributed,
         "display": display,
     })
