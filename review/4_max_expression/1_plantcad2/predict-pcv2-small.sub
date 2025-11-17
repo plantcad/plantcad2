@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#SBATCH -J  predict_max_exp_pcv2-small # Job name
+#SBATCH -o logs/%x.log      # Name of stdout output file
+#SBATCH -e logs/%x.log      # Name of stderr error file
+#SBATCH -p gh               # Queue (partition) name
+#SBATCH -N 8                # Total # of nodes
+#SBATCH -n 8                # Total # of mpi tasks
+#SBATCH -t 04:00:00         # Run time (hh:mm:ss)
+#SBATCH --mail-type=BEGAN,END,FAIL     # Send email at begin and end of job
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+export DATA_DIR=${cad2}/results/PlantCAD2_tasks/exp-max
+export CHECKPOINT_DIR="${DATA_DIR}/pcv2-l24-d0768-checkpoints-lr-1e-4/checkpoint-7975"
+export MODEL_NAME="kuleshov-group/PlantCAD2-Small-l24-d0768"
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+# Predict on valid
+srun -l python dev.py predict_distributed --checkpoint_dir $CHECKPOINT_DIR --data_dir ${DATA_DIR}/valid.parquet \
+    --model_name ${MODEL_NAME} \
+    --task_type 'regression' \
+    --batch_size 32 \
+    --output_file ${DATA_DIR}/pcv2-l24-d0768-checkpoints-lr-1e-4/valid_predictions.tsv
+
+# Predict on test
+srun -l python dev.py predict_distributed --checkpoint_dir $CHECKPOINT_DIR --data_dir ${DATA_DIR}/test.parquet \
+    --model_name ${MODEL_NAME} \
+    --task_type 'regression' \
+    --batch_size 32 \
+    --output_file ${DATA_DIR}/pcv2-l24-d0768-checkpoints-lr-1e-4/test_predictions.tsv
