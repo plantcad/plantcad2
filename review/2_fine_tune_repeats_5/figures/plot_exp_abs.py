@@ -53,6 +53,7 @@ for k, model in enumerate(model_dict):
             f'../../../results/PlantCAD2_tasks/exp-leaf-abs/{model_name_with_seed}/valid_predictions.csv'
         ]
 
+        valid_found = False
         for valid_path in valid_files_to_try:
             if os.path.exists(valid_path):
                 valid_preds = pd.read_csv(valid_path, sep='\t')
@@ -64,7 +65,12 @@ for k, model in enumerate(model_dict):
                 pcc_valid = valid_labels['Label'].corr(valid_preds[pred_col], method='pearson')
                 valid_scc_scores.append(scc_valid)
                 valid_pcc_scores.append(pcc_valid)
+                valid_found = True
                 break
+
+        if not valid_found:
+            raise FileNotFoundError(f"Validation predictions not found for model {model[0]}, seed {seed_label}. Tried:\n" +
+                                    "\n".join(f"  - {f}" for f in valid_files_to_try))
 
         # Try different test file names
         test_files_to_try = [
@@ -73,6 +79,7 @@ for k, model in enumerate(model_dict):
             f'../../../results/PlantCAD2_tasks/exp-leaf-abs/{model_name_with_seed}/test_predictions.csv'
         ]
 
+        test_found = False
         for test_path in test_files_to_try:
             if os.path.exists(test_path):
                 test_preds = pd.read_csv(test_path, sep='\t')
@@ -84,7 +91,12 @@ for k, model in enumerate(model_dict):
                 pcc_test = test_labels['Label'].corr(test_preds[pred_col], method='pearson')
                 test_scc_scores.append(scc_test)
                 test_pcc_scores.append(pcc_test)
+                test_found = True
                 break
+
+        if not test_found:
+            raise FileNotFoundError(f"Test predictions not found for model {model[0]}, seed {seed_label}. Tried:\n" +
+                                    "\n".join(f"  - {f}" for f in test_files_to_try))
 
         # Store individual results
         individual_records.append({

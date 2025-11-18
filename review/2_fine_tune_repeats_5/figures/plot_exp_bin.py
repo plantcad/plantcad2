@@ -50,6 +50,7 @@ for k, model in enumerate(model_dict):
             f'../../../results/PlantCAD2_tasks/exp-leaf-bin/{model_name_with_seed}/valid_predictions.csv'
         ]
 
+        valid_found = False
         for valid_path in valid_files_to_try:
             if os.path.exists(valid_path):
                 valid_preds = pd.read_csv(valid_path, sep='\t')
@@ -62,7 +63,12 @@ for k, model in enumerate(model_dict):
                 ap_valid = average_precision_score(valid_labels['Label'], valid_preds[pred_col])
                 valid_auc_scores.append(auc_valid)
                 valid_ap_scores.append(ap_valid)
+                valid_found = True
                 break
+
+        if not valid_found:
+            raise FileNotFoundError(f"Validation predictions not found for model {model[0]}, seed {seed_label}. Tried:\n" +
+                                    "\n".join(f"  - {f}" for f in valid_files_to_try))
 
         # Try different test file names
         test_files_to_try = [
@@ -71,6 +77,7 @@ for k, model in enumerate(model_dict):
             f'../../../results/PlantCAD2_tasks/exp-leaf-bin/{model_name_with_seed}/test_predictions.csv'
         ]
 
+        test_found = False
         for test_path in test_files_to_try:
             if os.path.exists(test_path):
                 test_preds = pd.read_csv(test_path, sep='\t')
@@ -83,7 +90,12 @@ for k, model in enumerate(model_dict):
                 ap_test = average_precision_score(test_labels['Label'], test_preds[pred_col])
                 test_auc_scores.append(auc_test)
                 test_ap_scores.append(ap_test)
+                test_found = True
                 break
+
+        if not test_found:
+            raise FileNotFoundError(f"Test predictions not found for model {model[0]}, seed {seed_label}. Tried:\n" +
+                                    "\n".join(f"  - {f}" for f in test_files_to_try))
 
         # Store individual results
         individual_records.append({
