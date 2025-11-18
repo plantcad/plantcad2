@@ -1,0 +1,48 @@
+#!/bin/bash
+
+#SBATCH -J  leaf_bin_pcv2-l24-d0768-seed123 # Job name
+#SBATCH -o logs/%x.log      # Name of stdout output file
+#SBATCH -e logs/%x.log      # Name of stderr error file
+#SBATCH -p gh               # Queue (partition) name
+#SBATCH -N 1                # Total # of nodes (must be 1 for serial)
+#SBATCH -n 1                # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 48:00:00         # Run time (hh:mm:ss)
+#SBATCH --mail-type=BEGAN,END,FAIL     # Send email at begin and end of job
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+export DATA_DIR=/scratch/10373/jzhai/utils/plantcad2/results/PlantCAD2_tasks/exp-leaf-bin
+export OUTPUT_DIR="${DATA_DIR}/pcv2-l24-d0768-checkpoints-lr-1e-4-seed123"
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+# Train model
+python main.py train \
+    --train_dir=$DATA_DIR/train.parquet \
+    --valid_dir=$DATA_DIR/valid.parquet \
+    --output_dir=$OUTPUT_DIR \
+    --model_name "kuleshov-group/PlantCAD2-Small-l24-d0768" \
+    --train_batch_size 32 \
+    --eval_batch_size 32 \
+    --max_steps -1 \
+    --seed 123 \
+    --use_wandb True \
+    --wandb_project PlantCAD2 \
+    --wandb_run_name "exp-leaf-bin_pcv2-l24-d0768-seed123" \
+    --learning_rate 1e-4 \
+    --warmup_steps 50 \
+    --lr_scheduler_type "linear" \
+    --gradient_accumulation_steps 4 \
+    --bf16 True \
+    --num_train_epochs 1 \
+    --weight_decay 0.01 \
+    --eval_strategy "steps" \
+    --eval_steps 700 \
+    --save_strategy "steps" \
+    --save_steps 700 \
+    --logging_steps 700 \
+    --remove_unused_columns False

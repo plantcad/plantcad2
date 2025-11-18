@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#SBATCH -J  predict_leaf_abs_8k_pcv2-l24-d0768-seed789 # Job name
+#SBATCH -o logs/%x.log      # Name of stdout output file
+#SBATCH -e logs/%x.log      # Name of stderr error file
+#SBATCH -p gh               # Queue (partition) name
+#SBATCH -N 8                # Total # of nodes
+#SBATCH -n 8                # Total # of mpi tasks
+#SBATCH -t 06:00:00         # Run time (hh:mm:ss)
+#SBATCH --mail-type=BEGAN,END,FAIL     # Send email at begin and end of job
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+export DATA_DIR=/scratch/10373/jzhai/utils/plantcad2/results/PlantCAD2_tasks/exp-leaf-abs
+export CHECKPOINT_DIR="${DATA_DIR}/pcv2-l24-d0768-8k-checkpoints-lr-1e-4-seed789/checkpoint-7936"
+export MODEL_NAME="kuleshov-group/PlantCAD2-Small-l24-d0768"
+
+source $WORK/envs/PlantCAD/bin/activate
+source ~/.bashrc
+
+# Predict on valid
+srun -l python ../main.py predict_distributed --checkpoint_dir $CHECKPOINT_DIR --data_dir ${DATA_DIR}/valid_8k.parquet \
+    --model_name ${MODEL_NAME} \
+    --task_type 'regression' \
+    --batch_size 32 \
+    --output_file ${DATA_DIR}/pcv2-l24-d0768-8k-checkpoints-lr-1e-4-seed789/valid_predictions.tsv
+
+# Predict on test
+srun -l python ../main.py predict_distributed --checkpoint_dir $CHECKPOINT_DIR --data_dir ${DATA_DIR}/test_8k.parquet \
+    --model_name ${MODEL_NAME} \
+    --task_type 'regression' \
+    --batch_size 32 \
+    --output_file ${DATA_DIR}/pcv2-l24-d0768-8k-checkpoints-lr-1e-4-seed789/test_predictions.tsv
