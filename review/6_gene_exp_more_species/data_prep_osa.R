@@ -21,6 +21,7 @@ df <- data.frame(geneID = gsub(pattern = '.MSUv7.0',
 
 seq <- read.table(file = '/workdir/jz963/utils/plantcad2/results/PlantCAD2_tasks/max_exp_angiosperm/data/test_Osa.tsv',
                   sep = '\t', header = T, quote = '', stringsAsFactors = F)
+seq$Seq <- substr(seq$Seq, 3073, 5120)
 
 df$Seq <- seq$Seq[match(df$geneID, seq$Gene)]
 df <- na.omit(df)
