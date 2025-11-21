@@ -109,7 +109,7 @@ def plot_metrics(df, task_type, metric_names, output_prefix):
         ax.set_ylabel(metric, fontsize=14, fontweight='bold')
 
         if metric in ['Spearman', 'Pearson']:
-            ax.set_ylim(0, 1.0)
+            ax.set_ylim(0, 0.8)
         else:  # AUROC, AUPRC
             ax.set_ylim(0, 1.0)
 
@@ -199,7 +199,10 @@ def plot_combined_metrics(df, output_file):
 
         # Set y-axis
         ax.set_ylabel(config['metric'], fontsize=14, fontweight='bold')
-        ax.set_ylim(0, 1.0)
+        if config['metric'] in ['Spearman', 'Pearson']:
+            ax.set_ylim(0, 0.8)
+        else:  # AUROC, AUPRC
+            ax.set_ylim(0, 1.0)
 
         # Add grid
         ax.grid(axis='y', alpha=0.3, linestyle='--')
@@ -219,7 +222,7 @@ def plot_combined_metrics(df, output_file):
 def main():
     # Define base directory
     base_dir = Path(__file__).parent
-    results_file = base_dir / 'evaluation_results.csv'
+    results_file = base_dir / 'figures/evaluation_results.csv'
 
     if not results_file.exists():
         print(f"Error: {results_file} not found. Please run evaluate_models.py first.")
