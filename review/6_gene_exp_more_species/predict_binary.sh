@@ -51,7 +51,7 @@ done &
 ## supervised plantcad2
 for species in osa sly
 do
-    CUDA_VISIBLE_DEVICES=1 python main.py predict \
+    CUDA_VISIBLE_DEVICES=1 python ../../pipelines/expression_panand/4_sup_plantcad2/main.py predict \
     --data_dir ../../results/review/4_gene_exp_more_species/${species}_leaf_bin.parquet \
     --checkpoint_dir ../../results/PlantCAD2_tasks/exp-leaf-bin/sup_pcv2-l24-d0768-checkpoints-lr-1e-4/checkpoint-7975 \
     --output_file ../../results/review/4_gene_exp_more_species/predictions/${species}_leaf_bin_sup-plantcad2.tsv
@@ -59,6 +59,7 @@ done
 
 ## supervised cnn-lstm
 for species in osa sly
+do
     python ../../pipelines/expression_panand/3_sup_cnn-lstm/main.py predict \
         --model_path ../../results/PlantCAD2_tasks/exp-leaf-abs/cnn_lstm/bestmodel.ckpt \
         --test ../../results/review/4_gene_exp_more_species/${species}_leaf_exp.tsv \
