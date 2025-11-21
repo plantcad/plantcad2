@@ -487,6 +487,7 @@ def predict(
         seed=seed,
         report_to="none",
         remove_unused_columns=False,
+        bf16=True,
     )
 
     trainer = Trainer(
