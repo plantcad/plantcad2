@@ -17,8 +17,8 @@ mkdir -p $OUTPUT_DIR
         --device cuda:0 \
         --token_idx 4095 \
         --batch_size 128 \
-        --save_logits $OUTPUT_DIR/$task_logits.tsv \
-        --metrics_json $OUTPUT_DIR/$task_metrics.json
+        --save_logits $OUTPUT_DIR/${task}_logits.tsv \
+        --metrics_json $OUTPUT_DIR/${task}_metrics.json
     done
 
     for task in tis_recovery tts_recovery
