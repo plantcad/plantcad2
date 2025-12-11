@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.metrics import r2_score
 
 valid_labels = pd.read_csv('../../../results/translation_efficiency/training_data/1_absolute/valid.tsv', sep='\t')
 test_labels = pd.read_csv('../../../results/translation_efficiency/training_data/1_absolute/test.tsv', sep='\t')
@@ -44,6 +45,10 @@ for k, model in enumerate(model_dict):
 
     mae_valid = np.mean(np.abs(valid_preds - valid_true))
     mae_test = np.mean(np.abs(test_preds - test_true))
+
+    # R square
+    r2_valid = r2_score(valid_true, valid_preds)
+    r2_test = r2_score(test_true, test_preds)
     
     
 
@@ -68,6 +73,7 @@ for k, model in enumerate(model_dict):
         'pcc': pcc_valid,
         'mse': mse_valid,
         'mae': mae_valid,
+        'r2': r2_valid,
         'color': color,
         'alpha': alpha    })
     records.append({
@@ -77,6 +83,7 @@ for k, model in enumerate(model_dict):
         'pcc': pcc_test,
         'mse': mse_test,
         'mae': mae_test,
+        'r2': r2_test,
         'color': color,
         'alpha': alpha    })
 
