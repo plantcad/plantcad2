@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#SBATCH -J pcv2_large_phaseolus_vulgaris
+#SBATCH -o logs/%x-%j.log
+#SBATCH -e logs/%x-%j.log
+#SBATCH -p gh
+#SBATCH -N 4
+#SBATCH --ntasks=4
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 2:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.5
+module load python3/3.11.8
+
+source $WORK/envs/transformers_440/bin/activate
+source ~/.bashrc
+
+# Environment variables
+export TRITON_PTXAS_PATH=/home1/apps/nvidia/Linux_aarch64/24.7/cuda/12.5/bin/ptxas
+
+INPUT_DIR="/scratch/10373/jzhai/fine-tuning/cross_species_acr_train_on_arabidopsis/"
+OUTPUT_DIR="/scratch/10373/jzhai/utils/plantcad2/results/review/1_benchmark_evo2/plantcad2/"
+OUTPUT_NAME=${OUTPUT_DIR}test_phaseolus_vulgaris_large.pkl
+
+srun -l python plantcad2.py fetch \
+	--input ${INPUT_DIR}test_phaseolus_vulgaris.tsv \
+	--output ${OUTPUT_NAME} \
+	--batch-size 64 \
+    --model-dir 'kuleshov-group/PlantCAD2-Large-l48-d1536'
