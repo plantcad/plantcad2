@@ -10,6 +10,9 @@ import pickle
 from pathlib import Path
 from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_score, f1_score
 import xgboost as xgb
+import os
+import time
+from typing import Dict, Optional
 
 
 class EmbeddingDataset(Dataset):
@@ -130,6 +133,7 @@ def get_batched_embeddings(sequences, model, layer_name, batch_size=32):
 def fetch_embeddings(input_tsv, output_pkl, use_reverse_complement=True, layer_name='blocks.26', batch_size=32):
     """
     Fetch Evo2 embeddings for sequences in input TSV file.
+    Supports multi-node execution via Slurm environment variables.
 
     Args:
         input_tsv: Path to input TSV file with columns: Chr, Start, End, Type, Species, Seq, Label
@@ -138,16 +142,45 @@ def fetch_embeddings(input_tsv, output_pkl, use_reverse_complement=True, layer_n
         layer_name: Which layer to extract embeddings from
         batch_size: Batch size for processing sequences (default: 32)
     """
-    print(f"Loading data from {input_tsv}...")
+    # Distributed setup
+    def get_slurm_info() -> Dict[str, int]:
+        def _get_first_env_var(possible, default):
+            for var in possible:
+                if var in os.environ:
+                    return int(os.environ[var])
+            return default
+        return {
+            "rank": _get_first_env_var(["PMIX_RANK", "SLURM_PROCID", "PMI_RANK"], 0),
+            "world_size": _get_first_env_var(["PMIX_SIZE", "SLURM_NTASKS", "PMI_SIZE"], 1)
+        }
+
+    slurm = get_slurm_info()
+    rank, world_size = slurm["rank"], slurm["world_size"]
+    print(f"[Rank {rank}] Starting distributed embedding fetch ({rank + 1}/{world_size})")
+
+    print(f"[Rank {rank}] Loading data from {input_tsv}...")
     df = pd.read_csv(input_tsv, sep='\t')
 
-    print(f"Loading Evo2 model...")
+    # Partition data
+    total_len = len(df)
+    def partition_indices(n, rank, world_size):
+        chunk = n // world_size
+        remainder = n % world_size
+        start = rank * chunk + min(rank, remainder)
+        end = start + chunk + (1 if rank < remainder else 0)
+        return start, end
+
+    start_idx, end_idx = partition_indices(total_len, rank, world_size)
+    df = df.iloc[start_idx:end_idx].copy()
+    print(f"[Rank {rank}] Processing {len(df)} samples (index {start_idx}–{end_idx})")
+
+    print(f"[Rank {rank}] Loading Evo2 model...")
     evo2_model = Evo2('evo2_7b_base')
 
     # Extract sequences
     forward_seqs = df['Seq'].tolist()
 
-    print(f"Extracting forward embeddings for {len(df)} sequences with batch_size={batch_size}...")
+    print(f"[Rank {rank}] Extracting forward embeddings for {len(df)} sequences with batch_size={batch_size}...")
     forward_embeddings = get_batched_embeddings(forward_seqs, evo2_model, layer_name, batch_size)
 
     embeddings_data = {
@@ -159,19 +192,68 @@ def fetch_embeddings(input_tsv, output_pkl, use_reverse_complement=True, layer_n
 
     # Reverse complement embeddings
     if use_reverse_complement:
-        print(f"Extracting reverse complement embeddings...")
+        print(f"[Rank {rank}] Extracting reverse complement embeddings...")
         reverse_seqs = [reverse_complement(seq) for seq in forward_seqs]
         reverse_embeddings = get_batched_embeddings(reverse_seqs, evo2_model, layer_name, batch_size)
         embeddings_data['reverse'] = reverse_embeddings
 
-    # Save embeddings
-    print(f"Saving embeddings to {output_pkl}...")
-    with open(output_pkl, 'wb') as f:
+    # Save local embeddings
+    temp_output = Path(output_pkl).with_suffix(f".rank{rank}.pkl")
+    print(f"[Rank {rank}] Saving local embeddings to {temp_output}...")
+    with open(temp_output, 'wb') as f:
         pickle.dump(embeddings_data, f)
 
-    print(f"Done! Saved embeddings with shape: forward={embeddings_data['forward'].shape}")
-    if use_reverse_complement:
-        print(f"  reverse={embeddings_data['reverse'].shape}")
+    # Rank 0 aggregation
+    if rank == 0:
+        print(f"[Rank 0] Waiting for other ranks to finish...")
+        while True:
+            found = sum(1 for r in range(world_size)
+                        if Path(output_pkl).with_suffix(f".rank{r}.pkl").exists())
+            if found == world_size:
+                break
+            time.sleep(5)
+
+        print("[Rank 0] Aggregating results")
+        
+        all_metadata = []
+        all_labels = []
+        all_forward = []
+        all_reverse = []
+        
+        has_reverse = use_reverse_complement
+        
+        # Load in order
+        for r in range(world_size):
+            p = Path(output_pkl).with_suffix(f".rank{r}.pkl")
+            with open(p, 'rb') as f:
+                data = pickle.load(f)
+                all_metadata.append(data['metadata'])
+                all_labels.append(data['labels'])
+                all_forward.append(data['forward'])
+                if has_reverse:
+                    all_reverse.append(data['reverse'])
+        
+        final_data = {
+            'forward': np.concatenate(all_forward, axis=0),
+            'reverse': np.concatenate(all_reverse, axis=0) if has_reverse else None,
+            'labels': np.concatenate(all_labels, axis=0),
+            'metadata': pd.concat(all_metadata, ignore_index=True)
+        }
+
+        print(f"[Rank 0] Saving final embeddings to {output_pkl}...")
+        with open(output_pkl, 'wb') as f:
+            pickle.dump(final_data, f)
+
+        print(f"[Rank 0] Final embeddings saved with shape: forward={final_data['forward'].shape}")
+        if has_reverse:
+            print(f"  reverse={final_data['reverse'].shape}")
+
+        # Cleanup
+        print("[Rank 0] Cleaning up temporary files...")
+        for r in range(world_size):
+            p = Path(output_pkl).with_suffix(f".rank{r}.pkl")
+            if p.exists():
+                p.unlink()
 
 
 def train_nn(train_embeddings_pkl, val_embeddings_pkl, output_model, strategy='concatenate',
