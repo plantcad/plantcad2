@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH -J nt-pcv2-medium-4096
+#SBATCH -o logs/%x-%j.log
+#SBATCH -e logs/%x-%j.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 3:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.5
+module load python3/3.11.8
+
+source $WORK/envs/transformers_440/bin/activate
+source ~/.bashrc
+
+export TRITON_PTXAS_PATH=/home1/apps/nvidia/Linux_aarch64/24.7/cuda/12.5/bin/ptxas
+INPUT='/scratch/10373/jzhai/utils/plantcad2/conservation_within_poaceae_non_tis/test.tsv'
+OUTPUT='/scratch/10373/jzhai/utils/plantcad2/results/review/5_zero_shot_long_ctx/conservation_within_poaceae_non_tis/pcv2-medium-c4096.tsv'
+
+python zero-shot-eval.py evo_cons --input_tsv $INPUT --model kuleshov-group/PlantCAD2-Medium-l48-d1024 --device cuda:0 --token_idx 2047 --crop_length 4096 --batch_size 16 --save_logits $OUTPUT
