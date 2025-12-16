@@ -1,0 +1,28 @@
+#!/bin/bash
+#SBATCH -J pcv2-potato-small-2048
+#SBATCH -o logs/%x-%A_%a.log
+#SBATCH -e logs/%x-%A_%a.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --array=1-12
+#SBATCH -t 2:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.5
+module load python3/3.11.8
+
+source $WORK/envs/transformers_440/bin/activate
+source ~/.bashrc
+
+export TRITON_PTXAS_PATH=/home1/apps/nvidia/Linux_aarch64/24.7/cuda/12.5/bin/ptxas
+
+# Zero-pad array index → chr01, chr02, chr03, ... chr12
+CHR=$(printf "chr%02d" ${SLURM_ARRAY_TASK_ID})
+
+INPUT="../../results/review/3_potato_deleterious_mutations/processed_v2/${CHR}_downsampled.tsv"
+OUTPUT="/scratch/10373/jzhai/utils/plantcad2/results/review/5_zero_shot_long_ctx/potato_deleterious_mutations/pcv2-small-c2048-${CHR}.tsv"
+
+python zero-shot-eval.py evo_cons --input_tsv $INPUT --model kuleshov-group/PlantCAD2-Small-l24-d0768 --device cuda:0 --token_idx 1023 --crop_length 2048 --batch_size 16 --save_logits $OUTPUT
