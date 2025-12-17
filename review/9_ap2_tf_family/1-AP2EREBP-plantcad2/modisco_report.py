@@ -1,4 +1,4 @@
-import os
+import os, sys
 import pickle
 import h5py
 import pandas
@@ -342,10 +342,10 @@ def report_motifs(
     return tomtom_df
 
 report_motifs(
-    './evo2-context-2k_modisco_results.h5',
-    "evo2-context-2k_modisco_results_JASPAR/",
+    sys.argv[1],
+    sys.argv[2],
     suffix="",
     top_n_matches=1,
-    meme_motif_db='/workdir/jz963/modisco_test/maize/JASPAR2024_CORE_plants_non-redundant_pfms_meme.txt',
+    meme_motif_db=sys.argv[3],
     background=[0.2930715, 0.2036401, 0.2075366, 0.2957519], 
 )
