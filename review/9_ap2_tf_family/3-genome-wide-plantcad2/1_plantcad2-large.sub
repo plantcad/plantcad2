@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#SBATCH -J plantcad2-large
+#SBATCH -a 1-20
+#SBATCH -o logs/%x-%A_%a.log
+#SBATCH -e logs/%x-%A_%a.log
+#SBATCH -p gh
+#SBATCH -N 8
+#SBATCH --ntasks=8
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 3:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.5
+module load python3/3.11.8
+
+source $WORK/envs/transformers_440/bin/activate
+source ~/.bashrc
+
+export TRITON_PTXAS_PATH=/home1/apps/nvidia/Linux_aarch64/24.7/cuda/12.5/bin/ptxas
+
+srun python zero_shot_score.py \
+    -input-bed tmp/${SLURM_ARRAY_TASK_ID}.bed \
+    -input-fasta Arabidopsis_thaliana.TAIR10.dna.toplevel.noMtPt.fa \
+    -output tmp/${SLURM_ARRAY_TASK_ID}-plantcad2-large-context-2k.tsv \
+    -model 'kuleshov-group/PlantCAD2-Large-l48-d1536' \
+    -step-size 1 -aggregation max -use-masking -output-raw-prob \
+    -contextSize 2048 -batchSize 32 -device cuda:0
