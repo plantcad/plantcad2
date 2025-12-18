@@ -9,7 +9,7 @@ import numpy as np
 import logomaker
 from matplotlib import pyplot as plt
 
-matplotlib.use("pdf")
+matplotlib.use("svg")
 
 pd.options.display.max_colwidth = 500
 
@@ -43,7 +43,6 @@ def read_meme(filename):
     return motifs
 
 def write_meme_file(ppm, bg, fname):
-    """将 PPM 写入临时 MEME 文件供 TomTom 使用"""
     f = open(fname, "w")
     f.write("MEME version 4\n\n")
     f.write("ALPHABET= ACGT\n\n")
@@ -74,7 +73,7 @@ def _plot_weights(array, path, figsize=(10, 3), **kwargs):
     if max_val == 0: max_val = 1 
     plt.ylim(min_val, max_val)
 
-    plt.savefig(path)
+    plt.savefig(path, format='svg') 
     plt.close()
 
 def make_logo(match, logo_dir, motifs):
@@ -88,7 +87,7 @@ def make_logo(match, logo_dir, motifs):
         from_type="probability", to_type="information",
     ).values
     
-    _plot_weights(ic, path="{}/{}.png".format(logo_dir, match))
+    _plot_weights(ic, path="{}/{}.svg".format(logo_dir, match))
 
 def path_to_image_html(path):
     return '<img src="' + path + '" width="240" >' if path != "" else ""
@@ -135,7 +134,6 @@ def fetch_tomtom_matches(
 
     os.system(cmd)
     
-    # 检查结果文件是否为空
     if os.stat(tomtom_fname).st_size == 0:
         return pd.DataFrame()
         
@@ -195,10 +193,10 @@ def create_modisco_logos(modisco_file, modisco_logo_dir, trim_threshold):
                 trimmed_cwm_rev = cwm_rev
 
             _plot_weights(
-                trimmed_cwm_fwd, path="{}/{}.cwm.fwd.png".format(modisco_logo_dir, tag)
+                trimmed_cwm_fwd, path="{}/{}.cwm.fwd.svg".format(modisco_logo_dir, tag)
             )
             _plot_weights(
-                trimmed_cwm_rev, path="{}/{}.cwm.rev.png".format(modisco_logo_dir, tag)
+                trimmed_cwm_rev, path="{}/{}.cwm.rev.svg".format(modisco_logo_dir, tag)
             )
     results.close()
     return tags
@@ -296,10 +294,10 @@ def report_motifs(
     )
 
     tomtom_df["modisco_cwm_fwd"] = [
-        "{}trimmed_logos/{}.cwm.fwd.png".format(suffix, name) for name in names
+        "{}trimmed_logos/{}.cwm.fwd.svg".format(suffix, name) for name in names
     ]
     tomtom_df["modisco_cwm_rev"] = [
-        "{}trimmed_logos/{}.cwm.rev.png".format(suffix, name) for name in names
+        "{}trimmed_logos/{}.cwm.rev.svg".format(suffix, name) for name in names
     ]
 
     reordered_columns = ["pattern", "num_seqlets", "modisco_cwm_fwd", "modisco_cwm_rev"]
@@ -314,7 +312,8 @@ def report_motifs(
                     logos.append("")
                 else:
                     make_logo(val, output_dir, motifs)
-                    logos.append("{}{}.png".format(suffix, val))
+                    # 6. 修改数据库 match logo 的引用指向 .svg
+                    logos.append("{}{}.svg".format(suffix, val))
             else:
                 break
 
