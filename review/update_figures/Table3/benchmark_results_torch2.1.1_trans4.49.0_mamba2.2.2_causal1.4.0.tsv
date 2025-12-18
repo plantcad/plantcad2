@@ -1,0 +1,19 @@
+Model	Seq Len	Batch	Peak memory (GB)	seq/s	tokens/s	Status
+pcv2-small	8192	1	0.79	19.58	160,422	OK
+pcv2-small	8192	4	1.94	20.12	164,812	OK
+pcv2-small	8192	8	3.55	19.63	160,829	OK
+pcv2-small	8192	16	6.56	19.61	160,653	OK
+pcv2-small	8192	32	12.76	19.26	157,767	OK
+pcv2-small	8192	64	24.89	19.0	155,649	OK
+pcv2-medium	8192	1	2.5	5.46	44,761	OK
+pcv2-medium	8192	4	3.49	7.02	57,489	OK
+pcv2-medium	8192	8	5.54	6.88	56,388	OK
+pcv2-medium	8192	16	9.62	6.88	56,386	OK
+pcv2-medium	8192	32	17.62	6.76	55,342	OK
+pcv2-medium	8192	64	33.62	6.79	55,636	OK
+pcv2-large	8192	1	4.76	3.98	32,634	OK
+pcv2-large	8192	4	5.75	4.01	32,847	OK
+pcv2-large	8192	8	8.83	3.94	32,264	OK
+pcv2-large	8192	16	14.89	3.92	32,111	OK
+pcv2-large	8192	32	26.95	3.87	31,741	OK
+pcv2-large	8192	64	51.09	3.89	31,833	OK

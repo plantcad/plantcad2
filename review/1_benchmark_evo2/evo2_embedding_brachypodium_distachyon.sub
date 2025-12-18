@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH -J evo2_brachypodium_distachyon
+#SBATCH -o logs/%x-%j.log
+#SBATCH -e logs/%x-%j.log
+#SBATCH -p gh
+#SBATCH -N 4
+#SBATCH --ntasks=4
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 3:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+module load nvidia_math/12.4
+export CUDA_HOME=/opt/apps/cuda/12.4
+export CUDA_PATH=$CUDA_HOME
+export GCC_HOME=/opt/apps/gcc/13.2.0
+export TRITON_PTXAS_PATH=$CUDA_HOME/bin/ptxas
+export TORCH_CUDA_ARCH_LIST="9.0"
+
+source $WORK/envs/evo2/bin/activate
+
+INPUT_DIR="/scratch/10373/jzhai/fine-tuning/cross_species_acr_train_on_arabidopsis/"
+OUTPUT_DIR="/scratch/10373/jzhai/utils/plantcad2/results/review/1_benchmark_evo2/evo2/"
+
+
+srun -l python evo2_embedding.py fetch \
+    --input $INPUT_DIR/test_brachypodium_distachyon.tsv \
+    --output $OUTPUT_DIR/test_brachypodium_distachyon_evo2.pkl \
+    --batch-size 4

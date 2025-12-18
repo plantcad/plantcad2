@@ -32,6 +32,10 @@ colors = ['#1f77b466', '#6baed6', '#1f77b4b3', '#1f77b4ff',  '#808080','#999999'
 
 bars = plt.bar(results_df.index, results_df['AP'], color=colors)
 
+for bar in bars:
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width() / 2.0, height, f'{height:.3f}', ha='center', va='bottom')
+
 plt.xlabel('Models')
 plt.ylabel('AUPRC')
 plt.title('Model Performance Comparison')
