@@ -50,7 +50,8 @@ def plot_grouped_benchmark(df, classifier_col, model_order, model_colors, output
     # Reindex to match specific orders
     pivot_df = pivot_df.loc[species_list, model_order]
     
-    fig, ax = plt.subplots(figsize=(16, 12))
+    # Increase figure width to accommodate more species and rotated labels
+    fig, ax = plt.subplots(figsize=(24, 12))
     
     # Calculation for bar width and positioning
     # Calculation for bar width and positioning
@@ -85,7 +86,7 @@ def plot_grouped_benchmark(df, classifier_col, model_order, model_colors, output
             if height > 0:
                 ax.text(rect.get_x() + rect.get_width()/2., height + 0.01,
                         f'{height:.3f}',
-                        ha='center', va='bottom', fontsize=18, rotation=0)
+                        ha='center', va='bottom', fontsize=14, rotation=90)
     
     # Aesthetics
     ax.set_ylabel('AUPRC', fontsize=24)
@@ -93,9 +94,10 @@ def plot_grouped_benchmark(df, classifier_col, model_order, model_colors, output
     ax.set_title(f'Model Comparison: {title_suffix}', fontsize=28)
     
     ax.set_xticks(indices)
-    ax.set_xticklabels(species_labels, fontsize=20)
+    # Rotate species names for better readability
+    ax.set_xticklabels(species_labels, fontsize=20, rotation=45, ha='right')
     ax.tick_params(axis='y', labelsize=20)
-    ax.set_ylim(0, 1.0) # Ensure scale is consistent 0-1
+    ax.set_ylim(0, 1.05) # Ensure scale is consistent 0-1 (slightly higher for labels)
     
     # Grid
     ax.grid(True, axis='y', alpha=0.3, linestyle='--')
@@ -121,6 +123,9 @@ def main():
         print("Failed to parse table.")
         return
 
+    # Normalize model names: 'evo2_average' -> 'evo2_mean'
+    df['Model'] = df['Model'].replace('evo2_average', 'evo2_mean')
+
     # Filter out unwanted models based on user request
     # PlantCAD: keep only 'mean' (remove 'max')
     # Evo2: remove 'concatenate'
@@ -135,7 +140,10 @@ def main():
     def plantcad_sort_key(m):
         size_order = {'small': 0, 'medium': 1, 'large': 2}
         parts = m.split('_')
-        size = parts[1]
+        try:
+            size = parts[1]
+        except IndexError:
+            size = 'medium'
         return (0, size_order.get(size, 99))
     plantcad_models.sort(key=plantcad_sort_key)
     
@@ -143,7 +151,10 @@ def main():
     def evo2_sort_key(m):
         order = ['forward', 'reverse', 'mean']
         parts = m.split('_')
-        strat = parts[1]
+        try:
+            strat = parts[1]
+        except IndexError:
+            strat = 'mean'
         return (1, order.index(strat) if strat in order else 99)
     evo2_models.sort(key=evo2_sort_key)
     
@@ -151,9 +162,9 @@ def main():
     
     # Define Colors
     color_map = {
-        'plantcad2_small_mean': '#1f77b466',
-        'plantcad2_medium_mean': '#6baed6',
-        'plantcad2_large_mean': '#1f77b4b3',
+        'plantcad2_small_mean': '#BDD7EE',   # Very light blue
+        'plantcad2_medium_mean': '#6BAED6',  # Light blue
+        'plantcad2_large_mean': '#3182BD',   # Medium blue
     }
     
     # Evo2 Grays
