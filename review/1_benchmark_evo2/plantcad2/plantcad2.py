@@ -14,13 +14,14 @@ from sklearn.model_selection import train_test_split
 import xgboost as xgb
 import os
 import time
+import joblib
 from typing import Dict
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 class EmbeddingDataset(Dataset):
-    """PyTorch Dataset for embeddings."""
+    """PyTorch Dataset for embeddings (Eager loading)."""
     def __init__(self, X, y):
         self.X = torch.tensor(X, dtype=torch.float32)
         self.y = torch.tensor(y, dtype=torch.float32)
@@ -30,6 +31,23 @@ class EmbeddingDataset(Dataset):
 
     def __getitem__(self, idx):
         return self.X[idx], self.y[idx]
+
+
+class LazyEmbeddingDataset(Dataset):
+    """
+    Lazy loading PyTorch Dataset for embeddings.
+    Uses memory-mapped arrays to avoid full RAM loading.
+    """
+    def __init__(self, data_dict, pooling):
+        # Expects data_dict to have keys 'mean', 'max' (numpy arrays/memmaps) and 'labels'
+        self.features = torch.tensor(data_dict[pooling], dtype=torch.float32)
+        self.y = torch.tensor(data_dict['labels'], dtype=torch.float32)
+
+    def __len__(self):
+        return len(self.y)
+
+    def __getitem__(self, idx):
+        return self.features[idx], self.y[idx]
 
 
 class SimpleMLPClassifier(nn.Module):
@@ -405,10 +423,26 @@ def train_nn_in_memory(X_train, y_train, X_val, y_val, output_model, pooling,
     logging.info("Training complete!")
 
 
-def evaluate_in_memory(model_data, X_test, y_test, output_metrics=None):
-    """Evaluate model on test embeddings in memory."""
+def evaluate(model_data, test_data, pooling=None, output_metrics=None):
+    """
+    Evaluate model on test embeddings using memory-efficient lazy loading.
+    
+    Args:
+        model_data: Loaded model dictionary
+        test_data: Test data dictionary (loaded via joblib/pickle)
+        pooling: Pooling strategy to use (if None, use training strategy)
+        output_metrics: Path to save metrics
+    """
     model = model_data['model']
     model_type = model_data.get('model_type', 'xgboost')
+    
+    # Determine pooling
+    if pooling is None:
+        pooling = model_data.get('pooling', 'mean')
+    logging.info(f"Using pooling strategy: {pooling}")
+
+    y_test = test_data['labels']
+    total_samples = len(y_test)
 
     # Predictions
     logging.info("Generating predictions...")
@@ -417,7 +451,8 @@ def evaluate_in_memory(model_data, X_test, y_test, output_metrics=None):
         model = model.to(device)
         model.eval()
 
-        test_dataset = EmbeddingDataset(X_test, y_test)
+        # Use LazyEmbeddingDataset for memory efficiency
+        test_dataset = LazyEmbeddingDataset(test_data, pooling)
         test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
         y_pred_proba = []
@@ -429,8 +464,29 @@ def evaluate_in_memory(model_data, X_test, y_test, output_metrics=None):
         y_pred_proba = np.array(y_pred_proba)
         y_pred = (y_pred_proba > 0.5).astype(int)
     else:
-        y_pred_proba = model.predict_proba(X_test)[:, 1]
-        y_pred = model.predict(X_test)
+        # XGBoost batch prediction
+        batch_size = 10000
+        y_pred_proba_list = []
+        y_pred_list = []
+        
+        logging.info(f"Predicting in batches of {batch_size}...")
+        
+        # Check for legacy format (X_test pre-stashed locally in model_data?)
+        # Standard flow is using test_data dict
+        features = test_data[pooling]
+        
+        for i in range(0, total_samples, batch_size):
+            end_idx = min(i + batch_size, total_samples)
+            X_batch = features[i:end_idx]
+            
+            y_pred_proba_list.append(model.predict_proba(X_batch)[:, 1])
+            y_pred_list.append(model.predict(X_batch))
+            
+            if (i // batch_size) % 10 == 0:
+                 logging.info(f"  Processed {end_idx}/{total_samples} samples")
+
+        y_pred_proba = np.concatenate(y_pred_proba_list)
+        y_pred = np.concatenate(y_pred_list)
 
     # Calculate metrics
     auroc = roc_auc_score(y_test, y_pred_proba)
@@ -446,8 +502,8 @@ def evaluate_in_memory(model_data, X_test, y_test, output_metrics=None):
     logging.info(f"AUPRC:     {auprc:.4f}")
     logging.info(f"Accuracy:  {accuracy:.4f}")
     logging.info(f"F1 Score:  {f1:.4f}")
-    logging.info(f"Pooling:   {model_data.get('pooling', 'N/A')}")
-    logging.info(f"Test samples: {len(y_test)}")
+    logging.info(f"Pooling:   {pooling}")
+    logging.info(f"Test samples: {total_samples}")
     logging.info("="*50)
 
     # Save metrics
@@ -461,8 +517,8 @@ def evaluate_in_memory(model_data, X_test, y_test, output_metrics=None):
             f.write(f"AUPRC:     {auprc:.4f}\n")
             f.write(f"Accuracy:  {accuracy:.4f}\n")
             f.write(f"F1 Score:  {f1:.4f}\n")
-            f.write(f"Pooling:   {model_data.get('pooling', 'N/A')}\n")
-            f.write(f"Test samples: {len(y_test)}\n")
+            f.write(f"Pooling:   {pooling}\n")
+            f.write(f"Test samples: {total_samples}\n")
             f.write("="*50 + "\n")
 
     return {'auroc': auroc, 'auprc': auprc, 'accuracy': accuracy, 'f1': f1}
@@ -550,8 +606,7 @@ def fetch_embeddings(input_tsv, output_pkl, model_dir, batch_size=32, layer_inde
     # Save local embeddings
     temp_output = Path(output_pkl).with_suffix(f".rank{rank}.pkl")
     logging.info(f"[Rank {rank}] Saving local embeddings to {temp_output}...")
-    with open(temp_output, 'wb') as f:
-        pickle.dump(embeddings_data, f)
+    joblib.dump(embeddings_data, temp_output)
 
     # Rank 0 aggregation
     if rank == 0:
@@ -573,12 +628,12 @@ def fetch_embeddings(input_tsv, output_pkl, model_dir, batch_size=32, layer_inde
         # Load in order
         for r in range(world_size):
             p = Path(output_pkl).with_suffix(f".rank{r}.pkl")
-            with open(p, 'rb') as f:
-                data = pickle.load(f)
-                all_metadata.append(data['metadata'])
-                all_labels.append(data['labels'])
-                all_mean.append(data['mean'])
-                all_max.append(data['max'])
+            # Use joblib.load for local files
+            data = joblib.load(p)
+            all_metadata.append(data['metadata'])
+            all_labels.append(data['labels'])
+            all_mean.append(data['mean'])
+            all_max.append(data['max'])
         
         final_data = {
             'mean': np.concatenate(all_mean, axis=0),
@@ -588,8 +643,7 @@ def fetch_embeddings(input_tsv, output_pkl, model_dir, batch_size=32, layer_inde
         }
 
         logging.info(f"[Rank 0] Saving final embeddings to {output_pkl}...")
-        with open(output_pkl, 'wb') as f:
-            pickle.dump(final_data, f)
+        joblib.dump(final_data, output_pkl)
 
         logging.info(f"[Rank 0] Final embeddings saved with shapes:")
         logging.info(f"  mean: {final_data['mean'].shape}")
@@ -735,16 +789,18 @@ def main():
 
         # Load test embeddings
         logging.info(f"Loading test embeddings from {args.test_embeddings}...")
-        with open(args.test_embeddings, 'rb') as f:
-            test_data = pickle.load(f)
+        try:
+            test_data = joblib.load(args.test_embeddings, mmap_mode='r')
+            logging.info("Loaded embeddings using joblib (mmap_mode='r')")
+        except Exception as e:
+            logging.error(f"Joblib load failed: {e}. Falling back to standard pickle...")
+            with open(args.test_embeddings, 'rb') as f:
+                test_data = pickle.load(f)
 
-        X_test = test_data[pooling]
-        y_test = test_data['labels']
-
-        evaluate_in_memory(
+        evaluate(
             model_data=model_data,
-            X_test=X_test,
-            y_test=y_test,
+            test_data=test_data,
+            pooling=pooling,
             output_metrics=args.output
         )
     else:

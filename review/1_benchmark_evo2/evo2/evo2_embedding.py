@@ -12,6 +12,7 @@ from sklearn.metrics import roc_auc_score, average_precision_score, accuracy_sco
 import xgboost as xgb
 import os
 import time
+import joblib
 from typing import Dict, Optional
 
 
@@ -26,6 +27,44 @@ class EmbeddingDataset(Dataset):
 
     def __getitem__(self, idx):
         return self.X[idx], self.y[idx]
+
+
+class LazyEmbeddingDataset(Dataset):
+    """
+    Lazy loading PyTorch Dataset for embeddings.
+    Constructs features on-the-fly to save memory.
+    """
+    def __init__(self, data_dict, strategy):
+        # Store numpy arrays (memory-mapped) directly, DO NOT convert to tensor here
+        # torch.tensor() would force a copy of the entire array into RAM
+        self.forward_embs = data_dict['forward']
+        if strategy != 'forward':
+            if data_dict['reverse'] is None:
+                raise ValueError("Reverse embeddings not available.")
+            self.reverse_embs = data_dict['reverse']
+        else:
+            self.reverse_embs = None
+            
+        # Labels are small enough to keep in memory as tensor
+        self.y = torch.tensor(data_dict['labels'], dtype=torch.float32)
+        self.strategy = strategy
+
+    def __len__(self):
+        return len(self.y)
+
+    def __getitem__(self, idx):
+        if self.strategy == 'forward':
+            x_np = self.forward_embs[idx]
+        elif self.strategy == 'reverse':
+            x_np = self.reverse_embs[idx]
+        elif self.strategy == 'average':
+            x_np = (self.forward_embs[idx] + self.reverse_embs[idx]) / 2
+        elif self.strategy == 'concatenate':
+            x_np = np.concatenate([self.forward_embs[idx], self.reverse_embs[idx]], axis=0)
+        else:
+            raise ValueError(f"Unknown strategy: {self.strategy}")
+            
+        return torch.tensor(x_np, dtype=torch.float32), self.y[idx]
 
 
 class SimpleMLPClassifier(nn.Module):
@@ -200,8 +239,7 @@ def fetch_embeddings(input_tsv, output_pkl, use_reverse_complement=True, layer_n
     # Save local embeddings
     temp_output = Path(output_pkl).with_suffix(f".rank{rank}.pkl")
     print(f"[Rank {rank}] Saving local embeddings to {temp_output}...")
-    with open(temp_output, 'wb') as f:
-        pickle.dump(embeddings_data, f)
+    joblib.dump(embeddings_data, temp_output)
 
     # Rank 0 aggregation
     if rank == 0:
@@ -225,13 +263,13 @@ def fetch_embeddings(input_tsv, output_pkl, use_reverse_complement=True, layer_n
         # Load in order
         for r in range(world_size):
             p = Path(output_pkl).with_suffix(f".rank{r}.pkl")
-            with open(p, 'rb') as f:
-                data = pickle.load(f)
-                all_metadata.append(data['metadata'])
-                all_labels.append(data['labels'])
-                all_forward.append(data['forward'])
-                if has_reverse:
-                    all_reverse.append(data['reverse'])
+            # Using joblib.load for local files (though they are small, good for consistency)
+            data = joblib.load(p)
+            all_metadata.append(data['metadata'])
+            all_labels.append(data['labels'])
+            all_forward.append(data['forward'])
+            if has_reverse:
+                all_reverse.append(data['reverse'])
         
         final_data = {
             'forward': np.concatenate(all_forward, axis=0),
@@ -241,8 +279,7 @@ def fetch_embeddings(input_tsv, output_pkl, use_reverse_complement=True, layer_n
         }
 
         print(f"[Rank 0] Saving final embeddings to {output_pkl}...")
-        with open(output_pkl, 'wb') as f:
-            pickle.dump(final_data, f)
+        joblib.dump(final_data, output_pkl)
 
         print(f"[Rank 0] Final embeddings saved with shape: forward={final_data['forward'].shape}")
         if has_reverse:
@@ -490,31 +527,41 @@ def evaluate(model_pkl, test_embeddings_pkl, strategy=None, output_metrics=None)
     print(f"Using strategy: {strategy}")
 
     # Load test embeddings
+    import joblib
     print(f"Loading test embeddings from {test_embeddings_pkl}...")
-    with open(test_embeddings_pkl, 'rb') as f:
-        test_data = pickle.load(f)
+    try:
+        # Try loading with joblib and mmap (works best if saved with joblib)
+        test_data = joblib.load(test_embeddings_pkl, mmap_mode='r')
+        print("Loaded embeddings using joblib (mmap_mode='r')")
+    except Exception as e:
+        print(f"Joblib load failed: {e}. Falling back to standard pickle...")
+        with open(test_embeddings_pkl, 'rb') as f:
+            test_data = pickle.load(f)
+    
+    print("Test embeddings loaded successfully!")
 
-    # Prepare features
-    def prepare_features(data, strategy):
+    # Helper for batch feature preparation (only for XGBoost)
+    def prepare_features_batch(data, indices, strategy):
+        batch_forward = data['forward'][indices]
+        
         if strategy == 'forward':
-            return data['forward']
-        elif strategy == 'reverse':
-            if data['reverse'] is None:
-                raise ValueError("Reverse embeddings not available.")
-            return data['reverse']
+            return batch_forward
+        
+        batch_reverse = data['reverse'][indices]
+        if batch_reverse is None:
+             raise ValueError("Reverse embeddings not available.")
+             
+        if strategy == 'reverse':
+            return batch_reverse
         elif strategy == 'average':
-            if data['reverse'] is None:
-                raise ValueError("Reverse embeddings not available.")
-            return (data['forward'] + data['reverse']) / 2
+            return (batch_forward + batch_reverse) / 2
         elif strategy == 'concatenate':
-            if data['reverse'] is None:
-                raise ValueError("Reverse embeddings not available.")
-            return np.concatenate([data['forward'], data['reverse']], axis=1)
+            return np.concatenate([batch_forward, batch_reverse], axis=1)
         else:
             raise ValueError(f"Unknown strategy: {strategy}")
 
-    X_test = prepare_features(test_data, strategy)
     y_test = test_data['labels']
+    total_samples = len(y_test)
 
     # Predictions
     print("Generating predictions...")
@@ -524,7 +571,8 @@ def evaluate(model_pkl, test_embeddings_pkl, strategy=None, output_metrics=None)
         model = model.to(device)
         model.eval()
 
-        test_dataset = EmbeddingDataset(X_test, y_test)
+        # Use LazyEmbeddingDataset to avoid full matrix materialization
+        test_dataset = LazyEmbeddingDataset(test_data, strategy)
         test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
         y_pred_proba = []
@@ -537,24 +585,36 @@ def evaluate(model_pkl, test_embeddings_pkl, strategy=None, output_metrics=None)
         y_pred = (y_pred_proba > 0.5).astype(int)
     else:
         # XGBoost prediction
-        # Check if X_test is stored in model_data (old format)
-        if 'X_test' in model_data and 'y_test' in model_data:
-            X_test = model_data['X_test']
-            y_test = model_data['y_test']
-
-        # Batch predictions to avoid GPU memory issues
+        # Batch predictions to avoid OOM
         batch_size = 10000
         y_pred_proba_list = []
         y_pred_list = []
 
         print(f"Predicting in batches of {batch_size} to avoid memory issues...")
-        for i in range(0, len(X_test), batch_size):
-            X_batch = X_test[i:i+batch_size]
+        
+        # Check if we have legacy format where X_test is in model_data
+        has_legacy_X = 'X_test' in model_data and 'y_test' in model_data
+        if has_legacy_X:
+            X_full = model_data['X_test']
+            y_test = model_data['y_test'] # Override y_test from test_data
+            total_samples = len(X_full)
+            
+        for i in range(0, total_samples, batch_size):
+            end_idx = min(i + batch_size, total_samples)
+            
+            if has_legacy_X:
+                X_batch = X_full[i:end_idx]
+            else:
+                # Construct features on-the-fly for this batch
+                X_batch = prepare_features_batch(test_data, slice(i, end_idx), strategy)
+            
             # Use predict_proba on batches to get proper probabilities
             proba_batch = model.predict_proba(X_batch)
             y_pred_proba_list.append(proba_batch[:, 1])
             y_pred_list.append(model.predict(X_batch))
-            print(f"  Processed {min(i+batch_size, len(X_test))}/{len(X_test)} samples")
+            
+            if (i // batch_size) % 10 == 0:
+                 print(f"  Processed {end_idx}/{total_samples} samples")
 
         y_pred_proba = np.concatenate(y_pred_proba_list)
         y_pred = np.concatenate(y_pred_list)
