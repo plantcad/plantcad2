@@ -35,14 +35,17 @@ class LazyEmbeddingDataset(Dataset):
     Constructs features on-the-fly to save memory.
     """
     def __init__(self, data_dict, strategy):
-        self.forward_embs = torch.tensor(data_dict['forward'], dtype=torch.float32)
+        # Store numpy arrays (memory-mapped) directly, DO NOT convert to tensor here
+        # torch.tensor() would force a copy of the entire array into RAM
+        self.forward_embs = data_dict['forward']
         if strategy != 'forward':
             if data_dict['reverse'] is None:
                 raise ValueError("Reverse embeddings not available.")
-            self.reverse_embs = torch.tensor(data_dict['reverse'], dtype=torch.float32)
+            self.reverse_embs = data_dict['reverse']
         else:
             self.reverse_embs = None
             
+        # Labels are small enough to keep in memory as tensor
         self.y = torch.tensor(data_dict['labels'], dtype=torch.float32)
         self.strategy = strategy
 
@@ -51,17 +54,17 @@ class LazyEmbeddingDataset(Dataset):
 
     def __getitem__(self, idx):
         if self.strategy == 'forward':
-            x = self.forward_embs[idx]
+            x_np = self.forward_embs[idx]
         elif self.strategy == 'reverse':
-            x = self.reverse_embs[idx]
+            x_np = self.reverse_embs[idx]
         elif self.strategy == 'average':
-            x = (self.forward_embs[idx] + self.reverse_embs[idx]) / 2
+            x_np = (self.forward_embs[idx] + self.reverse_embs[idx]) / 2
         elif self.strategy == 'concatenate':
-            x = torch.cat([self.forward_embs[idx], self.reverse_embs[idx]], dim=0)
+            x_np = np.concatenate([self.forward_embs[idx], self.reverse_embs[idx]], axis=0)
         else:
             raise ValueError(f"Unknown strategy: {self.strategy}")
             
-        return x, self.y[idx]
+        return torch.tensor(x_np, dtype=torch.float32), self.y[idx]
 
 
 class SimpleMLPClassifier(nn.Module):
