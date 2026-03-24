@@ -1,0 +1,32 @@
+#!/bin/bash
+#SBATCH -J pcad2_vert_large_tts
+#SBATCH -o logs/%x-%A_%a.log
+#SBATCH -e logs/%x-%A_%a.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 4:00:00
+#SBATCH -a 0-1
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+
+source $WORK/envs/transformers_440/bin/activate
+source ~/.bashrc
+
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+PREFIXES=(GCF_000001405.26_GRCh38 GCF_000001635.27_GRCm39)
+PREFIX=${PREFIXES[$SLURM_ARRAY_TASK_ID]}
+
+python zero-shot-eval.py motif_acc \
+    --input_tsv ../results/${PREFIX}_stop_sites.tsv \
+    --model ../../../results/vert_cad_0.40/hf-c-cad2-l48-d1536-ms-v-chtk-c12k-1t-v2-b2-lr5e5-LQ2eun \
+    --device cuda:0 \
+    --mask_idx 4094,4095,4096 \
+    --motif_len 3 \
+    --batch_size 16 \
+    --save_logits ../results/${PREFIX}_tts_recovery_vert_large_logits.tsv
