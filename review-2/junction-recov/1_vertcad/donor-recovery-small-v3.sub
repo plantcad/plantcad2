@@ -1,0 +1,32 @@
+#!/bin/bash
+#SBATCH -J pcad2_vert_small_donor_v3
+#SBATCH -o logs/%x-%A_%a.log
+#SBATCH -e logs/%x-%A_%a.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 3:00:00
+#SBATCH -a 0-1
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+
+module load gcc/13.2.0 cuda/12.4
+module load python3/3.11.8
+
+source $WORK/envs/transformers_440/bin/activate
+source ~/.bashrc
+
+export TRITON_PTXAS_PATH=/opt/apps/cuda/12.4/bin/ptxas
+
+PREFIXES=(GCF_000001405.26_GRCh38 GCF_000001635.27_GRCm39)
+PREFIX=${PREFIXES[$SLURM_ARRAY_TASK_ID]}
+
+python zero-shot-eval.py motif_acc \
+    --input_tsv ../results/${PREFIX}_donor.tsv \
+    --model emarro/vcad2_small_experimental_ba4000 \
+    --device cuda:0 \
+    --mask_idx 4095,4096 \
+    --motif_len 2 \
+    --batch_size 16 \
+    --save_logits ../results/${PREFIX}_donor_recovery_vert_small_v3_logits.tsv
