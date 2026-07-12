@@ -1,0 +1,23 @@
+{
+  "task": "tis_core_noncore_classification",
+  "split": "test_tomato",
+  "mode": "core_noncore",
+  "model": "HuggingFaceBio/Carbon-3B",
+  "num_examples": 35478,
+  "label_counts": {
+    "0": 5669,
+    "1": 29809
+  },
+  "positions": [
+    4094,
+    4095,
+    4096
+  ],
+  "motif_len": 3,
+  "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+  "context_bp": 1020,
+  "auroc": 0.5322970338686142,
+  "auprc": 0.8378019841080957,
+  "elapsed_seconds": 849.7423751354218,
+  "output": "results/plantcad2_carbon_core_noncore/tis_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+}

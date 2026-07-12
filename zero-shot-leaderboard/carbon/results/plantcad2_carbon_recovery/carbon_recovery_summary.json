@@ -1,0 +1,150 @@
+[
+  {
+    "task": "tis_recovery",
+    "split": "test_maize",
+    "mode": "recovery",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 39035,
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+    "context_bp": 1020,
+    "token_accuracy": 0.4860168225097135,
+    "motif_accuracy": 0.320840271551172,
+    "elapsed_seconds": 925.2883417606354,
+    "output": "results/plantcad2_carbon_recovery/tis_recovery_test_maize_carbon_recovery_scores.parquet"
+  },
+  {
+    "task": "tis_recovery",
+    "split": "test_tomato",
+    "mode": "recovery",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 35484,
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+    "context_bp": 1020,
+    "token_accuracy": 0.5802162903665286,
+    "motif_accuracy": 0.37429884150294557,
+    "elapsed_seconds": 846.6828129291534,
+    "output": "results/plantcad2_carbon_recovery/tis_recovery_test_tomato_carbon_recovery_scores.parquet"
+  },
+  {
+    "task": "tts_recovery",
+    "split": "test_maize",
+    "mode": "recovery",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 39035,
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+    "context_bp": 1020,
+    "token_accuracy": 0.48446266171384655,
+    "motif_accuracy": 0.2237479185346484,
+    "elapsed_seconds": 930.2355370521545,
+    "output": "results/plantcad2_carbon_recovery/tts_recovery_test_maize_carbon_recovery_scores.parquet"
+  },
+  {
+    "task": "tts_recovery",
+    "split": "test_tomato",
+    "mode": "recovery",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 35483,
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+    "context_bp": 1020,
+    "token_accuracy": 0.5308715057552267,
+    "motif_accuracy": 0.1895137420718816,
+    "elapsed_seconds": 845.9161574840546,
+    "output": "results/plantcad2_carbon_recovery/tts_recovery_test_tomato_carbon_recovery_scores.parquet"
+  },
+  {
+    "task": "donor_recovery",
+    "split": "test_maize",
+    "mode": "recovery",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 153869,
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+    "context_bp": 1020,
+    "token_accuracy": 0.7287075369307657,
+    "motif_accuracy": 0.6366454581494648,
+    "elapsed_seconds": 3672.3566193580627,
+    "output": "results/plantcad2_carbon_recovery/donor_recovery_test_maize_carbon_recovery_scores.parquet"
+  },
+  {
+    "task": "donor_recovery",
+    "split": "test_tomato",
+    "mode": "recovery",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 140456,
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+    "context_bp": 1020,
+    "token_accuracy": 0.7081224056788489,
+    "motif_accuracy": 0.6024948202575987,
+    "elapsed_seconds": 3357.9068942070007,
+    "output": "results/plantcad2_carbon_recovery/donor_recovery_test_tomato_carbon_recovery_scores.parquet"
+  },
+  {
+    "task": "acceptor_recovery",
+    "split": "test_maize",
+    "mode": "recovery",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 153869,
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+    "context_bp": 1020,
+    "token_accuracy": 0.7334453333679949,
+    "motif_accuracy": 0.6566494875510986,
+    "elapsed_seconds": 3691.5842714309692,
+    "output": "results/plantcad2_carbon_recovery/acceptor_recovery_test_maize_carbon_recovery_scores.parquet"
+  },
+  {
+    "task": "acceptor_recovery",
+    "split": "test_tomato",
+    "mode": "recovery",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 140455,
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+    "context_bp": 1020,
+    "token_accuracy": 0.6881830674042905,
+    "motif_accuracy": 0.5999672483641982,
+    "elapsed_seconds": 3386.5403900146484,
+    "output": "results/plantcad2_carbon_recovery/acceptor_recovery_test_tomato_carbon_recovery_scores.parquet"
+  }
+]

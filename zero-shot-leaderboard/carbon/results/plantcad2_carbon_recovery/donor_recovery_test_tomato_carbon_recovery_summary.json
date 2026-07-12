@@ -1,0 +1,18 @@
+{
+  "task": "donor_recovery",
+  "split": "test_tomato",
+  "mode": "recovery",
+  "model": "HuggingFaceBio/Carbon-3B",
+  "num_examples": 140456,
+  "positions": [
+    4095,
+    4096
+  ],
+  "motif_len": 2,
+  "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+  "context_bp": 1020,
+  "token_accuracy": 0.7081224056788489,
+  "motif_accuracy": 0.6024948202575987,
+  "elapsed_seconds": 3357.9068942070007,
+  "output": "results/plantcad2_carbon_recovery/donor_recovery_test_tomato_carbon_recovery_scores.parquet"
+}

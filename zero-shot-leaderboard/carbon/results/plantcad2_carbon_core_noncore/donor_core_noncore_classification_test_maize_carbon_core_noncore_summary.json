@@ -1,0 +1,22 @@
+{
+  "task": "donor_core_noncore_classification",
+  "split": "test_maize",
+  "mode": "core_noncore",
+  "model": "HuggingFaceBio/Carbon-3B",
+  "num_examples": 144550,
+  "label_counts": {
+    "0": 21367,
+    "1": 123183
+  },
+  "positions": [
+    4095,
+    4096
+  ],
+  "motif_len": 2,
+  "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+  "context_bp": 1020,
+  "auroc": 0.6446221443717598,
+  "auprc": 0.9008564744621619,
+  "elapsed_seconds": 3456.1631157398224,
+  "output": "results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+}

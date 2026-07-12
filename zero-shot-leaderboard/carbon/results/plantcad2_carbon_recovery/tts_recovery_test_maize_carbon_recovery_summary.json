@@ -1,0 +1,19 @@
+{
+  "task": "tts_recovery",
+  "split": "test_maize",
+  "mode": "recovery",
+  "model": "HuggingFaceBio/Carbon-3B",
+  "num_examples": 39035,
+  "positions": [
+    4094,
+    4095,
+    4096
+  ],
+  "motif_len": 3,
+  "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+  "context_bp": 1020,
+  "token_accuracy": 0.48446266171384655,
+  "motif_accuracy": 0.2237479185346484,
+  "elapsed_seconds": 930.2355370521545,
+  "output": "results/plantcad2_carbon_recovery/tts_recovery_test_maize_carbon_recovery_scores.parquet"
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "task": "tis_core_noncore_classification",
+    "split": "test_maize",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 36409,
+    "label_counts": {
+      "0": 8118,
+      "1": 28291
+    },
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "context_bp": 1020,
+    "auroc": 0.5855492066059763,
+    "auprc": 0.8018913757854951,
+    "elapsed_seconds": 863.9006555080414,
+    "output": "results/plantcad2_carbon_core_noncore/tis_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "tis_core_noncore_classification",
+    "split": "test_tomato",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 35478,
+    "label_counts": {
+      "0": 5669,
+      "1": 29809
+    },
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "context_bp": 1020,
+    "auroc": 0.5322970338686142,
+    "auprc": 0.8378019841080957,
+    "elapsed_seconds": 849.7423751354218,
+    "output": "results/plantcad2_carbon_core_noncore/tis_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "tts_core_noncore_classification",
+    "split": "test_maize",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 36409,
+    "label_counts": {
+      "0": 8118,
+      "1": 28291
+    },
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "context_bp": 1020,
+    "auroc": 0.5670213216009043,
+    "auprc": 0.79512581645777,
+    "elapsed_seconds": 871.2908132076263,
+    "output": "results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "tts_core_noncore_classification",
+    "split": "test_tomato",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 35477,
+    "label_counts": {
+      "0": 5671,
+      "1": 29806
+    },
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "context_bp": 1020,
+    "auroc": 0.5112713095971595,
+    "auprc": 0.8320175802913783,
+    "elapsed_seconds": 849.2742507457733,
+    "output": "results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "donor_core_noncore_classification",
+    "split": "test_maize",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 144550,
+    "label_counts": {
+      "0": 21367,
+      "1": 123183
+    },
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "context_bp": 1020,
+    "auroc": 0.6446221443717598,
+    "auprc": 0.9008564744621619,
+    "elapsed_seconds": 3456.1631157398224,
+    "output": "results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "donor_core_noncore_classification",
+    "split": "test_tomato",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 140451,
+    "label_counts": {
+      "0": 8275,
+      "1": 132176
+    },
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "context_bp": 1020,
+    "auroc": 0.5853809847421236,
+    "auprc": 0.9471957937720056,
+    "elapsed_seconds": 3360.8608617782593,
+    "output": "results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "acceptor_core_noncore_classification",
+    "split": "test_maize",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 144550,
+    "label_counts": {
+      "0": 21367,
+      "1": 123183
+    },
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "context_bp": 1020,
+    "auroc": 0.6556925904678492,
+    "auprc": 0.9047540883564569,
+    "elapsed_seconds": 3455.6902136802673,
+    "output": "results/plantcad2_carbon_core_noncore/acceptor_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "acceptor_core_noncore_classification",
+    "split": "test_tomato",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 140451,
+    "label_counts": {
+      "0": 8275,
+      "1": 132176
+    },
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "context_bp": 1020,
+    "auroc": 0.5918742994326707,
+    "auprc": 0.949505210257664,
+    "elapsed_seconds": 3359.5580685138702,
+    "output": "results/plantcad2_carbon_core_noncore/acceptor_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "task": "structural_variant_effect_prediction",
+    "split": "test",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 18075,
+    "label_counts": {
+      "0": 10413,
+      "1": 7662
+    },
+    "score_definition": "0.5 * ((ref forward mean LL - mut forward mean LL) + (ref reverse-complement mean LL - mut reverse-complement mean LL)); higher means mutant is less likely than reference",
+    "scored_bp_note": "Sequences are trimmed to a multiple of the Carbon tokenizer k-mer size before scoring.",
+    "auroc": 0.8364665333223136,
+    "auprc": 0.8314005065068509,
+    "elapsed_seconds": 8251.939246416092,
+    "output": "results/plantcad2_carbon_structural_variant/structural_variant_effect_prediction_test_carbon_structural_variant_scores.parquet"
+  }
+]
