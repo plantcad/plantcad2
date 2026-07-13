@@ -26,21 +26,22 @@ Scoring:
 
 Scoring:
 
-- Uses the true motif in the sequence.
-- Aligns the local sequence crop so the motif starts at a Carbon 6-mer boundary.
-- Score is `0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)`.
+- Prompt ends before the target motif.
+- Scores the true motif by log-summing all compatible next-6-mer suffix completions.
+- Score is `0.5 * (forward true-motif next-6mer logsumexp + reverse-complement true-motif next-6mer logsumexp)`.
+- Examples with ambiguous true motifs outside `ACGT` are skipped for AUROC/AUPRC.
 - `context_bp=1020`.
 
-| Task | Split | n | Pos frac | AUROC | AUPRC |
-|---|---|---:|---:|---:|---:|
-| `tis_core_noncore_classification` | `test_maize` | 36,409 | 0.777 | 0.5855 | 0.8019 |
-| `tis_core_noncore_classification` | `test_tomato` | 35,478 | 0.840 | 0.5323 | 0.8378 |
-| `tts_core_noncore_classification` | `test_maize` | 36,409 | 0.777 | 0.5670 | 0.7951 |
-| `tts_core_noncore_classification` | `test_tomato` | 35,477 | 0.840 | 0.5113 | 0.8320 |
-| `donor_core_noncore_classification` | `test_maize` | 144,550 | 0.852 | 0.6446 | 0.9009 |
-| `donor_core_noncore_classification` | `test_tomato` | 140,451 | 0.941 | 0.5854 | 0.9472 |
-| `acceptor_core_noncore_classification` | `test_maize` | 144,550 | 0.852 | 0.6557 | 0.9048 |
-| `acceptor_core_noncore_classification` | `test_tomato` | 140,451 | 0.941 | 0.5919 | 0.9495 |
+| Task | Split | n | Scored n | Skipped | Pos frac | AUROC | AUPRC |
+|---|---|---:|---:|---:|---:|---:|---:|
+| `tis_core_noncore_classification` | `test_maize` | 36,409 | 36,409 | 0 | 0.777 | 0.6125 | 0.8175 |
+| `tis_core_noncore_classification` | `test_tomato` | 35,478 | 35,477 | 1 | 0.840 | 0.5693 | 0.8525 |
+| `tts_core_noncore_classification` | `test_maize` | 36,409 | 36,409 | 0 | 0.777 | 0.6159 | 0.8265 |
+| `tts_core_noncore_classification` | `test_tomato` | 35,477 | 35,475 | 2 | 0.840 | 0.5584 | 0.8561 |
+| `donor_core_noncore_classification` | `test_maize` | 144,550 | 144,550 | 0 | 0.852 | 0.6781 | 0.9122 |
+| `donor_core_noncore_classification` | `test_tomato` | 140,451 | 140,451 | 0 | 0.941 | 0.6449 | 0.9555 |
+| `acceptor_core_noncore_classification` | `test_maize` | 144,550 | 144,550 | 0 | 0.852 | 0.6814 | 0.9114 |
+| `acceptor_core_noncore_classification` | `test_tomato` | 140,451 | 140,451 | 0 | 0.941 | 0.6462 | 0.9585 |
 
 ## Motif Recovery Tasks
 

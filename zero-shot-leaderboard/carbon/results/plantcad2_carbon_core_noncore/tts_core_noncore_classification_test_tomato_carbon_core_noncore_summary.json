@@ -14,10 +14,12 @@
     4096
   ],
   "motif_len": 3,
-  "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+  "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
   "context_bp": 1020,
-  "auroc": 0.5112713095971595,
-  "auprc": 0.8320175802913783,
-  "elapsed_seconds": 849.2742507457733,
-  "output": "results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+  "num_scored_examples": 35475,
+  "skipped_ambiguous_motif_examples": 2,
+  "auroc": 0.5583596200046381,
+  "auprc": 0.856139598614076,
+  "elapsed_seconds": 255.99619483947754,
+  "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
 }

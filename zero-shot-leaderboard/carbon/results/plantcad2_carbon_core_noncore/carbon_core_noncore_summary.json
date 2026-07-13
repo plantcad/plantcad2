@@ -15,12 +15,14 @@
       4096
     ],
     "motif_len": 3,
-    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
     "context_bp": 1020,
-    "auroc": 0.5855492066059763,
-    "auprc": 0.8018913757854951,
-    "elapsed_seconds": 863.9006555080414,
-    "output": "results/plantcad2_carbon_core_noncore/tis_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+    "num_scored_examples": 36409,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6124983736188626,
+    "auprc": 0.8175228798345657,
+    "elapsed_seconds": 254.24153017997742,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tis_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
   },
   {
     "task": "tis_core_noncore_classification",
@@ -38,12 +40,14 @@
       4096
     ],
     "motif_len": 3,
-    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
     "context_bp": 1020,
-    "auroc": 0.5322970338686142,
-    "auprc": 0.8378019841080957,
-    "elapsed_seconds": 849.7423751354218,
-    "output": "results/plantcad2_carbon_core_noncore/tis_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+    "num_scored_examples": 35477,
+    "skipped_ambiguous_motif_examples": 1,
+    "auroc": 0.5693436284405209,
+    "auprc": 0.8525131131403588,
+    "elapsed_seconds": 250.39490509033203,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tis_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
   },
   {
     "task": "tts_core_noncore_classification",
@@ -61,12 +65,14 @@
       4096
     ],
     "motif_len": 3,
-    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
     "context_bp": 1020,
-    "auroc": 0.5670213216009043,
-    "auprc": 0.79512581645777,
-    "elapsed_seconds": 871.2908132076263,
-    "output": "results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+    "num_scored_examples": 36409,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6159284866552799,
+    "auprc": 0.8265239271620314,
+    "elapsed_seconds": 238.74308252334595,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
   },
   {
     "task": "tts_core_noncore_classification",
@@ -84,12 +90,14 @@
       4096
     ],
     "motif_len": 3,
-    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
     "context_bp": 1020,
-    "auroc": 0.5112713095971595,
-    "auprc": 0.8320175802913783,
-    "elapsed_seconds": 849.2742507457733,
-    "output": "results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+    "num_scored_examples": 35475,
+    "skipped_ambiguous_motif_examples": 2,
+    "auroc": 0.5583596200046381,
+    "auprc": 0.856139598614076,
+    "elapsed_seconds": 255.99619483947754,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
   },
   {
     "task": "donor_core_noncore_classification",
@@ -106,12 +114,14 @@
       4096
     ],
     "motif_len": 2,
-    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
     "context_bp": 1020,
-    "auroc": 0.6446221443717598,
-    "auprc": 0.9008564744621619,
-    "elapsed_seconds": 3456.1631157398224,
-    "output": "results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+    "num_scored_examples": 144550,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6781429945008581,
+    "auprc": 0.9122165429963236,
+    "elapsed_seconds": 942.3425085544586,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
   },
   {
     "task": "donor_core_noncore_classification",
@@ -128,12 +138,14 @@
       4096
     ],
     "motif_len": 2,
-    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
     "context_bp": 1020,
-    "auroc": 0.5853809847421236,
-    "auprc": 0.9471957937720056,
-    "elapsed_seconds": 3360.8608617782593,
-    "output": "results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+    "num_scored_examples": 140451,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6449111383485391,
+    "auprc": 0.9554976892780482,
+    "elapsed_seconds": 959.1332747936249,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
   },
   {
     "task": "acceptor_core_noncore_classification",
@@ -150,12 +162,14 @@
       4096
     ],
     "motif_len": 2,
-    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
     "context_bp": 1020,
-    "auroc": 0.6556925904678492,
-    "auprc": 0.9047540883564569,
-    "elapsed_seconds": 3455.6902136802673,
-    "output": "results/plantcad2_carbon_core_noncore/acceptor_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+    "num_scored_examples": 144550,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6813560859199423,
+    "auprc": 0.9113992029918698,
+    "elapsed_seconds": 946.7307353019714,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/acceptor_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
   },
   {
     "task": "acceptor_core_noncore_classification",
@@ -172,11 +186,13 @@
       4096
     ],
     "motif_len": 2,
-    "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
     "context_bp": 1020,
-    "auroc": 0.5918742994326707,
-    "auprc": 0.949505210257664,
-    "elapsed_seconds": 3359.5580685138702,
-    "output": "results/plantcad2_carbon_core_noncore/acceptor_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+    "num_scored_examples": 140451,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6461994338958841,
+    "auprc": 0.9585377211548928,
+    "elapsed_seconds": 918.4830620288849,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/acceptor_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
   }
 ]
