@@ -167,9 +167,11 @@ def motif_token_ids(tokenizer, motif_len: int, k: int) -> dict[str, np.ndarray]:
 
 def score_true_motifs(model, tokenizer, sequences: list[str], positions: list[int], args) -> dict:
     k = getattr(tokenizer, "k", 6)
-    scores = np.empty(len(sequences), dtype=np.float32)
-    fwd_scores = np.empty(len(sequences), dtype=np.float32)
-    rc_scores = np.empty(len(sequences), dtype=np.float32)
+    ids_by_motif = motif_token_ids(tokenizer, len(positions), k)
+    scores = np.full(len(sequences), np.nan, dtype=np.float32)
+    fwd_scores = np.full(len(sequences), np.nan, dtype=np.float32)
+    rc_scores = np.full(len(sequences), np.nan, dtype=np.float32)
+    valid_motifs = np.zeros(len(sequences), dtype=bool)
     motifs = []
 
     for start in tqdm(
@@ -179,25 +181,33 @@ def score_true_motifs(model, tokenizer, sequences: list[str], positions: list[in
         mininterval=args.progress_interval,
     ):
         end = min(start + args.batch_size, len(sequences))
-        fwd_prefixes = []
-        rc_prefixes = []
+        fwd_contexts = []
+        rc_contexts = []
         for seq in sequences[start:end]:
             motif = "".join(seq[pos].upper() for pos in positions)
-            fwd_prefix, rc_prefix = motif_score_inputs(seq, positions, motif, args.context_bp, k)
-            fwd_prefixes.append(fwd_prefix)
-            rc_prefixes.append(rc_prefix)
+            fwd_context, rc_context = motif_context_inputs(seq, positions, args.context_bp, k)
+            fwd_contexts.append(fwd_context)
+            rc_contexts.append(rc_context)
             motifs.append(motif)
-        fwd = score_many_prefixes(model, tokenizer, fwd_prefixes, args.micro_batch_size)
-        rc = score_many_prefixes(model, tokenizer, rc_prefixes, args.micro_batch_size)
-        fwd_scores[start:end] = fwd
-        rc_scores[start:end] = rc
-        scores[start:end] = (fwd + rc) / 2.0
+        fwd_lp = next_token_log_probs_many(model, tokenizer, fwd_contexts, args.micro_batch_size)
+        rc_lp = next_token_log_probs_many(model, tokenizer, rc_contexts, args.micro_batch_size)
+        for row_idx, motif in enumerate(motifs[start:end]):
+            rc_motif = revcomp(motif)
+            if motif not in ids_by_motif or rc_motif not in ids_by_motif:
+                continue
+            fwd = np.logaddexp.reduce(fwd_lp[row_idx, ids_by_motif[motif]])
+            rc = np.logaddexp.reduce(rc_lp[row_idx, ids_by_motif[rc_motif]])
+            fwd_scores[start + row_idx] = fwd
+            rc_scores[start + row_idx] = rc
+            scores[start + row_idx] = (fwd + rc) / 2.0
+            valid_motifs[start + row_idx] = True
 
     return {
         "score": scores,
         "forward_logp": fwd_scores,
         "revcomp_logp": rc_scores,
         "true_motif": motifs,
+        "valid_motif": valid_motifs,
     }
 
 
@@ -278,7 +288,7 @@ def load_model(args):
         args.model,
         revision=args.revision,
         trust_remote_code=True,
-        dtype=torch.bfloat16 if args.bf16 else torch.float32,
+        torch_dtype=torch.bfloat16 if args.bf16 else torch.float32,
     ).to("cuda").eval()
     return model, tokenizer
 
@@ -295,8 +305,15 @@ def eval_core_task(model, tokenizer, task: str, split: str, args) -> dict:
     score_data = score_true_motifs(model, tokenizer, sequences, spec["positions"], args)
     elapsed = time.time() - t0
     scores = score_data["score"]
-    auroc = float(roc_auc_score(labels, scores))
-    auprc = float(average_precision_score(labels, scores))
+    valid_mask = score_data["valid_motif"] & np.isfinite(scores)
+    invalid_motif_count = int((~score_data["valid_motif"]).sum())
+    if len(np.unique(labels[valid_mask])) < 2:
+        raise ValueError(
+            f"{task}/{split} has fewer than two label classes after excluding "
+            f"{invalid_motif_count} ambiguous-motif examples"
+        )
+    auroc = float(roc_auc_score(labels[valid_mask], scores[valid_mask]))
+    auprc = float(average_precision_score(labels[valid_mask], scores[valid_mask]))
 
     out = pd.DataFrame(
         {
@@ -305,6 +322,7 @@ def eval_core_task(model, tokenizer, task: str, split: str, args) -> dict:
             "forward_logp": score_data["forward_logp"],
             "revcomp_logp": score_data["revcomp_logp"],
             "true_motif": score_data["true_motif"],
+            "valid_motif": score_data["valid_motif"],
         }
     )
     stem = f"{task}_{split}_carbon_core_noncore"
@@ -319,8 +337,10 @@ def eval_core_task(model, tokenizer, task: str, split: str, args) -> dict:
         "label_counts": {str(k): int(v) for k, v in df[args.label_column].value_counts().sort_index().items()},
         "positions": spec["positions"],
         "motif_len": spec["motif_len"],
-        "score_definition": "0.5 * (forward true-motif 6-mer logp + reverse-complement true-motif 6-mer logp)",
+        "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
         "context_bp": args.context_bp,
+        "num_scored_examples": int(valid_mask.sum()),
+        "skipped_ambiguous_motif_examples": invalid_motif_count,
         "auroc": auroc,
         "auprc": auprc,
         "elapsed_seconds": elapsed,
