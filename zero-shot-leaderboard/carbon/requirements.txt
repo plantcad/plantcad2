@@ -1,0 +1,9 @@
+accelerate
+datasets
+numpy
+pandas
+pyarrow
+scikit-learn
+torch
+tqdm
+transformers

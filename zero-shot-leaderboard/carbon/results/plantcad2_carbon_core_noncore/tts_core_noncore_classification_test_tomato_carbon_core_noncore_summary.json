@@ -1,0 +1,25 @@
+{
+  "task": "tts_core_noncore_classification",
+  "split": "test_tomato",
+  "mode": "core_noncore",
+  "model": "HuggingFaceBio/Carbon-3B",
+  "num_examples": 35477,
+  "label_counts": {
+    "0": 5671,
+    "1": 29806
+  },
+  "positions": [
+    4094,
+    4095,
+    4096
+  ],
+  "motif_len": 3,
+  "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+  "context_bp": 1020,
+  "num_scored_examples": 35475,
+  "skipped_ambiguous_motif_examples": 2,
+  "auroc": 0.5583596200046381,
+  "auprc": 0.856139598614076,
+  "elapsed_seconds": 255.99619483947754,
+  "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+}

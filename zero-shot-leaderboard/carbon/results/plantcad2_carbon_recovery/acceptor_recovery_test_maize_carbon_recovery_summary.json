@@ -1,0 +1,18 @@
+{
+  "task": "acceptor_recovery",
+  "split": "test_maize",
+  "mode": "recovery",
+  "model": "HuggingFaceBio/Carbon-3B",
+  "num_examples": 153869,
+  "positions": [
+    4095,
+    4096
+  ],
+  "motif_len": 2,
+  "score_definition": "prompt ends before motif; argmax over motif candidates by 0.5 * (forward next-6mer logsumexp over candidate suffixes + reverse-complement next-6mer logsumexp over candidate suffixes)",
+  "context_bp": 1020,
+  "token_accuracy": 0.7334453333679949,
+  "motif_accuracy": 0.6566494875510986,
+  "elapsed_seconds": 3691.5842714309692,
+  "output": "results/plantcad2_carbon_recovery/acceptor_recovery_test_maize_carbon_recovery_scores.parquet"
+}

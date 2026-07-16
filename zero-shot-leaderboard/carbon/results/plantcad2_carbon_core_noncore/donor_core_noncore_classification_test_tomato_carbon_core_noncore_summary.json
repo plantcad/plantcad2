@@ -1,0 +1,24 @@
+{
+  "task": "donor_core_noncore_classification",
+  "split": "test_tomato",
+  "mode": "core_noncore",
+  "model": "HuggingFaceBio/Carbon-3B",
+  "num_examples": 140451,
+  "label_counts": {
+    "0": 8275,
+    "1": 132176
+  },
+  "positions": [
+    4095,
+    4096
+  ],
+  "motif_len": 2,
+  "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+  "context_bp": 1020,
+  "num_scored_examples": 140451,
+  "skipped_ambiguous_motif_examples": 0,
+  "auroc": 0.6449111383485391,
+  "auprc": 0.9554976892780482,
+  "elapsed_seconds": 959.1332747936249,
+  "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+}

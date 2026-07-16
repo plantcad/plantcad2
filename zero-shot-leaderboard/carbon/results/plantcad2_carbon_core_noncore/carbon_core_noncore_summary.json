@@ -1,0 +1,198 @@
+[
+  {
+    "task": "tis_core_noncore_classification",
+    "split": "test_maize",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 36409,
+    "label_counts": {
+      "0": 8118,
+      "1": 28291
+    },
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+    "context_bp": 1020,
+    "num_scored_examples": 36409,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6124983736188626,
+    "auprc": 0.8175228798345657,
+    "elapsed_seconds": 254.24153017997742,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tis_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "tis_core_noncore_classification",
+    "split": "test_tomato",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 35478,
+    "label_counts": {
+      "0": 5669,
+      "1": 29809
+    },
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+    "context_bp": 1020,
+    "num_scored_examples": 35477,
+    "skipped_ambiguous_motif_examples": 1,
+    "auroc": 0.5693436284405209,
+    "auprc": 0.8525131131403588,
+    "elapsed_seconds": 250.39490509033203,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tis_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "tts_core_noncore_classification",
+    "split": "test_maize",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 36409,
+    "label_counts": {
+      "0": 8118,
+      "1": 28291
+    },
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+    "context_bp": 1020,
+    "num_scored_examples": 36409,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6159284866552799,
+    "auprc": 0.8265239271620314,
+    "elapsed_seconds": 238.74308252334595,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "tts_core_noncore_classification",
+    "split": "test_tomato",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 35477,
+    "label_counts": {
+      "0": 5671,
+      "1": 29806
+    },
+    "positions": [
+      4094,
+      4095,
+      4096
+    ],
+    "motif_len": 3,
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+    "context_bp": 1020,
+    "num_scored_examples": 35475,
+    "skipped_ambiguous_motif_examples": 2,
+    "auroc": 0.5583596200046381,
+    "auprc": 0.856139598614076,
+    "elapsed_seconds": 255.99619483947754,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/tts_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "donor_core_noncore_classification",
+    "split": "test_maize",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 144550,
+    "label_counts": {
+      "0": 21367,
+      "1": 123183
+    },
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+    "context_bp": 1020,
+    "num_scored_examples": 144550,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6781429945008581,
+    "auprc": 0.9122165429963236,
+    "elapsed_seconds": 942.3425085544586,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "donor_core_noncore_classification",
+    "split": "test_tomato",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 140451,
+    "label_counts": {
+      "0": 8275,
+      "1": 132176
+    },
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+    "context_bp": 1020,
+    "num_scored_examples": 140451,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6449111383485391,
+    "auprc": 0.9554976892780482,
+    "elapsed_seconds": 959.1332747936249,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/donor_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "acceptor_core_noncore_classification",
+    "split": "test_maize",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 144550,
+    "label_counts": {
+      "0": 21367,
+      "1": 123183
+    },
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+    "context_bp": 1020,
+    "num_scored_examples": 144550,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6813560859199423,
+    "auprc": 0.9113992029918698,
+    "elapsed_seconds": 946.7307353019714,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/acceptor_core_noncore_classification_test_maize_carbon_core_noncore_scores.parquet"
+  },
+  {
+    "task": "acceptor_core_noncore_classification",
+    "split": "test_tomato",
+    "mode": "core_noncore",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 140451,
+    "label_counts": {
+      "0": 8275,
+      "1": 132176
+    },
+    "positions": [
+      4095,
+      4096
+    ],
+    "motif_len": 2,
+    "score_definition": "prompt ends before motif; 0.5 * (forward true-motif next-6mer logsumexp over suffix completions + reverse-complement true-motif next-6mer logsumexp over suffix completions)",
+    "context_bp": 1020,
+    "num_scored_examples": 140451,
+    "skipped_ambiguous_motif_examples": 0,
+    "auroc": 0.6461994338958841,
+    "auprc": 0.9585377211548928,
+    "elapsed_seconds": 918.4830620288849,
+    "output": "zero-shot-leaderboard/carbon/results/plantcad2_carbon_core_noncore/acceptor_core_noncore_classification_test_tomato_carbon_core_noncore_scores.parquet"
+  }
+]

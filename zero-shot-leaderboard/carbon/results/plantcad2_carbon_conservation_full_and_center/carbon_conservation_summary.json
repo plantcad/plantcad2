@@ -1,0 +1,70 @@
+[
+  {
+    "task": "conservation_within_poaceae_tis",
+    "dataset": "plantcad/PlantCAD2_zero_shot_tasks",
+    "split": "test",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 36662,
+    "label_counts": {
+      "0": 10012,
+      "1": 26650
+    },
+    "score_modes": [
+      "center6mer",
+      "full_mean_ll"
+    ],
+    "score_definitions": {
+      "center6mer": "0.5 * (forward center-6mer logp + reverse-complement center-6mer logp)",
+      "full_mean_ll": "0.5 * (forward mean teacher-forced logp over full sequence + reverse-complement mean teacher-forced logp over full sequence)"
+    },
+    "context_bp": 1020,
+    "target_base_idx": null,
+    "target_start_mode": "floor(center_base / 6) * 6 when target_base_idx is null",
+    "metrics": {
+      "center6mer": {
+        "auroc": 0.6459912008029389,
+        "auprc": 0.8281282972765861
+      },
+      "full_mean_ll": {
+        "auroc": 0.5201869332785648,
+        "auprc": 0.7441631122624637
+      }
+    },
+    "elapsed_seconds": 9446.580048561096,
+    "output": "results/plantcad2_carbon_conservation_full_and_center/conservation_within_poaceae_tis_carbon_scores.parquet"
+  },
+  {
+    "task": "conservation_within_poaceae_non_tis",
+    "dataset": "plantcad/PlantCAD2_zero_shot_tasks",
+    "split": "test",
+    "model": "HuggingFaceBio/Carbon-3B",
+    "num_examples": 183685,
+    "label_counts": {
+      "0": 80317,
+      "1": 103368
+    },
+    "score_modes": [
+      "center6mer",
+      "full_mean_ll"
+    ],
+    "score_definitions": {
+      "center6mer": "0.5 * (forward center-6mer logp + reverse-complement center-6mer logp)",
+      "full_mean_ll": "0.5 * (forward mean teacher-forced logp over full sequence + reverse-complement mean teacher-forced logp over full sequence)"
+    },
+    "context_bp": 1020,
+    "target_base_idx": null,
+    "target_start_mode": "floor(center_base / 6) * 6 when target_base_idx is null",
+    "metrics": {
+      "center6mer": {
+        "auroc": 0.7036046356029618,
+        "auprc": 0.7404296036157599
+      },
+      "full_mean_ll": {
+        "auroc": 0.5565009844894682,
+        "auprc": 0.6134157173683684
+      }
+    },
+    "elapsed_seconds": 47444.073060274124,
+    "output": "results/plantcad2_carbon_conservation_full_and_center/conservation_within_poaceae_non_tis_carbon_scores.parquet"
+  }
+]
