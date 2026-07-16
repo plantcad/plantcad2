@@ -1,0 +1,55 @@
+#!/bin/bash
+#SBATCH --job-name=carbon-core-short
+#SBATCH --partition=cornell
+#SBATCH --account=cornell
+#SBATCH --qos=cornell
+#SBATCH --gres=gpu:1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=64G
+#SBATCH --time=01:00:00
+#SBATCH --array=0-3
+#SBATCH --output=%x-%A_%a.log
+#SBATCH --error=%x-%A_%a.log
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=jz963@cornell.edu
+
+set -euo pipefail
+
+source ~/miniforge3/bin/activate plantcad
+
+SCRIPT_DIR="/mnt/lustre/cornell/jzhai/utils/plantcad2/zero-shot-leaderboard/carbon"
+REPO_ROOT="/mnt/lustre/cornell/jzhai/utils/plantcad2"
+
+TASKS=(
+  tis_core_noncore_classification
+  tis_core_noncore_classification
+  tts_core_noncore_classification
+  tts_core_noncore_classification
+)
+
+SPLITS=(
+  test_maize
+  test_tomato
+  test_maize
+  test_tomato
+)
+
+TASK="${TASKS[$SLURM_ARRAY_TASK_ID]}"
+SPLIT="${SPLITS[$SLURM_ARRAY_TASK_ID]}"
+OUT_DIR="${SCRIPT_DIR}/results/core_noncore_fix2/${TASK}/${SPLIT}"
+
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
+export HF_HOME="${HF_HOME:-${REPO_ROOT}/.cache/huggingface}"
+export PYTHON="${PYTHON:-python}"
+
+mkdir -p "${SCRIPT_DIR}/logs" "${OUT_DIR}"
+
+nvidia-smi
+"${PYTHON}" "${SCRIPT_DIR}/eval_motif_tasks.py" \
+  --mode core_noncore \
+  --tasks "${TASK}" \
+  --splits "${SPLIT}" \
+  --batch_size 64 \
+  --micro_batch_size 128 \
+  --progress_interval 600 \
+  --output_dir "${OUT_DIR}"

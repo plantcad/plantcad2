@@ -6,6 +6,7 @@ import json
 import os
 import time
 from pathlib import Path
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -32,8 +33,8 @@ def revcomp(seq: str) -> str:
 def target_prefix(
     seq: str,
     k: int,
-    target_base_idx: int | None,
-    context_bp: int | None,
+    target_base_idx: Optional[int],
+    context_bp: Optional[int],
 ) -> tuple[str, int, int, int, str]:
     seq = seq.upper()
     if target_base_idx is None:
@@ -52,6 +53,10 @@ def target_prefix(
         prefix_start = target_start - ((target_start - prefix_start) // k) * k
     local_target_token_idx = (target_start - prefix_start) // k
     return seq[prefix_start:target_end], local_target_token_idx, prefix_start, target_start, seq[target_start:target_end]
+
+
+def resolve_target_base_idx(seq: str, target_base_idx: Optional[int]) -> int:
+    return len(seq) // 2 if target_base_idx is None else target_base_idx
 
 
 def dna_trim(seq: str, k: int) -> str:
@@ -125,8 +130,8 @@ def score_sequences(
     tokenizer,
     sequences: list[str],
     batch_size: int,
-    target_base_idx: int | None,
-    context_bp: int | None,
+    target_base_idx: Optional[int],
+    context_bp: Optional[int],
     progress_interval: float,
 ) -> dict:
     device = next(model.parameters()).device
@@ -150,11 +155,13 @@ def score_sequences(
         fwd_prefixes = []
         rc_prefixes = []
         for seq in batch:
+            resolved_target_base_idx = resolve_target_base_idx(seq, target_base_idx)
             fwd_prefix, _, context_start, target_start, target_kmer = target_prefix(
-                seq, k, target_base_idx, context_bp
+                seq, k, resolved_target_base_idx, context_bp
             )
+            rc_target_base_idx = len(seq) - 1 - resolved_target_base_idx
             rc_prefix, _, _, _, rc_target_kmer = target_prefix(
-                revcomp(seq), k, target_base_idx, context_bp
+                revcomp(seq), k, rc_target_base_idx, context_bp
             )
             fwd_prefixes.append(fwd_prefix)
             rc_prefixes.append(rc_prefix)
@@ -337,7 +344,7 @@ def main() -> None:
         args.model,
         revision=args.revision,
         trust_remote_code=True,
-        dtype=dtype,
+        torch_dtype=dtype,
     ).to("cuda").eval()
 
     summaries = []
