@@ -1,0 +1,36 @@
+#!/bin/bash
+#SBATCH -J pc2zs_sv_effect
+#SBATCH -o logs/%x-%j.log
+#SBATCH -e logs/%x-%j.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 12:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+#
+# sv_effect: boundary LLR over ref/mut full-length probs -> AUPRC.
+# NOTE: sv_effect does NOT apply the context-mode transform (it scores RefSeq/MutSeq
+# directly), so a single run is sufficient -- no context sweep / aggregation.
+set -euo pipefail
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/config.sh"
+
+TASK=structural_variant_effect_prediction
+SPLIT=test
+
+outdir="${OUTPUT_DIR}/sv_effect/${TASK}_${SPLIT}"
+mkdir -p "${outdir}"
+
+python "${EVAL_SCRIPT}" sv_effect \
+  --repo_id "${REPO_ID}" \
+  --task "${TASK}" \
+  --split "${SPLIT}" \
+  --model "${MODEL}" \
+  --revision "${REVISION}" \
+  --device "${DEVICE}" \
+  --batch_size ${SV_BATCH_SIZE} \
+  --flanking 5 \
+  --output "${outdir}/scores.tsv" \
+  --manifest_json "${outdir}/left.manifest.json"

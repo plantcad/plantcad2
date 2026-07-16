@@ -1,0 +1,56 @@
+#!/bin/bash
+#SBATCH -J pc2zs_core_noncore
+#SBATCH -o logs/%x-%A_%a.log
+#SBATCH -e logs/%x-%A_%a.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 12:00:00
+#SBATCH --array=0-7
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+#
+# core_noncore: AUROC/AUPRC from averaged true-base probability over motif positions.
+set -euo pipefail
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/config.sh"
+
+COMBOS=(
+  "tis_core_noncore_classification test_maize"       "tis_core_noncore_classification test_tomato"
+  "tts_core_noncore_classification test_maize"       "tts_core_noncore_classification test_tomato"
+  "donor_core_noncore_classification test_maize"     "donor_core_noncore_classification test_tomato"
+  "acceptor_core_noncore_classification test_maize"  "acceptor_core_noncore_classification test_tomato"
+)
+read -r task split <<< "${COMBOS[${SLURM_ARRAY_TASK_ID}]}"
+motif_spec "${task}"
+
+outdir="${OUTPUT_DIR}/core_noncore/${task}_${split}"
+mkdir -p "${outdir}"
+
+manifests=""
+for cm in ${CONTEXT_MODES}; do
+  echo "[core_noncore] task=${task} split=${split} mask_idx=${POS} motif_len=${MLEN} context=${cm}"
+  python "${EVAL_SCRIPT}" core_noncore \
+    --repo_id "${REPO_ID}" \
+    --task "${task}" \
+    --split "${split}" \
+    --model "${MODEL}" \
+    --revision "${REVISION}" \
+    --device "${DEVICE}" \
+    --mask_idx="${POS}" \
+    --motif_len ${MLEN} \
+    --batch_size ${BATCH_SIZE} \
+    --seq_column sequence \
+    --label_column label \
+    --context_mode "${cm}" \
+    --metrics_json "${outdir}/${cm}.metrics.json" \
+    --manifest_json "${outdir}/${cm}.manifest.json"
+  manifests="${manifests:+${manifests},}${outdir}/${cm}.manifest.json"
+done
+
+python "${EVAL_SCRIPT}" aggregate_context_max \
+  --manifest_json "${manifests}" \
+  --expected_context_modes "${EXPECTED_CONTEXT_MODES}" \
+  --strict_expected_modes True \
+  --output_json "${outdir}/aggregate_context_max.json"

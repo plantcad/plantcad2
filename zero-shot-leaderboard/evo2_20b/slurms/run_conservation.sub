@@ -1,0 +1,54 @@
+#!/bin/bash
+#SBATCH -J pc2zs_conservation
+#SBATCH -o logs/%x-%A_%a.log
+#SBATCH -e logs/%x-%A_%a.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 12:00:00
+#SBATCH --array=0-2
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+#
+# evo_cons: mask/score the single middle token (token_idx=4095) and report AUROC/AUPRC.
+set -euo pipefail
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/config.sh"
+
+SPLIT=test
+TOKEN_IDX=4095
+TASKS=(
+  conservation_within_poaceae_tis
+  conservation_within_poaceae_non_tis
+  conservation_within_andropogoneae
+)
+task="${TASKS[${SLURM_ARRAY_TASK_ID}]}"
+
+outdir="${OUTPUT_DIR}/evo_cons/${task}_${SPLIT}"
+mkdir -p "${outdir}"
+
+manifests=""
+for cm in ${CONTEXT_MODES}; do
+  echo "[evo_cons] task=${task} split=${SPLIT} context=${cm}"
+  python "${EVAL_SCRIPT}" evo_cons \
+    --repo_id "${REPO_ID}" \
+    --task "${task}" \
+    --split "${SPLIT}" \
+    --model "${MODEL}" \
+    --revision "${REVISION}" \
+    --device "${DEVICE}" \
+    --token_idx ${TOKEN_IDX} \
+    --batch_size ${BATCH_SIZE} \
+    --seq_column sequence \
+    --context_mode "${cm}" \
+    --metrics_json "${outdir}/${cm}.metrics.json" \
+    --manifest_json "${outdir}/${cm}.manifest.json"
+  manifests="${manifests:+${manifests},}${outdir}/${cm}.manifest.json"
+done
+
+python "${EVAL_SCRIPT}" aggregate_context_max \
+  --manifest_json "${manifests}" \
+  --expected_context_modes "${EXPECTED_CONTEXT_MODES}" \
+  --strict_expected_modes True \
+  --output_json "${outdir}/aggregate_context_max.json"
