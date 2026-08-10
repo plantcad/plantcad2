@@ -3,17 +3,30 @@
 #SBATCH -o logs/%x-%A_%a.log
 #SBATCH -e logs/%x-%A_%a.log
 #SBATCH -p gh
-#SBATCH -N 1
-#SBATCH --ntasks=1
+#SBATCH -N 8
+#SBATCH --ntasks=8
 #SBATCH --ntasks-per-node=1
-#SBATCH -t 12:00:00
+#SBATCH -t 24:00:00
 #SBATCH --array=0-7
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=jz963@cornell.edu
 #
 # core_noncore: AUROC/AUPRC from averaged true-base probability over motif positions.
 set -euo pipefail
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# Slurm copies the batch script to /var/spool/slurmd/job*/slurm_script, so
+# BASH_SOURCE cannot find config.sh; prefer the submit directory under sbatch and
+# fall back to BASH_SOURCE when the script is run directly.
+SCRIPT_DIR=""
+for _d in "${SLURM_SUBMIT_DIR:-}" "${SLURM_SUBMIT_DIR:-}/slurms" "$(dirname -- "${BASH_SOURCE[0]}")"; do
+  if [[ -n "${_d}" && -f "${_d}/config.sh" ]]; then
+    SCRIPT_DIR="$(cd -- "${_d}" && pwd)"
+    break
+  fi
+done
+if [[ -z "${SCRIPT_DIR}" ]]; then
+  echo "ERROR: cannot locate config.sh (SLURM_SUBMIT_DIR=${SLURM_SUBMIT_DIR:-unset})" >&2
+  exit 1
+fi
 source "${SCRIPT_DIR}/config.sh"
 
 COMBOS=(
@@ -31,7 +44,8 @@ mkdir -p "${outdir}"
 manifests=""
 for cm in ${CONTEXT_MODES}; do
   echo "[core_noncore] task=${task} split=${split} mask_idx=${POS} motif_len=${MLEN} context=${cm}"
-  python "${EVAL_SCRIPT}" core_noncore \
+  # Each rank scores a slice; rank 0 gathers and computes metrics.
+  srun -l python "${EVAL_SCRIPT}" core_noncore \
     --repo_id "${REPO_ID}" \
     --task "${task}" \
     --split "${split}" \
@@ -44,6 +58,9 @@ for cm in ${CONTEXT_MODES}; do
     --seq_column sequence \
     --label_column label \
     --context_mode "${cm}" \
+    --shard_prefix "${outdir}/${cm}.shard" \
+    --save_predictions "${outdir}/${cm}.predictions.tsv" \
+    --save_logits "${outdir}/${cm}.logits.tsv" \
     --metrics_json "${outdir}/${cm}.metrics.json" \
     --manifest_json "${outdir}/${cm}.manifest.json"
   manifests="${manifests:+${manifests},}${outdir}/${cm}.manifest.json"

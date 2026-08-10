@@ -5,6 +5,8 @@ Zero-shot evaluation utilities for causal/auto-regressive models.
 
 import json
 import logging
+import os
+import time
 from types import SimpleNamespace
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
@@ -103,26 +105,45 @@ class _Evo2ForCausalLM:
         if input_ids is None:
             raise ValueError("input_ids is required")
         input_ids = input_ids.to(self._device).to(torch.int)
-        # Evo2 forward returns (logits, embeddings); logits shape [B, L, vocab].
-        logits = self.evo2(input_ids)[0]
-        return SimpleNamespace(logits=logits)
+        # Evo2.forward returns (out, embeddings), where `out` is whatever vortex's
+        # StripedHyena.forward returned -- currently the tuple (logits, inference_params).
+        # This is the `outputs, _ = model(ids); logits = outputs[0]` idiom from the Evo2
+        # README; unwrap defensively so a vortex that returns the tensor directly still works.
+        out = self.evo2(input_ids)[0]
+        if isinstance(out, (tuple, list)):
+            out = out[0]
+        # logits shape [B, L, vocab]
+        return SimpleNamespace(logits=out)
 
 
-def _load_evo2_model(model_name: str, device: str):
+def _load_evo2_model(model_name: str, device: str, use_kernels: bool = False):
     from evo2 import Evo2  # lazy: only required when actually evaluating Evo2
+    from evo2.utils import MODEL_NAMES
 
     name = model_name.split("/")[-1]  # accept 'arcinstitute/evo2_20b' or 'evo2_20b'
+    if name not in MODEL_NAMES:
+        # The installed evo2 package predates the requested checkpoint. Fail here with
+        # the fix rather than letting Evo2.__init__ report only the names it knows.
+        raise ValueError(
+            f"Evo2 checkpoint {name!r} is not in the installed evo2 package, which offers: "
+            f"{', '.join(MODEL_NAMES)}.\n"
+            "Upgrade it:  pip install -U 'evo2 @ git+https://github.com/ArcInstitute/evo2.git'\n"
+            "The 20b/40b checkpoints additionally need transformer_engine (FP8 input "
+            "projections); only the 7b models run without it."
+        )
     logger.warning(
         "Loading Evo2 model %r via the evo2 package (HF AutoModelForCausalLM path bypassed).",
         name,
     )
-    evo2_model = Evo2(name)
+    evo2_model = Evo2(name, use_kernels=use_kernels)
     return _Evo2ForCausalLM(evo2_model, device), _Evo2TokenizerShim(evo2_model.tokenizer)
 
 
-def _load_model(model_name: str, device: str, revision: str = "main"):
+def _load_model(
+    model_name: str, device: str, revision: str = "main", use_kernels: bool = False
+):
     if _is_evo2_model(model_name):
-        return _load_evo2_model(model_name, device)
+        return _load_evo2_model(model_name, device, use_kernels=use_kernels)
     dtype = _optimal_dtype()
     logger.warning(
         "Loading causal model with dtype %s (no auto-fallback). Incompatible weights or kernels may error.",
@@ -621,6 +642,149 @@ def _aggregation_compare_keys(m: Dict[str, Any]) -> Tuple:
     )
 
 
+def _write_predictions(
+    path: str,
+    work_df: pd.DataFrame,
+    seq_column: str,
+    positions: List[int],
+    probs: np.ndarray,
+    label_column: Optional[str] = None,
+) -> None:
+    """Long-format predictions: one row per (example, position).
+
+    Columns: example_idx, position, true_token, pred_token, correct, p_A..p_T (and
+    label when available). Group by example_idx to recover motif-level calls.
+    """
+    nuc = np.array(NUCLEOTIDES)
+    seqs = work_df[seq_column].astype(str).tolist()
+    true_tokens = np.array([seqs[i][p].upper() for i in range(len(seqs)) for p in positions])
+    pred_tokens = nuc[probs.argmax(axis=1)]
+    out = pd.DataFrame(
+        {
+            "example_idx": np.repeat(np.arange(len(seqs)), len(positions)),
+            "position": np.tile(np.asarray(positions), len(seqs)),
+            "true_token": true_tokens,
+            "pred_token": pred_tokens,
+            "correct": (true_tokens == pred_tokens).astype(int),
+        }
+    )
+    for j, base in enumerate(NUCLEOTIDES):
+        out[f"p_{base}"] = probs[:, j]
+    if label_column and label_column in work_df.columns:
+        out["label"] = work_df[label_column].to_numpy()[out["example_idx"].to_numpy()]
+    out.to_csv(path, sep="\t", index=False)
+    logger.info("Wrote %d prediction rows to %s", len(out), path)
+
+
+def _slurm_shard() -> Tuple[int, int]:
+    """(rank, world_size) from Slurm/PMI env; (0, 1) when not launched under srun."""
+
+    def _first(names: Sequence[str], default: int) -> int:
+        for name in names:
+            if name in os.environ:
+                return int(os.environ[name])
+        return default
+
+    return (
+        _first(["PMIX_RANK", "SLURM_PROCID", "PMI_RANK"], 0),
+        _first(["PMIX_SIZE", "SLURM_NTASKS", "PMI_SIZE"], 1),
+    )
+
+
+def _partition_indices(n: int, rank: int, world_size: int) -> Tuple[int, int]:
+    """Contiguous row range for this rank; remainder spread over the low ranks."""
+    chunk, remainder = divmod(n, world_size)
+    start = rank * chunk + min(rank, remainder)
+    return start, start + chunk + (1 if rank < remainder else 0)
+
+
+def _shard_path(prefix: str, rank: int) -> str:
+    return f"{prefix}.rank{rank}.npy"
+
+
+def _write_shard(prefix: str, rank: int, arr: np.ndarray) -> str:
+    """Write via a temp file + rename so the root rank never sees a partial shard."""
+    path = _shard_path(prefix, rank)
+    parent = os.path.dirname(path)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
+    tmp = f"{path}.tmp{os.getpid()}.npy"
+    np.save(tmp, arr)
+    os.replace(tmp, path)
+    return path
+
+
+def _gather_shards(
+    prefix: str, world_size: int, timeout_s: float = 7200.0
+) -> np.ndarray:
+    """Root-rank collect: block until every shard lands, then concat in rank order."""
+    paths = [_shard_path(prefix, r) for r in range(world_size)]
+    deadline = time.time() + timeout_s
+    while True:
+        missing = [p for p in paths if not os.path.exists(p)]
+        if not missing:
+            break
+        if time.time() > deadline:
+            raise TimeoutError(
+                f"Waited {timeout_s:.0f}s for {len(missing)} of {world_size} shard(s); "
+                f"first missing: {missing[0]}"
+            )
+        logger.info("[rank 0] waiting on %d/%d shard(s)", len(missing), world_size)
+        time.sleep(10)
+    return np.concatenate([np.load(p) for p in paths], axis=0)
+
+
+def _causal_probs_sharded(
+    work_df: pd.DataFrame,
+    seq_column: str,
+    positions: List[int],
+    model_name: str,
+    device: str,
+    batch_size: int,
+    revision: str,
+    desc: str,
+    shard_prefix: Optional[str],
+) -> Optional[np.ndarray]:
+    """Score this rank's slice of the rows, then gather on rank 0.
+
+    Returns the full [N * len(positions), 4] array on rank 0 (or on a single-process
+    run), and None on the other ranks -- they have written their shard and should
+    exit without computing metrics, which need globally pooled scores.
+    """
+    rank, world_size = _slurm_shard()
+    if world_size > 1 and not shard_prefix:
+        raise ValueError(
+            f"Running under srun with world_size={world_size} but no --shard_prefix; "
+            "ranks need a shared path to exchange partial results."
+        )
+
+    start, end = _partition_indices(len(work_df), rank, world_size)
+    logger.info(
+        "[rank %d/%d] scoring rows %d:%d of %d", rank, world_size, start, end, len(work_df)
+    )
+
+    if end > start:
+        dev = _require_cuda(device)
+        model_, tok = _load_model(model_name, dev, revision=revision)
+        dataset = SequenceDataset(work_df[seq_column].iloc[start:end], tok)
+        loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=1)
+        probs = _causal_probs_at_positions(
+            model_, tok, loader, dev, positions, desc=f"{desc} [rank {rank}]"
+        )
+    else:
+        # More ranks than rows: contribute an empty slice rather than loading the model.
+        probs = np.zeros((0, len(NUCLEOTIDES)), dtype=np.float32)
+
+    if world_size == 1:
+        return probs
+
+    _write_shard(shard_prefix, rank, probs)
+    if rank != 0:
+        logger.info("[rank %d] shard written; rank 0 aggregates", rank)
+        return None
+    return _gather_shards(shard_prefix, world_size)
+
+
 class ZeroShotEvalCausal:
     def evo_cons(
         self,
@@ -639,6 +803,8 @@ class ZeroShotEvalCausal:
         input_tsv: Optional[str] = None,
         context_mode: str = "left",
         revision: str = "main",
+        shard_prefix: Optional[str] = None,
+        save_predictions: Optional[str] = None,
     ) -> None:
         logging.basicConfig(
             level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
@@ -666,32 +832,28 @@ class ZeroShotEvalCausal:
         if logits_path is not None:
             probs = pd.read_csv(logits_path, sep="\t").values
         else:
-            dev = _require_cuda(device)
-            model_, tok = _load_model(model, dev, revision=revision)
-            dataset = SequenceDataset(work_df[seq_column], tok)
-            loader = DataLoader(
-                dataset, batch_size=batch_size, shuffle=False, num_workers=1
-            )
-            probs = _causal_probs_at_positions(
-                model_,
-                tok,
-                loader,
-                dev,
+            probs = _causal_probs_sharded(
+                work_df,
+                seq_column,
                 [work_token_idx],
+                model,
+                device,
+                batch_size,
+                revision,
                 desc=f"Causal probs @ {work_token_idx}",
+                shard_prefix=shard_prefix,
             )
-            # probs = _sequence_loglik(
-            #    model_,
-            #    tok,
-            #    loader,
-            #    dev,
-            #    [work_token_idx],
-            #    desc=f"Causal probs @ {work_token_idx}",
-            # )
+            if probs is None:
+                return  # non-root shard rank: shard written, rank 0 aggregates
             if save_logits:
                 pd.DataFrame(probs, columns=list(NUCLEOTIDES)).to_csv(
                     save_logits, sep="\t", index=False
                 )
+
+        if save_predictions:
+            _write_predictions(
+                save_predictions, work_df, seq_column, [work_token_idx], probs, "label"
+            )
 
         assert probs.shape[0] == len(df), (
             f"Row mismatch: probs={probs.shape[0]} examples={len(df)}"
@@ -760,6 +922,8 @@ class ZeroShotEvalCausal:
         beam_width: int = 4,
         context_mode: str = "left",
         revision: str = "main",
+        shard_prefix: Optional[str] = None,
+        save_predictions: Optional[str] = None,
     ) -> None:
         logging.basicConfig(
             level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
@@ -793,24 +957,28 @@ class ZeroShotEvalCausal:
         if logits_path is not None:
             probs = pd.read_csv(logits_path, sep="\t").values
         else:
-            dev = _require_cuda(device)
-            model_, tok = _load_model(model, dev, revision=revision)
-            dataset = SequenceDataset(work_df[seq_column], tok)
-            loader = DataLoader(
-                dataset, batch_size=batch_size, shuffle=False, num_workers=1
-            )
-            probs = _causal_probs_at_positions(
-                model_,
-                tok,
-                loader,
-                dev,
+            probs = _causal_probs_sharded(
+                work_df,
+                seq_column,
                 work_positions,
+                model,
+                device,
+                batch_size,
+                revision,
                 desc=f"Causal probs motif_len={motif_len}",
+                shard_prefix=shard_prefix,
             )
+            if probs is None:
+                return  # non-root shard rank: shard written, rank 0 aggregates
             if save_logits:
                 pd.DataFrame(probs, columns=list(NUCLEOTIDES)).to_csv(
                     save_logits, sep="\t", index=False
                 )
+
+        if save_predictions:
+            _write_predictions(
+                save_predictions, work_df, seq_column, work_positions, probs
+            )
 
         expected = len(df) * len(work_positions)
         assert probs.shape[0] == expected, (
@@ -909,6 +1077,8 @@ class ZeroShotEvalCausal:
         use_joint_logprob: bool = False,
         context_mode: str = "left",
         revision: str = "main",
+        shard_prefix: Optional[str] = None,
+        save_predictions: Optional[str] = None,
     ) -> None:
         logging.basicConfig(
             level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
@@ -942,32 +1112,28 @@ class ZeroShotEvalCausal:
         if logits_path is not None:
             probs = pd.read_csv(logits_path, sep="\t").values
         else:
-            dev = _require_cuda(device)
-            model_, tok = _load_model(model, dev, revision=revision)
-            dataset = SequenceDataset(work_df[seq_column], tok)
-            loader = DataLoader(
-                dataset, batch_size=batch_size, shuffle=False, num_workers=1
-            )
-            probs = _causal_probs_at_positions(
-                model_,
-                tok,
-                loader,
-                dev,
+            probs = _causal_probs_sharded(
+                work_df,
+                seq_column,
                 work_positions,
+                model,
+                device,
+                batch_size,
+                revision,
                 desc=f"Causal probs (core/non-core) motif_len={motif_len}",
+                shard_prefix=shard_prefix,
             )
-            # probs = _sequence_loglik(
-            #    model_,
-            #    tok,
-            #    loader,
-            #    dev,
-            #    work_positions,
-            #    desc=f"Causal probs (core/non-core) motif_len={motif_len}",
-            # )
+            if probs is None:
+                return  # non-root shard rank: shard written, rank 0 aggregates
             if save_logits:
                 pd.DataFrame(probs, columns=["A", "C", "G", "T"]).to_csv(
                     save_logits, sep="\t", index=False
                 )
+
+        if save_predictions:
+            _write_predictions(
+                save_predictions, work_df, seq_column, work_positions, probs, label_column
+            )
 
         expected = len(df) * len(work_positions)
         assert probs.shape[0] == expected, (

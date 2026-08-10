@@ -33,8 +33,15 @@ export OUTPUT_DIR="${OUTPUT_DIR:-$SCRATCH/utils/plantcad2/results/zero-shot-lead
 # --------------------------------------------------------------------
 
 export DEVICE="${DEVICE:-cuda:0}"
-export BATCH_SIZE="${BATCH_SIZE:-16}"       # conservation / motif / core-noncore
+# Measured on one GH200 (evo2_20b, L=8192): 1.49 seq/s at B=1 vs 1.59 at B=8 -- the
+# model is already compute-bound at batch 1, so larger batches buy ~nothing and only
+# cost memory (43.4 GiB weights + ~4.7 GiB/seq; B=8 peaked at 91/95 GiB, B=16 fails).
+export BATCH_SIZE="${BATCH_SIZE:-4}"        # conservation / motif / core-noncore
 export SV_BATCH_SIZE="${SV_BATCH_SIZE:-4}"  # sv_effect (two full-length passes/example)
+
+# Nodes per array element for the sharded evals (1 GPU/node, 1 rank/node).
+# At 1.59 seq/s the worst array element is ~128 GPU-h, so N=8 -> ~16 h wall.
+export NODES="${NODES:-8}"
 
 # Context modes to sweep; aggregate_context_max picks the best per (task,split).
 export CONTEXT_MODES="left left_complement right_reverse right_reverse_complement"

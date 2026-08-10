@@ -14,7 +14,20 @@
 # NOTE: sv_effect does NOT apply the context-mode transform (it scores RefSeq/MutSeq
 # directly), so a single run is sufficient -- no context sweep / aggregation.
 set -euo pipefail
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+# Slurm copies the batch script to /var/spool/slurmd/job*/slurm_script, so
+# BASH_SOURCE cannot find config.sh; prefer the submit directory under sbatch and
+# fall back to BASH_SOURCE when the script is run directly.
+SCRIPT_DIR=""
+for _d in "${SLURM_SUBMIT_DIR:-}" "${SLURM_SUBMIT_DIR:-}/slurms" "$(dirname -- "${BASH_SOURCE[0]}")"; do
+  if [[ -n "${_d}" && -f "${_d}/config.sh" ]]; then
+    SCRIPT_DIR="$(cd -- "${_d}" && pwd)"
+    break
+  fi
+done
+if [[ -z "${SCRIPT_DIR}" ]]; then
+  echo "ERROR: cannot locate config.sh (SLURM_SUBMIT_DIR=${SLURM_SUBMIT_DIR:-unset})" >&2
+  exit 1
+fi
 source "${SCRIPT_DIR}/config.sh"
 
 TASK=structural_variant_effect_prediction
