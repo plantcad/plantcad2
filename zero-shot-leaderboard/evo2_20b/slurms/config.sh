@@ -39,20 +39,21 @@ export DEVICE="${DEVICE:-cuda:0}"
 export BATCH_SIZE="${BATCH_SIZE:-4}"        # conservation / motif / core-noncore
 export SV_BATCH_SIZE="${SV_BATCH_SIZE:-4}"  # sv_effect (two full-length passes/example)
 
-# Nodes per array element for the sharded evals (1 GPU/node, 1 rank/node).
-# At 1.59 seq/s the worst array element is ~128 GPU-h, so N=8 -> ~16 h wall.
-export NODES="${NODES:-8}"
+# Node count lives in each .sub's "#SBATCH -N / --ntasks" (Slurm parses those before
+# this file is sourced, so it cannot be set here). Override per submission with:
+#   sbatch -N 4 --ntasks=4 run_recovery.sub
+# At 1.59 seq/s and 2 context modes the worst element is ~64 GPU-h -> ~16 h on 4 nodes.
 
 # Context modes to sweep; aggregate_context_max picks the best per (task,split).
-# `left` and `right_reverse_complement` are the two real strands (forward and reverse,
-# both 5'->3'); `left_complement` and `right_reverse` are controls, so including them
-# doubles the cost and lets a control win the max. Override from the submitting shell
-# to cut to the real strands -- both must change together or --strict_expected_modes
-# aborts the aggregation step:
-#   export CONTEXT_MODES="left right_reverse_complement"
-#   export EXPECTED_CONTEXT_MODES="left,right_reverse_complement"
-export CONTEXT_MODES="${CONTEXT_MODES:-left left_complement right_reverse right_reverse_complement}"
-export EXPECTED_CONTEXT_MODES="${EXPECTED_CONTEXT_MODES:-left,left_complement,right_reverse,right_reverse_complement}"
+# Only the two real strands: `left` is the forward strand and `right_reverse_complement`
+# the reverse, both read 5'->3'. (`left_complement` reads 3'->5' and `right_reverse` is
+# the sequence backwards -- neither is a strand a polymerase would see, and including
+# them in a max-over-context lets a control set the reported number.)
+# Both variables must change together or --strict_expected_modes aborts aggregation:
+#   export CONTEXT_MODES="left left_complement right_reverse right_reverse_complement"
+#   export EXPECTED_CONTEXT_MODES="left,left_complement,right_reverse,right_reverse_complement"
+export CONTEXT_MODES="${CONTEXT_MODES:-left right_reverse_complement}"
+export EXPECTED_CONTEXT_MODES="${EXPECTED_CONTEXT_MODES:-left,right_reverse_complement}"
 
 # Motif positions are shared by *_recovery and *_core_noncore_classification tasks
 # (single-nucleotide tokens, 8192 bp sequences, 0-based center = 4095/4096).
