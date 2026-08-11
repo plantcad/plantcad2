@@ -547,6 +547,19 @@ def _write_run_manifest(path: str, payload: Dict[str, Any]) -> None:
         json.dump(body, f, indent=2)
 
 
+def _as_str_list(value: Any) -> List[str]:
+    """Split a comma-separated flag into a list, tolerating Fire's own parsing.
+
+    Fire rewrites bare names before literal_eval, so `--flag=a,b,c` arrives as the
+    tuple ('a','b','c') while `--flag=/p/a.json,/p/b.json` stays a string (the
+    slashes make it unparseable). Accept either shape.
+    """
+    if value is None:
+        return []
+    items = value if isinstance(value, (list, tuple)) else str(value).split(",")
+    return [s for s in (str(x).strip() for x in items) if s]
+
+
 def _collect_manifest_paths(manifest_list_file: str, manifest_json: str) -> List[str]:
     paths: List[str] = []
     if manifest_list_file:
@@ -556,11 +569,7 @@ def _collect_manifest_paths(manifest_list_file: str, manifest_json: str) -> List
                 if not line or line.startswith("#"):
                     continue
                 paths.append(line)
-    if manifest_json:
-        for part in manifest_json.split(","):
-            p = part.strip()
-            if p:
-                paths.append(p)
+    paths.extend(_as_str_list(manifest_json))
     if not paths:
         raise ValueError(
             "Provide manifest_list_file (one path per line) and/or manifest_json (comma-separated paths)."
@@ -1322,11 +1331,7 @@ class ZeroShotEvalCausal:
                     f"  {loaded[0][0]!r} vs {p!r}"
                 )
 
-        expected_modes: Optional[List[str]] = None
-        if expected_context_modes.strip():
-            expected_modes = [
-                x.strip() for x in expected_context_modes.split(",") if x.strip()
-            ]
+        expected_modes: Optional[List[str]] = _as_str_list(expected_context_modes) or None
 
         seen_modes = {m["context_mode"] for _, m in loaded}
         if len(seen_modes) < len(loaded):
