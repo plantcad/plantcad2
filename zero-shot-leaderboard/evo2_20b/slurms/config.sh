@@ -44,8 +44,15 @@ export SV_BATCH_SIZE="${SV_BATCH_SIZE:-4}"  # sv_effect (two full-length passes/
 export NODES="${NODES:-8}"
 
 # Context modes to sweep; aggregate_context_max picks the best per (task,split).
-export CONTEXT_MODES="left left_complement right_reverse right_reverse_complement"
-export EXPECTED_CONTEXT_MODES="left,left_complement,right_reverse,right_reverse_complement"
+# `left` and `right_reverse_complement` are the two real strands (forward and reverse,
+# both 5'->3'); `left_complement` and `right_reverse` are controls, so including them
+# doubles the cost and lets a control win the max. Override from the submitting shell
+# to cut to the real strands -- both must change together or --strict_expected_modes
+# aborts the aggregation step:
+#   export CONTEXT_MODES="left right_reverse_complement"
+#   export EXPECTED_CONTEXT_MODES="left,right_reverse_complement"
+export CONTEXT_MODES="${CONTEXT_MODES:-left left_complement right_reverse right_reverse_complement}"
+export EXPECTED_CONTEXT_MODES="${EXPECTED_CONTEXT_MODES:-left,left_complement,right_reverse,right_reverse_complement}"
 
 # Motif positions are shared by *_recovery and *_core_noncore_classification tasks
 # (single-nucleotide tokens, 8192 bp sequences, 0-based center = 4095/4096).
