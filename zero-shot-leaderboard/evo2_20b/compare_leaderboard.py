@@ -103,7 +103,7 @@ def short_name(task: str) -> str:
     )
 
 
-def build_table(lb, local, category, compare, label, modes):
+def build_table(lb, local, category, compare, label, modes, ours):
     rows = []
     for (task, split), tid in TASK_MAP[category].items():
         row = {"task": short_name(task), "split": split.replace("test_", "") or "test"}
@@ -122,24 +122,27 @@ def build_table(lb, local, category, compare, label, modes):
             return "--"
         return f"{v:.3f}" + ("*" if n_modes < 2 else "")
 
+    # `ours` is a PlantCAD model on the leaderboard; the local column is the
+    # external model being evaluated, so the delta reads ours - theirs.
+    headers = [f"{m} (ours)" if m == ours else m for m in compare]
     heading, metric_name = TITLE[category]
     lines = [
         f"## {heading}",
         "",
         f"Metric: {metric_name}. Leaderboard values are the {CONTEXT_BP} bp context rows.",
-        f"Local column is max over {', '.join(modes)}. "
+        f"The {label} column is run locally, max over {', '.join(modes)}. "
         "`*` = only one strand available; `--` = not run locally.",
         "",
-        "| Task | Split | " + " | ".join(compare) + f" | {label} | strand | vs PC2.5-L |",
+        "| Task | Split | " + " | ".join(headers) + f" | {label} | strand | {ours} - {label} |",
         "| :--- | :--- | " + " | ".join(":---" for _ in compare) + " | :--- | :--- | :--- |",
     ]
     for _, r in df.iterrows():
-        ours, ref = r[label], r.get("PlantCAD2.5-L")
-        delta = "--" if ours is None or ref is None or pd.isna(ours) or pd.isna(ref) else f"{ours - ref:+.3f}"
+        theirs, ref = r[label], r.get(ours)
+        delta = "--" if theirs is None or ref is None or pd.isna(theirs) or pd.isna(ref) else f"{ref - theirs:+.3f}"
         lines.append(
             f"| {r.task} | {r.split} | "
             + " | ".join(f(r[m]) for m in compare)
-            + f" | {f(ours, r.n_modes)} | {r.strand or '--'} | {delta} |"
+            + f" | {f(theirs, r.n_modes)} | {r.strand or '--'} | {delta} |"
         )
     return "\n".join(lines)
 
@@ -150,9 +153,12 @@ def main():
     ap.add_argument("--category", default="all",
                     help="motif_acc / evo_cons / core_noncore / sv_effect / all")
     ap.add_argument("--modes", default=",".join(DEFAULT_MODES))
-    ap.add_argument("--label", default="evo2_20b (ours)")
+    ap.add_argument("--label", default="evo2_20b",
+                    help="name for the locally-evaluated (external) model column")
     ap.add_argument("--compare", default="Evo2,PlantCAD2-L,PlantCAD2.5-L",
                     help="comma-separated leaderboard model ids")
+    ap.add_argument("--ours", default="PlantCAD2.5-L",
+                    help="our leaderboard model; marked (ours) and used as the delta reference")
     ap.add_argument("--output", default="")
     args = ap.parse_args()
 
@@ -163,10 +169,16 @@ def main():
     lb = pd.read_csv(io.StringIO(urllib.request.urlopen(RESULTS_URL).read().decode()))
     lb = lb[lb.context_bp == CONTEXT_BP]
 
-    parts = [f"# {args.label} vs PlantCAD2 zero-shot leaderboard", ""]
+    parts = [
+        f"# {args.label} vs PlantCAD2 zero-shot leaderboard",
+        "",
+        f"{args.label} is an external model evaluated here with our causal harness; "
+        f"{args.ours} and the other leaderboard columns are the published numbers.",
+        "",
+    ]
     for cat in categories:
         local = load_local(Path(args.results_dir), cat, modes)
-        parts += [build_table(lb, local, cat, compare, args.label, modes), ""]
+        parts += [build_table(lb, local, cat, compare, args.label, modes, args.ours), ""]
 
     md = "\n".join(parts)
     print(md)
