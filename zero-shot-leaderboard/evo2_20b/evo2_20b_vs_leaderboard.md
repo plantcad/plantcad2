@@ -7,7 +7,7 @@ evo2_20b is an external model evaluated here with our causal harness; PlantCAD2.
 Metric: motif accuracy. Leaderboard values are the 8192 bp context rows.
 The evo2_20b column is run locally, max over left, right_reverse_complement. `*` = only one strand available; `--` = not run locally.
 
-| Task | Split | Evo2 | PlantCAD2-L | PlantCAD2.5-L (ours) | evo2_20b | strand | PlantCAD2.5-L - evo2_20b |
+| Task | Split | evo2_7b | PlantCAD2-L | PlantCAD2.5-L (ours) | evo2_20b | strand | PlantCAD2.5-L - evo2_20b |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | acceptor | maize | 0.738 | 0.900 | 0.913 | 0.826 | rc | +0.087 |
 | donor | maize | 0.741 | 0.910 | 0.921 | 0.822 | fwd | +0.099 |
@@ -23,7 +23,7 @@ The evo2_20b column is run locally, max over left, right_reverse_complement. `*`
 Metric: AUROC. Leaderboard values are the 8192 bp context rows.
 The evo2_20b column is run locally, max over left, right_reverse_complement. `*` = only one strand available; `--` = not run locally.
 
-| Task | Split | Evo2 | PlantCAD2-L | PlantCAD2.5-L (ours) | evo2_20b | strand | PlantCAD2.5-L - evo2_20b |
+| Task | Split | evo2_7b | PlantCAD2-L | PlantCAD2.5-L (ours) | evo2_20b | strand | PlantCAD2.5-L - evo2_20b |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | andropogoneae | test | 0.691 | 0.725 | 0.717 | 0.732 | fwd | -0.015 |
 | poaceae_non_tis | test | 0.822 | 0.713 | 0.729 | 0.862 | rc | -0.133 |
@@ -34,7 +34,7 @@ The evo2_20b column is run locally, max over left, right_reverse_complement. `*`
 Metric: AUROC. Leaderboard values are the 8192 bp context rows.
 The evo2_20b column is run locally, max over left, right_reverse_complement. `*` = only one strand available; `--` = not run locally.
 
-| Task | Split | Evo2 | PlantCAD2-L | PlantCAD2.5-L (ours) | evo2_20b | strand | PlantCAD2.5-L - evo2_20b |
+| Task | Split | evo2_7b | PlantCAD2-L | PlantCAD2.5-L (ours) | evo2_20b | strand | PlantCAD2.5-L - evo2_20b |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | acceptor | maize | 0.761 | 0.836 | 0.873 | 0.804 | rc | +0.069 |
 | donor | maize | 0.754 | 0.808 | 0.842 | 0.776 | fwd | +0.066 |
@@ -50,6 +50,6 @@ The evo2_20b column is run locally, max over left, right_reverse_complement. `*`
 Metric: AUPRC. Leaderboard values are the 8192 bp context rows.
 The evo2_20b column is run locally, max over left, right_reverse_complement. `*` = only one strand available; `--` = not run locally.
 
-| Task | Split | Evo2 | PlantCAD2-L | PlantCAD2.5-L (ours) | evo2_20b | strand | PlantCAD2.5-L - evo2_20b |
+| Task | Split | evo2_7b | PlantCAD2-L | PlantCAD2.5-L (ours) | evo2_20b | strand | PlantCAD2.5-L - evo2_20b |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | sv_impact | test | 0.771 | 0.841 | 0.745 | 0.860* | fwd | -0.115 |

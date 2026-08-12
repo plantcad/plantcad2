@@ -70,6 +70,9 @@ TITLE = {
     "sv_effect": ("Structural-variant effect prediction", "AUPRC"),
 }
 DEFAULT_MODES = ["left", "right_reverse_complement"]
+# Column headers only; lookups still use the leaderboard's own model ids. The
+# leaderboard's "Evo2" row is evo2_7b, worth spelling out next to evo2_20b.
+DISPLAY_NAMES = {"Evo2": "evo2_7b"}
 
 
 def load_local(results_dir: Path, category: str, modes):
@@ -124,7 +127,9 @@ def build_table(lb, local, category, compare, label, modes, ours):
 
     # `ours` is a PlantCAD model on the leaderboard; the local column is the
     # external model being evaluated, so the delta reads ours - theirs.
-    headers = [f"{m} (ours)" if m == ours else m for m in compare]
+    headers = [
+        f"{DISPLAY_NAMES.get(m, m)}" + (" (ours)" if m == ours else "") for m in compare
+    ]
     heading, metric_name = TITLE[category]
     lines = [
         f"## {heading}",
