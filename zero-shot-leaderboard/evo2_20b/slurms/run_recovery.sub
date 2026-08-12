@@ -1,0 +1,74 @@
+#!/bin/bash
+#SBATCH -J pc2zs_recovery
+#SBATCH -o logs/%x-%A_%a.log
+#SBATCH -e logs/%x-%A_%a.log
+#SBATCH -p gh
+#SBATCH -N 8
+#SBATCH --ntasks=8
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 24:00:00
+#SBATCH --array=0-7
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+#
+# motif_acc: mask motif tokens, report token/motif accuracy (independent decode).
+set -euo pipefail
+# Slurm copies the batch script to /var/spool/slurmd/job*/slurm_script, so
+# BASH_SOURCE cannot find config.sh; prefer the submit directory under sbatch and
+# fall back to BASH_SOURCE when the script is run directly.
+SCRIPT_DIR=""
+for _d in "${SLURM_SUBMIT_DIR:-}" "${SLURM_SUBMIT_DIR:-}/slurms" "$(dirname -- "${BASH_SOURCE[0]}")"; do
+  if [[ -n "${_d}" && -f "${_d}/config.sh" ]]; then
+    SCRIPT_DIR="$(cd -- "${_d}" && pwd)"
+    break
+  fi
+done
+if [[ -z "${SCRIPT_DIR}" ]]; then
+  echo "ERROR: cannot locate config.sh (SLURM_SUBMIT_DIR=${SLURM_SUBMIT_DIR:-unset})" >&2
+  exit 1
+fi
+source "${SCRIPT_DIR}/config.sh"
+
+COMBOS=(
+  "tis_recovery test_maize"       "tis_recovery test_tomato"
+  "tts_recovery test_maize"       "tts_recovery test_tomato"
+  "donor_recovery test_maize"     "donor_recovery test_tomato"
+  "acceptor_recovery test_maize"  "acceptor_recovery test_tomato"
+)
+read -r task split <<< "${COMBOS[${SLURM_ARRAY_TASK_ID}]}"
+motif_spec "${task}"
+
+outdir="${OUTPUT_DIR}/motif_acc/${task}_${split}"
+mkdir -p "${outdir}"
+
+manifests=""
+for cm in ${CONTEXT_MODES}; do
+  echo "[motif_acc] task=${task} split=${split} mask_idx=${POS} motif_len=${MLEN} context=${cm}"
+  # Each rank scores a contiguous slice and writes ${cm}.shard.rank{N}.npy; rank 0
+  # blocks until all shards land, then computes metrics on the pooled scores.
+  srun -l python "${EVAL_SCRIPT}" motif_acc \
+    --repo_id "${REPO_ID}" \
+    --task "${task}" \
+    --split "${split}" \
+    --model "${MODEL}" \
+    --revision "${REVISION}" \
+    --device "${DEVICE}" \
+    --mask_idx="${POS}" \
+    --motif_len ${MLEN} \
+    --decode_mode independent \
+    --batch_size ${BATCH_SIZE} \
+    --seq_column sequence \
+    --context_mode "${cm}" \
+    --shard_prefix "${outdir}/${cm}.shard" \
+    --save_predictions "${outdir}/${cm}.predictions.tsv" \
+    --save_logits "${outdir}/${cm}.logits.tsv" \
+    --metrics_json "${outdir}/${cm}.metrics.json" \
+    --manifest_json "${outdir}/${cm}.manifest.json"
+  manifests="${manifests:+${manifests},}${outdir}/${cm}.manifest.json"
+done
+
+python "${EVAL_SCRIPT}" aggregate_context_max \
+  --manifest_json "${manifests}" \
+  --expected_context_modes "${EXPECTED_CONTEXT_MODES}" \
+  --strict_expected_modes True \
+  --output_json "${outdir}/aggregate_context_max.json"

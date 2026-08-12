@@ -1,0 +1,49 @@
+#!/bin/bash
+#SBATCH -J pc2zs_sv_effect
+#SBATCH -o logs/%x-%j.log
+#SBATCH -e logs/%x-%j.log
+#SBATCH -p gh
+#SBATCH -N 1
+#SBATCH --ntasks=1
+#SBATCH --ntasks-per-node=1
+#SBATCH -t 12:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jz963@cornell.edu
+#
+# sv_effect: boundary LLR over ref/mut full-length probs -> AUPRC.
+# NOTE: sv_effect does NOT apply the context-mode transform (it scores RefSeq/MutSeq
+# directly), so a single run is sufficient -- no context sweep / aggregation.
+set -euo pipefail
+# Slurm copies the batch script to /var/spool/slurmd/job*/slurm_script, so
+# BASH_SOURCE cannot find config.sh; prefer the submit directory under sbatch and
+# fall back to BASH_SOURCE when the script is run directly.
+SCRIPT_DIR=""
+for _d in "${SLURM_SUBMIT_DIR:-}" "${SLURM_SUBMIT_DIR:-}/slurms" "$(dirname -- "${BASH_SOURCE[0]}")"; do
+  if [[ -n "${_d}" && -f "${_d}/config.sh" ]]; then
+    SCRIPT_DIR="$(cd -- "${_d}" && pwd)"
+    break
+  fi
+done
+if [[ -z "${SCRIPT_DIR}" ]]; then
+  echo "ERROR: cannot locate config.sh (SLURM_SUBMIT_DIR=${SLURM_SUBMIT_DIR:-unset})" >&2
+  exit 1
+fi
+source "${SCRIPT_DIR}/config.sh"
+
+TASK=structural_variant_effect_prediction
+SPLIT=test
+
+outdir="${OUTPUT_DIR}/sv_effect/${TASK}_${SPLIT}"
+mkdir -p "${outdir}"
+
+python "${EVAL_SCRIPT}" sv_effect \
+  --repo_id "${REPO_ID}" \
+  --task "${TASK}" \
+  --split "${SPLIT}" \
+  --model "${MODEL}" \
+  --revision "${REVISION}" \
+  --device "${DEVICE}" \
+  --batch_size ${SV_BATCH_SIZE} \
+  --flanking 5 \
+  --output "${outdir}/scores.tsv" \
+  --manifest_json "${outdir}/left.manifest.json"
