@@ -14,8 +14,8 @@ forwards after strand contexts or ref/mut SV pairs.
 - Baseline runtime: PyTorch 2.7.0, CUDA 12.8, Transformers 5.15.1,
   FlashAttention 2.8.3.post1
 - Dataset revision: `d340debe0c8402c84f0696cd2002f87c2f7ba6db`
-- Private artifact prefix:
-  `eczech/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0001-wd0p2-v2/results/step-75046/sensitivity-seed0-n5000`
+- Artifact prefix:
+  `plantcad/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0001-wd0p2-v2/results/step-75046/sensitivity-seed0-n5000`
 
 Every production-relevant condition profiler-verified an actual flash forward kernel
 on a real 8,192-token input. FlashAttention-2 runs dispatched

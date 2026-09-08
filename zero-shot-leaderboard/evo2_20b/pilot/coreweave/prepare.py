@@ -50,8 +50,7 @@ def prepare(root: Path) -> dict:
     if (usage.used + (32 if EVAL_MODE == "full" else 12) * 2**30) / usage.total >= 0.90:
         raise RuntimeError("Checkpoint/fixture staging would exceed 90% disk usage")
     api = HfApi(token=os.environ["HUGGING_FACE_HUB_TOKEN"])
-    if api.whoami()["name"] != "eczech" or not api.repo_info(HF_REPO).private:
-        raise RuntimeError("Expected eczech's private model repository")
+    api.repo_info(HF_REPO, repo_type="model")
     model_snapshot = Path(snapshot_download(HF_REPO, revision=MODEL_REVISION, allow_patterns=[f"{MODEL_PREFIX}/*"], token=api.token, local_dir=root / "model-download", max_workers=8))
     model = model_snapshot / MODEL_PREFIX
     inventory = list(api.list_repo_tree(HF_REPO, path_in_repo=MODEL_PREFIX, recursive=True, expand=True, revision=MODEL_REVISION))

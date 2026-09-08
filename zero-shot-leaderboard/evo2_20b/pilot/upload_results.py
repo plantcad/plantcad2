@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Upload an evaluation artifact tree to a private HF model repo and verify it exactly."""
+"""Upload an evaluation artifact tree to an HF model repo and verify it exactly."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from huggingface_hub import HfApi
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--repo-id", default="eczech/marindna-exp472")
+    parser.add_argument("--repo-id", default="plantcad/marindna-exp472")
     parser.add_argument("--local-dir", type=Path, required=True)
     parser.add_argument("--path-in-repo", required=True)
     parser.add_argument("--commit-message", required=True)
@@ -24,9 +24,7 @@ def main() -> None:
     account = api.whoami()["name"]
     if account != "eczech":
         raise RuntimeError(f"Expected Hugging Face account eczech, got {account}")
-    repo = api.repo_info(repo_id=args.repo_id, repo_type="model")
-    if not repo.private:
-        raise RuntimeError(f"Expected {args.repo_id} to be private")
+    api.repo_info(repo_id=args.repo_id, repo_type="model")
 
     root = args.local_dir.resolve()
     files = {path.relative_to(root).as_posix(): path.stat().st_size for path in root.rglob("*") if path.is_file()}

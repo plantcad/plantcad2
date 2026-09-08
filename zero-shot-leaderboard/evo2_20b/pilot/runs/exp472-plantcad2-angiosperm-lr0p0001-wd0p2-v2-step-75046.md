@@ -10,7 +10,7 @@ should only be used to validate the evaluation path and identify promising check
 - Hardware: one Lambda Labs H100 SXM5 80 GB
 - Conservation, motif, and core/non-core: maximum over forward and reverse-complement strands
 - Structural variants: forward strand, matching the leaderboard protocol
-- Private artifacts: `eczech/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0001-wd0p2-v2/results/step-75046/pilot-64`
+- Artifacts: `plantcad/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0001-wd0p2-v2/results/step-75046/pilot-64`
 
 | Category | Task / split | Pilot metric |
 | :--- | :--- | :--- |

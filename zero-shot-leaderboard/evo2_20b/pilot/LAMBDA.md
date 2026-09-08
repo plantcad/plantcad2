@@ -60,8 +60,8 @@ Transformers attention setting is not sufficient verification: profile one real
 8,192-token forward and require a CUDA event such as `flash_fwd_kernel` or
 `aten::_scaled_dot_product_flash_attention`.
 
-Download the converted checkpoint from the private
-`eczech/marindna-exp472` repo, then run:
+Download the converted checkpoint from the public
+`plantcad/marindna-exp472` repo, then run:
 
 ```bash
 PYTHON=~/plantcad2/.venv/bin/python \
@@ -92,7 +92,7 @@ hours on one H100 SXM5.
 Before teardown:
 
 1. Upload samples, manifests, summaries, and comparisons to the checkpoint's
-   `results/` path in the private HF repo.
+   `results/` path in the HF repo.
 2. Verify the remote file count and total bytes with `HfApi.list_repo_tree`.
 3. `rsync` the result directory back to local gitignored `scratch/`.
 4. Re-list Lambda instances and resolve the exact evaluation instance ID.

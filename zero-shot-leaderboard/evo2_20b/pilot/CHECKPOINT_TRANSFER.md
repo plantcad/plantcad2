@@ -1,6 +1,6 @@
 # CWS3 to Hugging Face checkpoint transfer
 
-This is the durable runbook for moving later exp472 checkpoints without routing multi-gigabyte weights through a laptop or a disk-constrained development VM. The proven route is a CPU-only Iris job on CoreWeave: CWS3 → temporary in-cluster disk → private Hugging Face repo → automatic temporary cleanup.
+This is the durable runbook for moving later exp472 checkpoints without routing multi-gigabyte weights through a laptop or a disk-constrained development VM. The proven route is a CPU-only Iris job on CoreWeave: CWS3 → temporary in-cluster disk → Hugging Face repo → automatic temporary cleanup.
 
 ## Do not infer the final checkpoint label
 
@@ -10,7 +10,7 @@ The first verified exp472 example was:
 
 ```text
 s3://marin-us-east-02a/MarinDNA/exp472_plantcad2_baseline/checkpoints/exp472-plantcad2-angiosperm-lr0p0002-wd0p1-v2/2026.08.20/hf/step-206144
-→ eczech/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0002-wd0p1-v2/hf/step-206144
+→ plantcad/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0002-wd0p1-v2/hf/step-206144
 ```
 
 Copy the existing HF export when one is present. Do not download the much larger native Levanter checkpoint and reconvert it unnecessarily. In this example, the HF export was 4 files / 3,892,739,156 bytes; the native checkpoint was 96 files / 11,678,737,034 bytes.
@@ -27,7 +27,7 @@ uv run iris --cluster marin job run --enable-extra-resources --target-cluster cw
 
 The transfer driver should enforce all of the following:
 
-- Confirm the authenticated Hugging Face account is `eczech` and `eczech/marindna-exp472` is private.
+- Confirm the authenticated Hugging Face account is `eczech` and has write access to `plantcad/marindna-exp472`.
 - Refuse to overwrite a non-empty destination prefix.
 - Enumerate the source recursively and require `config.json` plus recognized model weights.
 - Stage only one HF checkpoint under `tempfile.TemporaryDirectory`.
@@ -36,13 +36,13 @@ The transfer driver should enforce all of the following:
 - Set `HF_XET_HIGH_PERFORMANCE=1`, upload the directory to `<wandb-run-id>/hf/<step>`, then compare the exact destination file set and total bytes.
 - Let the temporary directory delete itself whether the upload succeeds or fails.
 
-The successful job was `/eczech/exp472-copy-final-hf-step206144`. It took about four minutes end to end, including roughly two minutes to download from CWS3 and two minutes to upload to Hugging Face. Staged disk usage peaked at 14.14%. The verified Hugging Face commit is <https://huggingface.co/eczech/marindna-exp472/commit/fe3b167ff53d4d5d0fefbc92652acbef3b801831>.
+The successful job was `/eczech/exp472-copy-final-hf-step206144`. It took about four minutes end to end, including roughly two minutes to download from CWS3 and two minutes to upload to Hugging Face. Staged disk usage peaked at 14.14%. The verified Hugging Face commit is <https://huggingface.co/plantcad/marindna-exp472/commit/fe3b167ff53d4d5d0fefbc92652acbef3b801831>.
 
-The later post-cooldown transfer used the same route and established the current Iris CLI shape. Inventory job `/eczech/exp472-inspect-lr0p0005-s01-final-v3` found matching final native and HF artifacts at `step-371065`; transfer job `/eczech/exp472-copy-final-hf-step371065` copied the 4-file / 3,892,739,156-byte HF tree in about 70 seconds and verified commit <https://huggingface.co/eczech/marindna-exp472/commit/e56696e49dbc4c5d904507983df901fbe9d6d32d>. The exact route was:
+The later post-cooldown transfer used the same route and established the current Iris CLI shape. Inventory job `/eczech/exp472-inspect-lr0p0005-s01-final-v3` found matching final native and HF artifacts at `step-371065`; transfer job `/eczech/exp472-copy-final-hf-step371065` copied the 4-file / 3,892,739,156-byte HF tree in about 70 seconds and verified commit <https://huggingface.co/plantcad/marindna-exp472/commit/e56696e49dbc4c5d904507983df901fbe9d6d32d>. The exact route was:
 
 ```text
 s3://marin-us-east-02a/MarinDNA/exp472_plantcad2_baseline/checkpoints/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/2026.08.25/hf/step-371065
-→ eczech/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/hf/step-371065
+→ plantcad/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/hf/step-371065
 ```
 
 Current Iris requires `--enable-extra-resources` for `--cpu`, `--memory`, and `--disk`. Do not pass the obsolete `--extra cpu`; current `--extra` values are accelerator-oriented. The reusable command is:
@@ -61,7 +61,7 @@ The two stage-s02 transfers on 2026-08-29 reused this route. Both final exports 
 
 ## Verification checklist
 
-The matching LR5e-4/WD0.1 0.22T export was copied on 2026-08-31 by CPU-only batch job `/eczech/exp472-copy-lr5e4-022t-final-hf-20260831`. Source: `s3://marin-us-east-02a/MarinDNA/exp472_plantcad2_baseline/checkpoints/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/2026.08.20/hf/step-206144`. Destination: `eczech/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/hf/step-206144`, verified [HF commit 4c71ba8](https://huggingface.co/eczech/marindna-exp472/commit/4c71ba81544b93b8a0a0f878b44ac51d1ebb186f), 4 files / 3,892,739,156 bytes. The same transfer script ran in the lightweight `ghcr.io/astral-sh/uv:python3.12-bookworm-slim` image with `--no-sync` and `uv run --no-project --with s3fs --with huggingface-hub`; workspace bundling included only the experiment folder. Download took about 8 seconds, upload/verification about 2m15s, and temporary staging was cleaned automatically. No local dependencies or model downloads were needed.
+The matching LR5e-4/WD0.1 0.22T export was copied on 2026-08-31 by CPU-only batch job `/eczech/exp472-copy-lr5e4-022t-final-hf-20260831`. Source: `s3://marin-us-east-02a/MarinDNA/exp472_plantcad2_baseline/checkpoints/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/2026.08.20/hf/step-206144`. Destination: `plantcad/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/hf/step-206144`, verified [HF commit 4c71ba8](https://huggingface.co/plantcad/marindna-exp472/commit/4c71ba81544b93b8a0a0f878b44ac51d1ebb186f), 4 files / 3,892,739,156 bytes. The same transfer script ran in the lightweight `ghcr.io/astral-sh/uv:python3.12-bookworm-slim` image with `--no-sync` and `uv run --no-project --with s3fs --with huggingface-hub`; workspace bundling included only the experiment folder. Download took about 8 seconds, upload/verification about 2m15s, and temporary staging was cleaned automatically. No local dependencies or model downloads were needed.
 
 1. Inventory the actual CWS3 artifact names and sizes in-cluster.
 2. Confirm the exact source and destination before launch when the checkpoint is ambiguous.

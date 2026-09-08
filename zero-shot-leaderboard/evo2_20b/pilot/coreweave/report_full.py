@@ -82,7 +82,7 @@ def main():
         peak = max(context["peak_reserved_gib"] for task in result["tasks"].values() for context in task["contexts"].values())
         runtime_rows.append([labels[key], clock(runtime["measured_parallel_wall_seconds"]), f"{runtime['cluster_sequences_per_second']:.2f}", f"{runtime['h100_sequences_per_second']:.2f}", f"{peak:.2f} GiB"])
         checkpoint_rows.append([f"[{labels[key]}](https://wandb.ai/eric-czech/marin/runs/{config['run_id']})", f"{config['step']:,}", f"{config['tokens']:,}"])
-        artifact_links.append(f"- {labels[key]}: [checkpoint](https://huggingface.co/eczech/marindna-exp472/tree/{config['revision']}/{config['model_prefix']}) · [verified full results]({records[key]['url']}).")
+        artifact_links.append(f"- {labels[key]}: [checkpoint](https://huggingface.co/plantcad/marindna-exp472/tree/{config['revision']}/{config['model_prefix']}) · [verified full results]({records[key]['url']}).")
     sampled_rows = []
     for key in ("039t", "056t"):
         diffs = [a - b["selected_value"] for a, b in zip(values[key], sampled[key]["rows"], strict=True)]

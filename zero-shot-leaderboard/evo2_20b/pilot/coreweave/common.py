@@ -17,7 +17,7 @@ STEP = CHECKPOINT["step"]
 EVAL_MODE = os.environ.get("PLANTCAD_EVAL_MODE", "sampled")
 if EVAL_MODE not in ("sampled", "full"):
     raise ValueError("PLANTCAD_EVAL_MODE must be sampled or full")
-HF_REPO = "eczech/marindna-exp472"
+HF_REPO = "plantcad/marindna-exp472"
 MODEL_PREFIX = CHECKPOINT["model_prefix"]
 MODEL_REVISION = CHECKPOINT["revision"]
 REFERENCE_PREFIX = "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/results/step-535985/leaderboard-seed0-n10000"

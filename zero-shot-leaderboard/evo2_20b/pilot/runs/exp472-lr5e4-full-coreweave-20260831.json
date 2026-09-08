@@ -8178,7 +8178,7 @@
       "local_artifact": "/Users/eczech/tmp/plantcad2-sensitivity/scratch/full-lr5e4-20260831/downloads/022t/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/results/step-206144/coreweave/plantcad2-full-022t-lr5e4-n4-20260831-v1",
       "file_count": 80,
       "bytes": 111070181,
-      "url": "https://huggingface.co/eczech/marindna-exp472/tree/419caf4af3eae19587675a33869b3ce4c7d9fcb6/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/results/step-206144/coreweave/plantcad2-full-022t-lr5e4-n4-20260831-v1"
+      "url": "https://huggingface.co/plantcad/marindna-exp472/tree/419caf4af3eae19587675a33869b3ce4c7d9fcb6/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/results/step-206144/coreweave/plantcad2-full-022t-lr5e4-n4-20260831-v1"
     },
     "039t": {
       "checkpoint": "039t",
@@ -8187,7 +8187,7 @@
       "local_artifact": "/Users/eczech/tmp/plantcad2-sensitivity/scratch/full-lr5e4-20260831/downloads/039t/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/coreweave/plantcad2-full-039t-lr5e4-n4-20260831-v1",
       "file_count": 80,
       "bytes": 111111111,
-      "url": "https://huggingface.co/eczech/marindna-exp472/tree/419caf4af3eae19587675a33869b3ce4c7d9fcb6/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/coreweave/plantcad2-full-039t-lr5e4-n4-20260831-v1"
+      "url": "https://huggingface.co/plantcad/marindna-exp472/tree/419caf4af3eae19587675a33869b3ce4c7d9fcb6/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/coreweave/plantcad2-full-039t-lr5e4-n4-20260831-v1"
     },
     "056t": {
       "checkpoint": "056t",
@@ -8196,7 +8196,7 @@
       "local_artifact": "/Users/eczech/tmp/plantcad2-sensitivity/scratch/full-lr5e4-20260831/downloads/056t/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/results/step-535985/coreweave/plantcad2-full-056t-lr5e4-n4-20260831-v1",
       "file_count": 80,
       "bytes": 111127222,
-      "url": "https://huggingface.co/eczech/marindna-exp472/tree/d0d442e4b1c2159de92fcd6b8060753a3398d301/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/results/step-535985/coreweave/plantcad2-full-056t-lr5e4-n4-20260831-v1"
+      "url": "https://huggingface.co/plantcad/marindna-exp472/tree/d0d442e4b1c2159de92fcd6b8060753a3398d301/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/results/step-535985/coreweave/plantcad2-full-056t-lr5e4-n4-20260831-v1"
     }
   },
   "validation": {
@@ -10816,28 +10816,28 @@
   "protocol": "Full splits; same LR5e-4/WD0.1 lineage; BF16/FA2/FP32 ACGT softmax/no cache/b32; non-SV max task-level fwd/RC, SV forward; Composite unweighted mean of four task-group means",
   "independent_validation_artifacts": {
     "022t": {
-      "commit_url": "https://huggingface.co/eczech/marindna-exp472/commit/fd42c5b37674e318108c51038c7a88a968167ee6",
+      "commit_url": "https://huggingface.co/plantcad/marindna-exp472/commit/fd42c5b37674e318108c51038c7a88a968167ee6",
       "path_in_repo": "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/results/step-206144/coreweave/plantcad2-full-022t-lr5e4-n4-20260831-v1/independent-validation",
       "file_count": 3,
       "bytes": 437130,
       "revision": "fd42c5b37674e318108c51038c7a88a968167ee6",
-      "url": "https://huggingface.co/eczech/marindna-exp472/tree/fd42c5b37674e318108c51038c7a88a968167ee6/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/results/step-206144/coreweave/plantcad2-full-022t-lr5e4-n4-20260831-v1/independent-validation"
+      "url": "https://huggingface.co/plantcad/marindna-exp472/tree/fd42c5b37674e318108c51038c7a88a968167ee6/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/results/step-206144/coreweave/plantcad2-full-022t-lr5e4-n4-20260831-v1/independent-validation"
     },
     "039t": {
-      "commit_url": "https://huggingface.co/eczech/marindna-exp472/commit/6d3b4fdd8ab73147c078e6248e8efebf027e9b91",
+      "commit_url": "https://huggingface.co/plantcad/marindna-exp472/commit/6d3b4fdd8ab73147c078e6248e8efebf027e9b91",
       "path_in_repo": "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/coreweave/plantcad2-full-039t-lr5e4-n4-20260831-v1/independent-validation",
       "file_count": 6,
       "bytes": 1022386,
       "revision": "6d3b4fdd8ab73147c078e6248e8efebf027e9b91",
-      "url": "https://huggingface.co/eczech/marindna-exp472/tree/6d3b4fdd8ab73147c078e6248e8efebf027e9b91/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/coreweave/plantcad2-full-039t-lr5e4-n4-20260831-v1/independent-validation"
+      "url": "https://huggingface.co/plantcad/marindna-exp472/tree/6d3b4fdd8ab73147c078e6248e8efebf027e9b91/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/coreweave/plantcad2-full-039t-lr5e4-n4-20260831-v1/independent-validation"
     },
     "056t": {
-      "commit_url": "https://huggingface.co/eczech/marindna-exp472/commit/19ee062dd0632d504aa56b5e598b45de46e2c6fe",
+      "commit_url": "https://huggingface.co/plantcad/marindna-exp472/commit/19ee062dd0632d504aa56b5e598b45de46e2c6fe",
       "path_in_repo": "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/results/step-535985/coreweave/plantcad2-full-056t-lr5e4-n4-20260831-v1/independent-validation",
       "file_count": 6,
       "bytes": 1022568,
       "revision": "19ee062dd0632d504aa56b5e598b45de46e2c6fe",
-      "url": "https://huggingface.co/eczech/marindna-exp472/tree/19ee062dd0632d504aa56b5e598b45de46e2c6fe/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/results/step-535985/coreweave/plantcad2-full-056t-lr5e4-n4-20260831-v1/independent-validation"
+      "url": "https://huggingface.co/plantcad/marindna-exp472/tree/19ee062dd0632d504aa56b5e598b45de46e2c6fe/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/results/step-535985/coreweave/plantcad2-full-056t-lr5e4-n4-20260831-v1/independent-validation"
     }
   },
   "submitted_implementation": "71ddb9efd4d177b85a2e6f6d9f075c116381ee24",

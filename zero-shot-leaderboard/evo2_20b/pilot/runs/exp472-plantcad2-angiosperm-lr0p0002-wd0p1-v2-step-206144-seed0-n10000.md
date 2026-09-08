@@ -5,7 +5,7 @@ This evaluates the final checkpoint of `exp472-plantcad2-angiosperm-lr0p0002-wd0
 - Experiment/run name: `exp472-plantcad2-angiosperm-lr0p0002-wd0p1-v2`
 - W&B group: <https://wandb.ai/eric-czech/marin/groups/exp472-plantcad2-baseline-sweep>
 - Final artifact: `step-206144` after 206,145 completed training steps
-- Checkpoint: <https://huggingface.co/eczech/marindna-exp472/tree/fe3b167ff53d4d5d0fefbc92652acbef3b801831/exp472-plantcad2-angiosperm-lr0p0002-wd0p1-v2/hf/step-206144>
+- Checkpoint: <https://huggingface.co/plantcad/marindna-exp472/tree/fe3b167ff53d4d5d0fefbc92652acbef3b801831/exp472-plantcad2-angiosperm-lr0p0002-wd0p1-v2/hf/step-206144>
 - Model: Qwen3, 973,178,880 parameters, vocabulary size 7, 8,192-bp context
 - Sampling: 10,000 random unstratified examples per row, shared seed 0, dataset revision `d340debe0c8402c84f0696cd2002f87c2f7ba6db`
 - Inference: BF16 model, explicit external FlashAttention-2, FP32 A/C/G/T softmax, `use_cache=False`, batch 32
@@ -14,7 +14,7 @@ This evaluates the final checkpoint of `exp472-plantcad2-angiosperm-lr0p0002-wd0
 - FlashAttention: `flash_attn::_flash_attn_forward` and `flash::flash_fwd_kernel` profiler-verified independently on both workers
 - Full-scale estimate: 56.77 H100-hours, or 28.39 hours on two H100s, for all 1,727,943 current leaderboard rows
 - Published comparison source: `plantcad/plantcad2-zeroshot-leaderboard` commit `f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29`
-- Private artifact: <https://huggingface.co/eczech/marindna-exp472/tree/ba0bba0ef3bcb52ad21e1e13a95b87e6ff06ef02/exp472-plantcad2-angiosperm-lr0p0002-wd0p1-v2/results/step-206144/leaderboard-seed0-n10000>
+- Artifact: <https://huggingface.co/plantcad/marindna-exp472/tree/ba0bba0ef3bcb52ad21e1e13a95b87e6ff06ef02/exp472-plantcad2-angiosperm-lr0p0002-wd0p1-v2/results/step-206144/leaderboard-seed0-n10000>
 - Artifact commit: `ba0bba0ef3bcb52ad21e1e13a95b87e6ff06ef02` (37 files, 1,734,863,972 bytes, verified exactly after upload)
 - Lambda lifecycle: approximately 3 hours 41 minutes total rental time and about $30.9 at $8.38/hour; the exact evaluation instance was terminated and disappearance from `/instances` was verified
 

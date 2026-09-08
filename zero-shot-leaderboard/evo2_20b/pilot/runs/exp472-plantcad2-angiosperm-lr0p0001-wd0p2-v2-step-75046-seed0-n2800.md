@@ -18,7 +18,7 @@ comparisons.
 - Structural variants: left context only, matching the leaderboard comparison path
 - Published comparison source: `plantcad/plantcad2-zeroshot-leaderboard` commit
   `f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29`
-- Private artifacts: `eczech/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0001-wd0p2-v2/results/step-75046/leaderboard-seed0-n2800`
+- Artifacts: `plantcad/marindna-exp472/exp472-plantcad2-angiosperm-lr0p0001-wd0p2-v2/results/step-75046/leaderboard-seed0-n2800`
 - Artifact commit: `93f1f5088bb83747ecca0e1866b3d0e9f48c3fcf`
 
 Published baselines below are full-split results, whereas exp472 uses the sampled

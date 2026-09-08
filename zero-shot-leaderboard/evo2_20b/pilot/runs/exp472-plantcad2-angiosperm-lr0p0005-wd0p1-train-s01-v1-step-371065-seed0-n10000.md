@@ -3,7 +3,7 @@
 This evaluates the final post-cooldown checkpoint of `exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1` over all 20 current PlantCAD2 leaderboard rows. It is a 10,000-example-per-row estimate, not a leaderboard submission. It reuses the exact materialized seed-0 fixtures from MarinDNA 1B 10E, so checkpoint deltas are paired; published baselines use full splits.
 
 - Display name: MarinDNA 1B 20E; the previous step-206144 checkpoint is MarinDNA 1B 10E
-- Final native artifact: `step-371065` after cooldown; final HF export: <https://huggingface.co/eczech/marindna-exp472/tree/e56696e49dbc4c5d904507983df901fbe9d6d32d/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/hf/step-371065>
+- Final native artifact: `step-371065` after cooldown; final HF export: <https://huggingface.co/plantcad/marindna-exp472/tree/e56696e49dbc4c5d904507983df901fbe9d6d32d/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/hf/step-371065>
 - Model: Qwen3, approximately 1B parameters, vocabulary size 7, 8,192-bp context
 - Sampling: 10,000 random unstratified examples per row, shared seed 0, exact same 20 fixture files and SHA-256 manifest as MarinDNA 1B 10E, dataset revision `d340debe0c8402c84f0696cd2002f87c2f7ba6db`
 - Inference: BF16 model, explicit external FlashAttention-2, FP32 A/C/G/T softmax, `use_cache=False`, batch 32
@@ -13,7 +13,7 @@ This evaluates the final post-cooldown checkpoint of `exp472-plantcad2-angiosper
 - FlashAttention: `flash_attn::_flash_attn_forward` and `flash::flash_fwd_kernel` profiler-verified independently on both workers
 - Full-scale estimate: 56.51 H100-hours, or 28.26 hours on two H100s, for all 1,727,943 current leaderboard rows
 - Published comparison source: `plantcad/plantcad2-zeroshot-leaderboard` commit `f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29`
-- Private artifact: <https://huggingface.co/eczech/marindna-exp472/tree/2090e4c6c52393b5b8626ea9be70205c79935d53/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/leaderboard-seed0-n10000>
+- Artifact: <https://huggingface.co/plantcad/marindna-exp472/tree/2090e4c6c52393b5b8626ea9be70205c79935d53/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/leaderboard-seed0-n10000>
 - Artifact commit: `2090e4c6c52393b5b8626ea9be70205c79935d53` (42 files, 1,734,923,623 bytes, verified exactly after upload)
 
 MarinDNA 1B 20E improved all 20 paired task rows over MarinDNA 1B 10E. Group means moved from 0.661 to 0.669 for conservation, 0.518 to 0.561 for masked motif, 0.678 to 0.696 for core/non-core, and 0.847 to 0.848 for SV. The composite, defined as the unweighted mean of those four group scores, moved from 0.676 to 0.693. The largest task gains were tomato start-codon recovery (+0.065) and maize start-codon recovery (+0.060). Masked-motif recovery improved the most as a group (+0.043), but remains the clearest gap to PlantCAD2-Small (0.606) and the larger published models. SV is effectively flat (+0.001).

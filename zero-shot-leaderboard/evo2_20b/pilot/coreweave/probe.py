@@ -14,7 +14,7 @@ from huggingface_hub import HfApi
 def main():
     api = HfApi(token=os.environ["HUGGING_FACE_HUB_TOKEN"])
     assert api.whoami()["name"] == "eczech"
-    assert api.repo_info("eczech/marindna-exp472").private
+    api.repo_info("plantcad/marindna-exp472", repo_type="model")
     print(json.dumps({"task": os.environ["IRIS_TASK_ID"], "tasks": os.environ["IRIS_NUM_TASKS"], "python": platform.python_version(), "torch": torch.__version__, "abi": torch._C._GLIBCXX_USE_CXX11_ABI, "s3_environment_keys": sorted(key for key in os.environ if key.startswith(("AWS_", "S3_", "CW_")))}, indent=2), flush=True)
     subprocess.run(["nvidia-smi", "--query-gpu=name,driver_version,memory.total", "--format=csv"], check=True)
     s3 = boto3.client("s3", config=Config(s3={"addressing_style": "virtual"}))

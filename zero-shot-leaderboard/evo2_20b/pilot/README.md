@@ -38,4 +38,8 @@ bias before the sample is taken.
 
 `run_recommended_leaderboard_2gpu.sh` runs the same 20 rows task-parallel on two GPUs with the recommended BF16, explicit FlashAttention-2, FP32 A/C/G/T softmax, no-cache, batch-32 path. It defaults to 10,000 random unstratified examples per row and shared seed 0, profiler-verifies FlashAttention on both workers, and merges task metrics and throughput into one result.
 
-See `CHECKPOINT_TRANSFER.md` for the repeatable CPU-only Iris route used to copy HF checkpoint exports directly from CWS3 to the private `eczech/marindna-exp472` repo without using laptop bandwidth or persistent development-VM disk.
+See `CHECKPOINT_TRANSFER.md` for the repeatable CPU-only Iris route used to copy HF checkpoint exports directly from CWS3 to the public `plantcad/marindna-exp472` repo without using laptop bandwidth or persistent development-VM disk.
+
+## Reporting results
+
+Whenever a result post is published on PR #1, add its permanent comment link to the chronological **Results posts** index in the PR description as part of the same reporting step.
