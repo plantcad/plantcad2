@@ -1,5 +1,9 @@
 # Small causal-evaluation pilot
 
+## Execution platforms
+
+The original launchers and environment assumptions below are for [Lambda Labs](lambda/README.md). [CoreWeave / Iris](coreweave/README.md) has a separate environment and multi-node launcher, defaulting to two full 8×H100 nodes with explicit `--priority batch --user eczech`. The platforms share the same causal scoring functions and retained samples; infrastructure-specific code does not change task metrics or strand selection.
+
 This pilot runs 64 deterministic examples by default from each of seven representative
 PlantCAD2 tasks: two conservation tasks, two motif-recovery tasks, two core/non-core
 tasks, and structural-variant effect prediction. Binary tasks are sampled evenly by
@@ -31,3 +35,7 @@ unstratified random examples per row with the same seed 0, preserving class prev
 while targeting about two hours on a single H100 for the exp472 Qwen3 model. Its
 200,000-row streaming shuffle buffer covers every current split, avoiding source-order
 bias before the sample is taken.
+
+`run_recommended_leaderboard_2gpu.sh` runs the same 20 rows task-parallel on two GPUs with the recommended BF16, explicit FlashAttention-2, FP32 A/C/G/T softmax, no-cache, batch-32 path. It defaults to 10,000 random unstratified examples per row and shared seed 0, profiler-verifies FlashAttention on both workers, and merges task metrics and throughput into one result.
+
+See `CHECKPOINT_TRANSFER.md` for the repeatable CPU-only Iris route used to copy HF checkpoint exports directly from CWS3 to the private `eczech/marindna-exp472` repo without using laptop bandwidth or persistent development-VM disk.

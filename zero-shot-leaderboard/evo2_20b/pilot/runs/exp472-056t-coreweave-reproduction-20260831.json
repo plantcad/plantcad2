@@ -1,0 +1,246 @@
+{
+  "raw_arrays": 77,
+  "raw_values": 3830000,
+  "byte_identical": true,
+  "max_task_delta": 0,
+  "max_context_metric_delta": 0,
+  "context_metrics": 77,
+  "changed_strands": 0,
+  "job_state": "succeeded",
+  "failures": 0,
+  "preemptions": 0,
+  "hf_revision": "d83121d1b2fda75c9619047c7f10f8e7924173a6",
+  "hf_files": 445,
+  "hf_bytes": 27852997,
+  "groups": {
+    "lambda": {
+      "Conservation": 0.6708837045311973,
+      "Masked motif": 0.569907914818444,
+      "Core/non-core": 0.6996722143360962,
+      "Structural variant": 0.8496081511931075,
+      "Composite": 0.6975179962197113
+    },
+    "coreweave": {
+      "Conservation": 0.6708837045311973,
+      "Masked motif": 0.569907914818444,
+      "Core/non-core": 0.6996722143360962,
+      "Structural variant": 0.8496081511931075,
+      "Composite": 0.6975179962197113
+    }
+  },
+  "runtime": {
+    "lambda": {
+      "gpus": 2,
+      "worker_run_seconds": [
+        12079.116161937001,
+        12102.516923688001
+      ],
+      "measured_parallel_wall_seconds": 12102.516923688001,
+      "scored_sequences": 400000,
+      "scored_tokens": 3276800000,
+      "cluster_sequences_per_second": 33.05097629874728,
+      "h100_sequences_per_second": 16.541479997799808,
+      "standard_h100_sequences_per_second": 16.607747578900046,
+      "sv_h100_sequences_per_second": 16.58021548861245,
+      "peak_reserved_gib": 21.587890625,
+      "overhead_multiplier": 1.0039227931941335,
+      "full_leaderboard_rows": 1727943,
+      "full_estimated_h100_hours": 58.03019500307632,
+      "full_estimated_2gpu_hours": 29.01509750153816
+    },
+    "coreweave": {
+      "nodes": 2,
+      "gpus": 16,
+      "measured_parallel_wall_seconds": 1638.8307540416718,
+      "scored_sequences": 400000,
+      "scored_tokens": 3276800000,
+      "cluster_sequences_per_second": 244.07645451705315,
+      "h100_sequences_per_second": 16.36885776624858,
+      "summed_forward_wall_seconds": 24224.977211191086,
+      "full_leaderboard_rows": 1727943,
+      "full_estimated_same_allocation_hours": 3.9330640689319836
+    }
+  },
+  "rows": [
+    {
+      "key": "conservation_andropogoneae",
+      "task": "Conservation — Andropogoneae, genome-wide",
+      "lambda": 0.7219961283100884,
+      "coreweave": 0.7219961283100884,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "conservation_poaceae_non_tis",
+      "task": "Conservation — Poaceae, non-TIS CDS",
+      "lambda": 0.6991422656018929,
+      "coreweave": 0.6991422656018929,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    },
+    {
+      "key": "conservation_poaceae_tis",
+      "task": "Conservation — Poaceae, TIS CDS",
+      "lambda": 0.5915127196816107,
+      "coreweave": 0.5915127196816107,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "motif_maize_tis",
+      "task": "Masked motif — Maize TIS (start)",
+      "lambda": 0.4818,
+      "coreweave": 0.4818,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "motif_maize_tts",
+      "task": "Masked motif — Maize TTS (stop)",
+      "lambda": 0.3844,
+      "coreweave": 0.3844,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    },
+    {
+      "key": "motif_maize_donor",
+      "task": "Masked motif — Maize splice donor",
+      "lambda": 0.8167,
+      "coreweave": 0.8167,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    },
+    {
+      "key": "motif_maize_acceptor",
+      "task": "Masked motif — Maize splice acceptor",
+      "lambda": 0.8165,
+      "coreweave": 0.8165,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "motif_tomato_tis",
+      "task": "Masked motif — Tomato TIS (start)",
+      "lambda": 0.40168033606721343,
+      "coreweave": 0.40168033606721343,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "motif_tomato_tts",
+      "task": "Masked motif — Tomato TTS (stop)",
+      "lambda": 0.2209104552276138,
+      "coreweave": 0.2209104552276138,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    },
+    {
+      "key": "motif_tomato_donor",
+      "task": "Masked motif — Tomato splice donor",
+      "lambda": 0.7252725272527253,
+      "coreweave": 0.7252725272527253,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    },
+    {
+      "key": "motif_tomato_acceptor",
+      "task": "Masked motif — Tomato splice acceptor",
+      "lambda": 0.712,
+      "coreweave": 0.712,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "core_maize_tis",
+      "task": "Core/non-core — Maize TIS (start)",
+      "lambda": 0.6148692111155935,
+      "coreweave": 0.6148692111155935,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "core_maize_tts",
+      "task": "Core/non-core — Maize TTS (stop)",
+      "lambda": 0.6449803261244511,
+      "coreweave": 0.6449803261244511,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    },
+    {
+      "key": "core_maize_donor",
+      "task": "Core/non-core — Maize splice donor",
+      "lambda": 0.7715840598568027,
+      "coreweave": 0.7715840598568027,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    },
+    {
+      "key": "core_maize_acceptor",
+      "task": "Core/non-core — Maize splice acceptor",
+      "lambda": 0.7960349940436539,
+      "coreweave": 0.7960349940436539,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "core_tomato_tis",
+      "task": "Core/non-core — Tomato TIS (start)",
+      "lambda": 0.6119066874422471,
+      "coreweave": 0.6119066874422471,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "core_tomato_tts",
+      "task": "Core/non-core — Tomato TTS (stop)",
+      "lambda": 0.635943142242731,
+      "coreweave": 0.635943142242731,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    },
+    {
+      "key": "core_tomato_donor",
+      "task": "Core/non-core — Tomato splice donor",
+      "lambda": 0.7520783124324947,
+      "coreweave": 0.7520783124324947,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    },
+    {
+      "key": "core_tomato_acceptor",
+      "task": "Core/non-core — Tomato splice acceptor",
+      "lambda": 0.7699809814307954,
+      "coreweave": 0.7699809814307954,
+      "delta": 0,
+      "lambda_context": "right_reverse_complement",
+      "coreweave_context": "right_reverse_complement"
+    },
+    {
+      "key": "sv_impact",
+      "task": "Structural variant — Impact prediction",
+      "lambda": 0.8496081511931075,
+      "coreweave": 0.8496081511931075,
+      "delta": 0,
+      "lambda_context": "left",
+      "coreweave_context": "left"
+    }
+  ]
+}
