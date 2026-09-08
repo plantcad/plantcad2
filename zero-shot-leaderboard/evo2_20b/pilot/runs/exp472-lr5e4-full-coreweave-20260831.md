@@ -4,11 +4,11 @@
 
 ![Full MarinDNA training-scale comparison](assets/marindna-1b-full-lr5e4-family-comparison-20260831.png)
 
-**Composite: 0.6843 → 0.6927 → 0.6966** at .22T → .39T → .56T. The .39T checkpoint improves 19/20 task rows over .22T; .56T improves 19/20 over .39T. All four group means increase at each stage. From .39T to .56T, all eight motif and all eight core/non-core rows improve; the only decline is Andropogoneae conservation (−0.0015 AUROC). The .56T Composite exceeds PlantCAD2-Small (0.6818) and PlantCAD (0.6808), but remains below the larger PlantCAD models and evo2_20b.
+**Composite: 0.6843 → 0.6927 → 0.6966** at .22T → .39T → .56T. The .39T checkpoint improves 19/20 task rows over .22T; .56T improves 19/20 over .39T. All four group means increase at each stage. From .39T to .56T, all eight motif and all eight core/non-core rows improve; the only decline is Andropogoneae conservation (−0.0015 AUROC). The .56T Composite exceeds PlantCAD2-Small (0.6818) and PlantCAD (0.6808), but remains below PlantCAD2-Medium (0.7248), PlantCAD2.5-Large (0.7229), PlantCAD2-Large (0.7344), and evo2_20b (0.7566).
 
 ![MarinDNA 0.56T full versus 10k by task](assets/marindna-1b-0p56t-full-vs-10k-by-task-20260831.png)
 
-At the task level, the .56T full and 10k scores remain close relative to the spread across five published models. MarinDNA's rank among those six models changes on 2/20 tasks, by one place each; the mean absolute score difference is 0.0040 and the largest is 0.0120. The direct same-example check below shows that these shifts come from sample composition rather than numerical drift.
+At the task level, the .56T full and 10k scores remain close relative to the spread across six published models. MarinDNA's rank among those seven models changes on 3/20 tasks, by one place each; the mean absolute score difference is 0.0040 and the largest is 0.0120. The direct same-example check below shows that these shifts come from sample composition rather than numerical drift.
 
 Composite gives each of the four task groups equal weight (25% each), not each of the 20 rows. Scoring is unchanged: select the larger completed forward/RC **task-level metric** for non-SV tasks; SV remains forward reference-versus-mutant. The figure uses model-family colors and annotates .56T and evo2_20b.
 
@@ -22,6 +22,7 @@ Composite gives each of the four task groups equal weight (25% each), not each o
 | MarinDNA 1B 0.22T | 0.6624 | 0.5428 | 0.6871 | 0.8448 | 0.6843 |
 | PlantCAD2.5-Large | 0.7097 | 0.6954 | 0.7414 | 0.7450 | 0.7229 |
 | PlantCAD2-Large | 0.7024 | 0.6777 | 0.7166 | 0.8410 | 0.7344 |
+| PlantCAD2-Medium | 0.6864 | 0.6627 | 0.7165 | 0.8334 | 0.7248 |
 | PlantCAD2-Small | 0.6445 | 0.6059 | 0.6823 | 0.7946 | 0.6818 |
 | PlantCAD (512 bp) | 0.6867 | 0.5577 | 0.6554 | 0.8233 | 0.6808 |
 | evo2_20b | 0.7887 | 0.6552 | 0.7224 | 0.8600 | 0.7566 |
@@ -63,28 +64,28 @@ Deltas use unrounded values. All available rows are scored; the established ambi
 <details>
 <summary><strong>Published baselines by species/task</strong></summary>
 
-| Species / task | Metric | PlantCAD2.5-Large | PlantCAD2-Large | PlantCAD2-Small | PlantCAD (512 bp) | evo2_20b |
-| :--- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Conservation — Andropogoneae, genome-wide | AUROC | 0.7170 | 0.7245 | 0.6555 | 0.6902 | 0.7320 |
-| Conservation — Poaceae, non-TIS CDS | AUROC | 0.7290 | 0.7125 | 0.6462 | 0.7263 | 0.8620 |
-| Conservation — Poaceae, TIS CDS | AUROC | 0.6830 | 0.6703 | 0.6319 | 0.6437 | 0.7720 |
-| Masked motif — Maize TIS (start) | Accuracy | 0.6960 | 0.6571 | 0.5449 | 0.5204 | 0.6020 |
-| Masked motif — Maize TTS (stop) | Accuracy | 0.4460 | 0.4096 | 0.2302 | 0.2373 | 0.4530 |
-| Masked motif — Maize splice donor | Accuracy | 0.9210 | 0.9104 | 0.8754 | 0.8486 | 0.8220 |
-| Masked motif — Maize splice acceptor | Accuracy | 0.9130 | 0.8996 | 0.8537 | 0.8289 | 0.8260 |
-| Masked motif — Tomato TIS (start) | Accuracy | 0.6120 | 0.5960 | 0.5274 | 0.3885 | 0.5860 |
-| Masked motif — Tomato TTS (stop) | Accuracy | 0.2940 | 0.2848 | 0.2051 | 0.1570 | 0.3790 |
-| Masked motif — Tomato splice donor | Accuracy | 0.8460 | 0.8387 | 0.8165 | 0.7547 | 0.7890 |
-| Masked motif — Tomato splice acceptor | Accuracy | 0.8350 | 0.8257 | 0.7940 | 0.7266 | 0.7850 |
-| Core/non-core — Maize TIS (start) | AUROC | 0.7430 | 0.6960 | 0.7070 | 0.6820 | 0.6860 |
-| Core/non-core — Maize TTS (stop) | AUROC | 0.6260 | 0.6080 | 0.5980 | 0.6080 | 0.6860 |
-| Core/non-core — Maize splice donor | AUROC | 0.8420 | 0.8080 | 0.7640 | 0.7080 | 0.7760 |
-| Core/non-core — Maize splice acceptor | AUROC | 0.8730 | 0.8360 | 0.7630 | 0.7070 | 0.8040 |
-| Core/non-core — Tomato TIS (start) | AUROC | 0.6680 | 0.6460 | 0.6220 | 0.5870 | 0.6440 |
-| Core/non-core — Tomato TTS (stop) | AUROC | 0.6060 | 0.5980 | 0.5350 | 0.5220 | 0.6390 |
-| Core/non-core — Tomato splice donor | AUROC | 0.7830 | 0.7670 | 0.7350 | 0.7200 | 0.7660 |
-| Core/non-core — Tomato splice acceptor | AUROC | 0.7900 | 0.7740 | 0.7340 | 0.7090 | 0.7780 |
-| Structural variant — Impact prediction | AUPRC | 0.7450 | 0.8410 | 0.7946 | 0.8233 | 0.8600 |
+| Species / task | Metric | PlantCAD2.5-Large | PlantCAD2-Large | PlantCAD2-Medium | PlantCAD2-Small | PlantCAD (512 bp) | evo2_20b |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Conservation — Andropogoneae, genome-wide | AUROC | 0.7170 | 0.7245 | 0.7077 | 0.6555 | 0.6902 | 0.7320 |
+| Conservation — Poaceae, non-TIS CDS | AUROC | 0.7290 | 0.7125 | 0.6869 | 0.6462 | 0.7263 | 0.8620 |
+| Conservation — Poaceae, TIS CDS | AUROC | 0.6830 | 0.6703 | 0.6647 | 0.6319 | 0.6437 | 0.7720 |
+| Masked motif — Maize TIS (start) | Accuracy | 0.6960 | 0.6571 | 0.6325 | 0.5449 | 0.5204 | 0.6020 |
+| Masked motif — Maize TTS (stop) | Accuracy | 0.4460 | 0.4096 | 0.3601 | 0.2302 | 0.2373 | 0.4530 |
+| Masked motif — Maize splice donor | Accuracy | 0.9210 | 0.9104 | 0.9031 | 0.8754 | 0.8486 | 0.8220 |
+| Masked motif — Maize splice acceptor | Accuracy | 0.9130 | 0.8996 | 0.8898 | 0.8537 | 0.8289 | 0.8260 |
+| Masked motif — Tomato TIS (start) | Accuracy | 0.6120 | 0.5960 | 0.5846 | 0.5274 | 0.3885 | 0.5860 |
+| Masked motif — Tomato TTS (stop) | Accuracy | 0.2940 | 0.2848 | 0.2747 | 0.2051 | 0.1570 | 0.3790 |
+| Masked motif — Tomato splice donor | Accuracy | 0.8460 | 0.8387 | 0.8354 | 0.8165 | 0.7547 | 0.7890 |
+| Masked motif — Tomato splice acceptor | Accuracy | 0.8350 | 0.8257 | 0.8214 | 0.7940 | 0.7266 | 0.7850 |
+| Core/non-core — Maize TIS (start) | AUROC | 0.7430 | 0.6960 | 0.7100 | 0.7070 | 0.6820 | 0.6860 |
+| Core/non-core — Maize TTS (stop) | AUROC | 0.6260 | 0.6080 | 0.6180 | 0.5980 | 0.6080 | 0.6860 |
+| Core/non-core — Maize splice donor | AUROC | 0.8420 | 0.8080 | 0.8040 | 0.7640 | 0.7080 | 0.7760 |
+| Core/non-core — Maize splice acceptor | AUROC | 0.8730 | 0.8360 | 0.8290 | 0.7630 | 0.7070 | 0.8040 |
+| Core/non-core — Tomato TIS (start) | AUROC | 0.6680 | 0.6460 | 0.6450 | 0.6220 | 0.5870 | 0.6440 |
+| Core/non-core — Tomato TTS (stop) | AUROC | 0.6060 | 0.5980 | 0.5950 | 0.5350 | 0.5220 | 0.6390 |
+| Core/non-core — Tomato splice donor | AUROC | 0.7830 | 0.7670 | 0.7650 | 0.7350 | 0.7200 | 0.7660 |
+| Core/non-core — Tomato splice acceptor | AUROC | 0.7900 | 0.7740 | 0.7660 | 0.7340 | 0.7090 | 0.7780 |
+| Structural variant — Impact prediction | AUPRC | 0.7450 | 0.8410 | 0.8334 | 0.7946 | 0.8233 | 0.8600 |
 
 </details>
 

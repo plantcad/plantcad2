@@ -141,10 +141,10 @@ def main() -> None:
     legend = [
         mlines.Line2D([], [], marker="o", linestyle="none", markersize=8, markerfacecolor="#8C2D27", markeredgecolor="white", label="MarinDNA full split"),
         mlines.Line2D([], [], marker="D", linestyle="none", markersize=7.5, markerfacecolor="#F28E2B", markeredgecolor="white", label="MarinDNA 10k/task, seed 0"),
-        mlines.Line2D([], [], marker="o", color="#A7A7A7", linewidth=2.2, markersize=5, label="5 published models (full split)"),
+        mlines.Line2D([], [], marker="o", color="#A7A7A7", linewidth=2.2, markersize=5, label=f"{published.shape[0]} published models (full split)"),
     ]
     ax.legend(handles=legend, ncols=3, loc="upper center", bbox_to_anchor=(0.5, -0.075), frameon=False)
-    fig.text(0.5, 0.015, "Gray dots and ranges show PlantCAD2.5-Large, PlantCAD2-Large, PlantCAD2-Small, PlantCAD, and evo2_20b; task rank compares MarinDNA with those five models. Δ = full − 10k.\nMetrics are AUROC except motif accuracy and SV AUPRC. PlantCAD uses 512 bp; MarinDNA and the other published models use 8,192 bp.", ha="center", fontsize=10.5, color="#444444")
+    fig.text(0.5, 0.015, "Gray dots and ranges show PlantCAD2.5-Large, PlantCAD2-Large, PlantCAD2-Medium, PlantCAD2-Small, PlantCAD, and evo2_20b; task rank compares MarinDNA with those six models. Δ = full − 10k.\nMetrics are AUROC except motif accuracy and SV AUPRC. PlantCAD uses 512 bp; MarinDNA and the other published models use 8,192 bp.", ha="center", fontsize=10.5, color="#444444")
     fig.tight_layout(rect=(0, 0.09, 0.96, 1))
     args.output.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.output, dpi=180, bbox_inches="tight")

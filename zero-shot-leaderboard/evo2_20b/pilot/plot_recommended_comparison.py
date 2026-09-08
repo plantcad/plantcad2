@@ -15,6 +15,7 @@ import numpy as np
 BASELINE_MODELS = {
     "PlantCAD2.5-Large": ("PlantCAD2.5-L", "8192"),
     "PlantCAD2-Large": ("PlantCAD2-L", "8192"),
+    "PlantCAD2-Medium": ("PlantCAD2-M", "8192"),
     "PlantCAD2-Small": ("PlantCAD2-S", "8192"),
     "PlantCAD (512 bp)": ("PlantCAD", "512"),
     "evo2_20b": ("evo2_20b", "8192"),

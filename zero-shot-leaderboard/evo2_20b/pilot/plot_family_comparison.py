@@ -17,6 +17,7 @@ from plot_recommended_comparison import PLOT_CATEGORIES, TASK_IDS, category_summ
 PUBLISHED_MODELS = (
     ("PlantCAD2.5-Large", "PlantCAD2.5-L", "8192", "#174A7E"),
     ("PlantCAD2-Large", "PlantCAD2-L", "8192", "#2F78A8"),
+    ("PlantCAD2-Medium", "PlantCAD2-M", "8192", "#4E90B6"),
     ("PlantCAD2-Small", "PlantCAD2-S", "8192", "#66A6C9"),
     ("PlantCAD (512 bp)", "PlantCAD", "512", "#A6CEE3"),
     ("evo2_20b", "evo2_20b", "8192", "#7A5195"),
