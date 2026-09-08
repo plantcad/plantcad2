@@ -26,7 +26,6 @@ from tqdm import tqdm
 logger = logging.getLogger(__name__)
 
 NUCLEOTIDES = ("A", "C", "G", "T")
-NUCLEOTIDES_LOWER = tuple(n for n in NUCLEOTIDES)
 NUCLEOTIDE_TO_INDEX = {b: i for i, b in enumerate(NUCLEOTIDES)}
 COMPLEMENT = {"A": "T", "C": "G", "G": "C", "T": "A", "N": "N"}
 
@@ -161,6 +160,35 @@ def _load_model(
     return model, tok
 
 
+def _nucleotide_token_ids(tokenizer) -> List[int]:
+    """Resolve A/C/G/T output IDs for upper- or lower-case DNA vocabularies."""
+    vocab = tokenizer.get_vocab()
+    token_ids = []
+    for nucleotide in NUCLEOTIDES:
+        token = nucleotide if nucleotide in vocab else nucleotide.lower()
+        if token not in vocab:
+            raise KeyError(
+                f"Tokenizer vocabulary has neither {nucleotide!r} nor {nucleotide.lower()!r}"
+            )
+        token_id = vocab[token]
+        encoded = tokenizer(
+            nucleotide,
+            add_special_tokens=False,
+            return_attention_mask=False,
+            return_token_type_ids=False,
+        )["input_ids"]
+        if isinstance(encoded, torch.Tensor):
+            encoded = encoded.reshape(-1).tolist()
+        elif encoded and isinstance(encoded[0], list):
+            encoded = encoded[0]
+        if encoded != [token_id]:
+            raise ValueError(
+                f"Expected nucleotide {nucleotide!r} to encode as one token {token_id}, got {encoded}"
+            )
+        token_ids.append(token_id)
+    return token_ids
+
+
 class SequenceDataset(Dataset):
     def __init__(self, sequences: pd.Series, tokenizer):
         self.sequences = sequences.reset_index(drop=True)
@@ -191,7 +219,7 @@ def _causal_probs_at_positions(
     positions: List[int],
     desc: str,
 ) -> np.ndarray:
-    idxs = [tokenizer.get_vocab()[n] for n in NUCLEOTIDES_LOWER]
+    idxs = _nucleotide_token_ids(tokenizer)
     if any(p <= 0 for p in positions):
         raise ValueError(
             "Causal scoring requires target positions > 0 (position 0 has no left context)."
@@ -313,8 +341,7 @@ def _beam_decode_positions_chunk(
     if sorted(positions) != positions:
         raise ValueError("positions must be sorted ascending for beam decoding.")
 
-    vocab = tokenizer.get_vocab()
-    nuc_ids = [vocab[n] for n in NUCLEOTIDES_LOWER]
+    nuc_ids = _nucleotide_token_ids(tokenizer)
     id_to_nuc = {tok_id: nuc for tok_id, nuc in zip(nuc_ids, NUCLEOTIDES)}
     seqs = sequences.astype(str).tolist()
     preds = []
@@ -369,7 +396,7 @@ def _unmasked_causal_probs(
     Per-position probabilities over A,C,G,T aligned to token positions.
     Output shape: [N, L, 4]. Position 0 is set to 0 because it has no left context.
     """
-    idxs = [tokenizer.get_vocab()[n] for n in NUCLEOTIDES_LOWER]
+    idxs = _nucleotide_token_ids(tokenizer)
     seqs = sequences.astype(str).tolist()
     first_len = None
     all_probs = None

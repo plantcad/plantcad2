@@ -12,8 +12,9 @@ this repo (NTv3-650M, Carbon-3B) and against the leaderboard's Evo2 row:
   motif_acc     motif accuracy (exact match over all motif positions)
   evo_cons      AUROC          core_noncore  AUROC          sv_effect  AUPRC
 
-Only the 8192 bp leaderboard rows are used -- results.csv also carries a 512 bp
-copy of every task, which is not what we ran.
+The 8192 bp leaderboard rows are used when available. Older models such as
+PlantCAD only have 512 bp rows; those fall back to their longest published
+context and are labelled explicitly in the output.
 
     python compare_leaderboard.py --results_dir results/zero-shot-leaderboard/evo2_20b
     python compare_leaderboard.py --category evo_cons
@@ -106,12 +107,30 @@ def short_name(task: str) -> str:
     )
 
 
-def build_table(lb, local, category, compare, label, modes, ours):
+def published_contexts(lb, compare):
+    """Choose 8192 bp when present, otherwise each model's longest context."""
+    out = {}
+    for model in compare:
+        contexts = lb.loc[lb.model == model, "context_bp"].dropna()
+        if contexts.empty:
+            out[model] = None
+        elif CONTEXT_BP in set(contexts):
+            out[model] = CONTEXT_BP
+        else:
+            out[model] = int(contexts.max())
+    return out
+
+
+def build_table(lb, local, category, compare, label, modes, ours, model_contexts):
     rows = []
     for (task, split), tid in TASK_MAP[category].items():
         row = {"task": short_name(task), "split": split.replace("test_", "") or "test"}
         for model in compare:
-            hit = lb[(lb.model == model) & (lb.task_id == tid)]
+            hit = lb[
+                (lb.model == model)
+                & (lb.task_id == tid)
+                & (lb.context_bp == model_contexts[model])
+            ]
             row[model] = float(hit.value.iloc[0]) if len(hit) else None
         got = local.get(tid)
         row[label] = got[0] if got else None
@@ -127,14 +146,21 @@ def build_table(lb, local, category, compare, label, modes, ours):
 
     # `ours` is a PlantCAD model on the leaderboard; the local column is the
     # external model being evaluated, so the delta reads ours - theirs.
-    headers = [
-        f"{DISPLAY_NAMES.get(m, m)}" + (" (ours)" if m == ours else "") for m in compare
-    ]
+    headers = []
+    for model in compare:
+        header = DISPLAY_NAMES.get(model, model)
+        context = model_contexts[model]
+        if context is not None and context != CONTEXT_BP:
+            header += f" ({context} bp)"
+        if model == ours:
+            header += " (ours)"
+        headers.append(header)
     heading, metric_name = TITLE[category]
     lines = [
         f"## {heading}",
         "",
-        f"Metric: {metric_name}. Leaderboard values are the {CONTEXT_BP} bp context rows.",
+        f"Metric: {metric_name}. Published values use {CONTEXT_BP} bp where available; "
+        "shorter-context fallbacks are labelled in the column header.",
         f"The {label} column is run locally, max over {', '.join(modes)}. "
         "`*` = only one strand available; `--` = not run locally.",
         "",
@@ -165,14 +191,22 @@ def main():
     ap.add_argument("--ours", default="PlantCAD2.5-L",
                     help="our leaderboard model; marked (ours) and used as the delta reference")
     ap.add_argument("--output", default="")
+    ap.add_argument(
+        "--leaderboard-results",
+        default="",
+        help="optional local results.csv; defaults to the live leaderboard Space",
+    )
     args = ap.parse_args()
 
     modes = [x.strip() for x in args.modes.split(",") if x.strip()]
     compare = [c.strip() for c in args.compare.split(",")]
     categories = list(TASK_MAP) if args.category == "all" else [args.category]
 
-    lb = pd.read_csv(io.StringIO(urllib.request.urlopen(RESULTS_URL).read().decode()))
-    lb = lb[lb.context_bp == CONTEXT_BP]
+    if args.leaderboard_results:
+        lb = pd.read_csv(args.leaderboard_results)
+    else:
+        lb = pd.read_csv(io.StringIO(urllib.request.urlopen(RESULTS_URL).read().decode()))
+    model_contexts = published_contexts(lb, compare)
 
     parts = [
         f"# {args.label} vs PlantCAD2 zero-shot leaderboard",
@@ -183,7 +217,12 @@ def main():
     ]
     for cat in categories:
         local = load_local(Path(args.results_dir), cat, modes)
-        parts += [build_table(lb, local, cat, compare, args.label, modes, args.ours), ""]
+        parts += [
+            build_table(
+                lb, local, cat, compare, args.label, modes, args.ours, model_contexts
+            ),
+            "",
+        ]
 
     md = "\n".join(parts)
     print(md)

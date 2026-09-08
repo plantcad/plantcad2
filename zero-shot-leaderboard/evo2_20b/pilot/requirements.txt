@@ -1,0 +1,9 @@
+datasets
+fire
+huggingface-hub
+numpy<2
+pandas
+scikit-learn<1.6
+scipy<1.14
+tqdm
+transformers==5.15.1
