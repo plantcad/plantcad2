@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "marindna-exp586-evals"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "boto3",
+    "fire",
+    "datasets",
+    "transformers",
+    "scipy",
+    "scikit-learn",
+    "tokenizers",
+    "huggingface-hub",
+    "pandas>=3.0.6",
+    "matplotlib>=3.10",
+    "pyarrow>=25.0.1",
+    "pyfaidx>=0.9.0.4",
+    "einops>=0.8.2",
+]
+
+[project.optional-dependencies]
+cpu = ["torch==2.11.0"]
+
+[dependency-groups]
+dev = ["pytest", "ruff"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "../evo2_20b/pilot/coreweave"]
+pythonpath = ["../evo2_20b/pilot/coreweave", "../evo2_20b/pilot"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/exp586_evals"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"../evo2_20b/zero-shot-eval-causal.py" = "exp586_evals/exp472/zero-shot-eval-causal.py"
+"../evo2_20b/pilot/partition.py" = "exp586_evals/exp472/pilot/partition.py"
+"../evo2_20b/pilot/merge_recommended.py" = "exp586_evals/exp472/pilot/merge_recommended.py"
+"../evo2_20b/pilot/sensitivity/run_condition.py" = "exp586_evals/exp472/pilot/sensitivity/run_condition.py"
+"../evo2_20b/pilot/coreweave/aggregate.py" = "exp586_evals/exp472/pilot/coreweave/aggregate.py"
+"../evo2_20b/pilot/coreweave/checkpoints.py" = "exp586_evals/exp472/pilot/coreweave/checkpoints.py"
+"../evo2_20b/pilot/coreweave/common.py" = "exp586_evals/exp472/pilot/coreweave/common.py"
+"../evo2_20b/pilot/coreweave/compare.py" = "exp586_evals/exp472/pilot/coreweave/compare.py"
+"../evo2_20b/pilot/coreweave/inputs.py" = "exp586_evals/exp472/pilot/coreweave/inputs.py"
+"../evo2_20b/pilot/coreweave/allele_frequency/aggregate.py" = "exp586_evals/exp472/pilot/coreweave/allele_frequency/aggregate.py"
+"../evo2_20b/pilot/coreweave/allele_frequency/config.py" = "exp586_evals/exp472/pilot/coreweave/allele_frequency/config.py"
+"../evo2_20b/pilot/coreweave/allele_frequency/scoring.py" = "exp586_evals/exp472/pilot/coreweave/allele_frequency/scoring.py"
+"../evo2_20b/pilot/coreweave/allele_frequency_probe/config.py" = "exp586_evals/exp472/pilot/coreweave/allele_frequency_probe/config.py"
+"../evo2_20b/pilot/coreweave/allele_frequency_probe/split.py" = "exp586_evals/exp472/pilot/coreweave/allele_frequency_probe/split.py"
+"../evo2_20b/pilot/coreweave/allele_frequency_probe/probe.py" = "exp586_evals/exp472/pilot/coreweave/allele_frequency_probe/probe.py"
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu", extra = "cpu" }

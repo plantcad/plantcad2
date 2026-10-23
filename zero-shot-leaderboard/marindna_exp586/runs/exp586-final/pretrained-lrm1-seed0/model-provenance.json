@@ -1,0 +1,57 @@
+{
+  "schema": 1,
+  "model": {
+    "architecture": "d768 Hero-ladder latent MoE",
+    "layers": 8,
+    "hidden_width": 768,
+    "routed_experts": 384,
+    "selected_experts_per_token": 8,
+    "shared_experts": 2,
+    "expert_width": 384,
+    "latent_width": 384,
+    "training_context": 8192,
+    "sliding_window": 2048,
+    "global_attention_every": 4,
+    "vocabulary_size": 128256,
+    "total_parameters": 1591848448,
+    "active_parameters_hero_convention": 60555264
+  },
+  "training": {
+    "condition": "language-pretrained",
+    "learning_rate_multiplier": 1.0,
+    "peak_muonh_learning_rate": 0.0033199380421085104,
+    "peak_adam_learning_rate": 0.000766139548178887,
+    "schedule": "1% token warmup followed by linear decay to 5% of peak",
+    "warmup_updates": 4122,
+    "peak_checkpoint_update": 4123,
+    "total_updates": 412290,
+    "global_batch_size": 64,
+    "tokens_per_update": 524288,
+    "input_tokens": 216158699520,
+    "loss_targets": 216132312960,
+    "examples": 26386560,
+    "epochs": 10
+  },
+  "flops": {
+    "analytic_forward_flops_per_token": 406708224,
+    "training_flops_per_token": 1220124672,
+    "training_flops": 263740562351786557440,
+    "wandb_total_gflops": 263740562351.78656,
+    "convention": "Marin/Levanter analytic model FLOPs with the LatentMoE correction; training uses three times forward compute and excludes communication, optimizer bookkeeping, and rematerialization overhead"
+  },
+  "checkpoint": {
+    "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+    "raw_metadata_sha256": "f6028295e3790bf43606917a78e5dade8ce0eb12e19dd2a8e3cab886ae86ab34",
+    "canonical_metadata_digest": "275e68e8a521333a4dd5c7bf2aa8f9c79c11517677a8af47ce7abc1aa5004a89",
+    "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+    "training_backend": "fixed_pooled_wave_all_to_all",
+    "evaluation_backend": "sonic"
+  },
+  "sources": {
+    "training_wandb": "https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+    "evaluation_code_commit": "91610da09cc06cf0866b17ea04306d7255e40431",
+    "marin_source_commit": "187a34fa46cfe8feedc9d4573a2886e293d1e643",
+    "active_parameter_source": "experiments/grug/fast_track/launch.py::_BASELINE_ACTIVE_PARAMS",
+    "flop_source": "experiments/grug/moe_hero_ep/train.py::_compute_flops"
+  }
+}

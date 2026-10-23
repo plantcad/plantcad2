@@ -1,0 +1,44 @@
+[
+  {
+    "path": "historical/plantcad2-maize-af-039t-20260904-v1.json",
+    "repository": "plantcad/marindna-exp472",
+    "revision": "69656cc98d0ad0d17203e1d18b213c47a9d8187e",
+    "source": "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/coreweave/plantcad2-maize-af-039t-20260904-v1/result.json",
+    "sha256": "f70c6cb53b6b52e5536122e4bba4e934befea4799b6a68f39cc98846fa83c02a"
+  },
+  {
+    "path": "historical/plantcad2-maize-af-probe-039t-20260904-v1.json",
+    "repository": "plantcad/marindna-exp472",
+    "revision": "69656cc98d0ad0d17203e1d18b213c47a9d8187e",
+    "source": "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/results/step-371065/coreweave/plantcad2-maize-af-probe-039t-20260904-v1/result.json",
+    "sha256": "4201f5e095a672935ad0cd96bea574b0c96e98332b64655e65c0de0a5d8add58"
+  },
+  {
+    "path": "historical/plantcad2-maize-af-056t-20260904-v1.json",
+    "repository": "plantcad/marindna-exp472",
+    "revision": "69656cc98d0ad0d17203e1d18b213c47a9d8187e",
+    "source": "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/results/step-535985/coreweave/plantcad2-maize-af-056t-20260904-v1/result.json",
+    "sha256": "e0044757e69e90f2f77ee0802d35010bba1c04b5820d3ca64c205ecbd6228309"
+  },
+  {
+    "path": "historical/plantcad2-maize-af-probe-056t-20260904-v1.json",
+    "repository": "plantcad/marindna-exp472",
+    "revision": "69656cc98d0ad0d17203e1d18b213c47a9d8187e",
+    "source": "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/results/step-535985/coreweave/plantcad2-maize-af-probe-056t-20260904-v1/result.json",
+    "sha256": "81dd5520add4a5f3fb0c5b81b938051e997746d6783c9a3e98ce3e0cb66a4b77"
+  },
+  {
+    "path": "historical/plantcad2-maize-af-022t-20260904-v1.json",
+    "repository": "plantcad/marindna-exp472",
+    "revision": "69656cc98d0ad0d17203e1d18b213c47a9d8187e",
+    "source": "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/results/step-206144/coreweave/plantcad2-maize-af-022t-20260904-v1/result.json",
+    "sha256": "13b0dfe89b1ea2c8d187b618092eb201243572e1a08d3fbd12a3f21bf1fa69c9"
+  },
+  {
+    "path": "historical/plantcad2-maize-af-probe-022t-20260904-v1.json",
+    "repository": "plantcad/marindna-exp472",
+    "revision": "69656cc98d0ad0d17203e1d18b213c47a9d8187e",
+    "source": "exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/results/step-206144/coreweave/plantcad2-maize-af-probe-022t-20260904-v1/result.json",
+    "sha256": "35972c5d5081140f38e9f0499bc446c27e8e27cabda10422b0d95ff91e2618ba"
+  }
+]

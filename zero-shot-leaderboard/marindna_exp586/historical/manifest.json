@@ -1,0 +1,31 @@
+{
+  "repository": "https://github.com/plantcad/plantcad2",
+  "commit": "475fba58f81b79efa234d0018eb0776d1a960bfd",
+  "files": [
+    {
+      "path": "historical/exp472-lr5e4-full-coreweave-20260831.json",
+      "source": "zero-shot-leaderboard/evo2_20b/pilot/runs/exp472-lr5e4-full-coreweave-20260831.json",
+      "sha256": "76e5bb907568e7b800e5803216f72495933d584e95bf2a03cbae597d7cc6391b"
+    },
+    {
+      "path": "historical/exp472-lr5e4-full-coreweave-20260831.md",
+      "source": "zero-shot-leaderboard/evo2_20b/pilot/runs/exp472-lr5e4-full-coreweave-20260831.md",
+      "sha256": "23ef0abec17463704b87c9644869d66ed4da6c315a3899fc97e1061d05f2bbaa"
+    },
+    {
+      "path": "historical/exp472-lr5e4-maize-af-coreweave-20260904.md",
+      "source": "zero-shot-leaderboard/evo2_20b/pilot/runs/exp472-lr5e4-maize-af-coreweave-20260904.md",
+      "sha256": "8fb415f6907a499819569668b85ef01b466eefd7efde90cb36082c4cf62a194e"
+    },
+    {
+      "path": "historical/exp472-lr5e4-maize-af-probe-coreweave-20260904.md",
+      "source": "zero-shot-leaderboard/evo2_20b/pilot/runs/exp472-lr5e4-maize-af-probe-coreweave-20260904.md",
+      "sha256": "238ca80e5c8097f6b1949006e97e02809b18f506f76403ac30044e731f4dd248"
+    },
+    {
+      "path": "historical/exp472-lr5e4-maize-af-probe-validation-20260904.json",
+      "source": "zero-shot-leaderboard/evo2_20b/pilot/runs/exp472-lr5e4-maize-af-probe-validation-20260904.json",
+      "sha256": "2934ce7be43a8a04756a5223dca3ec92563b64b37d27933408b21587306c3ac5"
+    }
+  ]
+}

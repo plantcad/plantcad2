@@ -1,0 +1,80 @@
+{
+  "source_commit": "475fba58f81b79efa234d0018eb0776d1a960bfd",
+  "files": {
+    "zero-shot-eval-causal.py": {
+      "reference_sha256": "fb99363dd4c7c14070317f5cbf44cbf07e5862ee58506460613a1bb4477f9a4f",
+      "current_sha256": "fb99363dd4c7c14070317f5cbf44cbf07e5862ee58506460613a1bb4477f9a4f",
+      "change": null
+    },
+    "pilot/partition.py": {
+      "reference_sha256": "7e7ddc14be276d33f4d28dc340adf1949a0437e714f1609a3387312a48a49902",
+      "current_sha256": "7e7ddc14be276d33f4d28dc340adf1949a0437e714f1609a3387312a48a49902",
+      "change": null
+    },
+    "pilot/merge_recommended.py": {
+      "reference_sha256": "2f132044c07d98fecacdeecdf0ea7d1c8c06a4c90c0d099ddd8f3ff034799194",
+      "current_sha256": "2f132044c07d98fecacdeecdf0ea7d1c8c06a4c90c0d099ddd8f3ff034799194",
+      "change": null
+    },
+    "pilot/sensitivity/run_condition.py": {
+      "reference_sha256": "320ae4ba705cd965cd3c4af5f4330576d6c60319f4bf27ba0f6046334bff6d0e",
+      "current_sha256": "142cf86c256a55f2d5a05160fb0c371bec51ead584177e5cccb29f215b18ae1e",
+      "change": "Dispatch native inference and report absent PyTorch timing/memory metadata; task formulas unchanged."
+    },
+    "pilot/coreweave/aggregate.py": {
+      "reference_sha256": "968e9c6643d76b2186d8f253a24c0da3e406f42f36db87095059f9f9ab03e46c",
+      "current_sha256": "d0664c9cbcb69c9f72047fcb221925e2132ae1c19f1590e3fa812717fb91449b",
+      "change": "Allow native condition/memory metadata and count GPUs per collective worker."
+    },
+    "pilot/coreweave/checkpoints.py": {
+      "reference_sha256": "d1de20dbca28d8257dade68977fc7d0148131fdf0358a29b9be2a445516876ff",
+      "current_sha256": "d1de20dbca28d8257dade68977fc7d0148131fdf0358a29b9be2a445516876ff",
+      "change": null
+    },
+    "pilot/coreweave/common.py": {
+      "reference_sha256": "6608ce61e5d22a38c0eba867c131754b9bea73423741f95bf7f78899d30da79c",
+      "current_sha256": "6608ce61e5d22a38c0eba867c131754b9bea73423741f95bf7f78899d30da79c",
+      "change": null
+    },
+    "pilot/coreweave/compare.py": {
+      "reference_sha256": "7771f82e2213f1e9612ab223680707591dcd2237486fee60f447e6cefb9b7238",
+      "current_sha256": "7771f82e2213f1e9612ab223680707591dcd2237486fee60f447e6cefb9b7238",
+      "change": null
+    },
+    "pilot/coreweave/inputs.py": {
+      "reference_sha256": "b7f483fe04e4d92df889a5705e2658f0b1403e594371fbcaf09df37816b63e53",
+      "current_sha256": "b7f483fe04e4d92df889a5705e2658f0b1403e594371fbcaf09df37816b63e53",
+      "change": null
+    },
+    "pilot/coreweave/allele_frequency/aggregate.py": {
+      "reference_sha256": "ecec9bcd3e9ff2c425444f793046c0a9b0968a73a5be54c19a7b51af08163cd0",
+      "current_sha256": "c405f61343a6f46cb78626665e2ce849f89402e563b8ccde4aa8d5d552c022bc",
+      "change": "Qualify config import so AF and task aggregators coexist."
+    },
+    "pilot/coreweave/allele_frequency/config.py": {
+      "reference_sha256": "a3fe374718877520d40479db9d1451a246d88e9bac07306692cf2a1f3625dd2b",
+      "current_sha256": "a3fe374718877520d40479db9d1451a246d88e9bac07306692cf2a1f3625dd2b",
+      "change": null
+    },
+    "pilot/coreweave/allele_frequency/scoring.py": {
+      "reference_sha256": "4a511a10de58ac0afd4607e8cff495f9c4385317a7d58d09f52e71fc479f786c",
+      "current_sha256": "522a682c9f43728a4fab8865ac9f34633c8ab9756e4e70de31797475c0575c9d",
+      "change": "Extract unchanged uncached suffix reduction for reuse by native outputs."
+    },
+    "pilot/coreweave/allele_frequency_probe/config.py": {
+      "reference_sha256": "1f473a41f32ff99a8d16a85dfbd2ea0c1bb8d04c36422b59938686778f179ca2",
+      "current_sha256": "1f473a41f32ff99a8d16a85dfbd2ea0c1bb8d04c36422b59938686778f179ca2",
+      "change": null
+    },
+    "pilot/coreweave/allele_frequency_probe/split.py": {
+      "reference_sha256": "2fca26fbf997339ba2146f6f237997ca7f25cd50886568943a342654a4a85d27",
+      "current_sha256": "2fca26fbf997339ba2146f6f237997ca7f25cd50886568943a342654a4a85d27",
+      "change": null
+    },
+    "pilot/coreweave/allele_frequency_probe/probe.py": {
+      "reference_sha256": "15e6e557905c849f4082a2c4890f0a72fce6014a9fdc2079ec4185080d68c0f2",
+      "current_sha256": "c1369d75996842de2bae1368b6f5fe3ba92113932e293c3017826ae3f6f4cd50",
+      "change": "Optional supplied archived split for bounded pilot; default split and fitting unchanged."
+    }
+  }
+}

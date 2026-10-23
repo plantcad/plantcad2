@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "source_uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/validation/pretrained-lrm1-seed0/methods-v1/report-d4e145f96da72133f0198012901ac0a03dff66bfe7fa9fb71a16e2cc2a5a4468.json",
+  "sha256": "d4e145f96da72133f0198012901ac0a03dff66bfe7fa9fb71a16e2cc2a5a4468",
+  "bytes": 12609,
+  "wandb_run": "https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-methods-v1"
+}
