@@ -2,7 +2,7 @@
 
 Among the three dense checkpoints and two 60.6M-active MoEs, lower validation loss tracks higher **Composite** performance: **Pearson r = -0.984; Spearman ρ = -0.900** (five models). Maize allele frequency is shown separately and is excluded from Composite.
 
-**Natural** predicts targets from one side; **PoE** combines left- and right-context predictions (forward/reverse-complement passes) using a normalized geometric mean. Natural reports the better direction per task.
+Lower loss tracks better conservation, masked-motif and structural-variant scores; it does not consistently predict better core/non-core or maize allele-frequency results.
 
 ![Validation loss versus Composite and six task groups, excluding the 481M-active MoEs](loss-correlation-without-481m.png)
 
@@ -15,17 +15,7 @@ With all seven models: Composite **Pearson r = -0.987; Spearman ρ = -0.929**.
 
 </details>
 
-For Composite, the five-model least-squares fit is:
-
-$$
-\widehat{C} = 1.23262 -0.55722\,L
-$$
-
-where $L$ is validation loss and $C$ is Composite. Assuming **$L = 0.88$** for the [1T-token d768 language-initialized run](https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1) in [#586](https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578) projects **Composite ≈ 0.742**. This extrapolates beyond the observed loss range **0.946–0.981**; it is not an evaluated result.
-
-The fit and correlations use only the five measured checkpoints. The table and readout checks below retain all seven models.
-
-All task scores use the historical **8K Natural** convention. Across the four MoEs, 8K beats 2K Natural by **+0.0084** on the matched three-group mean. PoE at 8K changes it by **-0.0010**: conservation and motifs improve, while core/non-core declines.
+At an assumed loss of **0.88**, the [1T-token d768 language-initialized run](https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1) projects to **Composite ≈ 0.742** (five-model fit: Composite ≈ 1.23262 − 0.55722 × loss; extrapolated, not evaluated).
 
 | ID | MarinDNA model (total / active parameters) | Initialization | DNA tokens | Vocabulary | Validation loss | Training run |
 | --- | --- | --- | ---: | ---: | ---: | --- |
@@ -38,6 +28,10 @@ All task scores use the historical **8K Natural** convention. Across the four Mo
 | M61-S | MoE 1.39B / 60.6M | Scratch | 216.16B | 8 | 0.948175 | [W&B](https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1) |
 
 MoE active counts exclude input/output embeddings; total counts include them. S = scratch; L = language-initialized; D = dense. The numbers in dense IDs indicate billions of DNA training tokens.
+
+The analysis uses the historical **8K Natural** scoring convention. For target predictions, Natural uses one flank, reporting the better forward/reverse-complement direction per task; **PoE** combines both flanks’ predictions with a normalized geometric mean.
+
+Across the four MoEs, 8K beats 2K Natural by **+0.0084** on the matched three-group mean. Switching from Natural to PoE at 8K changes it by **-0.0010**: conservation and motifs improve, while core/non-core declines.
 
 <details>
 <summary>Score definitions and readout choices</summary>
@@ -90,6 +84,8 @@ The four-base check conditions probabilities on A/C/G/T and uses only canonical-
 Replacing the three eligible MoE task groups with PoE while retaining Natural structural-variant scores gives Composite r = -0.982, ρ = -0.964. This hybrid is a sensitivity check, not the primary score.
 
 Using 2K instead of 8K Natural zero-shot AF for the MoEs increases their mean AF Spearman by +0.0076; the seven-model loss/AF relationship becomes r = -0.918, ρ = -0.571. Dense AF retains its historical 8K setting, so this mixed-context result is secondary.
+
+The Composite projection for the [1T-token run in #586](https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578) uses a least-squares fit to the five measured checkpoints, excluding the 481M-active MoEs. Their losses span **0.946–0.981**. The assumed loss of **0.88** lies outside that range and is not included in the fit or correlations.
 
 </details>
 
