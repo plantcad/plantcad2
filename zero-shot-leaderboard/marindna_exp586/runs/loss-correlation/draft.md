@@ -1,10 +1,19 @@
 ## DNA validation loss versus downstream evaluations
 
-Across these seven DNA-trained Marin checkpoints, lower validation loss tracks higher **Composite** performance: **Pearson r = -0.987; Spearman ρ = -0.929**. Maize allele frequency is shown separately and is excluded from Composite.
+Among the three dense checkpoints and two 60.6M-active MoEs, lower validation loss tracks higher **Composite** performance: **Pearson r = -0.984; Spearman ρ = -0.900** (five models). Maize allele frequency is shown separately and is excluded from Composite.
 
-![Validation loss versus Composite and six task groups](loss-correlation.png)
+![Validation loss versus Composite and six task groups, excluding the 481M-active MoEs](loss-correlation-without-481m.png)
 
-Each point is a checkpoint model. This is a descriptive comparison across different architectures, DNA training budgets and vocabularies, not evidence that reducing loss by a given amount causes a fixed evaluation gain.
+<details>
+<summary>Including the 481M-active MoEs (all seven models)</summary>
+
+![Validation loss versus Composite and six task groups, all seven models](loss-correlation.png)
+
+With all seven models: Composite **Pearson r = -0.987; Spearman ρ = -0.929**.
+
+</details>
+
+Each point is a checkpoint model. This is a descriptive comparison across different architectures, DNA training budgets and vocabularies, not evidence that reducing loss by a given amount causes a fixed evaluation gain. The table and readout checks below retain all seven models.
 
 Task scores retain the historical **8K Natural** convention: the better causal direction per task, where both are available. Across the four MoEs, 8K beats 2K Natural by **+0.0084** on the matched three-group mean. Combining left/right target probabilities (**PoE**) at 8K changes it by **-0.0010**: conservation and motifs improve, while core/non-core declines.
 

@@ -976,6 +976,52 @@
       "spearman_rho": -0.8214285714285715
     }
   },
+  "without_481m": {
+    "model_codes": [
+      "D216",
+      "D389",
+      "D562",
+      "M61-L",
+      "M61-S"
+    ],
+    "correlations": {
+      "Composite": {
+        "n": 5,
+        "pearson_r": -0.9843955586635389,
+        "spearman_rho": -0.8999999999999998
+      },
+      "Conservation": {
+        "n": 5,
+        "pearson_r": -0.9548942027291507,
+        "spearman_rho": -0.8999999999999998
+      },
+      "Masked motif": {
+        "n": 5,
+        "pearson_r": -0.9735514452258752,
+        "spearman_rho": -0.9999999999999999
+      },
+      "Core/non-core": {
+        "n": 5,
+        "pearson_r": 0.22568812028743793,
+        "spearman_rho": 0.09999999999999999
+      },
+      "Structural variant": {
+        "n": 5,
+        "pearson_r": -0.9347001474448863,
+        "spearman_rho": -0.8999999999999998
+      },
+      "Maize AF \u00b7 zero-shot": {
+        "n": 5,
+        "pearson_r": 0.8276228736490938,
+        "spearman_rho": 0.6
+      },
+      "Maize AF \u00b7 linear probe": {
+        "n": 5,
+        "pearson_r": -0.4979357846914487,
+        "spearman_rho": -0.6
+      }
+    }
+  },
   "sensitivity": {
     "original_reported_losses": {
       "n": 7,

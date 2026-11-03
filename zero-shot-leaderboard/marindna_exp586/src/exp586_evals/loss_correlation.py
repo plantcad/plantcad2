@@ -190,6 +190,8 @@ def validation(row: dict, path: Path) -> dict:
 
 
 def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
+    count = len(rows)
+    count_label = {5: "Five", 7: "Seven"}.get(count, str(count))
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
@@ -258,7 +260,10 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
                     if row["code"].startswith("M")
                     else None,
                 )
-        ax.set_xlim(x.min() - 0.013, x.max() + 0.014)
+        left_margin, right_margin = (
+            (0.013, 0.014) if count == 7 else (0.14 * np.ptp(x), 0.15 * np.ptp(x))
+        )
+        ax.set_xlim(x.min() - left_margin, x.max() + right_margin)
         ax.margins(y=0.23 if index == 0 else 0.18)
         ax.grid(color="#E8ECF0", linewidth=0.8)
         ax.set_axisbelow(True)
@@ -269,12 +274,13 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
             fontweight="bold",
             pad=10,
         )
+        stats_at_top = count == 5 and metric in ("Core/non-core", AF_ZERO)
         ax.text(
             0.03,
-            0.035,
+            0.965 if stats_at_top else 0.035,
             f"Pearson r = {stats['pearson_r']:+.3f}\nSpearman ρ = {stats['spearman_rho']:+.3f}",
             transform=ax.transAxes,
-            va="bottom",
+            va="top" if stats_at_top else "bottom",
             fontsize=13 if index == 0 else 10.5,
             bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.9, "pad": 4},
         )
@@ -300,16 +306,17 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
     fig.text(
         0.07,
         0.916,
-        "Seven MarinDNA checkpoints · identical 8,192-base held-out windows · fixed 8K downstream readout",
+        f"{count_label} MarinDNA checkpoints · identical 8,192-base held-out windows · fixed 8K downstream readout",
         fontsize=12,
     )
     color_handles = [
-        Line2D([], [], color=color, lw=4, label=label)
-        for color, label in [
-            (COLORS["dense"], "Dense · 0.97B active"),
-            (COLORS["small"], "MoE · 60.6M active (excl. embeddings)"),
-            (COLORS["large"], "MoE · 481M active (excl. embeddings)"),
+        Line2D([], [], color=COLORS[family], lw=4, label=label)
+        for family, label in [
+            ("dense", "Dense · 0.97B active"),
+            ("small", "MoE · 60.6M active (excl. embeddings)"),
+            ("large", "MoE · 481M active (excl. embeddings)"),
         ]
+        if any(row["plot_family"] == family for row in rows)
     ]
     vocab_handles = [
         Line2D(
@@ -352,7 +359,7 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
     fig.text(
         0.07,
         0.045,
-        "Loss uses each model’s full native vocabulary; all inputs are single nucleotides. Dashed lines are descriptive linear fits (n = 7).",
+        f"Loss uses each model’s full native vocabulary; all inputs are single nucleotides. Dashed lines are descriptive linear fits (n = {count}).",
         fontsize=10,
     )
     for suffix in ("png", "svg"):
@@ -413,6 +420,17 @@ def assemble(root: Path, directory: Path) -> dict:
         )
         for metric in METRICS
     }
+    focused_rows = [r for r in rows if r["plot_family"] != "large"]
+    without_481m = {
+        "model_codes": [r["code"] for r in focused_rows],
+        "correlations": {
+            metric: correlation(
+                [r["loss"] for r in focused_rows],
+                [r["scores"][metric] for r in focused_rows],
+            )
+            for metric in METRICS
+        },
+    }
     sensitivity = {
         "original_reported_losses": correlation(
             [r["original_loss"] for r in rows], [r["scores"]["Composite"] for r in rows]
@@ -458,13 +476,15 @@ def assemble(root: Path, directory: Path) -> dict:
         "schema": 1,
         "rows": rows,
         "correlations": stats,
+        "without_481m": without_481m,
         "sensitivity": sensitivity,
     }
 
 
 def draft(result: dict, directory: Path) -> None:
     rows = result["rows"]
-    stats = result["correlations"]["Composite"]
+    stats = result["without_481m"]["correlations"]["Composite"]
+    full_stats = result["correlations"]["Composite"]
     moes = [r for r in rows if not r["rung"]]
     changes = {
         g: mean(r["readout_sensitivity"]["poe_minus_natural_8k"][g] for r in moes)
@@ -478,11 +498,20 @@ def draft(result: dict, directory: Path) -> None:
     lines = [
         "## DNA validation loss versus downstream evaluations",
         "",
-        f"Across these seven DNA-trained Marin checkpoints, lower validation loss tracks higher **Composite** performance: **Pearson r = {stats['pearson_r']:+.3f}; Spearman ρ = {stats['spearman_rho']:+.3f}**. Maize allele frequency is shown separately and is excluded from Composite.",
+        f"Among the three dense checkpoints and two 60.6M-active MoEs, lower validation loss tracks higher **Composite** performance: **Pearson r = {stats['pearson_r']:+.3f}; Spearman ρ = {stats['spearman_rho']:+.3f}** (five models). Maize allele frequency is shown separately and is excluded from Composite.",
         "",
-        "![Validation loss versus Composite and six task groups](loss-correlation.png)",
+        "![Validation loss versus Composite and six task groups, excluding the 481M-active MoEs](loss-correlation-without-481m.png)",
         "",
-        "Each point is a checkpoint model. This is a descriptive comparison across different architectures, DNA training budgets and vocabularies, not evidence that reducing loss by a given amount causes a fixed evaluation gain.",
+        "<details>",
+        "<summary>Including the 481M-active MoEs (all seven models)</summary>",
+        "",
+        "![Validation loss versus Composite and six task groups, all seven models](loss-correlation.png)",
+        "",
+        f"With all seven models: Composite **Pearson r = {full_stats['pearson_r']:+.3f}; Spearman ρ = {full_stats['spearman_rho']:+.3f}**.",
+        "",
+        "</details>",
+        "",
+        "Each point is a checkpoint model. This is a descriptive comparison across different architectures, DNA training budgets and vocabularies, not evidence that reducing loss by a given amount causes a fixed evaluation gain. The table and readout checks below retain all seven models.",
         "",
         f"Task scores retain the historical **8K Natural** convention: the better causal direction per task, where both are available. Across the four MoEs, 8K beats 2K Natural by **{mean(context_changes.values()):+.4f}** on the matched three-group mean. Combining left/right target probabilities (**PoE**) at 8K changes it by **{avg:+.4f}**: conservation and motifs improve, while core/non-core declines.",
         "",
@@ -628,6 +657,14 @@ def main() -> None:
     result = assemble(args.root, directory)
     (directory / "analysis.json").write_text(json.dumps(result, indent=2) + "\n")
     figure(result["rows"], directory / "loss-correlation")
+    figure(
+        [
+            r
+            for r in result["rows"]
+            if r["code"] in result["without_481m"]["model_codes"]
+        ],
+        directory / "loss-correlation-without-481m",
+    )
     draft(result, directory)
 
 
