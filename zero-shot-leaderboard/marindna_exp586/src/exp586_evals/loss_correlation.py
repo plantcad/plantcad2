@@ -321,9 +321,10 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
             ax.text(
                 0.97,
                 0.97,
-                f"1T d768 · assumed loss {PROJECTED_LOSS:.2f}\nProjected Composite ≈ {projected_fit['projection']['composite']:.3f}\nExtrapolation",
+                f"Extrapolation · 1T d768\nAssumed loss {PROJECTED_LOSS:.2f}\nProjected Composite ≈ {projected_fit['projection']['composite']:.3f}",
                 transform=ax.transAxes,
                 ha="right",
+                multialignment="left",
                 va="top",
                 fontsize=11.5,
                 bbox={"facecolor": "#F5F8FA", "edgecolor": "#CBD5DE", "pad": 6},
