@@ -2,6 +2,8 @@
 
 Among the three dense checkpoints and two 60.6M-active MoEs, lower validation loss tracks higher **Composite** performance: **Pearson r = -0.984; Spearman ρ = -0.900** (five models). Maize allele frequency is shown separately and is excluded from Composite.
 
+**Natural** predicts targets from one side; **PoE** combines left- and right-context predictions (forward/reverse-complement passes) using a normalized geometric mean. Natural reports the better direction per task.
+
 ![Validation loss versus Composite and six task groups, excluding the 481M-active MoEs](loss-correlation-without-481m.png)
 
 <details>
@@ -13,9 +15,17 @@ With all seven models: Composite **Pearson r = -0.987; Spearman ρ = -0.929**.
 
 </details>
 
-Each point is a checkpoint model. This is a descriptive comparison across different architectures, DNA training budgets and vocabularies, not evidence that reducing loss by a given amount causes a fixed evaluation gain. The table and readout checks below retain all seven models.
+For Composite, the five-model least-squares fit is:
 
-Task scores retain the historical **8K Natural** convention: the better causal direction per task, where both are available. Across the four MoEs, 8K beats 2K Natural by **+0.0084** on the matched three-group mean. Combining left/right target probabilities (**PoE**) at 8K changes it by **-0.0010**: conservation and motifs improve, while core/non-core declines.
+$$
+\widehat{C} = 1.23262 -0.55722\,L
+$$
+
+where $L$ is validation loss and $C$ is Composite. Assuming **$L = 0.88$** for the [1T-token d768 language-initialized run](https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1) in [#586](https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578) projects **Composite ≈ 0.742**. This extrapolates beyond the observed loss range **0.946–0.981**; it is not an evaluated result.
+
+The fit and correlations use only the five measured checkpoints. The table and readout checks below retain all seven models.
+
+All task scores use the historical **8K Natural** convention. Across the four MoEs, 8K beats 2K Natural by **+0.0084** on the matched three-group mean. PoE at 8K changes it by **-0.0010**: conservation and motifs improve, while core/non-core declines.
 
 | ID | MarinDNA model (total / active parameters) | Initialization | DNA tokens | Vocabulary | Validation loss | Training run |
 | --- | --- | --- | ---: | ---: | ---: | --- |
@@ -34,7 +44,7 @@ MoE active counts exclude input/output embeddings; total counts include them. S 
 
 Composite is the equal-weight mean of four task-group averages: Conservation (3 AUROCs), Masked motif (8 whole-motif accuracies), Core/non-core (8 AUROCs) and Structural variant (1 AUPRC). Each group averages its tasks equally. This reconstructs the historical four-group definition; the three-group PoE composites from later posts are not substituted.
 
-Natural retains the larger task-level metric from forward and reverse-complement causal evaluations where both are available; structural variants have one causal scoring form. This direction selection uses evaluation labels, as it did in the historical dense results. It is not a label-independent choice of direction for unseen tasks. PoE instead combines left- and right-context probabilities at the target. At 8K, PoE minus Natural averaged over the four MoEs is Conservation: **+0.0202**; Masked motif: **+0.0088**; Core/non-core: **-0.0319**. Structural-variant PoE was not computed, so the matched readout comparison above uses three groups only.
+Both forward and reverse-complement passes process the window, but causal masking makes each target prediction depend on only its preceding flank. Natural retains the larger task-level metric from either direction where both are available; structural variants have one causal scoring form. This direction selection uses evaluation labels, as in the historical dense results. PoE instead combines the aligned target probabilities as $p_{\mathrm{PoE}}(b) \propto \sqrt{p_{\mathrm{left}}(b)p_{\mathrm{right}}(b)}$, normalized over A/C/G/T—equivalently, averaging log probabilities. At 8K, PoE minus Natural averaged over the four MoEs is Conservation: **+0.0202**; Masked motif: **+0.0088**; Core/non-core: **-0.0319**. Structural-variant PoE was not computed, so the matched readout comparison above uses three groups only.
 
 For Natural, 8K minus 2K averaged over the four MoEs is Conservation: **+0.0013**; Masked motif: **+0.0154**; Core/non-core: **+0.0086**. The same 8K reporting convention is used for every model; context and Natural/PoE settings are not selected per model or task.
 

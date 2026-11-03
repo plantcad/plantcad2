@@ -984,6 +984,30 @@
       "M61-L",
       "M61-S"
     ],
+    "composite_linear_fit": {
+      "method": "ordinary least squares: Composite = intercept + slope * validation_loss",
+      "model_codes": [
+        "D216",
+        "D389",
+        "D562",
+        "M61-L",
+        "M61-S"
+      ],
+      "slope": -0.5572245633800043,
+      "intercept": 1.2326210297270166,
+      "observed_loss_range": [
+        0.9462159565554304,
+        0.9812506437301636
+      ],
+      "projection": {
+        "training_run": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+        "experiment": "https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578",
+        "assumed_final_loss": 0.88,
+        "composite": 0.7422634139526129,
+        "is_extrapolation": true,
+        "included_in_fit_or_correlations": false
+      }
+    },
     "correlations": {
       "Composite": {
         "n": 5,

@@ -27,6 +27,8 @@ METRICS = ("Composite", *GROUPS, AF_ZERO, AF_PROBE)
 SPLIT = "c37e713eb0449af48f99a14de5e3c86fab8cb5504c4872ccfd24e8988f0b89a0"
 COLORS = {"dense": "#7355A3", "small": "#008B87", "large": "#D77C28"}
 MARKERS = {7: "s", 8: "^", 128256: "o"}
+PROJECTED_LOSS = 0.88
+PROJECTED_RUN = "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1"
 
 
 def read(path: Path) -> dict:
@@ -41,6 +43,34 @@ def correlation(x, y) -> dict:
         "n": len(x),
         "pearson_r": float(pearsonr(x, y).statistic),
         "spearman_rho": float(spearmanr(x, y).statistic),
+    }
+
+
+def composite_fit(rows: list[dict]) -> dict:
+    """Fit only observed Composite scores; the assumed loss is not a data point."""
+    if len(rows) != 5 or any(r["plot_family"] == "large" for r in rows):
+        raise ValueError(
+            "Composite projection requires the five models without 481M MoEs"
+        )
+    losses = np.asarray([r["loss"] for r in rows], float)
+    scores = np.asarray([r["scores"]["Composite"] for r in rows], float)
+    slope, intercept = np.polyfit(losses, scores, 1)
+    return {
+        "method": "ordinary least squares: Composite = intercept + slope * validation_loss",
+        "model_codes": [r["code"] for r in rows],
+        "slope": float(slope),
+        "intercept": float(intercept),
+        "observed_loss_range": [float(losses.min()), float(losses.max())],
+        "projection": {
+            "training_run": PROJECTED_RUN,
+            "experiment": "https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578",
+            "assumed_final_loss": PROJECTED_LOSS,
+            "composite": float(intercept + slope * PROJECTED_LOSS),
+            "is_extrapolation": bool(
+                PROJECTED_LOSS < losses.min() or PROJECTED_LOSS > losses.max()
+            ),
+            "included_in_fit_or_correlations": False,
+        },
     }
 
 
@@ -192,6 +222,7 @@ def validation(row: dict, path: Path) -> dict:
 def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
     count = len(rows)
     count_label = {5: "Five", 7: "Seven"}.get(count, str(count))
+    projected_fit = composite_fit(rows) if count == 5 else None
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
@@ -213,7 +244,7 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
         bottom=0.175,
         top=0.77,
         wspace=0.30,
-        hspace=0.42,
+        hspace=0.60 if count == 5 else 0.42,
     )
     axes = [fig.add_subplot(grid[:, 0])]
     axes += [fig.add_subplot(grid[i // 2, i % 2 + 1]) for i in range(6)]
@@ -267,18 +298,40 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
         ax.margins(y=0.23 if index == 0 else 0.18)
         ax.grid(color="#E8ECF0", linewidth=0.8)
         ax.set_axisbelow(True)
+        panel_title = metric
+        if count == 5:
+            if metric == "Composite":
+                panel_title = "Composite (excludes AF)"
+            elif metric in (AF_ZERO, AF_PROBE):
+                panel_title += "\nExcluded from Composite"
         ax.set_title(
-            metric,
+            panel_title,
             loc="left",
-            fontsize=16 if index == 0 else 13,
+            fontsize=16
+            if index == 0
+            else (12 if count == 5 and metric in (AF_ZERO, AF_PROBE) else 13),
             fontweight="bold",
-            pad=10,
+            pad=6 if count == 5 and metric in (AF_ZERO, AF_PROBE) else 10,
         )
         stats_at_top = count == 5 and metric in ("Core/non-core", AF_ZERO)
+        stats_text = f"Pearson r = {stats['pearson_r']:+.3f}\nSpearman ρ = {stats['spearman_rho']:+.3f}"
+        if index == 0 and projected_fit:
+            sign = "−" if projected_fit["slope"] < 0 else "+"
+            stats_text += f"\nComposite = {projected_fit['intercept']:.5f} {sign} {abs(projected_fit['slope']):.5f} × loss"
+            ax.text(
+                0.97,
+                0.97,
+                f"1T d768 · assumed loss {PROJECTED_LOSS:.2f}\nProjected Composite ≈ {projected_fit['projection']['composite']:.3f}\nExtrapolation",
+                transform=ax.transAxes,
+                ha="right",
+                va="top",
+                fontsize=11.5,
+                bbox={"facecolor": "#F5F8FA", "edgecolor": "#CBD5DE", "pad": 6},
+            )
         ax.text(
             0.03,
             0.965 if stats_at_top else 0.035,
-            f"Pearson r = {stats['pearson_r']:+.3f}\nSpearman ρ = {stats['spearman_rho']:+.3f}",
+            stats_text,
             transform=ax.transAxes,
             va="top" if stats_at_top else "bottom",
             fontsize=13 if index == 0 else 10.5,
@@ -353,7 +406,9 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
     fig.text(
         0.07,
         0.075,
-        "Composite = equal-weight mean of Conservation, Masked motif, Core/non-core and Structural variant. Maize AF is separate.",
+        "Composite = mean of Conservation, Masked motif, Core/non-core and Structural variant. Both maize AF readouts are excluded."
+        if count == 5
+        else "Composite = equal-weight mean of Conservation, Masked motif, Core/non-core and Structural variant. Maize AF is separate.",
         fontsize=10,
     )
     fig.text(
@@ -423,6 +478,7 @@ def assemble(root: Path, directory: Path) -> dict:
     focused_rows = [r for r in rows if r["plot_family"] != "large"]
     without_481m = {
         "model_codes": [r["code"] for r in focused_rows],
+        "composite_linear_fit": composite_fit(focused_rows),
         "correlations": {
             metric: correlation(
                 [r["loss"] for r in focused_rows],
@@ -485,6 +541,7 @@ def draft(result: dict, directory: Path) -> None:
     rows = result["rows"]
     stats = result["without_481m"]["correlations"]["Composite"]
     full_stats = result["correlations"]["Composite"]
+    fit = result["without_481m"]["composite_linear_fit"]
     moes = [r for r in rows if not r["rung"]]
     changes = {
         g: mean(r["readout_sensitivity"]["poe_minus_natural_8k"][g] for r in moes)
@@ -500,6 +557,8 @@ def draft(result: dict, directory: Path) -> None:
         "",
         f"Among the three dense checkpoints and two 60.6M-active MoEs, lower validation loss tracks higher **Composite** performance: **Pearson r = {stats['pearson_r']:+.3f}; Spearman ρ = {stats['spearman_rho']:+.3f}** (five models). Maize allele frequency is shown separately and is excluded from Composite.",
         "",
+        "**Natural** predicts targets from one side; **PoE** combines left- and right-context predictions (forward/reverse-complement passes) using a normalized geometric mean. Natural reports the better direction per task.",
+        "",
         "![Validation loss versus Composite and six task groups, excluding the 481M-active MoEs](loss-correlation-without-481m.png)",
         "",
         "<details>",
@@ -511,9 +570,17 @@ def draft(result: dict, directory: Path) -> None:
         "",
         "</details>",
         "",
-        "Each point is a checkpoint model. This is a descriptive comparison across different architectures, DNA training budgets and vocabularies, not evidence that reducing loss by a given amount causes a fixed evaluation gain. The table and readout checks below retain all seven models.",
+        "For Composite, the five-model least-squares fit is:",
         "",
-        f"Task scores retain the historical **8K Natural** convention: the better causal direction per task, where both are available. Across the four MoEs, 8K beats 2K Natural by **{mean(context_changes.values()):+.4f}** on the matched three-group mean. Combining left/right target probabilities (**PoE**) at 8K changes it by **{avg:+.4f}**: conservation and motifs improve, while core/non-core declines.",
+        "$$",
+        f"\\widehat{{C}} = {fit['intercept']:.5f} {fit['slope']:+.5f}\\,L",
+        "$$",
+        "",
+        f"where $L$ is validation loss and $C$ is Composite. Assuming **$L = {PROJECTED_LOSS:.2f}$** for the [1T-token d768 language-initialized run]({PROJECTED_RUN}) in [#586](https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578) projects **Composite ≈ {fit['projection']['composite']:.3f}**. This extrapolates beyond the observed loss range **{fit['observed_loss_range'][0]:.3f}–{fit['observed_loss_range'][1]:.3f}**; it is not an evaluated result.",
+        "",
+        "The fit and correlations use only the five measured checkpoints. The table and readout checks below retain all seven models.",
+        "",
+        f"All task scores use the historical **8K Natural** convention. Across the four MoEs, 8K beats 2K Natural by **{mean(context_changes.values()):+.4f}** on the matched three-group mean. PoE at 8K changes it by **{avg:+.4f}**: conservation and motifs improve, while core/non-core declines.",
         "",
         "| ID | MarinDNA model (total / active parameters) | Initialization | DNA tokens | Vocabulary | Validation loss | Training run |",
         "| --- | --- | --- | ---: | ---: | ---: | --- |",
@@ -541,7 +608,7 @@ def draft(result: dict, directory: Path) -> None:
         "",
         "Composite is the equal-weight mean of four task-group averages: Conservation (3 AUROCs), Masked motif (8 whole-motif accuracies), Core/non-core (8 AUROCs) and Structural variant (1 AUPRC). Each group averages its tasks equally. This reconstructs the historical four-group definition; the three-group PoE composites from later posts are not substituted.",
         "",
-        "Natural retains the larger task-level metric from forward and reverse-complement causal evaluations where both are available; structural variants have one causal scoring form. This direction selection uses evaluation labels, as it did in the historical dense results. It is not a label-independent choice of direction for unseen tasks. PoE instead combines left- and right-context probabilities at the target. At 8K, PoE minus Natural averaged over the four MoEs is "
+        "Both forward and reverse-complement passes process the window, but causal masking makes each target prediction depend on only its preceding flank. Natural retains the larger task-level metric from either direction where both are available; structural variants have one causal scoring form. This direction selection uses evaluation labels, as in the historical dense results. PoE instead combines the aligned target probabilities as $p_{\\mathrm{PoE}}(b) \\propto \\sqrt{p_{\\mathrm{left}}(b)p_{\\mathrm{right}}(b)}$, normalized over A/C/G/T—equivalently, averaging log probabilities. At 8K, PoE minus Natural averaged over the four MoEs is "
         + "; ".join(f"{g}: **{v:+.4f}**" for g, v in changes.items())
         + ". Structural-variant PoE was not computed, so the matched readout comparison above uses three groups only.",
         "",

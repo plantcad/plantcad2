@@ -4,6 +4,8 @@ This analysis is for a new results comment on plantcad/plantcad2 PR22. Nothing i
 
 The main figure excludes the two 481M-active MoEs and recalculates all seven plotted correlations on the remaining five models. The original seven-model figure is retained unchanged in a dropdown immediately after it. The table and existing readout/sensitivity checks still cover the full seven-model collection; the five-model correlations are stored separately under `without_481m` in `analysis.json`.
 
+Only the five-model Composite panel includes a fit equation and a conditional projection for the 1T-token d768 language-initialized run at an assumed final loss of 0.88. This projection is not a measured model or an input to the fit/correlations. Coefficients, observed loss range and projection provenance are stored under `without_481m.composite_linear_fit`. Both AF panels are explicitly labeled as excluded from Composite.
+
 The analysis includes seven DNA-trained checkpoints: three exp472 dense token budgets, both exp582 final d1536 models, and both exp586 final d768 1× models. The unadapted language model and reference models are excluded. Every checkpoint is an individual model in the correlation; no paired or model-selection analysis is performed.
 
 `models.json` identifies original W&B runs, the metric selected from final history, exact checkpoints and metadata hashes. All seven original runs were resolved, including the five now under plantcad/marin-dna. `inputs.json` identifies the two immutable validation samples. The entire shared sample was checked against the historical dense cache, not just spot-checked.
