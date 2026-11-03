@@ -1,0 +1,72 @@
+[
+  {
+    "path": "plantcad/marin-dna/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2",
+    "key": "eval/plantcad/loss",
+    "last_loss_rows": [
+      {
+        "_step": 206144,
+        "eval/plantcad/loss": 0.9812506437301636
+      }
+    ]
+  },
+  {
+    "path": "plantcad/marin-dna/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1",
+    "key": "eval/plantcad/loss",
+    "last_loss_rows": [
+      {
+        "eval/plantcad/loss": 0.9701314568519592,
+        "_step": 371065
+      }
+    ]
+  },
+  {
+    "path": "plantcad/marin-dna/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1",
+    "key": "eval/plantcad/loss",
+    "last_loss_rows": [
+      {
+        "_step": 535985,
+        "eval/plantcad/loss": 0.9654271602630615
+      }
+    ]
+  },
+  {
+    "path": "plantcad/marin-dna/exp582-plantcad2-d1536-pretrained-lrm1-seed0-v1",
+    "key": "eval/loss",
+    "last_loss_rows": [
+      {
+        "_step": 21736,
+        "eval/loss": 1.0352993607521057
+      }
+    ]
+  },
+  {
+    "path": "plantcad/marin-dna/exp582-plantcad2-d1536-random-lrm2-seed0-v1",
+    "key": "eval/loss",
+    "last_loss_rows": [
+      {
+        "eval/loss": 1.041194662451744,
+        "_step": 22211
+      }
+    ]
+  },
+  {
+    "path": "eric-czech/marin/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+    "key": "eval/loss",
+    "last_loss_rows": [
+      {
+        "_step": 416688,
+        "eval/loss": 0.9475062713027
+      }
+    ]
+  },
+  {
+    "path": "eric-czech/marin/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+    "key": "eval/loss",
+    "last_loss_rows": [
+      {
+        "_step": 412289,
+        "eval/loss": 0.9491407051682472
+      }
+    ]
+  }
+]

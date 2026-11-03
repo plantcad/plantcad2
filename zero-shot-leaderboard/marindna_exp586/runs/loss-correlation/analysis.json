@@ -1,0 +1,1070 @@
+{
+  "schema": 1,
+  "rows": [
+    {
+      "code": "D216",
+      "family": "Dense 0.97B",
+      "initialization": "scratch",
+      "dna_tokens": 216158699520,
+      "total_parameters_approx": 973178880,
+      "active_parameters_approx": 973178880,
+      "vocab_size": 7,
+      "wandb_path": "plantcad/marin-dna/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2",
+      "wandb_url": "https://wandb.ai/plantcad/marin-dna/runs/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2",
+      "original_metric": "eval/plantcad/loss",
+      "original_loss": 0.9812506437301636,
+      "original_history_step": 206144,
+      "model_config": {
+        "rope": {
+          "theta": 500000,
+          "factor": 8,
+          "low_freq_factor": 1,
+          "high_freq_factor": 4,
+          "original_max_position_embeddings": 8192
+        },
+        "head_dim": 128,
+        "use_bias": false,
+        "num_heads": 16,
+        "tokenizer": null,
+        "hidden_dim": 2048,
+        "num_layers": 16,
+        "hybrid_norm": false,
+        "max_seq_len": 8192,
+        "scan_layers": true,
+        "upcast_attn": false,
+        "use_qk_norm": true,
+        "attn_backend": "JAX_FLASH",
+        "num_kv_heads": 4,
+        "sliding_window": 4096,
+        "intermediate_dim": 8192,
+        "initializer_range": 0.02,
+        "layer_norm_epsilon": 1e-05,
+        "use_sliding_window": false,
+        "activation_function": "silu",
+        "tie_word_embeddings": false,
+        "input_embedding_norm": false,
+        "reference_checkpoint": "Qwen/Qwen3-0.6B",
+        "use_layer_norm_weight": true,
+        "gradient_checkpointing": true,
+        "flash_attention_block_size": null
+      },
+      "source_git_commit": null,
+      "tokenizer_sha256": null,
+      "results": "historical",
+      "rung": "022t",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp472_plantcad2_baseline/checkpoints/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/2026.08.20/checkpoints/step-206144",
+      "canonical_metadata_sha256": "88f6bb4316a2d8e2302bfa0b0f33aea65347fa4670629e988809fbdc02fa322a",
+      "raw_metadata_sha256": "26142d8c782b8f3f531c50e866ad9beeb55092b37f235ddb3c5af630abcf791d",
+      "source_metadata": {
+        "step": 206144,
+        "timestamp": "2026-08-25T16:35:46.272088",
+        "is_temporary": false
+      },
+      "original_sampling": {
+        "type": "first",
+        "examples": 65536,
+        "batch_size": 128
+      },
+      "readout_sensitivity": null,
+      "scores": {
+        "Conservation": 0.6623640819236551,
+        "Masked motif": 0.5428302290448559,
+        "Core/non-core": 0.6870598412040729,
+        "Structural variant": 0.8448299453742822,
+        "Composite": 0.6842710243867165,
+        "Maize AF \u00b7 zero-shot": 0.14401223283262485,
+        "Maize AF \u00b7 linear probe": 0.19118992432965642
+      },
+      "plot_family": "dense",
+      "validation_result_file": "validation/d216.json",
+      "validation_result_sha256": "b5a557661fd45c988d80e65bca1e1925f9897e439440ad5cd3392a8402472a64",
+      "validation": {
+        "backend": "JAX_FLASH",
+        "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp472_plantcad2_baseline/checkpoints/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2/2026.08.20/checkpoints/step-206144",
+        "checkpoint_digest": "88f6bb4316a2d8e2302bfa0b0f33aea65347fa4670629e988809fbdc02fa322a",
+        "forward_microbatch_size": 128,
+        "model_code": "D216",
+        "native_vocabulary": 7,
+        "request_sha256": "ef8e1b8cfbcaacfddf350fbb19419789ee4f073ba556cd23dd5cd332d8c7bd5f",
+        "runtime_packages": {
+          "jax": "0.11.1",
+          "marin-haliax": "0.2.224.dev40027069267",
+          "marin-iris": "0.2.224.dev40027069267",
+          "marin-levanter": "0.2.224.dev40027069267"
+        },
+        "samples": {
+          "common-65536": {
+            "acgt_conditional_loss": 0.9826764183541622,
+            "canonical_native_loss": 0.9827226253977026,
+            "canonical_targets": 535941019,
+            "dropped_assignments": 0,
+            "examples": 65536,
+            "input_sha256": "da9530a08c76d783628a3538d8a5c9b473194a562024aaf262fe90dbe42d3a1c",
+            "native_loss": 0.9812506773637454,
+            "targets": 536805376
+          }
+        },
+        "schema": 1,
+        "training_wandb": "https://wandb.ai/plantcad/marin-dna/runs/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-v2",
+        "validation_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-loss-corr-d216-final-eval-v1",
+        "worker_source_sha256": "330510b70a1561a59c7a64761d88a66f8b75faa366d3d87fd4ce418ff1ec634a"
+      },
+      "loss": 0.9812506437301636,
+      "acgt_loss": 0.9826764183541622
+    },
+    {
+      "code": "D389",
+      "family": "Dense 0.97B",
+      "initialization": "scratch",
+      "dna_tokens": 389090902016,
+      "total_parameters_approx": 973178880,
+      "active_parameters_approx": 973178880,
+      "vocab_size": 7,
+      "wandb_path": "plantcad/marin-dna/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1",
+      "wandb_url": "https://wandb.ai/plantcad/marin-dna/runs/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1",
+      "original_metric": "eval/plantcad/loss",
+      "original_loss": 0.9701314568519592,
+      "original_history_step": 371065,
+      "model_config": {
+        "rope": {
+          "theta": 500000,
+          "factor": 8,
+          "low_freq_factor": 1,
+          "high_freq_factor": 4,
+          "original_max_position_embeddings": 8192
+        },
+        "head_dim": 128,
+        "use_bias": false,
+        "num_heads": 16,
+        "tokenizer": null,
+        "hidden_dim": 2048,
+        "num_layers": 16,
+        "hybrid_norm": false,
+        "max_seq_len": 8192,
+        "scan_layers": true,
+        "upcast_attn": false,
+        "use_qk_norm": true,
+        "attn_backend": "JAX_FLASH",
+        "num_kv_heads": 4,
+        "sliding_window": 4096,
+        "intermediate_dim": 8192,
+        "initializer_range": 0.02,
+        "layer_norm_epsilon": 1e-05,
+        "use_sliding_window": false,
+        "activation_function": "silu",
+        "tie_word_embeddings": false,
+        "input_embedding_norm": false,
+        "reference_checkpoint": "Qwen/Qwen3-0.6B",
+        "use_layer_norm_weight": true,
+        "gradient_checkpointing": true,
+        "flash_attention_block_size": null
+      },
+      "source_git_commit": null,
+      "tokenizer_sha256": null,
+      "results": "historical",
+      "rung": "039t",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp472_plantcad2_baseline/checkpoints/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s01-v1/2026.08.25/checkpoints/step-371065",
+      "canonical_metadata_sha256": "923d801a070821a92346d8c51dffd1681e44aa12bce9f035b017260139c8eb91",
+      "raw_metadata_sha256": "e46a67c0251148bfb9c80ba7d14b78a1b14300885518c4168300373fa304aa9e",
+      "source_metadata": {
+        "step": 371065,
+        "timestamp": "2026-08-27T06:09:36.731769",
+        "is_temporary": false
+      },
+      "original_sampling": {
+        "type": "first",
+        "examples": 65536,
+        "batch_size": 128
+      },
+      "readout_sensitivity": null,
+      "scores": {
+        "Conservation": 0.6678723602638609,
+        "Masked motif": 0.5612732920916617,
+        "Core/non-core": 0.6921204312536607,
+        "Structural variant": 0.8496626464478207,
+        "Composite": 0.692732182514251,
+        "Maize AF \u00b7 zero-shot": 0.14690087531786378,
+        "Maize AF \u00b7 linear probe": 0.1915837698949536
+      },
+      "plot_family": "dense",
+      "validation": null,
+      "loss": 0.9701314568519592,
+      "acgt_loss": null
+    },
+    {
+      "code": "D562",
+      "family": "Dense 0.97B",
+      "initialization": "scratch",
+      "dna_tokens": 562022055936,
+      "total_parameters_approx": 973178880,
+      "active_parameters_approx": 973178880,
+      "vocab_size": 7,
+      "wandb_path": "plantcad/marin-dna/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1",
+      "wandb_url": "https://wandb.ai/plantcad/marin-dna/runs/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1",
+      "original_metric": "eval/plantcad/loss",
+      "original_loss": 0.9654271602630615,
+      "original_history_step": 535985,
+      "model_config": {
+        "rope": {
+          "theta": 500000,
+          "factor": 8,
+          "low_freq_factor": 1,
+          "high_freq_factor": 4,
+          "original_max_position_embeddings": 8192
+        },
+        "head_dim": 128,
+        "use_bias": false,
+        "num_heads": 16,
+        "tokenizer": null,
+        "hidden_dim": 2048,
+        "num_layers": 16,
+        "hybrid_norm": false,
+        "max_seq_len": 8192,
+        "scan_layers": true,
+        "upcast_attn": false,
+        "use_qk_norm": true,
+        "attn_backend": "JAX_FLASH",
+        "num_kv_heads": 4,
+        "sliding_window": 4096,
+        "intermediate_dim": 8192,
+        "initializer_range": 0.02,
+        "layer_norm_epsilon": 1e-05,
+        "use_sliding_window": false,
+        "activation_function": "silu",
+        "tie_word_embeddings": false,
+        "input_embedding_norm": false,
+        "reference_checkpoint": "Qwen/Qwen3-0.6B",
+        "use_layer_norm_weight": true,
+        "gradient_checkpointing": true,
+        "flash_attention_block_size": null
+      },
+      "source_git_commit": null,
+      "tokenizer_sha256": null,
+      "results": "historical",
+      "rung": "056t",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp472_plantcad2_baseline/checkpoints/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1/2026.08.28/checkpoints/step-535985",
+      "canonical_metadata_sha256": "2c0f51d4dd2ab4a1fff95be627f3256d5dce26ef74339fd880e50110069ac924",
+      "raw_metadata_sha256": "c270255aa47ca6bf382439ebcf265fb18e7e478d44a525e647362e64be28b595",
+      "source_metadata": {
+        "step": 535985,
+        "timestamp": "2026-08-30T00:59:20.911558",
+        "is_temporary": false
+      },
+      "original_sampling": {
+        "type": "first",
+        "examples": 65536,
+        "batch_size": 128
+      },
+      "readout_sensitivity": null,
+      "scores": {
+        "Conservation": 0.6693395658903151,
+        "Masked motif": 0.5695589982938926,
+        "Core/non-core": 0.6950956647853589,
+        "Structural variant": 0.8525691047089042,
+        "Composite": 0.6966408334196177,
+        "Maize AF \u00b7 zero-shot": 0.14517219890361602,
+        "Maize AF \u00b7 linear probe": 0.19500606741729784
+      },
+      "plot_family": "dense",
+      "validation": null,
+      "loss": 0.9654271602630615,
+      "acgt_loss": null
+    },
+    {
+      "code": "M481-L",
+      "family": "MoE 481M active",
+      "initialization": "language-pretrained",
+      "dna_tokens": 11240734720,
+      "total_parameters_approx": 11534000000,
+      "active_parameters_approx": 481296384,
+      "vocab_size": 128256,
+      "wandb_path": "plantcad/marin-dna/exp582-plantcad2-d1536-pretrained-lrm1-seed0-v1",
+      "wandb_url": "https://wandb.ai/plantcad/marin-dna/runs/exp582-plantcad2-d1536-pretrained-lrm1-seed0-v1",
+      "original_metric": "eval/loss",
+      "original_loss": 1.0352993607521057,
+      "original_history_step": 21736,
+      "model_config": {
+        "rope": {
+          "theta": 10000,
+          "scaling_factor": null
+        },
+        "sconv": true,
+        "qk_mult": 1.3,
+        "head_dim": 128,
+        "num_heads": 12,
+        "hidden_dim": 1536,
+        "latent_dim": 768,
+        "num_layers": 16,
+        "remat_mode": "recompute_all",
+        "rope_fused": true,
+        "vocab_size": 128256,
+        "max_seq_len": 8192,
+        "num_experts": 384,
+        "sconv_sites": [
+          "k",
+          "attn",
+          "mlp"
+        ],
+        "global_every": 4,
+        "num_kv_heads": 3,
+        "qb_estimator": "HIST",
+        "qb_hist_bins": 10000,
+        "sconv_kernel": 4,
+        "expert_chunks": 1,
+        "layer_norm_eps": 1e-05,
+        "local_kv_heads": 3,
+        "sliding_window": 2048,
+        "capacity_factor": 32,
+        "global_kv_heads": 1,
+        "initializer_std": 0.01275775907699572,
+        "intermediate_dim": 768,
+        "num_expert_waves": 3,
+        "moe_implementation": "fixed_pooled_wave_all_to_all",
+        "num_shared_experts": 2,
+        "num_experts_per_token": 8,
+        "attention_implementation": "gpu_fa4_cute",
+        "report_capacity_overflow": true,
+        "shared_expert_intermediate_dim": 768,
+        "pooled_transport_capacity_factor": 8
+      },
+      "source_git_commit": "8ae5a9c",
+      "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+      "results": "historical/exp582-final/pretrained",
+      "rung": null,
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/checkpoints/exp582-plantcad2-d1536-pretrained-lrm1-seed0-v1/2026.10.06/checkpoints/short-linear-v2/step-21440",
+      "canonical_metadata_sha256": "c882f2cedb62266fc33f5dc60d0b83741b72fb506892baee99a70c7cd7efa4d6",
+      "raw_metadata_sha256": "3f175a36575f0fc55ecf0dc5fc0bd9ce4b22923f54f31f5bfa26c60322c44b88",
+      "source_metadata": {
+        "exp582_clock": {
+          "input_tokens": 11240734720,
+          "loss_targets": 11239362560,
+          "examples": 1372160,
+          "updates": 21440
+        },
+        "data_seed": 0,
+        "exp582_schema": 1,
+        "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+        "scientific_config_sha256": "38327e19eb8eb622b039ed4ff2211ff03ffbf5969e3135568d424ea855ac5f86",
+        "step": 21440,
+        "timestamp": "2026-10-07T03:03:58.038068",
+        "is_temporary": false
+      },
+      "original_sampling": {
+        "type": "evenly_spaced",
+        "examples": 512,
+        "batch_size": 64
+      },
+      "readout_sensitivity": {
+        "poe_minus_natural_8k": {
+          "Conservation": 0.019373035595318555,
+          "Masked motif": 0.010868142855037288,
+          "Core/non-core": -0.024080713035689816
+        },
+        "natural_8k_minus_2k": {
+          "Conservation": -0.0005251241145923791,
+          "Masked motif": 0.01871403145321593,
+          "Core/non-core": 0.006066224782282692
+        },
+        "poe_minus_natural_matched_three_group": 0.0020534884715553425,
+        "af_zero_2k_minus_8k": 0.013125019959207354,
+        "scores_poe_with_natural_sv": {
+          "Conservation": 0.6587658311828889,
+          "Masked motif": 0.4503271548137368,
+          "Core/non-core": 0.6122572921178957,
+          "Structural variant": 0.7698178387875931,
+          "Composite": 0.6227920292255287,
+          "Maize AF \u00b7 zero-shot": 0.11389971366930395,
+          "Maize AF \u00b7 linear probe": 0.1837189854814842
+        },
+        "af_zero_2k": 0.1270247336285113
+      },
+      "scores": {
+        "Conservation": 0.6393927955875703,
+        "Masked motif": 0.4394590119586995,
+        "Core/non-core": 0.6363380051535855,
+        "Structural variant": 0.7698178387875931,
+        "Composite": 0.6212519128718621,
+        "Maize AF \u00b7 zero-shot": 0.11389971366930395,
+        "Maize AF \u00b7 linear probe": 0.1837189854814842
+      },
+      "plot_family": "large",
+      "validation_result_file": "validation/m481-l.json",
+      "validation_result_sha256": "f5a2cc6d46c94cf0d9f1f45cf64a78292112728317cc1639aed6d6af0639c84f",
+      "validation": {
+        "backend": "fixed_pooled_wave_all_to_all",
+        "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/checkpoints/exp582-plantcad2-d1536-pretrained-lrm1-seed0-v1/2026.10.06/checkpoints/short-linear-v2/step-21440",
+        "checkpoint_digest": "c882f2cedb62266fc33f5dc60d0b83741b72fb506892baee99a70c7cd7efa4d6",
+        "forward_microbatch_size": 16,
+        "model_code": "M481-L",
+        "native_vocabulary": 128256,
+        "request_sha256": "ef8e1b8cfbcaacfddf350fbb19419789ee4f073ba556cd23dd5cd332d8c7bd5f",
+        "runtime_packages": {
+          "jax": "0.11.1",
+          "marin-haliax": "0.2.224.dev40027069267",
+          "marin-iris": "0.2.224.dev40027069267",
+          "marin-levanter": "0.2.224.dev40027069267"
+        },
+        "samples": {
+          "common-65536": {
+            "acgt_conditional_loss": 1.0355533695572106,
+            "canonical_native_loss": 1.0355991057875158,
+            "canonical_targets": 535941019,
+            "dropped_assignments": 0,
+            "examples": 65536,
+            "input_sha256": "da9530a08c76d783628a3538d8a5c9b473194a562024aaf262fe90dbe42d3a1c",
+            "native_loss": 1.0340504328885252,
+            "targets": 536805376
+          },
+          "original-moe-512": {
+            "acgt_conditional_loss": 1.0364785368130067,
+            "canonical_native_loss": 1.0365199391799844,
+            "canonical_targets": 4188506,
+            "dropped_assignments": 0,
+            "examples": 512,
+            "input_sha256": "b1659547b8299d0824aeded0370518bd0c9e41bb029d9cb2f22980b4ea338c57",
+            "native_loss": 1.035305201563406,
+            "reported_loss": 1.0352993607521057,
+            "reproduction_delta": 5.8408113003949325e-06,
+            "targets": 4193792
+          }
+        },
+        "schema": 1,
+        "training_wandb": "https://wandb.ai/plantcad/marin-dna/runs/exp582-plantcad2-d1536-pretrained-lrm1-seed0-v1",
+        "validation_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-loss-corr-m481-l-final-eval-v1",
+        "worker_source_sha256": "330510b70a1561a59c7a64761d88a66f8b75faa366d3d87fd4ce418ff1ec634a"
+      },
+      "loss": 1.0340504328885252,
+      "acgt_loss": 1.0355533695572106
+    },
+    {
+      "code": "M481-S",
+      "family": "MoE 481M active",
+      "initialization": "scratch",
+      "dna_tokens": 11240734720,
+      "total_parameters_approx": 11140000000,
+      "active_parameters_approx": 481296384,
+      "vocab_size": 8,
+      "wandb_path": "plantcad/marin-dna/exp582-plantcad2-d1536-random-lrm2-seed0-v1",
+      "wandb_url": "https://wandb.ai/plantcad/marin-dna/runs/exp582-plantcad2-d1536-random-lrm2-seed0-v1",
+      "original_metric": "eval/loss",
+      "original_loss": 1.041194662451744,
+      "original_history_step": 22211,
+      "model_config": {
+        "rope": {
+          "theta": 10000,
+          "scaling_factor": null
+        },
+        "sconv": true,
+        "qk_mult": 1.3,
+        "head_dim": 128,
+        "num_heads": 12,
+        "hidden_dim": 1536,
+        "latent_dim": 768,
+        "num_layers": 16,
+        "remat_mode": "recompute_all",
+        "rope_fused": true,
+        "vocab_size": 8,
+        "max_seq_len": 8192,
+        "num_experts": 384,
+        "sconv_sites": [
+          "k",
+          "attn",
+          "mlp"
+        ],
+        "global_every": 4,
+        "num_kv_heads": 3,
+        "qb_estimator": "HIST",
+        "qb_hist_bins": 10000,
+        "sconv_kernel": 4,
+        "expert_chunks": 1,
+        "layer_norm_eps": 1e-05,
+        "local_kv_heads": 3,
+        "sliding_window": 2048,
+        "capacity_factor": 32,
+        "global_kv_heads": 1,
+        "initializer_std": 0.01275775907699572,
+        "intermediate_dim": 768,
+        "num_expert_waves": 3,
+        "moe_implementation": "fixed_pooled_wave_all_to_all",
+        "num_shared_experts": 2,
+        "num_experts_per_token": 8,
+        "attention_implementation": "gpu_fa4_cute",
+        "report_capacity_overflow": true,
+        "shared_expert_intermediate_dim": 768,
+        "pooled_transport_capacity_factor": 8
+      },
+      "source_git_commit": "8ae5a9c",
+      "tokenizer_sha256": "0753679acf1dcd1dbf781254637cf003b144d1582392649c493dec03ee5ce78c",
+      "results": "historical/exp582-final/random",
+      "rung": null,
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/checkpoints/exp582-plantcad2-d1536-random-lrm2-seed0-v1/2026.10.06/checkpoints/short-linear-v2/step-21440",
+      "canonical_metadata_sha256": "4a1ddbd00f0e204a662c20b431ec68dc72d398ce77022318755758b1df98c347",
+      "raw_metadata_sha256": "8e4249e1b37a4d37ab272c513ff5aa7831cbb990865fb7384236bd40d5a8e6f7",
+      "source_metadata": {
+        "exp582_clock": {
+          "input_tokens": 11240734720,
+          "loss_targets": 11239362560,
+          "examples": 1372160,
+          "updates": 21440
+        },
+        "data_seed": 0,
+        "exp582_schema": 1,
+        "tokenizer_sha256": "0753679acf1dcd1dbf781254637cf003b144d1582392649c493dec03ee5ce78c",
+        "scientific_config_sha256": "460eeecb5034e4a1e871a48918f4c88a47f9089dcfb8f4928b722b038488b4c4",
+        "step": 21440,
+        "timestamp": "2026-10-07T04:11:09.260531",
+        "is_temporary": false
+      },
+      "original_sampling": {
+        "type": "evenly_spaced",
+        "examples": 512,
+        "batch_size": 64
+      },
+      "readout_sensitivity": {
+        "poe_minus_natural_8k": {
+          "Conservation": 0.021758651051534184,
+          "Masked motif": 0.010095699996092833,
+          "Core/non-core": -0.024071902046716387
+        },
+        "natural_8k_minus_2k": {
+          "Conservation": 8.256337324175078e-05,
+          "Masked motif": 0.008902487853653385,
+          "Core/non-core": 0.007028128485383034
+        },
+        "poe_minus_natural_matched_three_group": 0.00259414966697021,
+        "af_zero_2k_minus_8k": 0.006094285998831064,
+        "scores_poe_with_natural_sv": {
+          "Conservation": 0.6747126204755888,
+          "Masked motif": 0.4515092862204528,
+          "Core/non-core": 0.6103036520631901,
+          "Structural variant": 0.7736746490294488,
+          "Composite": 0.6275500519471702,
+          "Maize AF \u00b7 zero-shot": 0.11867252353340772,
+          "Maize AF \u00b7 linear probe": 0.18676863354647283
+        },
+        "af_zero_2k": 0.12476680953223879
+      },
+      "scores": {
+        "Conservation": 0.6529539694240546,
+        "Masked motif": 0.44141358622436,
+        "Core/non-core": 0.6343755541099065,
+        "Structural variant": 0.7736746490294488,
+        "Composite": 0.6256044396969425,
+        "Maize AF \u00b7 zero-shot": 0.11867252353340772,
+        "Maize AF \u00b7 linear probe": 0.18676863354647283
+      },
+      "plot_family": "large",
+      "validation_result_file": "validation/m481-s.json",
+      "validation_result_sha256": "8c02c50ccdfe3fdb7a8556859c5f8939ea60b43769b19ed9efc0757835a23236",
+      "validation": {
+        "backend": "fixed_pooled_wave_all_to_all",
+        "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/checkpoints/exp582-plantcad2-d1536-random-lrm2-seed0-v1/2026.10.06/checkpoints/short-linear-v2/step-21440",
+        "checkpoint_digest": "4a1ddbd00f0e204a662c20b431ec68dc72d398ce77022318755758b1df98c347",
+        "forward_microbatch_size": 16,
+        "model_code": "M481-S",
+        "native_vocabulary": 8,
+        "request_sha256": "ef8e1b8cfbcaacfddf350fbb19419789ee4f073ba556cd23dd5cd332d8c7bd5f",
+        "runtime_packages": {
+          "jax": "0.11.1",
+          "marin-haliax": "0.2.224.dev40027069267",
+          "marin-iris": "0.2.224.dev40027069267",
+          "marin-levanter": "0.2.224.dev40027069267"
+        },
+        "samples": {
+          "common-65536": {
+            "acgt_conditional_loss": 1.042210508455339,
+            "canonical_native_loss": 1.0422584595253288,
+            "canonical_targets": 535941019,
+            "dropped_assignments": 0,
+            "examples": 65536,
+            "input_sha256": "da9530a08c76d783628a3538d8a5c9b473194a562024aaf262fe90dbe42d3a1c",
+            "native_loss": 1.0406989310632155,
+            "targets": 536805376
+          },
+          "original-moe-512": {
+            "acgt_conditional_loss": 1.0423801637893082,
+            "canonical_native_loss": 1.0424245505139542,
+            "canonical_targets": 4188506,
+            "dropped_assignments": 0,
+            "examples": 512,
+            "input_sha256": "b1659547b8299d0824aeded0370518bd0c9e41bb029d9cb2f22980b4ea338c57",
+            "native_loss": 1.0412019364724097,
+            "reported_loss": 1.041194662451744,
+            "reproduction_delta": 7.274020665581915e-06,
+            "targets": 4193792
+          }
+        },
+        "schema": 1,
+        "training_wandb": "https://wandb.ai/plantcad/marin-dna/runs/exp582-plantcad2-d1536-random-lrm2-seed0-v1",
+        "validation_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-loss-corr-m481-s-final-eval-v1",
+        "worker_source_sha256": "330510b70a1561a59c7a64761d88a66f8b75faa366d3d87fd4ce418ff1ec634a"
+      },
+      "loss": 1.0406989310632155,
+      "acgt_loss": 1.042210508455339
+    },
+    {
+      "code": "M61-L",
+      "family": "MoE 60.6M active",
+      "initialization": "language-pretrained",
+      "dna_tokens": 216158699520,
+      "total_parameters_approx": 1591848448,
+      "active_parameters_approx": 60555264,
+      "vocab_size": 128256,
+      "wandb_path": "eric-czech/marin/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+      "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+      "original_metric": "eval/loss",
+      "original_loss": 0.9475062713027,
+      "original_history_step": 416688,
+      "model_config": {
+        "rope": {
+          "theta": 10000,
+          "scaling_factor": null
+        },
+        "sconv": true,
+        "qk_mult": 1.3,
+        "head_dim": 128,
+        "num_heads": 6,
+        "hidden_dim": 768,
+        "latent_dim": 384,
+        "num_layers": 8,
+        "remat_mode": "recompute_all",
+        "rope_fused": true,
+        "vocab_size": 128256,
+        "max_seq_len": 8192,
+        "num_experts": 384,
+        "sconv_sites": [
+          "k",
+          "attn",
+          "mlp"
+        ],
+        "global_every": 4,
+        "num_kv_heads": 1,
+        "qb_estimator": "HIST",
+        "qb_hist_bins": 10000,
+        "sconv_kernel": 4,
+        "expert_chunks": 1,
+        "layer_norm_eps": 1e-05,
+        "local_kv_heads": 1,
+        "sliding_window": 2048,
+        "capacity_factor": 32,
+        "global_kv_heads": 1,
+        "initializer_std": 0.018042195912175808,
+        "intermediate_dim": 384,
+        "num_expert_waves": 3,
+        "moe_implementation": "fixed_pooled_wave_all_to_all",
+        "num_shared_experts": 2,
+        "num_experts_per_token": 8,
+        "attention_implementation": "gpu_fa4_cute",
+        "report_capacity_overflow": true,
+        "shared_expert_intermediate_dim": 384,
+        "pooled_transport_capacity_factor": 8
+      },
+      "source_git_commit": "d91b7b04",
+      "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+      "results": "runs/exp586-final/pretrained-lrm1-seed0",
+      "rung": null,
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+      "canonical_metadata_sha256": "275e68e8a521333a4dd5c7bf2aa8f9c79c11517677a8af47ce7abc1aa5004a89",
+      "raw_metadata_sha256": "f6028295e3790bf43606917a78e5dade8ce0eb12e19dd2a8e3cab886ae86ab34",
+      "source_metadata": {
+        "exp586_clock": {
+          "input_tokens": 216158699520,
+          "loss_targets": 216132312960,
+          "examples": 26386560,
+          "updates": 412290
+        },
+        "data_seed": 0,
+        "exp586_schema": 1,
+        "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+        "scientific_config_sha256": "a3cfc9b89e36c79ef68b8abf4a19af62b7d1c4486ff59147acc544cd8facdc71",
+        "runtime_moe_implementation": "fixed_pooled_wave_all_to_all",
+        "step": 412290,
+        "timestamp": "2026-10-14T09:05:30.172696",
+        "is_temporary": false
+      },
+      "original_sampling": {
+        "type": "evenly_spaced",
+        "examples": 512,
+        "batch_size": 64
+      },
+      "parameter_count_source": "runs/exp586-final/pretrained-lrm1-seed0/model-provenance.json",
+      "readout_sensitivity": {
+        "poe_minus_natural_8k": {
+          "Conservation": 0.020134360075957702,
+          "Masked motif": 0.0073101002326705355,
+          "Core/non-core": -0.03902406878033826
+        },
+        "natural_8k_minus_2k": {
+          "Conservation": 0.0027495117810585334,
+          "Masked motif": 0.018640428462971204,
+          "Core/non-core": 0.01107891723348342
+        },
+        "poe_minus_natural_matched_three_group": -0.003859869490570008,
+        "af_zero_2k_minus_8k": 0.006492257211776042,
+        "scores_poe_with_natural_sv": {
+          "Conservation": 0.709229529172636,
+          "Masked motif": 0.5907343334619004,
+          "Core/non-core": 0.6503559208527747,
+          "Structural variant": 0.8540951287449496,
+          "Composite": 0.7011037280580652,
+          "Maize AF \u00b7 zero-shot": 0.13852649844038348,
+          "Maize AF \u00b7 linear probe": 0.19298377789700477
+        },
+        "af_zero_2k": 0.14501875565215952
+      },
+      "scores": {
+        "Conservation": 0.6890951690966782,
+        "Masked motif": 0.5834242332292299,
+        "Core/non-core": 0.6893799896331129,
+        "Structural variant": 0.8540951287449496,
+        "Composite": 0.7039986301759926,
+        "Maize AF \u00b7 zero-shot": 0.13852649844038348,
+        "Maize AF \u00b7 linear probe": 0.19298377789700477
+      },
+      "plot_family": "small",
+      "validation_result_file": "validation/m61-l.json",
+      "validation_result_sha256": "fb0dac77429acecff1360d29f5dc16ee28b5e7eeea192e925ed6e964035740fd",
+      "validation": {
+        "backend": "fixed_pooled_wave_all_to_all",
+        "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+        "checkpoint_digest": "275e68e8a521333a4dd5c7bf2aa8f9c79c11517677a8af47ce7abc1aa5004a89",
+        "forward_microbatch_size": 16,
+        "model_code": "M61-L",
+        "native_vocabulary": 128256,
+        "request_sha256": "ef8e1b8cfbcaacfddf350fbb19419789ee4f073ba556cd23dd5cd332d8c7bd5f",
+        "runtime_packages": {
+          "jax": "0.11.1",
+          "marin-haliax": "0.2.224.dev40027069267",
+          "marin-iris": "0.2.224.dev40027069267",
+          "marin-levanter": "0.2.224.dev40027069267"
+        },
+        "samples": {
+          "common-65536": {
+            "acgt_conditional_loss": 0.9475831463735891,
+            "canonical_native_loss": 0.9476304230456747,
+            "canonical_targets": 535941019,
+            "dropped_assignments": 0,
+            "examples": 65536,
+            "input_sha256": "da9530a08c76d783628a3538d8a5c9b473194a562024aaf262fe90dbe42d3a1c",
+            "native_loss": 0.9462159565554304,
+            "targets": 536805376
+          },
+          "original-moe-512": {
+            "acgt_conditional_loss": 0.9485681880066544,
+            "canonical_native_loss": 0.9486101145014475,
+            "canonical_targets": 4188506,
+            "dropped_assignments": 0,
+            "examples": 512,
+            "input_sha256": "b1659547b8299d0824aeded0370518bd0c9e41bb029d9cb2f22980b4ea338c57",
+            "native_loss": 0.9475031803705334,
+            "reported_loss": 0.9475062713027,
+            "reproduction_delta": -3.090932166660565e-06,
+            "targets": 4193792
+          }
+        },
+        "schema": 1,
+        "training_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+        "validation_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-loss-corr-m61-l-final-eval-v1",
+        "worker_source_sha256": "330510b70a1561a59c7a64761d88a66f8b75faa366d3d87fd4ce418ff1ec634a"
+      },
+      "loss": 0.9462159565554304,
+      "acgt_loss": 0.9475831463735891
+    },
+    {
+      "code": "M61-S",
+      "family": "MoE 60.6M active",
+      "initialization": "scratch",
+      "dna_tokens": 216158699520,
+      "total_parameters_approx": 1394859520,
+      "active_parameters_approx": 60555264,
+      "vocab_size": 8,
+      "wandb_path": "eric-czech/marin/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+      "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+      "original_metric": "eval/loss",
+      "original_loss": 0.9491407051682472,
+      "original_history_step": 412289,
+      "model_config": {
+        "rope": {
+          "theta": 10000,
+          "scaling_factor": null
+        },
+        "sconv": true,
+        "qk_mult": 1.3,
+        "head_dim": 128,
+        "num_heads": 6,
+        "hidden_dim": 768,
+        "latent_dim": 384,
+        "num_layers": 8,
+        "remat_mode": "recompute_all",
+        "rope_fused": true,
+        "vocab_size": 8,
+        "max_seq_len": 8192,
+        "num_experts": 384,
+        "sconv_sites": [
+          "k",
+          "attn",
+          "mlp"
+        ],
+        "global_every": 4,
+        "num_kv_heads": 1,
+        "qb_estimator": "HIST",
+        "qb_hist_bins": 10000,
+        "sconv_kernel": 4,
+        "expert_chunks": 1,
+        "layer_norm_eps": 1e-05,
+        "local_kv_heads": 1,
+        "sliding_window": 2048,
+        "capacity_factor": 32,
+        "global_kv_heads": 1,
+        "initializer_std": 0.018042195912175808,
+        "intermediate_dim": 384,
+        "num_expert_waves": 3,
+        "moe_implementation": "fixed_pooled_wave_all_to_all",
+        "num_shared_experts": 2,
+        "num_experts_per_token": 8,
+        "attention_implementation": "gpu_fa4_cute",
+        "report_capacity_overflow": true,
+        "shared_expert_intermediate_dim": 384,
+        "pooled_transport_capacity_factor": 8
+      },
+      "source_git_commit": "e0716a99",
+      "tokenizer_sha256": "0753679acf1dcd1dbf781254637cf003b144d1582392649c493dec03ee5ce78c",
+      "results": "runs/exp586-final/scratch-lrm1-seed0",
+      "rung": null,
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-scratch-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+      "canonical_metadata_sha256": "737fa99f7998a31ca2a27aacf82ac3f292d9ff62a49742847e4037ad3cd372d9",
+      "raw_metadata_sha256": "e887cd81dc658f46aee76faebb3313943733d889210b47f4c562ac450418162e",
+      "source_metadata": {
+        "exp586_clock": {
+          "input_tokens": 216158699520,
+          "loss_targets": 216132312960,
+          "examples": 26386560,
+          "updates": 412290
+        },
+        "data_seed": 0,
+        "exp586_schema": 1,
+        "tokenizer_sha256": "0753679acf1dcd1dbf781254637cf003b144d1582392649c493dec03ee5ce78c",
+        "scientific_config_sha256": "44cd67b83c9031e42f700ef66067b1cbfed9a68271495e6a23da13c5fb7f52b1",
+        "runtime_moe_implementation": "ring",
+        "step": 412290,
+        "timestamp": "2026-10-12T18:00:25.551820",
+        "is_temporary": false
+      },
+      "original_sampling": {
+        "type": "evenly_spaced",
+        "examples": 512,
+        "batch_size": 64
+      },
+      "parameter_count_source": "runs/exp586-final/scratch-lrm1-seed0/model-provenance.json",
+      "readout_sensitivity": {
+        "poe_minus_natural_8k": {
+          "Conservation": 0.019567106134460333,
+          "Masked motif": 0.006837572774475609,
+          "Core/non-core": -0.040450298466804036
+        },
+        "natural_8k_minus_2k": {
+          "Conservation": 0.002776830547017717,
+          "Masked motif": 0.015459123353805948,
+          "Core/non-core": 0.01017835984707327
+        },
+        "poe_minus_natural_matched_three_group": -0.004681873185956031,
+        "af_zero_2k_minus_8k": 0.004754355618319578,
+        "scores_poe_with_natural_sv": {
+          "Conservation": 0.7154233957673384,
+          "Masked motif": 0.5879586846487337,
+          "Core/non-core": 0.6448911725901796,
+          "Structural variant": 0.8558546271356129,
+          "Composite": 0.7010319700354661,
+          "Maize AF \u00b7 zero-shot": 0.13714564374412616,
+          "Maize AF \u00b7 linear probe": 0.1934686019126401
+        },
+        "af_zero_2k": 0.14189999936244574
+      },
+      "scores": {
+        "Conservation": 0.6958562896328779,
+        "Masked motif": 0.5811211118742581,
+        "Core/non-core": 0.6853414710569835,
+        "Structural variant": 0.8558546271356129,
+        "Composite": 0.7045433749249331,
+        "Maize AF \u00b7 zero-shot": 0.13714564374412616,
+        "Maize AF \u00b7 linear probe": 0.1934686019126401
+      },
+      "plot_family": "small",
+      "validation_result_file": "validation/m61-s.json",
+      "validation_result_sha256": "a4e85f98e92e0ea4cf0352391f5d6b6a5dab0a4daa955c2d250628c26fcad174",
+      "validation": {
+        "backend": "ring",
+        "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-scratch-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+        "checkpoint_digest": "737fa99f7998a31ca2a27aacf82ac3f292d9ff62a49742847e4037ad3cd372d9",
+        "forward_microbatch_size": 16,
+        "model_code": "M61-S",
+        "native_vocabulary": 8,
+        "request_sha256": "ef8e1b8cfbcaacfddf350fbb19419789ee4f073ba556cd23dd5cd332d8c7bd5f",
+        "runtime_packages": {
+          "jax": "0.11.1",
+          "marin-haliax": "0.2.224.dev40027069267",
+          "marin-iris": "0.2.224.dev40027069267",
+          "marin-levanter": "0.2.224.dev40027069267"
+        },
+        "samples": {
+          "common-65536": {
+            "acgt_conditional_loss": 0.949547553912481,
+            "canonical_native_loss": 0.9495950894312635,
+            "canonical_targets": 535941019,
+            "dropped_assignments": 0,
+            "examples": 65536,
+            "input_sha256": "da9530a08c76d783628a3538d8a5c9b473194a562024aaf262fe90dbe42d3a1c",
+            "native_loss": 0.9481752920523331,
+            "targets": 536805376
+          },
+          "original-moe-512": {
+            "acgt_conditional_loss": 0.9502067365278932,
+            "canonical_native_loss": 0.9502482694605189,
+            "canonical_targets": 4188506,
+            "dropped_assignments": 0,
+            "examples": 512,
+            "input_sha256": "b1659547b8299d0824aeded0370518bd0c9e41bb029d9cb2f22980b4ea338c57",
+            "native_loss": 0.9491398498959891,
+            "reported_loss": 0.9491407051682472,
+            "reproduction_delta": -8.552722581267602e-07,
+            "targets": 4193792
+          }
+        },
+        "schema": 1,
+        "training_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+        "validation_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-loss-corr-m61-s-final-eval-v1",
+        "worker_source_sha256": "330510b70a1561a59c7a64761d88a66f8b75faa366d3d87fd4ce418ff1ec634a"
+      },
+      "loss": 0.9481752920523331,
+      "acgt_loss": 0.949547553912481
+    }
+  ],
+  "correlations": {
+    "Composite": {
+      "n": 7,
+      "pearson_r": -0.9871660055030123,
+      "spearman_rho": -0.9285714285714288
+    },
+    "Conservation": {
+      "n": 7,
+      "pearson_r": -0.899754720088478,
+      "spearman_rho": -0.9285714285714288
+    },
+    "Masked motif": {
+      "n": 7,
+      "pearson_r": -0.990854514399863,
+      "spearman_rho": -0.9642857142857145
+    },
+    "Core/non-core": {
+      "n": 7,
+      "pearson_r": -0.933544720516462,
+      "spearman_rho": -0.6071428571428572
+    },
+    "Structural variant": {
+      "n": 7,
+      "pearson_r": -0.968808918153467,
+      "spearman_rho": -0.9285714285714288
+    },
+    "Maize AF \u00b7 zero-shot": {
+      "n": 7,
+      "pearson_r": -0.8354395872666615,
+      "spearman_rho": -0.39285714285714296
+    },
+    "Maize AF \u00b7 linear probe": {
+      "n": 7,
+      "pearson_r": -0.9142518889106557,
+      "spearman_rho": -0.8214285714285715
+    }
+  },
+  "sensitivity": {
+    "original_reported_losses": {
+      "n": 7,
+      "pearson_r": -0.98944009285006,
+      "spearman_rho": -0.9285714285714288
+    },
+    "acgt_conditional_moes_only": {
+      "Composite": {
+        "n": 4,
+        "pearson_r": -0.9957396570340198,
+        "spearman_rho": -0.6000000000000001
+      },
+      "Conservation": {
+        "n": 4,
+        "pearson_r": -0.9607730814700073,
+        "spearman_rho": -0.6000000000000001
+      },
+      "Masked motif": {
+        "n": 4,
+        "pearson_r": -0.9980827780767908,
+        "spearman_rho": -0.7999999999999999
+      },
+      "Core/non-core": {
+        "n": 4,
+        "pearson_r": -0.9988988331294677,
+        "spearman_rho": -1.0
+      },
+      "Structural variant": {
+        "n": 4,
+        "pearson_r": -0.9959461178431476,
+        "spearman_rho": -0.6000000000000001
+      },
+      "Maize AF \u00b7 zero-shot": {
+        "n": 4,
+        "pearson_r": -0.978158263118828,
+        "spearman_rho": -0.7999999999999999
+      },
+      "Maize AF \u00b7 linear probe": {
+        "n": 4,
+        "pearson_r": -0.9489459036253077,
+        "spearman_rho": -0.6000000000000001
+      }
+    },
+    "native_moes_only": {
+      "Composite": {
+        "n": 4,
+        "pearson_r": -0.9957389305470269,
+        "spearman_rho": -0.6000000000000001
+      },
+      "Conservation": {
+        "n": 4,
+        "pearson_r": -0.9607720103510927,
+        "spearman_rho": -0.6000000000000001
+      },
+      "Masked motif": {
+        "n": 4,
+        "pearson_r": -0.9980821177409466,
+        "spearman_rho": -0.7999999999999999
+      },
+      "Core/non-core": {
+        "n": 4,
+        "pearson_r": -0.9988978928597265,
+        "spearman_rho": -1.0
+      },
+      "Structural variant": {
+        "n": 4,
+        "pearson_r": -0.995945619144779,
+        "spearman_rho": -0.6000000000000001
+      },
+      "Maize AF \u00b7 zero-shot": {
+        "n": 4,
+        "pearson_r": -0.9781553715090505,
+        "spearman_rho": -0.7999999999999999
+      },
+      "Maize AF \u00b7 linear probe": {
+        "n": 4,
+        "pearson_r": -0.9489431837669561,
+        "spearman_rho": -0.6000000000000001
+      }
+    },
+    "poe_with_natural_sv": {
+      "n": 7,
+      "pearson_r": -0.9818356565190497,
+      "spearman_rho": -0.9642857142857145
+    },
+    "af_2k_for_moes": {
+      "n": 7,
+      "pearson_r": -0.9179828857752488,
+      "spearman_rho": -0.5714285714285715
+    }
+  }
+}

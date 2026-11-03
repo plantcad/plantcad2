@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "files": {
+    "d216.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/d216-v1/result.json",
+      "sha256": "b5a557661fd45c988d80e65bca1e1925f9897e439440ad5cd3392a8402472a64",
+      "bytes": 35837
+    },
+    "m481-l.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/m481-l-v1/result.json",
+      "sha256": "f5a2cc6d46c94cf0d9f1f45cf64a78292112728317cc1639aed6d6af0639c84f",
+      "bytes": 287409
+    },
+    "m481-s.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/m481-s-v1/result.json",
+      "sha256": "8c02c50ccdfe3fdb7a8556859c5f8939ea60b43769b19ed9efc0757835a23236",
+      "bytes": 286632
+    },
+    "m61-l.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/m61-l-v1/result.json",
+      "sha256": "fb0dac77429acecff1360d29f5dc16ee28b5e7eeea192e925ed6e964035740fd",
+      "bytes": 295002
+    },
+    "m61-s.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/m61-s-v1/result.json",
+      "sha256": "a4e85f98e92e0ea4cf0352391f5d6b6a5dab0a4daa955c2d250628c26fcad174",
+      "bytes": 295144
+    }
+  }
+}
