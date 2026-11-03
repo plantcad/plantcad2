@@ -15,7 +15,7 @@ With all seven models: Composite **Pearson r = -0.987; Spearman ρ = -0.929**.
 
 </details>
 
-At an assumed loss of **0.88**, the [1T-token d768 language-initialized run](https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1) projects to **Composite ≈ 0.742** (five-model fit: Composite ≈ 1.23262 − 0.55722 × loss; extrapolated, not evaluated).
+At an assumed loss of **0.90**, the [1T-token d768 language-initialized run](https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1) projects to **Composite ≈ 0.731** (five-model fit: Composite ≈ 1.23262 − 0.55722 × loss; extrapolated, not evaluated).
 
 | ID | MarinDNA model (total / active parameters) | Initialization | DNA tokens | Vocabulary | Validation loss | Training run |
 | --- | --- | --- | ---: | ---: | ---: | --- |
@@ -85,7 +85,7 @@ Replacing the three eligible MoE task groups with PoE while retaining Natural st
 
 Using 2K instead of 8K Natural zero-shot AF for the MoEs increases their mean AF Spearman by +0.0076; the seven-model loss/AF relationship becomes r = -0.918, ρ = -0.571. Dense AF retains its historical 8K setting, so this mixed-context result is secondary.
 
-The Composite projection for the [1T-token run in #586](https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578) uses a least-squares fit to the five measured checkpoints, excluding the 481M-active MoEs. Their losses span **0.946–0.981**. The assumed loss of **0.88** lies outside that range and is not included in the fit or correlations.
+The Composite projection for the [1T-token run in #586](https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578) uses a least-squares fit to the five measured checkpoints, excluding the 481M-active MoEs. Their losses span **0.946–0.981**. The assumed loss of **0.90** lies outside that range and is not included in the fit or correlations.
 
 </details>
 

@@ -27,7 +27,7 @@ METRICS = ("Composite", *GROUPS, AF_ZERO, AF_PROBE)
 SPLIT = "c37e713eb0449af48f99a14de5e3c86fab8cb5504c4872ccfd24e8988f0b89a0"
 COLORS = {"dense": "#7355A3", "small": "#008B87", "large": "#D77C28"}
 MARKERS = {7: "s", 8: "^", 128256: "o"}
-PROJECTED_LOSS = 0.88
+PROJECTED_LOSS = 0.90
 PROJECTED_RUN = "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1"
 
 
