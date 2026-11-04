@@ -4,7 +4,7 @@ This report updates the existing results comment on plantcad/plantcad2 PR22 usin
 The main figure excludes the two 481M-active MoEs, leaving six models; the second figure includes all eight.
 All points use measured final-checkpoint losses and downstream scores.
 Color distinguishes Dense from MoE; marker shape distinguishes scratch from language-pretrained initialization.
-Dotted ordinary-least-squares lines are fitted separately to Dense and MoE over their observed loss ranges; displayed correlations pool every checkpoint in the figure.
+Dotted ordinary-least-squares lines are fitted separately to Dense and MoE over their observed loss ranges.
 
 `models.json` identifies runs, original final losses, checkpoint URIs and metadata hashes.
 `inputs.json` identifies the immutable samples, including the first 65,536 validation windows of 8,192 bp (536,805,376 next-base targets).
@@ -31,7 +31,7 @@ From this package, regenerate the analysis, both PNG/SVG figures and `draft.md`:
 .venv/bin/pytest -q tests/test_loss_correlation.py
 ```
 
-`analysis.json` contains the compact plotting data, six-model and eight-model correlations, and vocabulary/readout/context sensitivity checks.
+`analysis.json` contains the compact plotting data and per-checkpoint vocabulary/readout/context sensitivity values.
 Inspect both figures at presentation size before publication.
 The draft uses relative image and data links; publication replaces them with commit-pinned links in plantcad/plantcad2.
 

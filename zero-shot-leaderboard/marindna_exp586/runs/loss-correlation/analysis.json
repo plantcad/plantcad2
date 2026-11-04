@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "rows": [
     {
       "code": "D216",
@@ -1194,43 +1194,6 @@
       "acgt_loss": 0.8885759295767768
     }
   ],
-  "correlations": {
-    "Composite": {
-      "n": 8,
-      "pearson_r": -0.8309500761735292,
-      "spearman_rho": -0.8095238095238096
-    },
-    "Conservation": {
-      "n": 8,
-      "pearson_r": -0.9149600705520993,
-      "spearman_rho": -0.9523809523809524
-    },
-    "Masked motif": {
-      "n": 8,
-      "pearson_r": -0.95490651327855,
-      "spearman_rho": -0.9761904761904763
-    },
-    "Core/non-core": {
-      "n": 8,
-      "pearson_r": -0.72341254508045,
-      "spearman_rho": -0.38095238095238104
-    },
-    "Structural variant": {
-      "n": 8,
-      "pearson_r": -0.32335083235386797,
-      "spearman_rho": -0.5952380952380953
-    },
-    "Maize AF \u00b7 zero-shot": {
-      "n": 8,
-      "pearson_r": -0.455836120944606,
-      "spearman_rho": -0.2380952380952381
-    },
-    "Maize AF \u00b7 linear probe": {
-      "n": 8,
-      "pearson_r": -0.8371133778675148,
-      "spearman_rho": -0.8095238095238096
-    }
-  },
   "without_481m": {
     "model_codes": [
       "D216",
@@ -1239,134 +1202,6 @@
       "M61-L",
       "M61-S",
       "M61-L-1T"
-    ],
-    "correlations": {
-      "Composite": {
-        "n": 6,
-        "pearson_r": -0.24980013808804052,
-        "spearman_rho": -0.6
-      },
-      "Conservation": {
-        "n": 6,
-        "pearson_r": -0.8370867836363263,
-        "spearman_rho": -0.942857142857143
-      },
-      "Masked motif": {
-        "n": 6,
-        "pearson_r": -0.9711126961222816,
-        "spearman_rho": -1.0
-      },
-      "Core/non-core": {
-        "n": 6,
-        "pearson_r": 0.7692799781095442,
-        "spearman_rho": 0.48571428571428577
-      },
-      "Structural variant": {
-        "n": 6,
-        "pearson_r": 0.8614153141704529,
-        "spearman_rho": -0.08571428571428573
-      },
-      "Maize AF \u00b7 zero-shot": {
-        "n": 6,
-        "pearson_r": 0.9494062755600853,
-        "spearman_rho": 0.7714285714285715
-      },
-      "Maize AF \u00b7 linear probe": {
-        "n": 6,
-        "pearson_r": -0.47354512853081315,
-        "spearman_rho": -0.6
-      }
-    }
-  },
-  "sensitivity": {
-    "original_reported_losses": {
-      "n": 8,
-      "pearson_r": -0.8384345648133306,
-      "spearman_rho": -0.8095238095238096
-    },
-    "acgt_conditional_moes_only": {
-      "Composite": {
-        "n": 5,
-        "pearson_r": -0.8808976459496018,
-        "spearman_rho": -0.49999999999999994
-      },
-      "Conservation": {
-        "n": 5,
-        "pearson_r": -0.9340565206709,
-        "spearman_rho": -0.7999999999999999
-      },
-      "Masked motif": {
-        "n": 5,
-        "pearson_r": -0.9761732304986044,
-        "spearman_rho": -0.8999999999999998
-      },
-      "Core/non-core": {
-        "n": 5,
-        "pearson_r": -0.8733804101315622,
-        "spearman_rho": -0.7
-      },
-      "Structural variant": {
-        "n": 5,
-        "pearson_r": -0.39019553268777574,
-        "spearman_rho": -0.49999999999999994
-      },
-      "Maize AF \u00b7 zero-shot": {
-        "n": 5,
-        "pearson_r": -0.7010819697136319,
-        "spearman_rho": -0.6
-      },
-      "Maize AF \u00b7 linear probe": {
-        "n": 5,
-        "pearson_r": -0.9131369203051597,
-        "spearman_rho": -0.7999999999999999
-      }
-    },
-    "native_moes_only": {
-      "Composite": {
-        "n": 5,
-        "pearson_r": -0.8809074032389657,
-        "spearman_rho": -0.49999999999999994
-      },
-      "Conservation": {
-        "n": 5,
-        "pearson_r": -0.9340616609266674,
-        "spearman_rho": -0.7999999999999999
-      },
-      "Masked motif": {
-        "n": 5,
-        "pearson_r": -0.9761774896525367,
-        "spearman_rho": -0.8999999999999998
-      },
-      "Core/non-core": {
-        "n": 5,
-        "pearson_r": -0.8733904592358731,
-        "spearman_rho": -0.7
-      },
-      "Structural variant": {
-        "n": 5,
-        "pearson_r": -0.39021538663306704,
-        "spearman_rho": -0.49999999999999994
-      },
-      "Maize AF \u00b7 zero-shot": {
-        "n": 5,
-        "pearson_r": -0.701094977734196,
-        "spearman_rho": -0.6
-      },
-      "Maize AF \u00b7 linear probe": {
-        "n": 5,
-        "pearson_r": -0.9131417360746257,
-        "spearman_rho": -0.7999999999999999
-      }
-    },
-    "poe_with_natural_sv": {
-      "n": 8,
-      "pearson_r": -0.7788765551323718,
-      "spearman_rho": -0.7380952380952381
-    },
-    "af_2k_for_moes": {
-      "n": 8,
-      "pearson_r": -0.43591530214707175,
-      "spearman_rho": -0.3571428571428572
-    }
+    ]
   }
 }

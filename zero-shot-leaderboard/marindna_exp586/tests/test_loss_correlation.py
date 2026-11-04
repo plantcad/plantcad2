@@ -54,9 +54,8 @@ def test_final_1t_loss_uses_the_same_immutable_sample_and_changes_the_conclusion
     assert new["scores"]["Masked motif"] > old["scores"]["Masked motif"]
     assert new["scores"]["Structural variant"] < old["scores"]["Structural variant"]
     assert len(result["without_481m"]["model_codes"]) == 6
-    assert result["without_481m"]["correlations"]["Composite"][
-        "pearson_r"
-    ] == pytest.approx(-0.24980013808804052)
+    assert "pearson_r" not in json.dumps(result)
+    assert "spearman_rho" not in json.dumps(result)
     assert "projection" not in json.dumps(result).lower()
 
 

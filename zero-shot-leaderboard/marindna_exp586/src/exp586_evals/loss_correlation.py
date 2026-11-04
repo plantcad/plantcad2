@@ -16,7 +16,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
-from scipy.stats import pearsonr, spearmanr
 
 from exp586_evals.historical import dense_results, verify_exp582_results
 
@@ -31,17 +30,6 @@ MARKERS = {"scratch": "^", "language-pretrained": "o"}
 
 def read(path: Path) -> dict:
     return json.loads(path.read_text())
-
-
-def correlation(x, y) -> dict:
-    x, y = np.asarray(x, float), np.asarray(y, float)
-    if len(x) != len(y) or len(x) < 3 or not np.isfinite([x, y]).all():
-        raise ValueError("Correlation needs at least three finite paired values")
-    return {
-        "n": len(x),
-        "pearson_r": float(pearsonr(x, y).statistic),
-        "spearman_rho": float(spearmanr(x, y).statistic),
-    }
 
 
 def downstream(root: Path, records: list[dict]) -> list[dict]:
@@ -261,7 +249,6 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
         offsets["M61-L"] = (-12, -20)
     for index, (ax, metric) in enumerate(zip(axes, METRICS, strict=True)):
         y = np.asarray([r["scores"][metric] for r in rows])
-        stats = correlation(x, y)
         for family, color in COLORS.items():
             members = [r for r in rows if bool(r["rung"]) == (family == "dense")]
             losses = np.asarray([r["loss"] for r in members])
@@ -321,20 +308,6 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
             else (12 if metric in (AF_ZERO, AF_PROBE) else 13),
             fontweight="bold",
             pad=6 if metric in (AF_ZERO, AF_PROBE) else 10,
-        )
-        stats_at_top = focused and metric in ("Core/non-core", AF_ZERO)
-        stats_at_right = focused and metric == "Structural variant"
-        stats_text = f"Pearson r = {stats['pearson_r']:+.3f}\nSpearman ρ = {stats['spearman_rho']:+.3f}"
-        ax.text(
-            0.97 if stats_at_right else 0.03,
-            0.965 if stats_at_top else 0.035,
-            stats_text,
-            transform=ax.transAxes,
-            ha="right" if stats_at_right else "left",
-            multialignment="left",
-            va="top" if stats_at_top else "bottom",
-            fontsize=13 if index == 0 else 10.5,
-            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.9, "pad": 4},
         )
         if index == 0 or index >= 5:
             ax.set_xlabel("Validation loss (nats / base)", labelpad=10, fontsize=12)
@@ -398,7 +371,7 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
     fig.text(
         0.07,
         0.045,
-        f"Dotted lines: separate Dense (n = {sum(bool(r['rung']) for r in rows)}) and MoE (n = {sum(not r['rung'] for r in rows)}) fits. Correlations pool all {count} checkpoints. Full-vocabulary loss; one token per nucleotide.",
+        f"Dotted lines: separate Dense (n = {sum(bool(r['rung']) for r in rows)}) and MoE (n = {sum(not r['rung'] for r in rows)}) fits. Full-vocabulary loss; one token per nucleotide.",
         fontsize=10,
     )
     for suffix in ("png", "svg"):
@@ -453,86 +426,25 @@ def assemble(root: Path, directory: Path) -> dict:
             raise ValueError("Dense replay does not reproduce its original native loss")
         row["loss"] = row["original_loss"] if row["rung"] else sample["native_loss"]
         row["acgt_loss"] = sample["acgt_conditional_loss"]
-    stats = {
-        metric: correlation(
-            [r["loss"] for r in rows], [r["scores"][metric] for r in rows]
-        )
-        for metric in METRICS
-    }
-    focused_rows = [r for r in rows if r["plot_family"] != "large"]
-    without_481m = {
-        "model_codes": [r["code"] for r in focused_rows],
-        "correlations": {
-            metric: correlation(
-                [r["loss"] for r in focused_rows],
-                [r["scores"][metric] for r in focused_rows],
-            )
-            for metric in METRICS
-        },
-    }
-    sensitivity = {
-        "original_reported_losses": correlation(
-            [r["original_loss"] for r in rows], [r["scores"]["Composite"] for r in rows]
-        ),
-        "acgt_conditional_moes_only": {
-            metric: correlation(
-                [r["acgt_loss"] for r in rows if not r["rung"]],
-                [r["scores"][metric] for r in rows if not r["rung"]],
-            )
-            for metric in METRICS
-        },
-        "native_moes_only": {
-            metric: correlation(
-                [r["loss"] for r in rows if not r["rung"]],
-                [r["scores"][metric] for r in rows if not r["rung"]],
-            )
-            for metric in METRICS
-        },
-    }
-    sensitivity["poe_with_natural_sv"] = correlation(
-        [r["loss"] for r in rows],
-        [
-            (
-                r["readout_sensitivity"]["scores_poe_with_natural_sv"]["Composite"]
-                if r["readout_sensitivity"]
-                else r["scores"]["Composite"]
-            )
-            for r in rows
-        ],
-    )
-    sensitivity["af_2k_for_moes"] = correlation(
-        [r["loss"] for r in rows],
-        [
-            (
-                r["readout_sensitivity"]["af_zero_2k"]
-                if r["readout_sensitivity"]
-                else r["scores"][AF_ZERO]
-            )
-            for r in rows
-        ],
-    )
     return {
-        "schema": 1,
+        "schema": 2,
         "rows": rows,
-        "correlations": stats,
-        "without_481m": without_481m,
-        "sensitivity": sensitivity,
+        "without_481m": {
+            "model_codes": [r["code"] for r in rows if r["plot_family"] != "large"],
+        },
     }
 
 
 def draft(result: dict, directory: Path) -> None:
     rows = result["rows"]
-    stats = result["without_481m"]["correlations"]["Composite"]
-    full_stats = result["correlations"]["Composite"]
     new = next(r for r in rows if r["code"] == "M61-L-1T")
     old = next(r for r in rows if r["code"] == "M61-L")
-    focused_count = len(result["without_481m"]["model_codes"])
     lines = [
         "## DNA validation loss versus downstream evaluations",
         "",
         "**The finished 1T model has the lowest validation loss, but a lower four-group Composite than its 0.22T counterpart.** Conservation and motif scores improve; structural-variant and core/non-core scores decline. Lower next-base loss does not guarantee better performance across these tasks.",
         "",
-        f"On the identical validation sample, loss falls from **{old['loss']:.6f} to {new['loss']:.6f}**, while Composite changes from **{old['scores']['Composite']:.4f} to {new['scores']['Composite']:.4f}**. Across the {focused_count} models below, Composite **Pearson r = {stats['pearson_r']:+.3f}; Spearman ρ = {stats['spearman_rho']:+.3f}**. Maize allele frequency (AF) is separate and excluded from Composite.",
+        f"On the identical validation sample, loss falls from **{old['loss']:.6f} to {new['loss']:.6f}**, while Composite changes from **{old['scores']['Composite']:.4f} to {new['scores']['Composite']:.4f}**. Maize allele frequency (AF) is separate and excluded from Composite.",
         "",
         "![Validation loss versus Composite and six task groups, excluding the 481M-active MoEs](loss-correlation-without-481m.png)",
         "",
@@ -540,8 +452,6 @@ def draft(result: dict, directory: Path) -> None:
         f"<summary>Including the 481M-active MoEs (all {len(rows)} models)</summary>",
         "",
         "![Validation loss versus Composite and six task groups, all models](loss-correlation.png)",
-        "",
-        f"Composite **Pearson r = {full_stats['pearson_r']:+.3f}; Spearman ρ = {full_stats['spearman_rho']:+.3f}**.",
         "",
         "</details>",
         "",
@@ -595,7 +505,7 @@ def draft(result: dict, directory: Path) -> None:
         )
     lines += [
         "",
-        "Color distinguishes Dense from MoE; marker shape distinguishes scratch from language-pretrained initialization. Dotted regression lines are fitted separately to Dense and MoE checkpoints over their observed loss ranges; the displayed correlations pool all checkpoints in each figure. Loss uses each model's full native vocabulary; the A/C/G/T sensitivity check remains in the saved analysis.",
+        "Color distinguishes Dense from MoE; marker shape distinguishes scratch from language-pretrained initialization. Dotted regression lines are fitted separately to Dense and MoE checkpoints over their observed loss ranges. Loss uses each model's full native vocabulary; the A/C/G/T sensitivity check remains in the saved analysis.",
         "",
         "</details>",
         "",
@@ -604,7 +514,7 @@ def draft(result: dict, directory: Path) -> None:
         "",
         "All points are measured results from completed runs. Downstream evaluations and probe fits are reused from their saved outputs. Only the common-sample language-model losses were separately evaluated; no new model inference or probe fitting was needed for this update.",
         "",
-        "[Models, final checkpoints, and training-run bindings](models.json) · [Immutable validation samples](inputs.json) · [Loss artifacts and hashes](results-manifest.json) · [1T downstream provenance](downstream/m61-l-1t/provenance.json) · [Scores and correlations](analysis.json)",
+        "[Models, final checkpoints, and training-run bindings](models.json) · [Immutable validation samples](inputs.json) · [Loss artifacts and hashes](results-manifest.json) · [1T downstream provenance](downstream/m61-l-1t/provenance.json) · [Scores and validation losses](analysis.json)",
         "",
         "</details>",
         "",

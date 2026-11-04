@@ -2,7 +2,7 @@
 
 **The finished 1T model has the lowest validation loss, but a lower four-group Composite than its 0.22T counterpart.** Conservation and motif scores improve; structural-variant and core/non-core scores decline. Lower next-base loss does not guarantee better performance across these tasks.
 
-On the identical validation sample, loss falls from **0.946216 to 0.887302**, while Composite changes from **0.7040 to 0.6936**. Across the 6 models below, Composite **Pearson r = -0.250; Spearman ρ = -0.600**. Maize allele frequency (AF) is separate and excluded from Composite.
+On the identical validation sample, loss falls from **0.946216 to 0.887302**, while Composite changes from **0.7040 to 0.6936**. Maize allele frequency (AF) is separate and excluded from Composite.
 
 ![Validation loss versus Composite and six task groups, excluding the 481M-active MoEs](loss-correlation-without-481m.png)
 
@@ -10,8 +10,6 @@ On the identical validation sample, loss falls from **0.946216 to 0.887302**, wh
 <summary>Including the 481M-active MoEs (all 8 models)</summary>
 
 ![Validation loss versus Composite and six task groups, all models](loss-correlation.png)
-
-Composite **Pearson r = -0.831; Spearman ρ = -0.810**.
 
 </details>
 
@@ -55,7 +53,7 @@ Dense runs already used this sample; their original losses are retained after a 
 | M61-S | 0.94914071 | 0.94913985 | 0.94817529 |
 | M61-L-1T | 0.88988553 | 0.88990800 | 0.88730214 |
 
-Color distinguishes Dense from MoE; marker shape distinguishes scratch from language-pretrained initialization. Dotted regression lines are fitted separately to Dense and MoE checkpoints over their observed loss ranges; the displayed correlations pool all checkpoints in each figure. Loss uses each model's full native vocabulary; the A/C/G/T sensitivity check remains in the saved analysis.
+Color distinguishes Dense from MoE; marker shape distinguishes scratch from language-pretrained initialization. Dotted regression lines are fitted separately to Dense and MoE checkpoints over their observed loss ranges. Loss uses each model's full native vocabulary; the A/C/G/T sensitivity check remains in the saved analysis.
 
 </details>
 
@@ -64,6 +62,6 @@ Color distinguishes Dense from MoE; marker shape distinguishes scratch from lang
 
 All points are measured results from completed runs. Downstream evaluations and probe fits are reused from their saved outputs. Only the common-sample language-model losses were separately evaluated; no new model inference or probe fitting was needed for this update.
 
-[Models, final checkpoints, and training-run bindings](models.json) · [Immutable validation samples](inputs.json) · [Loss artifacts and hashes](results-manifest.json) · [1T downstream provenance](downstream/m61-l-1t/provenance.json) · [Scores and correlations](analysis.json)
+[Models, final checkpoints, and training-run bindings](models.json) · [Immutable validation samples](inputs.json) · [Loss artifacts and hashes](results-manifest.json) · [1T downstream provenance](downstream/m61-l-1t/provenance.json) · [Scores and validation losses](analysis.json)
 
 </details>
