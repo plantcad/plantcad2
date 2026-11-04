@@ -25,8 +25,8 @@ AF_ZERO = "Maize AF · zero-shot"
 AF_PROBE = "Maize AF · linear probe"
 METRICS = ("Composite", *GROUPS, AF_ZERO, AF_PROBE)
 SPLIT = "c37e713eb0449af48f99a14de5e3c86fab8cb5504c4872ccfd24e8988f0b89a0"
-COLORS = {"dense": "#7355A3", "small": "#008B87", "large": "#D77C28"}
-MARKERS = {7: "s", 8: "^", 128256: "o"}
+COLORS = {"dense": "#7355A3", "moe": "#008B87"}
+MARKERS = {"scratch": "^", "language-pretrained": "o"}
 
 
 def read(path: Path) -> dict:
@@ -240,7 +240,7 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
         left=0.07,
         right=0.975,
         bottom=0.175,
-        top=0.77,
+        top=0.80,
         wspace=0.30,
         hspace=0.60,
     )
@@ -262,18 +262,27 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
     for index, (ax, metric) in enumerate(zip(axes, METRICS, strict=True)):
         y = np.asarray([r["scores"][metric] for r in rows])
         stats = correlation(x, y)
-        fit = np.polyfit(x, y, 1)
-        xx = np.linspace(x.min(), x.max(), 100)
-        ax.plot(
-            xx, np.polyval(fit, xx), color="#ADB5BE", lw=1.3, linestyle="--", zorder=1
-        )
+        for family, color in COLORS.items():
+            members = [r for r in rows if bool(r["rung"]) == (family == "dense")]
+            losses = np.asarray([r["loss"] for r in members])
+            scores = np.asarray([r["scores"][metric] for r in members])
+            fit = np.polyfit(losses, scores, 1)
+            xx = np.linspace(losses.min(), losses.max(), 100)
+            ax.plot(
+                xx,
+                np.polyval(fit, xx),
+                color=color,
+                lw=1.8,
+                linestyle=":",
+                zorder=1,
+            )
         for row, yy in zip(rows, y, strict=True):
             ax.scatter(
                 row["loss"],
                 yy,
                 s=100 if index == 0 else 60,
-                marker=MARKERS[row["vocab_size"]],
-                color=COLORS[row["plot_family"]],
+                marker=MARKERS[row["initialization"]],
+                color=COLORS["dense" if row["rung"] else "moe"],
                 edgecolors="white",
                 linewidths=0.75,
                 zorder=3,
@@ -353,15 +362,10 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
         fontsize=12,
     )
     color_handles = [
-        Line2D([], [], color=COLORS[family], lw=4, label=label)
-        for family, label in [
-            ("dense", "Dense · 0.97B active"),
-            ("small", "MoE · 60.6M active (excl. embeddings)"),
-            ("large", "MoE · 481M active (excl. embeddings)"),
-        ]
-        if any(row["plot_family"] == family for row in rows)
+        Line2D([], [], color=COLORS[family], lw=2, linestyle=":", label=label)
+        for family, label in [("dense", "Dense"), ("moe", "MoE")]
     ]
-    vocab_handles = [
+    initialization_handles = [
         Line2D(
             [],
             [],
@@ -372,26 +376,18 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
             label=label,
         )
         for m, label in [
-            ("s", "7-token DNA vocab"),
-            ("^", "8-token DNA vocab"),
-            ("o", "128,256-token language vocab"),
+            (MARKERS["scratch"], "From scratch"),
+            (MARKERS["language-pretrained"], "Language-pretrained"),
         ]
     ]
     fig.legend(
-        handles=color_handles,
+        handles=[*color_handles, *initialization_handles],
         loc="upper left",
         bbox_to_anchor=(0.064, 0.885),
         frameon=False,
-        ncol=3,
-        fontsize=10,
-    )
-    fig.legend(
-        handles=vocab_handles,
-        loc="upper left",
-        bbox_to_anchor=(0.064, 0.851),
-        frameon=False,
-        ncol=3,
-        fontsize=10,
+        ncol=4,
+        fontsize=11,
+        columnspacing=2.4,
     )
     fig.text(
         0.07,
@@ -402,7 +398,7 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
     fig.text(
         0.07,
         0.045,
-        f"Loss uses each model’s full native vocabulary; all inputs are single nucleotides. Dashed lines are descriptive linear fits (n = {count}).",
+        f"Dotted lines: separate Dense (n = {sum(bool(r['rung']) for r in rows)}) and MoE (n = {sum(not r['rung'] for r in rows)}) fits. Correlations pool all {count} checkpoints. Full-vocabulary loss; one token per nucleotide.",
         fontsize=10,
     )
     for suffix in ("png", "svg"):
@@ -599,7 +595,7 @@ def draft(result: dict, directory: Path) -> None:
         )
     lines += [
         "",
-        "Vocabulary sizes differ, as shown by marker shape. Restricting loss to A/C/G/T is retained as a sensitivity check in the saved analysis; the figures use full-vocabulary loss consistently.",
+        "Color distinguishes Dense from MoE; marker shape distinguishes scratch from language-pretrained initialization. Dotted regression lines are fitted separately to Dense and MoE checkpoints over their observed loss ranges; the displayed correlations pool all checkpoints in each figure. Loss uses each model's full native vocabulary; the A/C/G/T sensitivity check remains in the saved analysis.",
         "",
         "</details>",
         "",

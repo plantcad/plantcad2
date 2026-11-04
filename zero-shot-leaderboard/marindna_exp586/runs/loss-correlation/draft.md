@@ -55,7 +55,7 @@ Dense runs already used this sample; their original losses are retained after a 
 | M61-S | 0.94914071 | 0.94913985 | 0.94817529 |
 | M61-L-1T | 0.88988553 | 0.88990800 | 0.88730214 |
 
-Vocabulary sizes differ, as shown by marker shape. Restricting loss to A/C/G/T is retained as a sensitivity check in the saved analysis; the figures use full-vocabulary loss consistently.
+Color distinguishes Dense from MoE; marker shape distinguishes scratch from language-pretrained initialization. Dotted regression lines are fitted separately to Dense and MoE checkpoints over their observed loss ranges; the displayed correlations pool all checkpoints in each figure. Loss uses each model's full native vocabulary; the A/C/G/T sensitivity check remains in the saved analysis.
 
 </details>
 
