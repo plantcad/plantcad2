@@ -314,12 +314,15 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
             pad=6 if metric in (AF_ZERO, AF_PROBE) else 10,
         )
         stats_at_top = focused and metric in ("Core/non-core", AF_ZERO)
+        stats_at_right = focused and metric == "Structural variant"
         stats_text = f"Pearson r = {stats['pearson_r']:+.3f}\nSpearman ρ = {stats['spearman_rho']:+.3f}"
         ax.text(
-            0.03,
+            0.97 if stats_at_right else 0.03,
             0.965 if stats_at_top else 0.035,
             stats_text,
             transform=ax.transAxes,
+            ha="right" if stats_at_right else "left",
+            multialignment="left",
             va="top" if stats_at_top else "bottom",
             fontsize=13 if index == 0 else 10.5,
             bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.9, "pad": 4},

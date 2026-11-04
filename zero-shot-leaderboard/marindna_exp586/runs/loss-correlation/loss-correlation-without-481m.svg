@@ -3769,15 +3769,15 @@ L 1123.2 413.568
    </g>
    <g id="text_66">
     <g id="patch_24">
-     <path d="M 888.323425 414.1308
-L 1009.303112 414.1308
-L 1009.303112 380.946698
-L 888.323425 380.946698
+     <path d="M 999.069491 414.1308
+L 1120.049178 414.1308
+L 1120.049178 380.946698
+L 999.069491 380.946698
 z
 " style="fill: #ffffff; opacity: 0.9"/>
     </g>
     <!-- Pearson r = +0.861 -->
-    <g style="fill: #24313c" transform="translate(892.313425 393.965263) scale(0.105 -0.105)">
+    <g style="fill: #24313c" transform="translate(1003.059491 393.965263) scale(0.105 -0.105)">
      <use xlink:href="#DejaVuSans-33"/>
      <use xlink:href="#DejaVuSans-48" transform="translate(56.734375 0)"/>
      <use xlink:href="#DejaVuSans-44" transform="translate(118.265625 0)"/>
@@ -3798,7 +3798,7 @@ z
      <use xlink:href="#DejaVuSans-14" transform="translate(924.015625 0)"/>
     </g>
     <!-- Spearman ρ = -0.086 -->
-    <g style="fill: #24313c" transform="translate(892.313425 406.567314) scale(0.105 -0.105)">
+    <g style="fill: #24313c" transform="translate(1003.059491 406.567314) scale(0.105 -0.105)">
      <use xlink:href="#DejaVuSans-36"/>
      <use xlink:href="#DejaVuSans-53" transform="translate(63.484375 0)"/>
      <use xlink:href="#DejaVuSans-48" transform="translate(126.96875 0)"/>
