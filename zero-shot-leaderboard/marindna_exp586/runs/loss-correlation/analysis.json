@@ -937,43 +937,298 @@
       },
       "loss": 0.9481752920523331,
       "acgt_loss": 0.949547553912481
+    },
+    {
+      "active_parameters_approx": 60555000,
+      "canonical_metadata_sha256": "6efe6918ab8cf65da43836f5132708a6c129ba293979e48e8fdf6fed2a432e77",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1/2026.10.20/checkpoints/step-1907349",
+      "code": "M61-L-1T",
+      "dna_tokens": 1000000192512,
+      "family": "MoE 60.6M active",
+      "initialization": "language-pretrained",
+      "model_config": {
+        "attention_implementation": "gpu_fa4_cute",
+        "capacity_factor": 32,
+        "expert_chunks": 1,
+        "global_every": 4,
+        "global_kv_heads": 1,
+        "head_dim": 128,
+        "hidden_dim": 768,
+        "initializer_std": 0.018042195912175808,
+        "intermediate_dim": 384,
+        "latent_dim": 384,
+        "layer_norm_eps": 1e-05,
+        "local_kv_heads": 1,
+        "max_seq_len": 8192,
+        "moe_implementation": "fixed_pooled_wave_all_to_all",
+        "num_expert_waves": 3,
+        "num_experts": 384,
+        "num_experts_per_token": 8,
+        "num_heads": 6,
+        "num_kv_heads": 1,
+        "num_layers": 8,
+        "num_shared_experts": 2,
+        "pooled_transport_capacity_factor": 8,
+        "qb_estimator": "HIST",
+        "qb_hist_bins": 10000,
+        "qk_mult": 1.3,
+        "remat_mode": "recompute_all",
+        "report_capacity_overflow": true,
+        "rope": {
+          "scaling_factor": null,
+          "theta": 10000
+        },
+        "rope_fused": true,
+        "sconv": true,
+        "sconv_kernel": 4,
+        "sconv_sites": [
+          "k",
+          "attn",
+          "mlp"
+        ],
+        "shared_expert_intermediate_dim": 384,
+        "sliding_window": 2048,
+        "vocab_size": 128256
+      },
+      "original_history_step": 1907349,
+      "original_loss": 0.8898855298757553,
+      "original_metric": "eval/loss",
+      "original_sampling": {
+        "batch_size": 64,
+        "examples": 512,
+        "type": "evenly_spaced"
+      },
+      "raw_metadata_sha256": "52c4a4fd062b8a16dae680f0323dc81f1480308658916151e6e1a08975f7ebd2",
+      "results": "runs/loss-correlation/downstream/m61-l-1t",
+      "rung": null,
+      "source_git_commit": "de5f428fc7b2bac8b6e40697f905c8b99ca3580d",
+      "source_metadata": {
+        "exp586_clock": {
+          "input_tokens": 1000000192512,
+          "loss_targets": 999878122176,
+          "examples": 122070336,
+          "updates": 1907349
+        },
+        "data_seed": 0,
+        "exp586_schema": 1,
+        "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+        "scientific_config_sha256": "6a5273b56f94f5da995a882b44208678dbbb8baf8871a4c3ccc37c286f222899",
+        "runtime_moe_implementation": "scatter",
+        "exp586_runtime": {
+          "state_mode": "fp32_device",
+          "prefetch_depth": 1,
+          "transition_id": "full-replica-dp-perf5-v1-20261102",
+          "code_sha256": "ff346da165819785a8bd9063263affc7f6dc2e963613e81bfb60c157c79b88be",
+          "cluster": "cw-rno2a",
+          "nodes": 8,
+          "parallelism": "full-replica-data-parallel",
+          "mesh": {
+            "replica_dcn": 64,
+            "data": 1,
+            "context": 1,
+            "expert": 1,
+            "model": 1
+          },
+          "moe_implementation": "scatter",
+          "compact_input_lookup_ids": [
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89
+          ],
+          "compact_input_lookup_one_hot": true,
+          "persistent_state_replication": "asserted",
+          "optimizer_newton_schulz_scope": "node-local-8-gpu",
+          "perf4_source_commit": "34aa317617c3a0ede609c76b01e44312dbd864e2",
+          "reader_options": {
+            "cache_files": true,
+            "cache_file_workers": 4,
+            "preload_all": true,
+            "preload_workers": 4,
+            "cache_groups": 4096
+          },
+          "compiler_options": {
+            "xla_gpu_enable_pdl": false,
+            "xla_gpu_enable_pdl_launch": false
+          },
+          "optimizer_group_size": 8,
+          "optimizer_normalize_before_split": false,
+          "optimizer_slice_before_cast": true,
+          "optimizer_cast_before_gather": false,
+          "physical_replica_checks": "canonical-restore-and-checkpoint-boundaries",
+          "perf5_source_commit": "9bfd900cb3e1f4da36830c56bd347a23e2759c8b",
+          "optimizer_state_placement": "expert-fp32-partitioned-on-replica-dcn",
+          "partitioned_master_banks": 3,
+          "partitioned_momentum_banks": 3,
+          "compute_model_replication": "complete-bf16-on-every-gpu",
+          "optimizer_hyperball_norm": "global-layer-expert-bank",
+          "checkpoint_optimizer_state": "canonical-fully-replicated",
+          "checkpoint_repartition_after_restore": true,
+          "diagnostic_transfer": "consumed-fp16-bf16-fp32-scalars-packed-exactly",
+          "runtime_source_paths": [
+            "src/exp586_moe/train.py",
+            "src/exp586_moe/perf5_optimizer.py",
+            "src/exp586_moe/perf5_metrics.py",
+            "src/exp586_moe/routing_probe.py",
+            "src/experiments/grug/moe_hero_ep/train.py"
+          ]
+        },
+        "step": 1907349,
+        "timestamp": "2026-11-03T20:08:53.951608",
+        "is_temporary": false
+      },
+      "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+      "total_parameters_approx": 1592000000,
+      "vocab_size": 128256,
+      "wandb_path": "eric-czech/marin/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+      "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+      "readout_sensitivity": {
+        "poe_minus_natural_8k": {
+          "Conservation": 0.018737806000315382,
+          "Masked motif": 0.009288803035814697,
+          "Core/non-core": -0.06392993414917247
+        },
+        "natural_8k_minus_2k": {
+          "Conservation": 0.004418955731071872,
+          "Masked motif": 0.024489090298019267,
+          "Core/non-core": 0.012587080790159355
+        },
+        "poe_minus_natural_matched_three_group": -0.011967775037680798,
+        "af_zero_2k_minus_8k": 0.004030694728215489,
+        "scores_poe_with_natural_sv": {
+          "Conservation": 0.7180048081037481,
+          "Masked motif": 0.627131894342277,
+          "Core/non-core": 0.6153009203509692,
+          "Structural variant": 0.7780781605138195,
+          "Composite": 0.6846289458277035,
+          "Maize AF \u00b7 zero-shot": 0.12785375362741644,
+          "Maize AF \u00b7 linear probe": 0.19394317458721153
+        },
+        "af_zero_2k": 0.13188444835563193
+      },
+      "scores": {
+        "Conservation": 0.6992670021034327,
+        "Masked motif": 0.6178430913064623,
+        "Core/non-core": 0.6792308545001416,
+        "Structural variant": 0.7780781605138195,
+        "Composite": 0.693604777105964,
+        "Maize AF \u00b7 zero-shot": 0.12785375362741644,
+        "Maize AF \u00b7 linear probe": 0.19394317458721153
+      },
+      "plot_family": "small",
+      "validation_result_file": "validation/m61-l-1t.json",
+      "validation_result_sha256": "9f4dd7ad167ba600f90d609843591d33614ab75a34e04fe220b870c09421b731",
+      "validation": {
+        "backend": "scatter",
+        "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1/2026.10.20/checkpoints/step-1907349",
+        "checkpoint_digest": "6efe6918ab8cf65da43836f5132708a6c129ba293979e48e8fdf6fed2a432e77",
+        "forward_microbatch_size": 16,
+        "mesh": {
+          "context": 1,
+          "data": 1,
+          "expert": 1,
+          "model": 1,
+          "replica_dcn": 8
+        },
+        "model_code": "M61-L-1T",
+        "native_vocabulary": 128256,
+        "request_sha256": "d69451c0fa407b574fe1a8c0a6361b8f1bc57d2deaf5274e0a96a9e12747c238",
+        "runtime_packages": {
+          "jax": "0.11.1",
+          "marin-haliax": "0.2.224.dev40027069267",
+          "marin-iris": "0.2.224.dev40027069267",
+          "marin-levanter": "0.2.224.dev40027069267"
+        },
+        "samples": {
+          "common-65536": {
+            "acgt_conditional_loss": 0.8885759295767768,
+            "canonical_native_loss": 0.8886222915026821,
+            "canonical_targets": 535941019,
+            "dropped_assignments": 0,
+            "examples": 65536,
+            "input_sha256": "da9530a08c76d783628a3538d8a5c9b473194a562024aaf262fe90dbe42d3a1c",
+            "native_loss": 0.8873021401353057,
+            "targets": 536805376
+          },
+          "original-moe-512": {
+            "acgt_conditional_loss": 0.8908996280535351,
+            "canonical_native_loss": 0.890939972838764,
+            "canonical_targets": 4188506,
+            "dropped_assignments": 0,
+            "examples": 512,
+            "input_sha256": "b1659547b8299d0824aeded0370518bd0c9e41bb029d9cb2f22980b4ea338c57",
+            "native_loss": 0.8899080045725921,
+            "reported_loss": 0.8898855298757553,
+            "reproduction_delta": 2.247469683680503e-05,
+            "targets": 4193792
+          }
+        },
+        "schema": 1,
+        "training_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+        "validation_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-final-eval-loss-v1",
+        "worker_source_sha256": "d8e998f2796f511604e033f06312ffa85b987dde4f9eabfb5d592d424e78dfd8"
+      },
+      "loss": 0.8873021401353057,
+      "acgt_loss": 0.8885759295767768
     }
   ],
   "correlations": {
     "Composite": {
-      "n": 7,
-      "pearson_r": -0.9871660055030123,
-      "spearman_rho": -0.9285714285714288
+      "n": 8,
+      "pearson_r": -0.8309500761735292,
+      "spearman_rho": -0.8095238095238096
     },
     "Conservation": {
-      "n": 7,
-      "pearson_r": -0.899754720088478,
-      "spearman_rho": -0.9285714285714288
+      "n": 8,
+      "pearson_r": -0.9149600705520993,
+      "spearman_rho": -0.9523809523809524
     },
     "Masked motif": {
-      "n": 7,
-      "pearson_r": -0.990854514399863,
-      "spearman_rho": -0.9642857142857145
+      "n": 8,
+      "pearson_r": -0.95490651327855,
+      "spearman_rho": -0.9761904761904763
     },
     "Core/non-core": {
-      "n": 7,
-      "pearson_r": -0.933544720516462,
-      "spearman_rho": -0.6071428571428572
+      "n": 8,
+      "pearson_r": -0.72341254508045,
+      "spearman_rho": -0.38095238095238104
     },
     "Structural variant": {
-      "n": 7,
-      "pearson_r": -0.968808918153467,
-      "spearman_rho": -0.9285714285714288
+      "n": 8,
+      "pearson_r": -0.32335083235386797,
+      "spearman_rho": -0.5952380952380953
     },
     "Maize AF \u00b7 zero-shot": {
-      "n": 7,
-      "pearson_r": -0.8354395872666615,
-      "spearman_rho": -0.39285714285714296
+      "n": 8,
+      "pearson_r": -0.455836120944606,
+      "spearman_rho": -0.2380952380952381
     },
     "Maize AF \u00b7 linear probe": {
-      "n": 7,
-      "pearson_r": -0.9142518889106557,
-      "spearman_rho": -0.8214285714285715
+      "n": 8,
+      "pearson_r": -0.8371133778675148,
+      "spearman_rho": -0.8095238095238096
     }
   },
   "without_481m": {
@@ -982,159 +1237,136 @@
       "D389",
       "D562",
       "M61-L",
-      "M61-S"
+      "M61-S",
+      "M61-L-1T"
     ],
-    "composite_linear_fit": {
-      "method": "ordinary least squares: Composite = intercept + slope * validation_loss",
-      "model_codes": [
-        "D216",
-        "D389",
-        "D562",
-        "M61-L",
-        "M61-S"
-      ],
-      "slope": -0.5572245633800043,
-      "intercept": 1.2326210297270166,
-      "observed_loss_range": [
-        0.9462159565554304,
-        0.9812506437301636
-      ],
-      "projection": {
-        "training_run": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
-        "experiment": "https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578",
-        "assumed_final_loss": 0.9,
-        "composite": 0.7311189226850128,
-        "is_extrapolation": true,
-        "included_in_fit_or_correlations": false
-      }
-    },
     "correlations": {
       "Composite": {
-        "n": 5,
-        "pearson_r": -0.9843955586635389,
-        "spearman_rho": -0.8999999999999998
+        "n": 6,
+        "pearson_r": -0.24980013808804052,
+        "spearman_rho": -0.6
       },
       "Conservation": {
-        "n": 5,
-        "pearson_r": -0.9548942027291507,
-        "spearman_rho": -0.8999999999999998
+        "n": 6,
+        "pearson_r": -0.8370867836363263,
+        "spearman_rho": -0.942857142857143
       },
       "Masked motif": {
-        "n": 5,
-        "pearson_r": -0.9735514452258752,
-        "spearman_rho": -0.9999999999999999
+        "n": 6,
+        "pearson_r": -0.9711126961222816,
+        "spearman_rho": -1.0
       },
       "Core/non-core": {
-        "n": 5,
-        "pearson_r": 0.22568812028743793,
-        "spearman_rho": 0.09999999999999999
+        "n": 6,
+        "pearson_r": 0.7692799781095442,
+        "spearman_rho": 0.48571428571428577
       },
       "Structural variant": {
-        "n": 5,
-        "pearson_r": -0.9347001474448863,
-        "spearman_rho": -0.8999999999999998
+        "n": 6,
+        "pearson_r": 0.8614153141704529,
+        "spearman_rho": -0.08571428571428573
       },
       "Maize AF \u00b7 zero-shot": {
-        "n": 5,
-        "pearson_r": 0.8276228736490938,
-        "spearman_rho": 0.6
+        "n": 6,
+        "pearson_r": 0.9494062755600853,
+        "spearman_rho": 0.7714285714285715
       },
       "Maize AF \u00b7 linear probe": {
-        "n": 5,
-        "pearson_r": -0.4979357846914487,
+        "n": 6,
+        "pearson_r": -0.47354512853081315,
         "spearman_rho": -0.6
       }
     }
   },
   "sensitivity": {
     "original_reported_losses": {
-      "n": 7,
-      "pearson_r": -0.98944009285006,
-      "spearman_rho": -0.9285714285714288
+      "n": 8,
+      "pearson_r": -0.8384345648133306,
+      "spearman_rho": -0.8095238095238096
     },
     "acgt_conditional_moes_only": {
       "Composite": {
-        "n": 4,
-        "pearson_r": -0.9957396570340198,
-        "spearman_rho": -0.6000000000000001
+        "n": 5,
+        "pearson_r": -0.8808976459496018,
+        "spearman_rho": -0.49999999999999994
       },
       "Conservation": {
-        "n": 4,
-        "pearson_r": -0.9607730814700073,
-        "spearman_rho": -0.6000000000000001
+        "n": 5,
+        "pearson_r": -0.9340565206709,
+        "spearman_rho": -0.7999999999999999
       },
       "Masked motif": {
-        "n": 4,
-        "pearson_r": -0.9980827780767908,
-        "spearman_rho": -0.7999999999999999
+        "n": 5,
+        "pearson_r": -0.9761732304986044,
+        "spearman_rho": -0.8999999999999998
       },
       "Core/non-core": {
-        "n": 4,
-        "pearson_r": -0.9988988331294677,
-        "spearman_rho": -1.0
+        "n": 5,
+        "pearson_r": -0.8733804101315622,
+        "spearman_rho": -0.7
       },
       "Structural variant": {
-        "n": 4,
-        "pearson_r": -0.9959461178431476,
-        "spearman_rho": -0.6000000000000001
+        "n": 5,
+        "pearson_r": -0.39019553268777574,
+        "spearman_rho": -0.49999999999999994
       },
       "Maize AF \u00b7 zero-shot": {
-        "n": 4,
-        "pearson_r": -0.978158263118828,
-        "spearman_rho": -0.7999999999999999
+        "n": 5,
+        "pearson_r": -0.7010819697136319,
+        "spearman_rho": -0.6
       },
       "Maize AF \u00b7 linear probe": {
-        "n": 4,
-        "pearson_r": -0.9489459036253077,
-        "spearman_rho": -0.6000000000000001
+        "n": 5,
+        "pearson_r": -0.9131369203051597,
+        "spearman_rho": -0.7999999999999999
       }
     },
     "native_moes_only": {
       "Composite": {
-        "n": 4,
-        "pearson_r": -0.9957389305470269,
-        "spearman_rho": -0.6000000000000001
+        "n": 5,
+        "pearson_r": -0.8809074032389657,
+        "spearman_rho": -0.49999999999999994
       },
       "Conservation": {
-        "n": 4,
-        "pearson_r": -0.9607720103510927,
-        "spearman_rho": -0.6000000000000001
+        "n": 5,
+        "pearson_r": -0.9340616609266674,
+        "spearman_rho": -0.7999999999999999
       },
       "Masked motif": {
-        "n": 4,
-        "pearson_r": -0.9980821177409466,
-        "spearman_rho": -0.7999999999999999
+        "n": 5,
+        "pearson_r": -0.9761774896525367,
+        "spearman_rho": -0.8999999999999998
       },
       "Core/non-core": {
-        "n": 4,
-        "pearson_r": -0.9988978928597265,
-        "spearman_rho": -1.0
+        "n": 5,
+        "pearson_r": -0.8733904592358731,
+        "spearman_rho": -0.7
       },
       "Structural variant": {
-        "n": 4,
-        "pearson_r": -0.995945619144779,
-        "spearman_rho": -0.6000000000000001
+        "n": 5,
+        "pearson_r": -0.39021538663306704,
+        "spearman_rho": -0.49999999999999994
       },
       "Maize AF \u00b7 zero-shot": {
-        "n": 4,
-        "pearson_r": -0.9781553715090505,
-        "spearman_rho": -0.7999999999999999
+        "n": 5,
+        "pearson_r": -0.701094977734196,
+        "spearman_rho": -0.6
       },
       "Maize AF \u00b7 linear probe": {
-        "n": 4,
-        "pearson_r": -0.9489431837669561,
-        "spearman_rho": -0.6000000000000001
+        "n": 5,
+        "pearson_r": -0.9131417360746257,
+        "spearman_rho": -0.7999999999999999
       }
     },
     "poe_with_natural_sv": {
-      "n": 7,
-      "pearson_r": -0.9818356565190497,
-      "spearman_rho": -0.9642857142857145
+      "n": 8,
+      "pearson_r": -0.7788765551323718,
+      "spearman_rho": -0.7380952380952381
     },
     "af_2k_for_moes": {
-      "n": 7,
-      "pearson_r": -0.9179828857752488,
-      "spearman_rho": -0.5714285714285715
+      "n": 8,
+      "pearson_r": -0.43591530214707175,
+      "spearman_rho": -0.3571428571428572
     }
   }
 }

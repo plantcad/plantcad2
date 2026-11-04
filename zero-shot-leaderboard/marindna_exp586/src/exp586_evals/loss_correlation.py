@@ -27,8 +27,6 @@ METRICS = ("Composite", *GROUPS, AF_ZERO, AF_PROBE)
 SPLIT = "c37e713eb0449af48f99a14de5e3c86fab8cb5504c4872ccfd24e8988f0b89a0"
 COLORS = {"dense": "#7355A3", "small": "#008B87", "large": "#D77C28"}
 MARKERS = {7: "s", 8: "^", 128256: "o"}
-PROJECTED_LOSS = 0.90
-PROJECTED_RUN = "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1"
 
 
 def read(path: Path) -> dict:
@@ -43,34 +41,6 @@ def correlation(x, y) -> dict:
         "n": len(x),
         "pearson_r": float(pearsonr(x, y).statistic),
         "spearman_rho": float(spearmanr(x, y).statistic),
-    }
-
-
-def composite_fit(rows: list[dict]) -> dict:
-    """Fit only observed Composite scores; the assumed loss is not a data point."""
-    if len(rows) != 5 or any(r["plot_family"] == "large" for r in rows):
-        raise ValueError(
-            "Composite projection requires the five models without 481M MoEs"
-        )
-    losses = np.asarray([r["loss"] for r in rows], float)
-    scores = np.asarray([r["scores"]["Composite"] for r in rows], float)
-    slope, intercept = np.polyfit(losses, scores, 1)
-    return {
-        "method": "ordinary least squares: Composite = intercept + slope * validation_loss",
-        "model_codes": [r["code"] for r in rows],
-        "slope": float(slope),
-        "intercept": float(intercept),
-        "observed_loss_range": [float(losses.min()), float(losses.max())],
-        "projection": {
-            "training_run": PROJECTED_RUN,
-            "experiment": "https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578",
-            "assumed_final_loss": PROJECTED_LOSS,
-            "composite": float(intercept + slope * PROJECTED_LOSS),
-            "is_extrapolation": bool(
-                PROJECTED_LOSS < losses.min() or PROJECTED_LOSS > losses.max()
-            ),
-            "included_in_fit_or_correlations": False,
-        },
     }
 
 
@@ -102,6 +72,34 @@ def downstream(root: Path, records: list[dict]) -> list[dict]:
                     or hashlib.sha256(payload).hexdigest() != expected["sha256"]
                 ):
                     raise ValueError("Archived downstream artifact changed")
+            if "execution" in provenance:
+                binding = provenance["execution"]["binding"]
+                receipt = read(directory / "analysis-receipt.json")
+                checkpoint = read(directory / "checkpoint-binding.json")
+                if (
+                    binding["checkpoint_digest"] != record["canonical_metadata_sha256"]
+                    or binding["tokenizer_sha256"] != record["tokenizer_sha256"]
+                    or binding["requests_sha256"] != receipt["requests_sha256"]
+                    or binding["checkpoint_role"] != "dna-trained"
+                    or receipt["source_artifacts"]
+                    != provenance["execution"]["uri"].split("/workers/")[0]
+                    or checkpoint["checkpoint"] != record["checkpoint"]
+                    or checkpoint["canonical_metadata_sha256"]
+                    != record["canonical_metadata_sha256"]
+                    or checkpoint["metadata"]["exp586_clock"]["input_tokens"]
+                    != record["dna_tokens"]
+                ):
+                    raise ValueError(
+                        "Downstream execution refers to another checkpoint"
+                    )
+                for relative in ("result.json", "context-8192/probes/result.json"):
+                    if (
+                        provenance["selected_files"][relative]
+                        != receipt["files"][relative]
+                    ):
+                        raise ValueError(
+                            "Downstream file differs from analysis receipt"
+                        )
             if (directory / "model-provenance.json").exists():
                 model_provenance = read(directory / "model-provenance.json")
                 binding = model_provenance["checkpoint"]
@@ -191,8 +189,8 @@ def downstream(root: Path, records: list[dict]) -> list[dict]:
             else ("small" if row["model_config"]["hidden_dim"] == 768 else "large")
         )
         output.append(row)
-    if len(output) != 7 or len({r["code"] for r in output}) != 7:
-        raise ValueError("Expected exactly seven distinct checkpoint models")
+    if len(output) != len({r["code"] for r in output}) or len(output) < 3:
+        raise ValueError("Expected at least three distinct checkpoint models")
     return output
 
 
@@ -221,8 +219,8 @@ def validation(row: dict, path: Path) -> dict:
 
 def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
     count = len(rows)
-    count_label = {5: "Five", 7: "Seven"}.get(count, str(count))
-    projected_fit = composite_fit(rows) if count == 5 else None
+    count_label = {6: "Six", 8: "Eight"}.get(count, str(count))
+    focused = all(row["plot_family"] != "large" for row in rows)
     plt.rcParams.update(
         {
             "font.family": "DejaVu Sans",
@@ -244,7 +242,7 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
         bottom=0.175,
         top=0.77,
         wspace=0.30,
-        hspace=0.60 if count == 5 else 0.42,
+        hspace=0.60,
     )
     axes = [fig.add_subplot(grid[:, 0])]
     axes += [fig.add_subplot(grid[i // 2, i % 2 + 1]) for i in range(6)]
@@ -257,7 +255,10 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
         "M481-S": (-12, 12),
         "M61-L": (10, -20),
         "M61-S": (10, 12),
+        "M61-L-1T": (12, -18),
     }
+    if not focused:
+        offsets["M61-L"] = (-12, -20)
     for index, (ax, metric) in enumerate(zip(axes, METRICS, strict=True)):
         y = np.asarray([r["scores"][metric] for r in rows])
         stats = correlation(x, y)
@@ -292,43 +293,28 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
                     else None,
                 )
         left_margin, right_margin = (
-            (0.013, 0.014) if count == 7 else (0.14 * np.ptp(x), 0.15 * np.ptp(x))
+            (0.013, 0.014) if not focused else (0.14 * np.ptp(x), 0.15 * np.ptp(x))
         )
         ax.set_xlim(x.min() - left_margin, x.max() + right_margin)
         ax.margins(y=0.23 if index == 0 else 0.18)
         ax.grid(color="#E8ECF0", linewidth=0.8)
         ax.set_axisbelow(True)
         panel_title = metric
-        if count == 5:
-            if metric == "Composite":
-                panel_title = "Composite (excludes AF)"
-            elif metric in (AF_ZERO, AF_PROBE):
-                panel_title += "\nExcluded from Composite"
+        if metric == "Composite":
+            panel_title = "Composite (excludes AF)"
+        elif metric in (AF_ZERO, AF_PROBE):
+            panel_title += "\nExcluded from Composite"
         ax.set_title(
             panel_title,
             loc="left",
             fontsize=16
             if index == 0
-            else (12 if count == 5 and metric in (AF_ZERO, AF_PROBE) else 13),
+            else (12 if metric in (AF_ZERO, AF_PROBE) else 13),
             fontweight="bold",
-            pad=6 if count == 5 and metric in (AF_ZERO, AF_PROBE) else 10,
+            pad=6 if metric in (AF_ZERO, AF_PROBE) else 10,
         )
-        stats_at_top = count == 5 and metric in ("Core/non-core", AF_ZERO)
+        stats_at_top = focused and metric in ("Core/non-core", AF_ZERO)
         stats_text = f"Pearson r = {stats['pearson_r']:+.3f}\nSpearman ρ = {stats['spearman_rho']:+.3f}"
-        if index == 0 and projected_fit:
-            sign = "−" if projected_fit["slope"] < 0 else "+"
-            stats_text += f"\nComposite = {projected_fit['intercept']:.5f} {sign} {abs(projected_fit['slope']):.5f} × loss"
-            ax.text(
-                0.97,
-                0.97,
-                f"Extrapolation · 1T d768\nAssumed loss {PROJECTED_LOSS:.2f}\nProjected Composite ≈ {projected_fit['projection']['composite']:.3f}",
-                transform=ax.transAxes,
-                ha="right",
-                multialignment="left",
-                va="top",
-                fontsize=11.5,
-                bbox={"facecolor": "#F5F8FA", "edgecolor": "#CBD5DE", "pad": 6},
-            )
         ax.text(
             0.03,
             0.965 if stats_at_top else 0.035,
@@ -407,9 +393,7 @@ def figure(rows: list[dict], output: Path, *, dpi: int = 180) -> None:
     fig.text(
         0.07,
         0.075,
-        "Composite = mean of Conservation, Masked motif, Core/non-core and Structural variant. Both maize AF readouts are excluded."
-        if count == 5
-        else "Composite = equal-weight mean of Conservation, Masked motif, Core/non-core and Structural variant. Maize AF is separate.",
+        "Composite = mean of Conservation, Masked motif, Core/non-core and Structural variant. Both maize AF readouts are excluded.",
         fontsize=10,
     )
     fig.text(
@@ -479,7 +463,6 @@ def assemble(root: Path, directory: Path) -> dict:
     focused_rows = [r for r in rows if r["plot_family"] != "large"]
     without_481m = {
         "model_codes": [r["code"] for r in focused_rows],
-        "composite_linear_fit": composite_fit(focused_rows),
         "correlations": {
             metric: correlation(
                 [r["loss"] for r in focused_rows],
@@ -542,36 +525,26 @@ def draft(result: dict, directory: Path) -> None:
     rows = result["rows"]
     stats = result["without_481m"]["correlations"]["Composite"]
     full_stats = result["correlations"]["Composite"]
-    fit = result["without_481m"]["composite_linear_fit"]
-    moes = [r for r in rows if not r["rung"]]
-    changes = {
-        g: mean(r["readout_sensitivity"]["poe_minus_natural_8k"][g] for r in moes)
-        for g in GROUPS[:3]
-    }
-    avg = mean(changes.values())
-    context_changes = {
-        g: mean(r["readout_sensitivity"]["natural_8k_minus_2k"][g] for r in moes)
-        for g in GROUPS[:3]
-    }
+    new = next(r for r in rows if r["code"] == "M61-L-1T")
+    old = next(r for r in rows if r["code"] == "M61-L")
+    focused_count = len(result["without_481m"]["model_codes"])
     lines = [
         "## DNA validation loss versus downstream evaluations",
         "",
-        f"Among the three dense checkpoints and two 60.6M-active MoEs, lower validation loss tracks higher **Composite** performance: **Pearson r = {stats['pearson_r']:+.3f}; Spearman ρ = {stats['spearman_rho']:+.3f}** (five models). Maize allele frequency is shown separately and is excluded from Composite.",
+        "**The finished 1T model has the lowest validation loss, but a lower four-group Composite than its 0.22T counterpart.** Conservation and motif scores improve; structural-variant and core/non-core scores decline. Lower next-base loss does not guarantee better performance across these tasks.",
         "",
-        "Lower loss tracks better conservation, masked-motif and structural-variant scores; it does not consistently predict better core/non-core or maize allele-frequency results.",
+        f"On the identical validation sample, loss falls from **{old['loss']:.6f} to {new['loss']:.6f}**, while Composite changes from **{old['scores']['Composite']:.4f} to {new['scores']['Composite']:.4f}**. Across the {focused_count} models below, Composite **Pearson r = {stats['pearson_r']:+.3f}; Spearman ρ = {stats['spearman_rho']:+.3f}**. Maize allele frequency (AF) is separate and excluded from Composite.",
         "",
         "![Validation loss versus Composite and six task groups, excluding the 481M-active MoEs](loss-correlation-without-481m.png)",
         "",
         "<details>",
-        "<summary>Including the 481M-active MoEs (all seven models)</summary>",
+        f"<summary>Including the 481M-active MoEs (all {len(rows)} models)</summary>",
         "",
-        "![Validation loss versus Composite and six task groups, all seven models](loss-correlation.png)",
+        "![Validation loss versus Composite and six task groups, all models](loss-correlation.png)",
         "",
-        f"With all seven models: Composite **Pearson r = {full_stats['pearson_r']:+.3f}; Spearman ρ = {full_stats['spearman_rho']:+.3f}**.",
+        f"Composite **Pearson r = {full_stats['pearson_r']:+.3f}; Spearman ρ = {full_stats['spearman_rho']:+.3f}**.",
         "",
         "</details>",
-        "",
-        f"At an assumed loss of **{PROJECTED_LOSS:.2f}**, the [1T-token d768 language-initialized run]({PROJECTED_RUN}) projects to **Composite ≈ {fit['projection']['composite']:.3f}** (five-model fit: Composite ≈ {fit['intercept']:.5f} − {abs(fit['slope']):.5f} × loss; extrapolated, not evaluated).",
         "",
         "| ID | MarinDNA model (total / active parameters) | Initialization | DNA tokens | Vocabulary | Validation loss | Training run |",
         "| --- | --- | --- | ---: | ---: | ---: | --- |",
@@ -592,115 +565,47 @@ def draft(result: dict, directory: Path) -> None:
         )
     lines += [
         "",
-        "MoE active counts exclude input/output embeddings; total counts include them. S = scratch; L = language-initialized; D = dense. The numbers in dense IDs indicate billions of DNA training tokens.",
-        "",
-        "The analysis uses the historical **8K Natural** scoring convention. For target predictions, Natural uses one flank, reporting the better forward/reverse-complement direction per task; **PoE** combines both flanks’ predictions with a normalized geometric mean.",
-        "",
-        f"Across the four MoEs, 8K beats 2K Natural by **{mean(context_changes.values()):+.4f}** on the matched three-group mean. Switching from Natural to PoE at 8K changes it by **{avg:+.4f}**: conservation and motifs improve, while core/non-core declines.",
+        "MoE active counts exclude input/output embeddings; total counts include them. S = scratch; L = language-initialized; D = dense. Dense IDs indicate billions of DNA training tokens; M61-L and M61-S use 216.16B tokens, and M61-L-1T uses 1T.",
         "",
         "<details>",
-        "<summary>Score definitions and readout choices</summary>",
+        "<summary>Identical downstream metrics and readouts</summary>",
         "",
-        "Composite is the equal-weight mean of four task-group averages: Conservation (3 AUROCs), Masked motif (8 whole-motif accuracies), Core/non-core (8 AUROCs) and Structural variant (1 AUPRC). Each group averages its tasks equally. This reconstructs the historical four-group definition; the three-group PoE composites from later posts are not substituted.",
+        "All models use the historical **8K Natural** convention. Composite equally weights four task-group means: Conservation (3 AUROCs), Masked motif (8 whole-motif accuracies), Core/non-core (8 AUROCs), and Structural variant (1 AUPRC). The same 20 tasks and sample counts are used throughout. Natural reports the better forward/reverse-complement task metric where both exist; this direction selection uses evaluation labels, matching the historical dense results. SV retains its original causal scoring form. No PoE or context selection is substituted.",
         "",
-        "Both forward and reverse-complement passes process the window, but causal masking makes each target prediction depend on only its preceding flank. Natural retains the larger task-level metric from either direction where both are available; structural variants have one causal scoring form. This direction selection uses evaluation labels, as in the historical dense results. PoE instead combines the aligned target probabilities as $p_{\\mathrm{PoE}}(b) \\propto \\sqrt{p_{\\mathrm{left}}(b)p_{\\mathrm{right}}(b)}$, normalized over A/C/G/T—equivalently, averaging log probabilities. At 8K, PoE minus Natural averaged over the four MoEs is "
-        + "; ".join(f"{g}: **{v:+.4f}**" for g, v in changes.items())
-        + ". Structural-variant PoE was not computed, so the matched readout comparison above uses three groups only.",
-        "",
-        "For Natural, 8K minus 2K averaged over the four MoEs is "
-        + "; ".join(f"{g}: **{v:+.4f}**" for g, v in context_changes.items())
-        + ". The same 8K reporting convention is used for every model; context and Natural/PoE settings are not selected per model or task.",
-        "",
-        "Per-model PoE minus Natural at 8K, for the matched three-group mean: "
-        + "; ".join(
-            f"{r['code']}: {r['readout_sensitivity']['poe_minus_natural_matched_three_group']:+.4f}"
-            for r in moes
-        )
-        + ".",
-        "",
-        "Maize AF zero-shot is Spearman correlation between the full causal-suffix allele log-likelihood ratio (averaged across strands) and observed AF on **94,075 variants**. Linear-probe AF is Spearman correlation on **28,378 held-out variants**, using a ridge readout of frozen target-position embeddings averaged across strands. The same genomic-block split and overlap purge are used for every model. These are different evaluation sets; their correlations are separate endpoints, not two interchangeable estimates.",
+        "Maize AF zero-shot is Spearman correlation of the full causal-suffix allele log-likelihood ratio, averaged across strands, on **94,075 variants**. The frozen linear probe uses **8K target-position embeddings averaged across strands**, with the same genomic-block split and **28,378 held-out variants**. These are separate endpoints on different evaluation sets. The 1T point uses these exact readouts, rather than a different probe or its best-performing inference setting.",
         "",
         "</details>",
         "",
         "<details>",
-        "<summary>Original losses, replay checks and shared-sample losses</summary>",
+        "<summary>Matched validation loss and replay checks</summary>",
         "",
-        "The common sample is the first **512 logical batches × 128 examples × 8,192 bp = 65,536 windows**, or **536,805,376 next-base targets**. Every raw window was checked against the original dense token cache. This preserves the dense sample; it is not a new genome-balanced sample of the full validation split. No examples are packed, reverse-complemented or given EOS. Loss is mean cross-entropy in nats over positions 2–8,192, including N targets, with the model's full native vocabulary.",
+        "Loss is measured on the same first **65,536 validation windows of 8,192 bp**, totaling **536,805,376 next-base targets**. The window data and order were verified against the original dense token cache. Inputs use one token per nucleotide, without packing, reverse complementation, or EOS. Cross-entropy is in nats over positions 2–8,192, includes N targets, and uses each model's full native vocabulary.",
         "",
-        "Dense runs already used this sample and batch size, so their original native losses are retained. D216 is replayed as a restoration/sampling check. The MoEs originally scored only 512 evenly spaced validation windows; each first replays that sample and then scores the common sample. The physical MoE forward microbatch is 16; sums and target counts are accumulated to the same logical sample, with zero dropped expert assignments required.",
+        "Dense runs already used this sample; their original losses are retained after a D216 replay check. Every MoE, including 1T, first reproduces its original 512-window validation loss, then scores this common sample with forward microbatches of 16 and zero dropped expert assignments. The 1T sample hash exactly matches the earlier analysis.",
         "",
+        "| ID | Original logged loss | Original-sample replay | Common-sample loss |",
+        "| --- | ---: | ---: | ---: |",
     ]
     for row in rows:
-        v = row["validation"]
-        if row["rung"]:
-            replay = (
-                f"; exact-sample replay {v['samples']['common-65536']['native_loss']:.8f}"
-                if v
-                else ""
-            )
-            lines.append(
-                f"- **{row['code']}** — original/common {row['original_loss']:.8f}{replay}; `{row['original_metric']}`."
-            )
-        else:
-            s = v["samples"]
-            lines.append(
-                f"- **{row['code']}** — original {row['original_loss']:.8f}; original-sample replay {s['original-moe-512']['native_loss']:.8f}; common-sample {row['loss']:.8f} (common − original {row['loss'] - row['original_loss']:+.6f}); `{row['original_metric']}`."
-            )
-    lines += [
-        "",
-        f"Using the original model-specific losses throughout gives Composite r = {result['sensitivity']['original_reported_losses']['pearson_r']:+.3f}, ρ = {result['sensitivity']['original_reported_losses']['spearman_rho']:+.3f}, before matching the MoE sample to the dense sample.",
-        "",
-        "A stale `eval/inputs/plantcad-angiosperm-validation-path-only/loss` value on D216 is excluded. Its active `eval/plantcad/loss` agrees with the final reported dense loss. MoE losses use `eval/loss`. Final metric history is checked against the checkpoint's physical update counter; resumed W&B history steps need not equal that counter.",
-        "",
-        "</details>",
-        "",
-        "<details>",
-        "<summary>Sensitivity checks: vocabulary, readout and context</summary>",
-        "",
-        "Input tokenization is one token per nucleotide for every model. Dense models have 7 vocabulary entries, scratch MoEs 8, and language-initialized MoEs retain 128,256. The main figure uses full-vocabulary loss and marks these differences by shape.",
-        "",
-        "The four-base check conditions probabilities on A/C/G/T and uses only canonical-base targets. To avoid rerunning the other dense checkpoints, its correlation comparison is restricted to the **same four MoEs** in both versions: "
-        + f"Composite/native r = {result['sensitivity']['native_moes_only']['Composite']['pearson_r']:+.3f}, ρ = {result['sensitivity']['native_moes_only']['Composite']['spearman_rho']:+.3f}; "
-        + f"Composite/four-base r = {result['sensitivity']['acgt_conditional_moes_only']['Composite']['pearson_r']:+.3f}, ρ = {result['sensitivity']['acgt_conditional_moes_only']['Composite']['spearman_rho']:+.3f}. This is not a seven-model, vocabulary-controlled estimate.",
-        "",
-    ]
-    for row in moes:
-        sample = row["validation"]["samples"]["common-65536"]
-        lines.append(
-            f"- **{row['code']}** — full vocabulary/all targets {row['loss']:.6f}; full vocabulary/A-C-G-T targets {sample['canonical_native_loss']:.6f}; four-base conditional/A-C-G-T targets {row['acgt_loss']:.6f}."
-        )
-    readout_stats = result["sensitivity"]["poe_with_natural_sv"]
-    af = result["sensitivity"]["af_2k_for_moes"]
-    lines += [
-        "",
-        f"Replacing the three eligible MoE task groups with PoE while retaining Natural structural-variant scores gives Composite r = {readout_stats['pearson_r']:+.3f}, ρ = {readout_stats['spearman_rho']:+.3f}. This hybrid is a sensitivity check, not the primary score.",
-        "",
-        f"Using 2K instead of 8K Natural zero-shot AF for the MoEs increases their mean AF Spearman by {mean(r['readout_sensitivity']['af_zero_2k_minus_8k'] for r in moes):+.4f}; the seven-model loss/AF relationship becomes r = {af['pearson_r']:+.3f}, ρ = {af['spearman_rho']:+.3f}. Dense AF retains its historical 8K setting, so this mixed-context result is secondary.",
-        "",
-        f"The Composite projection for the [1T-token run in #586](https://github.com/Open-Athena/marin-dna/issues/586#issuecomment-6544696578) uses a least-squares fit to the five measured checkpoints, excluding the 481M-active MoEs. Their losses span **{fit['observed_loss_range'][0]:.3f}–{fit['observed_loss_range'][1]:.3f}**. The assumed loss of **{PROJECTED_LOSS:.2f}** lies outside that range and is not included in the fit or correlations.",
-        "",
-        "</details>",
-        "",
-        "<details>",
-        "<summary>Checkpoint and execution provenance</summary>",
-        "",
-        "Historical downstream results are copied from [exp472](https://github.com/plantcad/plantcad2/pull/20), the [exp582 archive](https://github.com/plantcad/plantcad2/tree/351e50a114c26635d5d921c5dd2e88dd9bccdfcf/zero-shot-leaderboard/marindna_exp586/historical/exp582-final) and [exp586](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6366361125). All task scores and probe fits are reused; only held-out language-model loss is evaluated here. Parameter counts are approximate and follow the earlier non-embedding active-parameter convention for MoEs.",
-        "",
-    ]
-    for row in rows:
-        lines += [
-            f"**{row['code']}** — `{row['wandb_path']}`, metric `{row['original_metric']}`; checkpoint:",
-            "",
-            f"`{row['checkpoint']}`",
-            "",
-        ]
+        replay = "—"
         if row["validation"]:
-            lines += [
-                f"[Loss replay/common-sample execution]({row['validation']['validation_wandb']}); checkpoint metadata SHA-256 `{row['canonical_metadata_sha256']}`.",
-                "",
-            ]
+            sample = "common-65536" if row["rung"] else "original-moe-512"
+            replay = f"{row['validation']['samples'][sample]['native_loss']:.8f}"
+        lines.append(
+            f"| {row['code']} | {row['original_loss']:.8f} | {replay} | {row['loss']:.8f} |"
+        )
     lines += [
-        "Evaluation used one eight-H100 node per job on CoreWeave, Iris batch priority and user eczech. The runtime is pinned to Marin 0.2.224.dev40027069267, the newest compatible release retaining the checkpoint implementation's ArrayStacked API. Checkpoints are read without updates; native MoE backends and pending router-bias updates are preserved. The saved JSON records input hashes, worker hash, runtime versions, batch sufficient statistics and storage locations.",
+        "",
+        "Vocabulary sizes differ, as shown by marker shape. Restricting loss to A/C/G/T is retained as a sensitivity check in the saved analysis; the figures use full-vocabulary loss consistently.",
+        "",
+        "</details>",
+        "",
+        "<details>",
+        "<summary>Data and checkpoint provenance</summary>",
+        "",
+        "All points are measured results from completed runs. Downstream evaluations and probe fits are reused from their saved outputs. Only the common-sample language-model losses were separately evaluated; no new model inference or probe fitting was needed for this update.",
+        "",
+        "[Models, final checkpoints, and training-run bindings](models.json) · [Immutable validation samples](inputs.json) · [Loss artifacts and hashes](results-manifest.json) · [1T downstream provenance](downstream/m61-l-1t/provenance.json) · [Scores and correlations](analysis.json)",
         "",
         "</details>",
         "",

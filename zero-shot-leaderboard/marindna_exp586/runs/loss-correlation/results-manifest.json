@@ -25,6 +25,11 @@
       "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/m61-s-v1/result.json",
       "sha256": "a4e85f98e92e0ea4cf0352391f5d6b6a5dab0a4daa955c2d250628c26fcad174",
       "bytes": 295144
+    },
+    "m61-l-1t.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/results/d768-pretrained-1t/result.json",
+      "sha256": "9f4dd7ad167ba600f90d609843591d33614ab75a34e04fe220b870c09421b731",
+      "bytes": 296303
     }
   }
 }
