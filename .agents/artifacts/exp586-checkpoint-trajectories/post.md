@@ -49,10 +49,11 @@ Zero-shot and probe cohorts can differ, so their absolute score levels are not a
 
 ### Motif baselines
 
-Both controls use **whole-motif exact-match accuracy**.
-The constant predictor emits the most frequent motif in the training set; shuffled-label heads fit the same embeddings to permuted training outcomes, leaving test labels unchanged.
-The shuffled columns below use the final 216B and 1T checkpoints.
-The constant predictor averages **83.71%** across tasks, so high motif-probe accuracy alone does not establish context learning.
+Controls and motif probes use **whole-motif exact-match accuracy on identical held-out examples**, averaged equally across eight tasks.
+The constant predictor emits the most frequent training motif; shuffled-label heads fit permuted training labels, leaving test labels unchanged.
+Shuffled columns show the final 216B and 1T checkpoints.
+The **83.71%** baseline is directly comparable to probe scores; high accuracy alone does not establish context learning.
+Zero-shot scores weight tasks equally but use a different cohort.
 
 | Motif task | Constant prediction | Constant accuracy | Shuffled: 216B | Shuffled: 1T |
 | --- | --- | ---: | ---: | ---: |
