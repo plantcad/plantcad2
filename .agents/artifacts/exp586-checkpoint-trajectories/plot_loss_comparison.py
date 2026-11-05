@@ -224,7 +224,7 @@ def main() -> None:
                          edgecolor="white", linewidth=.8, zorder=4)
             dot_count += 1
         metric_handles.append(Line2D([], [], color="#626262", marker=marker, linestyle=style,
-                                     label=metric, markersize=7))
+                                     label=metric, markersize=7, linewidth=1.8))
     rug_labels = []
     offsets = {"D216": (0, 12, "center"), "D389": (0, 32, "center"), "D562": (-4, 12, "right")}
     for row in rugs:
@@ -265,7 +265,7 @@ def main() -> None:
     conservation_ax.set_ylabel("Conservation (AUROC)", labelpad=10)
     scatter_ax.set_xlabel("Matched validation loss")
     metric_legend = scatter_ax.legend(handles=metric_handles, loc="upper center", ncols=2,
-                                      frameon=False, fontsize=10, columnspacing=1.0, handlelength=1.6)
+                                      frameon=False, fontsize=10, columnspacing=1.4, handlelength=3.6)
     model_legend = fig.legend(smooth_lines, ["216B-token run", "1T-token run"],
                               title="DNA training horizon", loc="upper center", bbox_to_anchor=(.5, 1.01),
                               ncols=2, frameon=False, columnspacing=2.2)
