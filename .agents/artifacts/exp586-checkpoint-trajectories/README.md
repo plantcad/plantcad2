@@ -10,14 +10,16 @@ Five evaluated checkpoints from each text-pretrained d768 run, with 216B-token a
 - `figures/benchmark-comparison.*`: full-benchmark zero-shot scores for final 216B/1T MoEs, dense MarinDNA at 562.022055936B tokens, and five archived baseline models, followed by independent Conservation, SV impact and Composite rankings.
   The horizontal rankings use marked axis breaks and score ranges of 0.62–0.82, 0.72–0.89 and 0.67–0.78, respectively, while retaining a short zero-origin segment.
 - `figures/checkpoint-changes-primary.*`: draft heatmap with only the primary four-category Composite.
-- `figures/loss-comparison.*`: raw and exponentially smoothed training loss, unsmoothed validation loss, and final validation loss versus Composite/Conservation for the 216B and 1T text-pretrained runs.
+- `figures/loss-comparison.*`: raw and exponentially smoothed W&B training loss, unsmoothed W&B validation loss, and matched-sample final validation loss versus Composite/Conservation for the 216B and 1T text-pretrained runs.
   Loss curves start at 1B DNA input tokens and use logarithmic token axes; training smoothing has a 1B-token half-life, initialized at the first included observation.
   Every unique logged training value is rendered, retaining the latest W&B record at replayed token coordinates; null metric rows are absent observations, not zero loss.
-  The scatter contains four points and two descriptive connecting segments, with identical numeric limits on both score axes and no fitted trend or uncertainty estimate.
+  The scatter contains four points, two descriptive connecting segments and three dense-checkpoint rugs, with identical numeric limits on both score axes and no fitted trend or uncertainty estimate.
+  Scatter and rug losses come from the same 65,536-window sample in PR #22 comment 6604041302; they intentionally differ from the 512-window W&B curve endpoints.
+  Orange rugs reuse dense losses at 216B, 389B and 562B DNA tokens, with opacity increasing linearly from 0.35 to 0.95 across those token totals; parameter counts are identical.
 - `loss-figure-data.json` and `loss-figure-provenance.json`: complete plotted validation values, compact exact-smoothed training samples, final scatter values, source hashes and history counts.
   Full source history archives remain outside Git and are referenced by immutable CoreWeave storage receipts in `loss-history-receipts.json`.
 - `benchmark-comparison-data.json` and `benchmark-comparison-provenance.json`: all forty overview values, model colors, source hashes and the exact dense token-count check.
-- `figure-palette.json`: shared model colors across the overview, loss comparison and both checkpoint line figures: dense MarinDNA reddish plum, 216B MoE deep gold, 1T MoE cherry red, Evo 2 emerald green.
+- `figure-palette.json`: shared model colors across the overview, loss comparison and both checkpoint line figures: dense MarinDNA orange, 216B MoE saturated deep gold, 1T MoE cherry red, Evo 2 emerald green.
   The warm Marin family is separated from the original PlantCAD blues and Evo green; the heatmap retains its independent increase/decrease colors.
 - `all-category-scores.csv`: 140 scores; each line figure uses 120 in twelve panels, excluding the composite without SV.
 - `original-category-scores.csv`: the 110 scores preceding motif probes, preserved unchanged.

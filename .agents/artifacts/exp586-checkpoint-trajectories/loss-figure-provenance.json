@@ -1,8 +1,8 @@
 {
-  "benchmark_source_sha256": "f9dd159f4c16ce831b923755b386e1707ad0666901e9022062604bc59e65a23f",
-  "palette_sha256": "ac44f0458c0c5104a6d49339f65c8616774164aac9b000cb5c8911891cf1d44e",
+  "benchmark_source_sha256": "6810dff3082bcb7f3c6ac48981d89377fc5d9bafc5ab13e7580993157e501ef8",
+  "palette_sha256": "3b4e483224baa7803d05b727d390226c55b4e151f2b6e94261fef86559e70046",
   "run_colors": {
-    "216b": "#c49500",
+    "216b": "#be9b00",
     "1t": "#c43c4a"
   },
   "sources": {
@@ -186,25 +186,66 @@
   },
   "validation_smoothing": "None; every unique logged evaluation at or above 1B tokens",
   "uncertainty": "None estimated: two individual training runs; connecting segments are descriptive",
+  "scatter_loss_source": {
+    "comment": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302",
+    "commit": "b6e2962fe6d2ac27dd97992b54781ded4dd8427d",
+    "file": "zero-shot-leaderboard/marindna_exp586/runs/loss-correlation/analysis.json",
+    "sha256": "b4b15aa88bf470481eceda6a582dc0b0977d9c1f27a4764623a81216f7e3c2e7",
+    "validation_windows": 65536,
+    "bases_per_window": 8192,
+    "targets": 536805376,
+    "sample_sha256": "da9530a08c76d783628a3538d8a5c9b473194a562024aaf262fe90dbe42d3a1c",
+    "loss": "Full-native-vocabulary cross-entropy, in nats, exactly as in the reference plot",
+    "curves": "W&B histories retain their original 512-window evaluation values"
+  },
+  "dense_rugs": {
+    "color": "#e67e32",
+    "rows": [
+      {
+        "model": "D216",
+        "DNA_tokens": 216158699520,
+        "validation_loss": 0.9812506437301636,
+        "alpha": 0.35
+      },
+      {
+        "model": "D389",
+        "DNA_tokens": 389090902016,
+        "validation_loss": 0.9701314568519592,
+        "alpha": 0.6500009095291367
+      },
+      {
+        "model": "D562",
+        "DNA_tokens": 562022055936,
+        "validation_loss": 0.9654271602630615,
+        "alpha": 0.95
+      }
+    ],
+    "opacity": "Linear in DNA training tokens: 0.35 at 216B, 0.95 at 562B; equal rug heights",
+    "total_parameters_each": 973178880
+  },
   "scatter": [
     {
       "model": "216b",
       "DNA_tokens": 216158699520,
-      "final_validation_loss": 0.9475062713027,
+      "final_validation_loss": 0.9462159565554304,
+      "logged_final_validation_loss": 0.9475062713027,
+      "matched_reference_code": "M61-L",
       "Composite": 0.7039986301759926,
       "Conservation": 0.6890951690966782
     },
     {
       "model": "1t",
       "DNA_tokens": 1000000192512,
-      "final_validation_loss": 0.8898855298757553,
+      "final_validation_loss": 0.8873021401353057,
+      "logged_final_validation_loss": 0.8898855298757553,
+      "matched_reference_code": "M61-L-1T",
       "Composite": 0.693604777105964,
       "Conservation": 0.6992670021034327
     }
   ],
-  "plot_data_sha256": "5a6ede2392b8f1a4be3f4ae7e996232f79c5b77f9809db0d9235aec179ccc16b",
+  "plot_data_sha256": "a0f4ab25ec015b995b17e61ca023cb26f25dd04f58d4d9d2cd66ea700b580cf4",
   "figure_sha256": {
-    "png": "b4fda69958b138f4821acd8cb368e5bffbca261d010497e91efac5de8d100068",
-    "svg": "751a6bb7ae38ea2facde6cd4ba4302c9b47471de7cc1b3d31ce7f782fe49d5c0"
+    "png": "423880fa44473c2fb9bc9ef6cc5dc9bc140bfc915e32049c938e12f8a2dcbcfb",
+    "svg": "0a5a5f19662518835a038fc1ba3b9f2052616c87b2da50a80f585cf3ef370a4b"
   }
 }

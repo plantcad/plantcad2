@@ -20799,16 +20799,40 @@
     {
       "model": "216b",
       "DNA_tokens": 216158699520,
-      "final_validation_loss": 0.9475062713027,
+      "final_validation_loss": 0.9462159565554304,
+      "logged_final_validation_loss": 0.9475062713027,
+      "matched_reference_code": "M61-L",
       "Composite": 0.7039986301759926,
       "Conservation": 0.6890951690966782
     },
     {
       "model": "1t",
       "DNA_tokens": 1000000192512,
-      "final_validation_loss": 0.8898855298757553,
+      "final_validation_loss": 0.8873021401353057,
+      "logged_final_validation_loss": 0.8898855298757553,
+      "matched_reference_code": "M61-L-1T",
       "Composite": 0.693604777105964,
       "Conservation": 0.6992670021034327
+    }
+  ],
+  "dense_rugs": [
+    {
+      "model": "D216",
+      "DNA_tokens": 216158699520,
+      "validation_loss": 0.9812506437301636,
+      "alpha": 0.35
+    },
+    {
+      "model": "D389",
+      "DNA_tokens": 389090902016,
+      "validation_loss": 0.9701314568519592,
+      "alpha": 0.6500009095291367
+    },
+    {
+      "model": "D562",
+      "DNA_tokens": 562022055936,
+      "validation_loss": 0.9654271602630615,
+      "alpha": 0.95
     }
   ]
 }

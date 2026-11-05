@@ -19,6 +19,10 @@ PALETTE_PATH = HERE / "figure-palette.json"
 START_TOKENS = 1_000_000_000
 HALF_LIFE_TOKENS = 1_000_000_000
 MODELS = {"216b": "MarinMoE 1.5B–60M 216B", "1t": "MarinMoE 1.5B–60M 1T"}
+REFERENCE_CODES = {"216b": "M61-L", "1t": "M61-L-1T"}
+MATCHED_PATH = HERE.parents[2] / "zero-shot-leaderboard/marindna_exp586/runs/loss-correlation/analysis.json"
+MATCHED_SHA256 = "b4b15aa88bf470481eceda6a582dc0b0977d9c1f27a4764623a81216f7e3c2e7"
+REFERENCE_COMMENT = "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302"
 
 
 def digest(path: Path) -> str:
@@ -87,6 +91,29 @@ def main() -> None:
               for key, label in MODELS.items()}
     palette = json.loads(PALETTE_PATH.read_text())
     assert all(model["color"] == palette["marin"][key] for key, model in models.items())
+    assert digest(MATCHED_PATH) == MATCHED_SHA256, "Matched-loss reference changed; review before plotting"
+    reference = {row["code"]: row for row in json.loads(MATCHED_PATH.read_text())["rows"]}
+    dense = [reference[code] for code in ["D216", "D389", "D562"]]
+    assert len({row["total_parameters_approx"] for row in dense}) == 1
+    first_tokens, last_tokens = dense[0]["dna_tokens"], dense[-1]["dna_tokens"]
+    rugs = [{"model": row["code"], "DNA_tokens": row["dna_tokens"],
+             "validation_loss": row["loss"],
+             "alpha": .35 + .60 * (row["dna_tokens"] - first_tokens) / (last_tokens - first_tokens)}
+            for row in dense]
+    assert all(row["loss"] == row["original_loss"] for row in dense)
+    assert all(row["original_sampling"]["examples"] == 65_536 for row in dense)
+    common_hashes = set()
+    for key, model in models.items():
+        saved = reference[REFERENCE_CODES[key]]
+        common = saved["validation"]["samples"]["common-65536"]
+        assert common["examples"] == 65_536 and common["targets"] == 536_805_376
+        assert common["dropped_assignments"] == 0 and common["native_loss"] == saved["loss"]
+        assert digest(MATCHED_PATH.parent / saved["validation_result_file"]) == saved["validation_result_sha256"]
+        assert model["checkpoint"] == saved["checkpoint"] and model["DNA_tokens"] == saved["dna_tokens"]
+        for metric in ["Composite", "Conservation"]:
+            assert model["scores"][benchmark["categories"].index(metric)] == saved["scores"][metric]
+        common_hashes.add(common["input_sha256"])
+    assert common_hashes == {reference["D216"]["validation"]["samples"]["common-65536"]["input_sha256"]}
     provenance = {
         "benchmark_source_sha256": digest(benchmark_path),
         "palette_sha256": digest(PALETTE_PATH),
@@ -97,9 +124,20 @@ def main() -> None:
                                "initialization": "First raw observation at or above 1B tokens"},
         "validation_smoothing": "None; every unique logged evaluation at or above 1B tokens",
         "uncertainty": "None estimated: two individual training runs; connecting segments are descriptive",
+        "scatter_loss_source": {
+            "comment": REFERENCE_COMMENT, "commit": "b6e2962fe6d2ac27dd97992b54781ded4dd8427d",
+            "file": str(MATCHED_PATH.relative_to(HERE.parents[2])), "sha256": MATCHED_SHA256,
+            "validation_windows": 65_536, "bases_per_window": 8192,
+            "targets": 536_805_376, "sample_sha256": next(iter(common_hashes)),
+            "loss": "Full-native-vocabulary cross-entropy, in nats, exactly as in the reference plot",
+            "curves": "W&B histories retain their original 512-window evaluation values",
+        },
+        "dense_rugs": {"color": palette["marin"]["dense"], "rows": rugs,
+                       "opacity": "Linear in DNA training tokens: 0.35 at 216B, 0.95 at 562B; equal rug heights",
+                       "total_parameters_each": dense[0]["total_parameters_approx"]},
         "scatter": [],
     }
-    plot_data = {"training": {}, "validation": {}, "scatter": []}
+    plot_data = {"training": {}, "validation": {}, "scatter": [], "dense_rugs": rugs}
     plt.rcParams.update({"font.size": 12, "svg.fonttype": "none", "axes.axisbelow": True})
     fig = plt.figure(figsize=(19.2, 5.8))
     training_ax = fig.add_axes((.054, .18, .247, .66))
@@ -144,8 +182,12 @@ def main() -> None:
                 validation_ranges.append(counts["raw_loss_range"])
                 plot_data[kind][key] = [{"input_tokens": int(tokens), "loss": float(loss)} for tokens, loss in values]
                 assert values[-1, 1] == metadata["summary"]["eval/loss"]
+        matched = reference[REFERENCE_CODES[key]]
+        assert metadata["summary"]["eval/loss"] == matched["original_loss"]
         row = {"model": key, "DNA_tokens": model["DNA_tokens"],
-               "final_validation_loss": metadata["summary"]["eval/loss"],
+               "final_validation_loss": matched["loss"],
+               "logged_final_validation_loss": metadata["summary"]["eval/loss"],
+               "matched_reference_code": REFERENCE_CODES[key],
                **{name: model["scores"][benchmark["categories"].index(name)]
                   for name in ["Composite", "Conservation"]}}
         provenance["scatter"].append(row)
@@ -182,29 +224,45 @@ def main() -> None:
             dot_count += 1
         metric_handles.append(Line2D([], [], color="#626262", marker=marker, linestyle=style,
                                      label=metric, markersize=7))
-    scatter_ax.set_xlim(.875, .962)
-    scatter_ax.set_xticks([.89, .91, .93, .95])
+    rug_handles = []
+    for row in rugs:
+        rug = scatter_ax.vlines(row["validation_loss"], 0, .065,
+                                transform=scatter_ax.get_xaxis_transform(),
+                                color=palette["marin"]["dense"], alpha=row["alpha"], linewidth=3, zorder=5)
+        rug.set_gid(f"dense-rug-{row['model'].lower()}")
+        rug_handles.append(Line2D([], [], color=palette["marin"]["dense"], alpha=row["alpha"],
+                                  marker="|", markersize=12, markeredgewidth=3, linestyle="none",
+                                  label=f"{row['DNA_tokens']/1e9:.0f}B"))
+    scatter_ax.set_xlim(.875, .99)
+    scatter_ax.set_xticks([.89, .91, .93, .95, .97, .99])
     # Identical numerical limits avoid implying arbitrary slopes from independent scales.
     for axis in [scatter_ax, conservation_ax]:
         axis.set_ylim(.68, .715)
         axis.yaxis.set_major_locator(MultipleLocator(.01))
     scatter_ax.set_ylabel("Composite")
     conservation_ax.set_ylabel("Conservation (AUROC)", labelpad=10)
-    scatter_ax.set_xlabel("Final validation loss")
+    scatter_ax.set_xlabel("Matched validation loss")
     metric_legend = scatter_ax.legend(handles=metric_handles, loc="upper center", ncols=2,
                                       frameon=False, fontsize=10, columnspacing=1.0, handlelength=1.6)
+    scatter_ax.add_artist(metric_legend)
+    dense_legend = scatter_ax.legend(handles=rug_handles, title="Dense training tokens", loc="lower center",
+                                     bbox_to_anchor=(.5, .085), ncols=3, frameon=False,
+                                     fontsize=9, title_fontsize=10, columnspacing=1.0, handlelength=.8)
     model_legend = fig.legend(smooth_lines, ["216B-token run", "1T-token run"],
                               title="DNA training horizon", loc="upper center", bbox_to_anchor=(.5, 1.01),
                               ncols=2, frameon=False, columnspacing=2.2)
-    assert dot_count == 4 and len(scatter_ax.lines) == len(conservation_ax.lines) == 1
+    assert dot_count == 4 and len(rugs) == 3 and len(scatter_ax.lines) == len(conservation_ax.lines) == 1
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     title_boxes = [axis.title.get_window_extent(renderer) for axis in [training_ax, validation_ax, scatter_ax]]
     model_box = model_legend.get_window_extent(renderer)
     assert not any(box.overlaps(model_box) for box in title_boxes)
     for label in [*title_boxes, model_box, smoothing_legend.get_window_extent(renderer),
-                  metric_legend.get_window_extent(renderer)]:
+                  metric_legend.get_window_extent(renderer), dense_legend.get_window_extent(renderer)]:
         assert fig.bbox.contains(label.x0, label.y0) and fig.bbox.contains(label.x1, label.y1)
+    lowest_dot = min(row[metric] for row in rows for metric in ["Composite", "Conservation"])
+    assert dense_legend.get_window_extent(renderer).y1 + 5 < scatter_ax.transData.transform((.9, lowest_dot))[1]
+    assert all(scatter_ax.get_xlim()[0] < row["validation_loss"] < scatter_ax.get_xlim()[1] for row in rugs)
     target = HERE / "figures" / "loss-comparison"
     fig.savefig(target.with_suffix(".png"), dpi=180, facecolor="white")
     fig.savefig(target.with_suffix(".svg"), facecolor="white", metadata={"Date": None})
