@@ -35,5 +35,6 @@ It requests up to 10,000 rows for disjoint windows containing at most 5,000 W&B 
 The renderer checks gap-free logged W&B training steps before normalizing replayed token coordinates; it records training updates lacking a distinct loss observation rather than fabricating them.
 `plot_loss_comparison.py --history-dir <history-dir>` validates those archives against their metadata and renders the loss figure without training or evaluation.
 `uv run --no-project --with markdown-it-py --with mdit-py-plugins python build_draft_preview.py --output <directory>` copies the five draft figures and creates a self-contained HTML preview, including the GitHub-style reference footnote.
+The printed preview filename includes a content hash so updated drafts open at a fresh path; `preview.html` remains an alias for the latest draft.
 Motif and composite probe results are included in the heatmap as well.
 Zero-shot and probe cohorts can differ; the plotted levels are not a paired comparison.

@@ -75,19 +75,24 @@ code{background:#f6f8fa;padding:2px 4px}.draft{padding:12px;border:1px solid #d0
 """
     banner = '<div class="draft">Draft for PlantCAD2 PR #22 — the live results comment has not been updated.</div>'
     html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Draft: MarinMoE comparisons</title><style>' + css + '</style></head><body>' + banner + body + '</body></html>'
+    preview_sha256 = hashlib.sha256(html.encode()).hexdigest()
+    preview_name = f"preview-{preview_sha256[:12]}.html"
+    (args.output / preview_name).write_text(html)
     (args.output / "preview.html").write_text(html)
     (args.output / "post.md").write_text(markdown)
     manifest = {
         "destination": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
         "status": "Unpublished draft; no live comment changes",
         "source": "draft.md",
+        "preview_file": preview_name,
+        "preview_sha256": preview_sha256,
         "post_sha256": hashlib.sha256(markdown.encode()).hexdigest(),
         "figure_sha256": hashes,
         "image_details_depths": [depth for depth, _ in structure.images],
         "benchmark_provenance": json.loads((HERE / "benchmark-comparison-provenance.json").read_text()),
     }
     (args.output / "draft-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    print(f"Draft preview: {args.output / 'preview.html'}")
+    print(f"Draft preview: {args.output / preview_name}")
 
 
 if __name__ == "__main__":
