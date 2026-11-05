@@ -1,12 +1,12 @@
 {
   "marin": {
-    "dense": "#e67e32",
-    "216b": "#be9b00",
-    "1t": "#c43c4a"
+    "dense": "#d88470",
+    "216b": "#c8a229",
+    "1t": "#7e4b6c"
   },
   "baselines": {
     "evo2": "#318564"
   },
-  "description": "Dense MarinDNA orange, 216B MoE saturated deep gold, 1T MoE cherry red, Evo 2 emerald green. Published PlantCAD blues remain unchanged.",
+  "description": "Cohesive muted palette: dense MarinDNA coral, 216B MoE rich gold, 1T MoE deep plum, Evo 2 emerald green. Published PlantCAD blues remain unchanged.",
   "scope": "Model identity in the benchmark overview, loss comparison and both checkpoint line figures. Heatmap colors retain their independent increase/decrease meaning."
 }

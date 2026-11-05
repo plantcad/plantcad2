@@ -33,8 +33,8 @@
   "aggregation": "Equal-weight task mean within each category; Composite gives each of four categories 25%; AF separate",
   "moe_scope": "Final language-pretrained checkpoints only, 8192-base examples, character-forced nucleotide tokenization",
   "historical_values": "Previously computed values reused without running models or fitting probes",
-  "colors": "Dense MarinDNA orange, 216B MoE saturated deep gold, 1T MoE cherry red, Evo 2 emerald green. Published PlantCAD blues remain unchanged.",
-  "palette_sha256": "3b4e483224baa7803d05b727d390226c55b4e151f2b6e94261fef86559e70046",
+  "colors": "Cohesive muted palette: dense MarinDNA coral, 216B MoE rich gold, 1T MoE deep plum, Evo 2 emerald green. Published PlantCAD blues remain unchanged.",
+  "palette_sha256": "fc45caa09074fb8c14f03143d8f4aeb067578c263e72e7ad8f24ea8142a40648",
   "excluded": [
     "PlantCAD 512 bp",
     "other dense checkpoints",

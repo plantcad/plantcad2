@@ -15,11 +15,11 @@ Five evaluated checkpoints from each text-pretrained d768 run, with 216B-token a
   Every unique logged training value is rendered, retaining the latest W&B record at replayed token coordinates; null metric rows are absent observations, not zero loss.
   The scatter contains four points, two descriptive connecting segments and three dense-checkpoint rugs, with identical numeric limits on both score axes and no fitted trend or uncertainty estimate.
   Scatter and rug losses come from the same 65,536-window sample in PR #22 comment 6604041302; they intentionally differ from the 512-window W&B curve endpoints.
-  Orange rugs reuse dense losses at 216B, 389B and 562B DNA tokens, with opacity increasing linearly from 0.35 to 0.95 across those token totals; parameter counts are identical.
+  Coral rugs reuse dense losses at 216B, 389B and 562B DNA tokens, with opacity increasing linearly from 0.35 to 0.95 across those token totals; parameter counts are identical.
 - `loss-figure-data.json` and `loss-figure-provenance.json`: complete plotted validation values, compact exact-smoothed training samples, final scatter values, source hashes and history counts.
   Full source history archives remain outside Git and are referenced by immutable CoreWeave storage receipts in `loss-history-receipts.json`.
 - `benchmark-comparison-data.json` and `benchmark-comparison-provenance.json`: all forty overview values, model colors, source hashes and the exact dense token-count check.
-- `figure-palette.json`: shared model colors across the overview, loss comparison and both checkpoint line figures: dense MarinDNA orange, 216B MoE saturated deep gold, 1T MoE cherry red, Evo 2 emerald green.
+- `figure-palette.json`: shared model colors across the overview, loss comparison and both checkpoint line figures: dense MarinDNA muted coral, 216B MoE rich gold, 1T MoE deep plum, Evo 2 emerald green.
   The warm Marin family is separated from the original PlantCAD blues and Evo green; the heatmap retains its independent increase/decrease colors.
 - `all-category-scores.csv`: 140 scores; each line figure uses 120 in twelve panels, excluding the composite without SV.
 - `original-category-scores.csv`: the 110 scores preceding motif probes, preserved unchanged.

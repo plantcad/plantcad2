@@ -1,9 +1,9 @@
 {
-  "benchmark_source_sha256": "6810dff3082bcb7f3c6ac48981d89377fc5d9bafc5ab13e7580993157e501ef8",
-  "palette_sha256": "3b4e483224baa7803d05b727d390226c55b4e151f2b6e94261fef86559e70046",
+  "benchmark_source_sha256": "93a1056c84070e9e48862e81906ca441d81afb284718d3e02473deeb318cd0a4",
+  "palette_sha256": "fc45caa09074fb8c14f03143d8f4aeb067578c263e72e7ad8f24ea8142a40648",
   "run_colors": {
-    "216b": "#be9b00",
-    "1t": "#c43c4a"
+    "216b": "#c8a229",
+    "1t": "#7e4b6c"
   },
   "sources": {
     "216b": {
@@ -199,7 +199,7 @@
     "curves": "W&B histories retain their original 512-window evaluation values"
   },
   "dense_rugs": {
-    "color": "#e67e32",
+    "color": "#d88470",
     "rows": [
       {
         "model": "D216",
@@ -245,7 +245,7 @@
   ],
   "plot_data_sha256": "a0f4ab25ec015b995b17e61ca023cb26f25dd04f58d4d9d2cd66ea700b580cf4",
   "figure_sha256": {
-    "png": "423880fa44473c2fb9bc9ef6cc5dc9bc140bfc915e32049c938e12f8a2dcbcfb",
-    "svg": "0a5a5f19662518835a038fc1ba3b9f2052616c87b2da50a80f585cf3ef370a4b"
+    "png": "0d0b9fa4240f2853ebaed56e09d892e29da11fb801b694b784742df012b66b38",
+    "svg": "fa8c16571456d7d2de774423f5fd76a55ef8a255b90fc6efe9ee42b5cd081062"
   }
 }

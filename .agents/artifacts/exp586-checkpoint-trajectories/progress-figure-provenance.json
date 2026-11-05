@@ -1,9 +1,9 @@
 {
   "source_sha256": "3f350bd6668ba71046f618a4dd44cab8cd86114927b32d551a8e32634d01a6ca",
-  "palette_sha256": "3b4e483224baa7803d05b727d390226c55b4e151f2b6e94261fef86559e70046",
+  "palette_sha256": "fc45caa09074fb8c14f03143d8f4aeb067578c263e72e7ad8f24ea8142a40648",
   "run_colors": {
-    "216B-token run": "#be9b00",
-    "1T-token run": "#c43c4a"
+    "216B-token run": "#c8a229",
+    "1T-token run": "#7e4b6c"
   },
   "progress_sha256": "67e93a1dae79ee323c91ec62e8c181f031ed5bf60936a7e51a91dccd0051d681",
   "panels": 12,
