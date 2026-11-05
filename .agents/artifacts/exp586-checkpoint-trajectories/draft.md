@@ -7,6 +7,12 @@ That 300M estimate is comparable in size to **PlantCAD2-Medium** (311M parameter
   <img src="figures/benchmark-comparison.png" alt="Top row: full zero-shot PlantCAD2 benchmark comparing MarinDNA 1B trained on 562B tokens, MarinMoE 1.5B–60M trained on 216B or 1T DNA tokens, PlantCAD2 Small/Medium/Large, PlantCAD2.5 Large and Evo 2 20B. Bottom row, left to right: separate horizontal rankings for Conservation, SV impact and Composite, each sorted by score and using a marked broken x-axis. Composite averages conservation, motifs, core/non-core and SV equally." />
 </p>
 
+<p align="center">
+  <img src="figures/loss-comparison.png" alt="W&B training loss with raw curves and exponential smoothing, validation loss, and final validation loss versus Composite and Conservation for the 216B-token and 1T-token MoE runs. Loss curves use DNA tokens on logarithmic x-axes, starting at 1B tokens. The scatter has four points and one connecting segment per metric, with identical numeric limits on its two score axes." />
+</p>
+
+Training (raw and smoothed) and validation losses are shown from 1B DNA tokens, alongside final loss versus zero-shot scores.
+
 These evaluations follow five checkpoints from each text-pretrained MarinMoE 1.5B–60M run (216B and 1T DNA tokens), including their shared starting model before DNA training.
 Alongside the existing allele-frequency (AF) regression probe, frozen linear classifiers were added for conservation, motif recovery, core/non-core and structural-variant (SV) impact, with task-specific inputs described below.
 

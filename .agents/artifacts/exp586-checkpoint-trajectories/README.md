@@ -10,6 +10,12 @@ Five evaluated checkpoints from each text-pretrained d768 run, with 216B-token a
 - `figures/benchmark-comparison.*`: full-benchmark zero-shot scores for final 216B/1T MoEs, dense MarinDNA at 562.022055936B tokens, and five archived baseline models, followed by independent Conservation, SV impact and Composite rankings.
   The horizontal rankings use marked axis breaks and score ranges of 0.62–0.82, 0.72–0.89 and 0.67–0.78, respectively, while retaining a short zero-origin segment.
 - `figures/checkpoint-changes-primary.*`: draft heatmap with only the primary four-category Composite.
+- `figures/loss-comparison.*`: raw and exponentially smoothed training loss, unsmoothed validation loss, and final validation loss versus Composite/Conservation for the 216B and 1T text-pretrained runs.
+  Loss curves start at 1B DNA input tokens and use logarithmic token axes; training smoothing has a 1B-token half-life, initialized at the first included observation.
+  Every unique logged training value is rendered, retaining the latest W&B record at replayed token coordinates; null metric rows are absent observations, not zero loss.
+  The scatter contains four points and two descriptive connecting segments, with identical numeric limits on both score axes and no fitted trend or uncertainty estimate.
+- `loss-figure-data.json` and `loss-figure-provenance.json`: complete plotted validation values, compact exact-smoothed training samples, final scatter values, source hashes and history counts.
+  Full source history archives remain outside Git and are referenced by immutable CoreWeave storage receipts in `loss-history-receipts.json`.
 - `benchmark-comparison-data.json` and `benchmark-comparison-provenance.json`: all forty overview values, original colors, source hashes and the exact dense token-count check.
 - `all-category-scores.csv`: 140 scores; each line figure uses 120 in twelve panels, excluding the composite without SV.
 - `original-category-scores.csv`: the 110 scores preceding motif probes, preserved unchanged.
@@ -22,6 +28,12 @@ Both line figures arrange paired tasks as Composite/Conservation/Motifs above Co
 `add_motif_scores.py` adds verified motif probes and matching composites while asserting that every original score is unchanged.
 `plot_checkpoint_pairs.py` renders the token and recorded-progress figures; `plot_checkpoint_changes.py` renders draft checkpoint changes with only the primary Composite.
 `plot_benchmark_comparison.py` consumes the saved short/long trajectory `results.json` files via `--short-results` and `--long-results`; it runs no inference or fitting.
-`uv run --no-project --with markdown-it-py --with mdit-py-plugins python build_draft_preview.py --output <directory>` copies the four draft figures and creates a self-contained HTML preview, including the GitHub-style reference footnote.
+`fetch_loss_history.py --model {216b,1t} --output <history-dir>` reads complete, unsampled W&B histories using the configured account; it makes no changes to the runs.
+The 216B archive uses W&B SDK 0.30.0; the 1T archive uses `--reader paged`, based on the [0.22.3 paged API](https://github.com/wandb/wandb/blob/v0.22.3/wandb/apis/public/history.py), after 0.30.0 stalled while initializing its bulk export.
+That fallback runs in an isolated `uv run --no-project --with wandb==0.22.3` environment without changing training dependencies.
+It requests up to 10,000 rows for disjoint windows containing at most 5,000 W&B steps, avoiding the older scanner's overlapping inclusive page bounds and implicit downsampling at the row limit.
+The renderer checks gap-free logged W&B training steps before normalizing replayed token coordinates; it records training updates lacking a distinct loss observation rather than fabricating them.
+`plot_loss_comparison.py --history-dir <history-dir>` validates those archives against their metadata and renders the loss figure without training or evaluation.
+`uv run --no-project --with markdown-it-py --with mdit-py-plugins python build_draft_preview.py --output <directory>` copies the five draft figures and creates a self-contained HTML preview, including the GitHub-style reference footnote.
 Motif and composite probe results are included in the heatmap as well.
 Zero-shot and probe cohorts can differ; the plotted levels are not a paired comparison.

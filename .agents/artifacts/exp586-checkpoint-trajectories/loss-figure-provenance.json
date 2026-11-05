@@ -1,0 +1,205 @@
+{
+  "benchmark_source_sha256": "df7458dd23daef91a43e6e55f2da09ddabd3a0441e1f43e25704d6db000befef",
+  "sources": {
+    "216b": {
+      "metadata": {
+        "run_id": "exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+        "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+        "observed_at_utc": "2026-11-05T13:35:01.468753+00:00",
+        "expected_final_tokens": 216158699520,
+        "summary": {
+          "train/input_tokens": 216158699520,
+          "train/step": 412290,
+          "train/loss": 0.9345500469207764,
+          "eval/loss": 0.9475062713027,
+          "eval/examples": 512,
+          "run_progress": 1
+        },
+        "sampling": "None; complete W&B scan_history for each metric",
+        "histories": {
+          "validation": {
+            "file": "216b-validation.jsonl.gz",
+            "rows": 217,
+            "last": {
+              "wandb_step": 416688,
+              "input_tokens": 216158699520,
+              "loss": 0.9475062713027
+            },
+            "token_rollbacks": 0,
+            "null_metric_or_coordinate_rows_skipped": 416472,
+            "sha256": "bd4f74e648c7c12f4352323d1a2a321a2c71c272fa3d0e54cbbf80f6b1a6d705",
+            "bytes": 4456
+          },
+          "training": {
+            "file": "216b-training.jsonl.gz",
+            "rows": 416688,
+            "last": {
+              "wandb_step": 416688,
+              "input_tokens": 216158699520,
+              "loss": 0.9345500469207764
+            },
+            "token_rollbacks": 13,
+            "null_metric_or_coordinate_rows_skipped": 1,
+            "sha256": "79d4bab4ad5202d814d830e5e2faa3cf5dd7927d80c321b7e864a06e645e5217",
+            "bytes": 7766776
+          }
+        },
+        "wandb_sdk_version": "0.30.0",
+        "reader": "sdk",
+        "expected_last_wandb_step": 416688
+      },
+      "metadata_sha256": "986e1f09f7dc6a4633330c68a46ca21130f5af5ba55e9ac0b562b5b2aff82efe",
+      "normalization_counts": {
+        "training": {
+          "source_rows": 416688,
+          "replayed_coordinates_removed": 4398,
+          "unique_rows_before_start_filter": 412290,
+          "plotted_raw_rows": 410383,
+          "unique_token_increment_range": [
+            524288,
+            524288
+          ],
+          "first_plotted_tokens": 1000341504,
+          "last_plotted_tokens": 216158699520,
+          "raw_loss_range": [
+            0.8216443657875061,
+            1.2713563442230225
+          ],
+          "updates_without_unique_loss_record": 0
+        },
+        "validation": {
+          "source_rows": 217,
+          "replayed_coordinates_removed": 2,
+          "unique_rows_before_start_filter": 215,
+          "plotted_raw_rows": 214,
+          "unique_token_increment_range": [
+            64487424,
+            1048576000
+          ],
+          "first_plotted_tokens": 1048576000,
+          "last_plotted_tokens": 216158699520,
+          "raw_loss_range": [
+            0.9475062713027,
+            1.2517344951629639
+          ]
+        }
+      }
+    },
+    "1t": {
+      "metadata": {
+        "run_id": "exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+        "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+        "wandb_sdk_version": "0.22.3",
+        "reader": "paged",
+        "observed_at_utc": "2026-11-05T13:49:48.913967+00:00",
+        "expected_final_tokens": 1000000192512,
+        "summary": {
+          "train/input_tokens": 1000000192512,
+          "train/step": 1907349,
+          "train/loss": 0.8241231441497803,
+          "eval/loss": 0.8898855298757553,
+          "eval/examples": 512,
+          "run_progress": 1
+        },
+        "sampling": "None; complete W&B scan, with page windows strictly below the row budget when using --reader paged",
+        "histories": {
+          "validation": {
+            "file": "1t-validation.jsonl.gz",
+            "rows": 988,
+            "last": {
+              "wandb_step": 1916906,
+              "input_tokens": 1000000192512,
+              "loss": 0.8898855298757553
+            },
+            "token_rollbacks": 0,
+            "null_metric_or_coordinate_rows_skipped": 0,
+            "identical_page_boundary_rows_skipped": 0,
+            "sha256": "c90985d153c32be2c9198c068bc88349d0a6a6f64b80b9fc50ec70d14a0c7ceb",
+            "bytes": 19496
+          },
+          "training": {
+            "file": "1t-training.jsonl.gz",
+            "rows": 1916906,
+            "last": {
+              "wandb_step": 1916906,
+              "input_tokens": 1000000192512,
+              "loss": 0.8241231441497803
+            },
+            "token_rollbacks": 46,
+            "null_metric_or_coordinate_rows_skipped": 0,
+            "identical_page_boundary_rows_skipped": 0,
+            "sha256": "d91bc39e0dcb365dcf87c2745d165e5904b7dd392e78a26acbaa8b5e11e17def",
+            "bytes": 36028451
+          }
+        },
+        "expected_last_wandb_step": 1916906
+      },
+      "metadata_sha256": "d79d4840893d1aa9b3a54f69ef0c00cf53ada4c8f84d6e59a22feb94ea882657",
+      "normalization_counts": {
+        "training": {
+          "source_rows": 1916906,
+          "replayed_coordinates_removed": 10706,
+          "unique_rows_before_start_filter": 1906200,
+          "plotted_raw_rows": 1904293,
+          "unique_token_increment_range": [
+            524288,
+            272105472
+          ],
+          "first_plotted_tokens": 1000341504,
+          "last_plotted_tokens": 1000000192512,
+          "raw_loss_range": [
+            0.693321943283081,
+            1.2920440435409546
+          ],
+          "updates_without_unique_loss_record": 1149
+        },
+        "validation": {
+          "source_rows": 988,
+          "replayed_coordinates_removed": 4,
+          "unique_rows_before_start_filter": 984,
+          "plotted_raw_rows": 983,
+          "unique_token_increment_range": [
+            24117248,
+            1048576000
+          ],
+          "first_plotted_tokens": 1048576000,
+          "last_plotted_tokens": 1000000192512,
+          "raw_loss_range": [
+            0.8898855298757553,
+            1.2763441056013107
+          ]
+        }
+      }
+    }
+  },
+  "normalization": "Latest W&B step at each identical input-token count",
+  "curve_start_tokens": 1000000000,
+  "training_smoothing": {
+    "method": "Exponential smoothing",
+    "half_life_tokens": 1000000000,
+    "initialization": "First raw observation at or above 1B tokens"
+  },
+  "validation_smoothing": "None; every unique logged evaluation at or above 1B tokens",
+  "uncertainty": "None estimated: two individual training runs; connecting segments are descriptive",
+  "scatter": [
+    {
+      "model": "216b",
+      "DNA_tokens": 216158699520,
+      "final_validation_loss": 0.9475062713027,
+      "Composite": 0.7039986301759926,
+      "Conservation": 0.6890951690966782
+    },
+    {
+      "model": "1t",
+      "DNA_tokens": 1000000192512,
+      "final_validation_loss": 0.8898855298757553,
+      "Composite": 0.693604777105964,
+      "Conservation": 0.6992670021034327
+    }
+  ],
+  "plot_data_sha256": "5a6ede2392b8f1a4be3f4ae7e996232f79c5b77f9809db0d9235aec179ccc16b",
+  "figure_sha256": {
+    "png": "e3a1e50704b3656befaf23fc164d45af206d9c679074bfc716c795bbf99fcaa1",
+    "svg": "d681c3da64f581acaebdffa6ce25d4622daee3b759f27ee18104660a7ebd62a6"
+  }
+}
