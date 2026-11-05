@@ -1,63 +1,61 @@
 {
-  "source": "/home/exedev/repos/marin-dna-br/codex-exp586-probes/.agents/artifacts/exp586-monotonicity/all-category-scores.csv",
-  "source_sha256": "5aa4a5aa4c58414bcf31cfecd984fd7d0d56ff512e0699a9113a590f4cfd5446",
-  "plotted_scores": 100,
-  "panels": 10,
-  "runs": [
-    "216B-token run",
-    "1T-token run"
-  ],
-  "layout": "Five columns and two rows; zero-shot-only column first, Composite above Motifs, followed by four paired task columns",
-  "grouping": "Equal-width, equal-height column cards with uniform gutters; first column has a task divider",
+  "source_sha256": "3f350bd6668ba71046f618a4dd44cab8cd86114927b32d551a8e32634d01a6ca",
+  "progress_sha256": "67e93a1dae79ee323c91ec62e8c181f031ed5bf60936a7e51a91dccd0051d681",
+  "panels": 12,
+  "score_points": 120,
   "card_geometry": [
     {
-      "left": 0.010500000000000047,
-      "right": 0.19092859894180678,
-      "bottom": 0.00840616913469217,
-      "top": 0.8174759532445117
+      "metric": "Composite",
+      "left": 0.04588696907899561,
+      "right": 0.2930983737697701,
+      "top": 0.8912222222222221,
+      "bottom": 0.46287420397194395
     },
     {
-      "left": 0.20975555555555558,
-      "right": 0.3901841544973623,
-      "bottom": 0.00840616913469217,
-      "top": 0.8174759532445117
+      "metric": "Conservation",
+      "left": 0.3842463440789956,
+      "right": 0.63145774876977,
+      "top": 0.8912222222222221,
+      "bottom": 0.46287420397194395
     },
     {
-      "left": 0.40901111111111116,
-      "right": 0.5894397100529178,
-      "bottom": 0.00840616913469217,
-      "top": 0.8174759532445117
+      "metric": "Motifs",
+      "left": 0.7226057190789956,
+      "right": 0.96981712376977,
+      "top": 0.8912222222222221,
+      "bottom": 0.46287420397194395
     },
     {
-      "left": 0.6082666666666666,
-      "right": 0.7886952656084734,
-      "bottom": 0.00840616913469217,
-      "top": 0.8174759532445117
+      "metric": "Core/non-core",
+      "left": 0.045886969078995636,
+      "right": 0.29309837376977005,
+      "top": 0.43171578445398184,
+      "bottom": 0.0033677662037036593
     },
     {
-      "left": 0.8075222222222221,
-      "right": 0.9879508211640289,
-      "bottom": 0.00840616913469217,
-      "top": 0.8174759532445117
+      "metric": "SV impact",
+      "left": 0.38424634407899566,
+      "right": 0.63145774876977,
+      "top": 0.43171578445398184,
+      "bottom": 0.0033677662037036593
+    },
+    {
+      "metric": "Allele frequency",
+      "left": 0.7226057190789956,
+      "right": 0.96981712376977,
+      "top": 0.43171578445398184,
+      "bottom": 0.0033677662037036593
     }
   ],
-  "gutter_widths_figure_fraction": [
-    0.018826956613748808,
-    0.018826956613748835,
-    0.01882695661374878,
-    0.01882695661374878
+  "horizontal_gaps": [
+    0.0911479703092255,
+    0.09114797030922561,
+    0.09114797030922561,
+    0.09114797030922561
   ],
-  "composite": "Original four-category definition, including SV",
-  "excluded_from_this_figure": "Composite without SV",
-  "checkpoints": "All five evaluated checkpoints per run, including the shared 0B model",
-  "readouts": "Unchanged fixed readouts from the preceding verified tables",
-  "context_bp": 8192,
+  "layout": "Top: Composite, Conservation, Motifs; bottom: Core/non-core, SV, AF; zero-shot above probe in each pair",
+  "composite": "Equal mean of conservation, motifs, core/non-core and SV category scores, independently for each readout; AF excluded",
+  "x_axis": "tokens",
   "smoothing": false,
-  "y_scales": "Independent by panel",
-  "x_scale": "Linear 0\u201310B; logarithmic above 10B",
-  "original_figure_unchanged": {
-    "all-metrics-one-figure.svg": "a7168ec251cba0b18469c23ba2e4e9a7d2cd2f3f57213b8e34fb9c8bffc07898",
-    "all-metrics-one-figure.png": "cb1cd4033a9ae479c47987e47928535af9298bda952964a269cdd0766db634b3"
-  },
-  "GitHub_updates": false
+  "y_scales": "Independent per panel"
 }

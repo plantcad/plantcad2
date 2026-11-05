@@ -21,10 +21,16 @@ dependencies = [
     "pyarrow>=25.0.1",
     "pyfaidx>=0.9.0.4",
     "einops>=0.8.2",
+    "mappy==2.31",
+    "fsspec>=2026.7.0",
 ]
 
 [project.optional-dependencies]
 cpu = ["torch==2.11.0"]
+coreweave = [
+    "s3fs>=2026.7.0",
+    "wandb==0.30.0",
+]
 
 [dependency-groups]
 dev = ["pytest", "ruff"]

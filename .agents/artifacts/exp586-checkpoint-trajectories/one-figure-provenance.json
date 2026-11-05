@@ -1,8 +1,8 @@
 {
-  "source": "/home/exedev/repos/marin-dna-br/codex-exp586-probes/.agents/artifacts/exp586-monotonicity/all-category-scores.csv",
-  "source_sha256": "5aa4a5aa4c58414bcf31cfecd984fd7d0d56ff512e0699a9113a590f4cfd5446",
-  "input_scores": 110,
-  "displayed_checkpoint_changes": 88,
+  "source": "/home/exedev/repos/plantcad2-br/codex-exp586-upstream/.agents/artifacts/exp586-checkpoint-trajectories/all-category-scores.csv",
+  "source_sha256": "3f350bd6668ba71046f618a4dd44cab8cd86114927b32d551a8e32634d01a6ca",
+  "input_scores": 140,
+  "displayed_checkpoint_changes": 112,
   "metrics": [
     "Conservation",
     "Motifs",

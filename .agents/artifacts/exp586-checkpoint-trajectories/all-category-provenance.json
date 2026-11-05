@@ -20,30 +20,42 @@
     "Composite \u2212SV",
     "Composite +SV"
   ],
-  "plotted_scores": 110,
+  "plotted_scores": 140,
   "change_encoding": "Color indicates sign only; annotations give signed score differences to four decimals",
   "declines": {
     "216B-token run": {
       "Conservation/Zero-shot likelihood": [],
-      "Motifs/Zero-shot likelihood": [],
-      "Core/non-core/Zero-shot likelihood": [],
-      "SV impact/Zero-shot likelihood": [],
-      "Allele frequency/Zero-shot likelihood": [],
-      "Composite \u2212SV/Zero-shot likelihood": [],
-      "Composite +SV/Zero-shot likelihood": [],
       "Conservation/Linear probe": [],
+      "Motifs/Zero-shot likelihood": [],
+      "Motifs/Linear probe": [],
+      "Core/non-core/Zero-shot likelihood": [],
       "Core/non-core/Linear probe": [],
+      "SV impact/Zero-shot likelihood": [],
       "SV impact/Linear probe": [],
-      "Allele frequency/Linear probe": []
+      "Allele frequency/Zero-shot likelihood": [],
+      "Allele frequency/Linear probe": [],
+      "Composite \u2212SV/Zero-shot likelihood": [],
+      "Composite \u2212SV/Linear probe": [],
+      "Composite +SV/Zero-shot likelihood": [],
+      "Composite +SV/Linear probe": []
     },
     "1T-token run": {
       "Conservation/Zero-shot likelihood": [],
+      "Conservation/Linear probe": [],
       "Motifs/Zero-shot likelihood": [],
+      "Motifs/Linear probe": [],
       "Core/non-core/Zero-shot likelihood": [
         {
           "from_B": 545.455079424,
           "to_B": 1000.000192512,
           "delta": -0.007309937596567062
+        }
+      ],
+      "Core/non-core/Linear probe": [
+        {
+          "from_B": 181.818359808,
+          "to_B": 545.455079424,
+          "delta": -0.0024670005129494577
         }
       ],
       "SV impact/Zero-shot likelihood": [
@@ -53,6 +65,7 @@
           "delta": -0.058568618425180796
         }
       ],
+      "SV impact/Linear probe": [],
       "Allele frequency/Zero-shot likelihood": [
         {
           "from_B": 545.455079424,
@@ -60,7 +73,9 @@
           "delta": -0.011702231977948868
         }
       ],
+      "Allele frequency/Linear probe": [],
       "Composite \u2212SV/Zero-shot likelihood": [],
+      "Composite \u2212SV/Linear probe": [],
       "Composite +SV/Zero-shot likelihood": [
         {
           "from_B": 545.455079424,
@@ -68,20 +83,169 @@
           "delta": -0.0005620904987418962
         }
       ],
-      "Conservation/Linear probe": [],
-      "Core/non-core/Linear probe": [
-        {
-          "from_B": 181.818359808,
-          "to_B": 545.455079424,
-          "delta": -0.0024670005129494577
-        }
-      ],
-      "SV impact/Linear probe": [],
-      "Allele frequency/Linear probe": []
+      "Composite +SV/Linear probe": []
     }
   },
   "raw_curve_axis": "Logarithmic above 10B; linear from 0B through 10B to include the pre-DNA checkpoint",
   "readouts": "Same fixed readouts and cohorts as the preceding verified tables",
   "uncertainty": "Descriptive ordering of observed fixed-benchmark point estimates, not statistical significance",
-  "GitHub_updates": false
+  "GitHub_updates": false,
+  "motif_aggregation": {
+    "original_scores_sha256": "5aa4a5aa4c58414bcf31cfecd984fd7d0d56ff512e0699a9113a590f4cfd5446",
+    "verified_results_sha256": "c4eb461421f7d26e5c7e53ae7063bad00a6e8d60236793477a4216671850136d",
+    "output_scores_sha256": "3f350bd6668ba71046f618a4dd44cab8cd86114927b32d551a8e32634d01a6ca",
+    "original_scores_unchanged": 110,
+    "new_scores": 30,
+    "unique_checkpoint_task_heads": 72,
+    "displayed_checkpoint_task_heads": 80,
+    "motif_aggregation": "Equal-weight mean of eight per-task whole-motif exact-match accuracies",
+    "composite": "Equal-weight mean of conservation, motifs, core/non-core and SV, separately for each readout; AF excluded",
+    "checkpoints": {
+      "216B-token run": {
+        "dna-000b": {
+          "model_label": "base-000b",
+          "motif_category_accuracy": 0.8447593259577043,
+          "task_accuracies": {
+            "motif_maize_tis": 0.9728391356542617,
+            "motif_maize_tts": 0.4840597104493286,
+            "motif_maize_donor": 0.983251305275371,
+            "motif_maize_acceptor": 0.9981846764232511,
+            "motif_tomato_tis": 0.967189085578983,
+            "motif_tomato_tts": 0.422389569517815,
+            "motif_tomato_donor": 0.9590785601086711,
+            "motif_tomato_acceptor": 0.9710825646539528
+          }
+        },
+        "dna-002b": {
+          "model_label": "short-002b",
+          "motif_category_accuracy": 0.8497908710693296,
+          "task_accuracies": {
+            "motif_maize_tis": 0.9726890756302521,
+            "motif_maize_tts": 0.5046883204560798,
+            "motif_maize_donor": 0.983307446151543,
+            "motif_maize_acceptor": 0.9981846764232511,
+            "motif_tomato_tis": 0.9669635810125154,
+            "motif_tomato_tts": 0.43936158255591773,
+            "motif_tomato_donor": 0.9602105501471587,
+            "motif_tomato_acceptor": 0.9729217361779187
+          }
+        },
+        "dna-031b": {
+          "model_label": "short-031b",
+          "motif_category_accuracy": 0.8552096676839247,
+          "task_accuracies": {
+            "motif_maize_tis": 0.9728391356542617,
+            "motif_maize_tts": 0.5220163528617509,
+            "motif_maize_donor": 0.9837191459101372,
+            "motif_maize_acceptor": 0.9983343938316428,
+            "motif_tomato_tis": 0.967189085578983,
+            "motif_tomato_tts": 0.4615038777115882,
+            "motif_tomato_donor": 0.9625028299750962,
+            "motif_tomato_acceptor": 0.9735725199479373
+          }
+        },
+        "dna-124b": {
+          "model_label": "short-124b",
+          "motif_category_accuracy": 0.8562763909840163,
+          "task_accuracies": {
+            "motif_maize_tis": 0.9727641056422569,
+            "motif_maize_tts": 0.5289175605731002,
+            "motif_maize_donor": 0.9843928364242005,
+            "motif_maize_acceptor": 0.9986338286484261,
+            "motif_tomato_tis": 0.9670763332957493,
+            "motif_tomato_tts": 0.46172867258626504,
+            "motif_tomato_donor": 0.9622198324654743,
+            "motif_tomato_acceptor": 0.974477958236659
+          }
+        },
+        "dna-216b": {
+          "model_label": "short-216b",
+          "motif_category_accuracy": 0.8615695943025675,
+          "task_accuracies": {
+            "motif_maize_tis": 0.9739645858343338,
+            "motif_maize_tts": 0.5651489010576851,
+            "motif_maize_donor": 0.9852723768175609,
+            "motif_maize_acceptor": 0.9987274020286708,
+            "motif_tomato_tis": 0.967189085578983,
+            "motif_tomato_tts": 0.46465100595706416,
+            "motif_tomato_donor": 0.963210323749151,
+            "motif_tomato_acceptor": 0.9743930733970912
+          }
+        }
+      },
+      "1T-token run": {
+        "dna-000b": {
+          "model_label": "base-000b",
+          "motif_category_accuracy": 0.8447593259577043,
+          "task_accuracies": {
+            "motif_maize_tis": 0.9728391356542617,
+            "motif_maize_tts": 0.4840597104493286,
+            "motif_maize_donor": 0.983251305275371,
+            "motif_maize_acceptor": 0.9981846764232511,
+            "motif_tomato_tis": 0.967189085578983,
+            "motif_tomato_tts": 0.422389569517815,
+            "motif_tomato_donor": 0.9590785601086711,
+            "motif_tomato_acceptor": 0.9710825646539528
+          }
+        },
+        "dna-010b": {
+          "model_label": "long-010b",
+          "motif_category_accuracy": 0.8496807865354465,
+          "task_accuracies": {
+            "motif_maize_tis": 0.9727641056422569,
+            "motif_maize_tts": 0.5012377166004051,
+            "motif_maize_donor": 0.9836442914085746,
+            "motif_maize_acceptor": 0.998222105775349,
+            "motif_tomato_tis": 0.967189085578983,
+            "motif_tomato_tts": 0.43947397999325616,
+            "motif_tomato_donor": 0.9610312429250623,
+            "motif_tomato_acceptor": 0.9738837643596854
+          }
+        },
+        "dna-182b": {
+          "model_label": "long-182b",
+          "motif_category_accuracy": 0.8583339949988029,
+          "task_accuracies": {
+            "motif_maize_tis": 0.9732142857142857,
+            "motif_maize_tts": 0.5437701597779612,
+            "motif_maize_donor": 0.983887568538653,
+            "motif_maize_acceptor": 0.9986151139723771,
+            "motif_tomato_tis": 0.9670763332957493,
+            "motif_tomato_tts": 0.46397662133303363,
+            "motif_tomato_donor": 0.9621349332125877,
+            "motif_tomato_acceptor": 0.9739969441457755
+          }
+        },
+        "dna-545b": {
+          "model_label": "long-545b",
+          "motif_category_accuracy": 0.8616819308934749,
+          "task_accuracies": {
+            "motif_maize_tis": 0.973889555822329,
+            "motif_maize_tts": 0.5664991373490361,
+            "motif_maize_donor": 0.9850852405636544,
+            "motif_maize_acceptor": 0.998689972676573,
+            "motif_tomato_tis": 0.967189085578983,
+            "motif_tomato_tts": 0.46611217264246374,
+            "motif_tomato_donor": 0.9614274394385329,
+            "motif_tomato_acceptor": 0.9745628430762265
+          }
+        },
+        "dna-1000b": {
+          "model_label": "long-1000b",
+          "motif_category_accuracy": 0.8649079873103453,
+          "task_accuracies": {
+            "motif_maize_tis": 0.9744897959183674,
+            "motif_maize_tts": 0.5833770909909234,
+            "motif_maize_donor": 0.986956603102719,
+            "motif_maize_acceptor": 0.998708687352622,
+            "motif_tomato_tis": 0.9673018378622167,
+            "motif_tomato_tts": 0.47173204450938516,
+            "motif_tomato_donor": 0.9625028299750962,
+            "motif_tomato_acceptor": 0.9741950087714334
+          }
+        }
+      }
+    }
+  },
+  "current_scores_sha256": "3f350bd6668ba71046f618a4dd44cab8cd86114927b32d551a8e32634d01a6ca"
 }

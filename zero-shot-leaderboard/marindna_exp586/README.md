@@ -32,3 +32,16 @@ All CoreWeave jobs use H100s at batch priority under Iris user `eczech`.
 The full evaluation uses batches of eight and the proven 16-worker exp582 file partition.
 Postprocessing verifies complete chunk coverage and hashes before applying the original metric reducers, genomic-block bootstrap, and grouped ridge-probe fitting.
 Saved probe estimators are reloaded and checked against their persisted predictions.
+
+Checkpoint motif probes use the same complete-target exclusion as the core/non-core probes.
+Forward left-flank and reverse-complement right-flank last-token activations are concatenated, and an L2 multinomial logistic head predicts the complete 2–3-base motif.
+The six-value regularization grid is selected by whole-motif exact-match accuracy in three chromosome-grouped development folds, with preprocessing fitted inside each fold.
+Fixed test chromosomes, ambiguous-target exclusion and duplicate-visible-input purging apply identically at every checkpoint.
+The optimizer rejects unconverged fits; its 10,000-iteration ceiling accommodates the language-only control without changing the loss or tolerance.
+
+`motif_data.py` binds motif outcomes, genomic memberships and exact ordered flank fingerprints to the existing core feature bank.
+`motif_runner.py` verifies immutable feature chunks, reuses matching activations, collects only the missing motif activations, and fits one checkpoint/task head.
+Each head retains held-out predictions, serialized parameters, development scores, and training-majority and shuffled-label controls.
+The eight motif task accuracies are averaged equally; the probe composite uses the same equal-weight conservation/motifs/core/SV category mean as zero-shot, with AF separate.
+
+The checkpoint trajectory figures, source score tables, plotting scripts and motif summaries are under `.agents/artifacts/exp586-checkpoint-trajectories/` on this branch.

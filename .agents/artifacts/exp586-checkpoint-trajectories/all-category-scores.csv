@@ -109,3 +109,33 @@ run,checkpoint,DNA_tokens_B,metric,readout,score
 1T-token run,dna-182b,181.818359808,Composite +SV,Zero-shot likelihood,0.6549535188398586
 1T-token run,dna-545b,545.455079424,Composite +SV,Zero-shot likelihood,0.6941668676047059
 1T-token run,dna-1000b,1000.000192512,Composite +SV,Zero-shot likelihood,0.693604777105964
+216B-token run,dna-000b,0.0,Motifs,Linear probe,0.8447593259577043
+216B-token run,dna-000b,0.0,Composite +SV,Linear probe,0.7691509663293852
+216B-token run,dna-000b,0.0,Composite −SV,Linear probe,0.7659971578768685
+216B-token run,dna-002b,2.161639424,Motifs,Linear probe,0.8497908710693296
+216B-token run,dna-002b,2.161639424,Composite +SV,Linear probe,0.8632193501572692
+216B-token run,dna-002b,2.161639424,Composite −SV,Linear probe,0.8591617385419297
+216B-token run,dna-031b,30.880038912,Motifs,Linear probe,0.8552096676839247
+216B-token run,dna-031b,30.880038912,Composite +SV,Linear probe,0.8907176682682361
+216B-token run,dna-031b,30.880038912,Composite −SV,Linear probe,0.880274540196095
+216B-token run,dna-124b,123.51963136,Motifs,Linear probe,0.8562763909840163
+216B-token run,dna-124b,123.51963136,Composite +SV,Linear probe,0.8954011101269784
+216B-token run,dna-124b,123.51963136,Composite −SV,Linear probe,0.8836530574318023
+216B-token run,dna-216b,216.15869952,Motifs,Linear probe,0.8615695943025675
+216B-token run,dna-216b,216.15869952,Composite +SV,Linear probe,0.9004371741475914
+216B-token run,dna-216b,216.15869952,Composite −SV,Linear probe,0.8883305875682898
+1T-token run,dna-000b,0.0,Motifs,Linear probe,0.8447593259577043
+1T-token run,dna-000b,0.0,Composite +SV,Linear probe,0.7691509663293852
+1T-token run,dna-000b,0.0,Composite −SV,Linear probe,0.7659971578768685
+1T-token run,dna-010b,10.000269312,Motifs,Linear probe,0.8496807865354465
+1T-token run,dna-010b,10.000269312,Composite +SV,Linear probe,0.8766419659926891
+1T-token run,dna-010b,10.000269312,Composite −SV,Linear probe,0.8686316557999509
+1T-token run,dna-182b,181.818359808,Motifs,Linear probe,0.8583339949988029
+1T-token run,dna-182b,181.818359808,Composite +SV,Linear probe,0.8971556729720952
+1T-token run,dna-182b,181.818359808,Composite −SV,Linear probe,0.8842196842737198
+1T-token run,dna-545b,545.455079424,Motifs,Linear probe,0.8616819308934749
+1T-token run,dna-545b,545.455079424,Composite +SV,Linear probe,0.8996056079948396
+1T-token run,dna-545b,545.455079424,Composite −SV,Linear probe,0.8859774784635728
+1T-token run,dna-1000b,1000.000192512,Motifs,Linear probe,0.8649079873103453
+1T-token run,dna-1000b,1000.000192512,Composite +SV,Linear probe,0.9008256454149954
+1T-token run,dna-1000b,1000.000192512,Composite −SV,Linear probe,0.8873981750089398
