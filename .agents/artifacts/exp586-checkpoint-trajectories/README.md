@@ -7,7 +7,7 @@ Five evaluated checkpoints from each text-pretrained d768 run, with 216B-token a
 - `figures/checkpoint-tokens.*`: paired zero-shot and frozen-probe trajectories against DNA tokens.
 - `figures/checkpoint-progress.*`: identical score values against recorded W&B `run_progress`.
 - `figures/checkpoint-changes.*`: changes between successive checkpoints in original score units.
-- `figures/benchmark-comparison.*`: full-benchmark zero-shot scores for final 216B/1T MoEs, dense MarinDNA at 562.022055936B tokens, and five archived baseline models, followed by independent Conservation and Composite rankings.
+- `figures/benchmark-comparison.*`: full-benchmark zero-shot scores for final 216B/1T MoEs, dense MarinDNA at 562.022055936B tokens, and five archived baseline models, followed by independent Conservation, SV impact and Composite rankings.
 - `figures/checkpoint-changes-primary.*`: draft heatmap with only the primary four-category Composite.
 - `benchmark-comparison-data.json` and `benchmark-comparison-provenance.json`: all forty overview values, original colors, source hashes and the exact dense token-count check.
 - `all-category-scores.csv`: 140 scores; each line figure uses 120 in twelve panels, excluding the composite without SV.

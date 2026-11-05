@@ -59,8 +59,9 @@ def render(models: list[dict]) -> None:
                         columnspacing=2.3, handletextpad=.7)
     ranking_axes = []
     for metric, position, xlabel in [
-        ("Conservation", (.18, .075, .30, .345), "AUROC"),
-        ("Composite", (.69, .075, .30, .345), "Mean category score"),
+        ("Conservation", (2.42 / 19.2, .075, 3.15 / 19.2, .345), "AUROC"),
+        ("SV impact", (8.82 / 19.2, .075, 3.15 / 19.2, .345), "Average precision"),
+        ("Composite", (15.22 / 19.2, .075, 3.15 / 19.2, .345), "Mean category score"),
     ]:
         category_index = DISPLAY.index(metric)
         ranked = sorted(models, key=lambda model: model["scores"][category_index], reverse=True)
@@ -69,7 +70,9 @@ def render(models: list[dict]) -> None:
         values = [model["scores"][category_index] for model in ranked]
         ranking.barh(np.arange(len(ranked)), values, height=.72,
                      color=[model["color"] for model in ranked])
-        ranking.set_yticks(np.arange(len(ranked)), [model["label"] for model in ranked])
+        # Keep complete model names, wrapping only the shared MoE token budgets.
+        labels = [model["label"].replace("1.5B–60M ", "1.5B–60M\n") for model in ranked]
+        ranking.set_yticks(np.arange(len(ranked)), labels)
         ranking.invert_yaxis()
         ranking.set_xlim(0, .9)
         ranking.set_xticks([0, .2, .4, .6, .8])
@@ -82,7 +85,8 @@ def render(models: list[dict]) -> None:
             annotations.append(ranking.annotate(
                 f"{value:.4f}", (value, row), xytext=(5, 0),
                 textcoords="offset points", va="center", fontsize=11))
-    assert len(ax.patches) == 40 and all(len(panel.patches) == 8 for panel in ranking_axes)
+    assert len(ax.patches) == 40 and len(ranking_axes) == 3
+    assert all(len(panel.patches) == 8 for panel in ranking_axes)
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     boxes = [text.get_window_extent(renderer).padded(1.8 * fig.dpi / 72)
@@ -93,7 +97,7 @@ def render(models: list[dict]) -> None:
                 if boxes[i].overlaps(boxes[j])]
     assert not overlaps, overlaps
     panel_boxes = [panel.get_tightbbox(renderer) for panel in [ax, *ranking_axes]]
-    assert not panel_boxes[1].overlaps(panel_boxes[2])
+    assert all(not a.overlaps(b) for i, a in enumerate(panel_boxes[1:]) for b in panel_boxes[i+2:])
     assert all(not panel.overlaps(legend.get_window_extent(renderer)) for panel in panel_boxes)
     assert panel_boxes[0].y0 > max(panel.y1 for panel in panel_boxes[1:])
     for extension in ("svg", "png"):
@@ -173,13 +177,13 @@ def main() -> None:
         "colors": "Exact dense and published-model fills sampled from original plot; original orange/red Marin colors reused for the two MoE runs",
         "excluded": ["PlantCAD 512 bp", "other dense checkpoints", "Composite without SV", "probe scores"],
         "values": 40, "GitHub_comment_updates": False,
-        "panels": ["All five benchmark categories", "Conservation ranking", "Composite ranking"],
+        "panels": ["All five benchmark categories", "Conservation ranking", "SV impact ranking", "Composite ranking"],
         "ranking_order": {
             metric: [{"model": model["label"], "score": model["scores"][DISPLAY.index(metric)]}
                      for model in sorted(models, key=lambda m: m["scores"][DISPLAY.index(metric)], reverse=True)]
-            for metric in ["Conservation", "Composite"]
+            for metric in ["Conservation", "SV impact", "Composite"]
         },
-        "displayed_bars": 56,
+        "displayed_bars": 64,
         "model_summary": {
             "DNA_tokens": 1_000_000_192_512,
             "DNA_tokens_per_epoch": 21_615_869_952,

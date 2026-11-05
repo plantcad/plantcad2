@@ -45,6 +45,7 @@
   "panels": [
     "All five benchmark categories",
     "Conservation ranking",
+    "SV impact ranking",
     "Composite ranking"
   ],
   "ranking_order": {
@@ -82,6 +83,40 @@
         "score": 0.6445333333333333
       }
     ],
+    "SV impact": [
+      {
+        "model": "Evo 2 20B",
+        "score": 0.86
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 216B",
+        "score": 0.8540951287449496
+      },
+      {
+        "model": "MarinDNA 1B 562B",
+        "score": 0.8525691047089042
+      },
+      {
+        "model": "PlantCAD2-Large",
+        "score": 0.841
+      },
+      {
+        "model": "PlantCAD2-Medium",
+        "score": 0.8334
+      },
+      {
+        "model": "PlantCAD2-Small",
+        "score": 0.7946
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 1T",
+        "score": 0.7780781605138195
+      },
+      {
+        "model": "PlantCAD2.5-Large",
+        "score": 0.745
+      }
+    ],
     "Composite": [
       {
         "model": "Evo 2 20B",
@@ -117,7 +152,7 @@
       }
     ]
   },
-  "displayed_bars": 56,
+  "displayed_bars": 64,
   "model_summary": {
     "DNA_tokens": 1000000192512,
     "DNA_tokens_per_epoch": 21615869952,
