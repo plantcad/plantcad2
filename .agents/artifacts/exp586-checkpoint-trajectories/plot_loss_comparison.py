@@ -245,10 +245,10 @@ def main() -> None:
         rug_labels.append(label)
     dense_token_label = next(label for label in rug_labels if label.get_gid() == "dense-rug-label-d562")
     dense_note = scatter_ax.annotate(
-        "Dense MarinDNA (1B parameters)\nDNA training tokens",
+        "Dense MarinDNA 1B\ntraining token count",
         xy=(0, .5), xycoords=dense_token_label.get_bbox_patch(),
-        xytext=(.035, .10), textcoords="axes fraction",
-        ha="left", va="bottom", fontsize=9.5, color="#505050", zorder=7,
+        xytext=(.285, .10), textcoords="axes fraction",
+        ha="center", multialignment="center", va="bottom", fontsize=9.5, color="#505050", zorder=7,
         bbox={"facecolor": "white", "edgecolor": "none", "pad": .2},
         arrowprops={"arrowstyle": "->", "color": "black",
                     "linewidth": 1.1, "mutation_scale": 11, "relpos": (1, .25),
