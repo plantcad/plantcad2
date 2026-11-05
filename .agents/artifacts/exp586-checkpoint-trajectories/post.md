@@ -46,7 +46,24 @@ Brackets below mean concatenation: keeping vectors side by side so the fitted he
 
 Split memberships stay fixed across checkpoints; feature scaling and regularization selection use training folds only, and each checkpoint gets a newly fitted head.
 Zero-shot and probe cohorts can differ, so their absolute score levels are not a paired comparison.
-A constant, task-specific majority-motif predictor scores **83.71%** mean held-out accuracy, so high motif-probe accuracy alone does not establish context learning.
-The artifacts retain majority and shuffled-label controls.
+
+### Motif baselines
+
+Both controls use **whole-motif exact-match accuracy**.
+The constant predictor emits the most frequent motif in the training set; shuffled-label heads fit the same embeddings to permuted training outcomes, leaving test labels unchanged.
+The shuffled columns below use the final 216B and 1T checkpoints.
+The constant predictor averages **83.71%** across tasks, so high motif-probe accuracy alone does not establish context learning.
+
+| Motif task | Constant prediction | Constant accuracy | Shuffled: 216B | Shuffled: 1T |
+| --- | --- | ---: | ---: | ---: |
+| Maize start codon | ATG | 97.28% | 97.28% | 97.28% |
+| Maize stop codon | TGA | 46.35% | 43.52% | 44.18% |
+| Maize splice donor | GT | 98.31% | 98.31% | 98.30% |
+| Maize splice acceptor | AG | 99.82% | 99.82% | 99.79% |
+| Tomato start codon | ATG | 96.72% | 96.72% | 96.72% |
+| Tomato stop codon | TGA | 38.39% | 36.50% | 37.23% |
+| Tomato splice donor | GT | 95.84% | 95.84% | 95.83% |
+| Tomato splice acceptor | AG | 96.98% | 96.98% | 96.98% |
+| **Equal-task mean** | | **83.71%** | **83.12%** | **83.29%** |
 
 </details>
