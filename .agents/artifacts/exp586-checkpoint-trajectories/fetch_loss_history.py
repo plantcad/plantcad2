@@ -12,8 +12,8 @@ from pathlib import Path
 import wandb
 
 RUNS = {
-    "216b": ("exp586-plantcad2-d768-pretrained-lrm1-seed0-v1", 216_158_699_520),
-    "1t": ("exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1", 1_000_000_192_512),
+    "216b": ("eric-czech/marin/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1", 216_158_699_520),
+    "1t": ("plantcad/marin-dna/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1", 1_000_000_192_512),
 }
 
 
@@ -56,9 +56,9 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--reader", choices=["sdk", "paged"], default="sdk")
     args = parser.parse_args()
-    run_id, expected_tokens = RUNS[args.model]
+    run_path, expected_tokens = RUNS[args.model]
     api = wandb.Api(timeout=120)
-    run = api.run("eric-czech/marin/" + run_id)
+    run = api.run(run_path)
     summary = dict(run.summary)
     assert run.state == "finished" and summary["run_progress"] >= 1
     assert summary["train/input_tokens"] == expected_tokens

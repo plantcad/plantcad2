@@ -1102,8 +1102,8 @@
       "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
       "total_parameters_approx": 1592000000,
       "vocab_size": 128256,
-      "wandb_path": "eric-czech/marin/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
-      "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+      "wandb_path": "plantcad/marin-dna/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+      "wandb_url": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
       "readout_sensitivity": {
         "poe_minus_natural_8k": {
           "Conservation": 0.018737806000315382,
@@ -1139,7 +1139,7 @@
       },
       "plot_family": "small",
       "validation_result_file": "validation/m61-l-1t.json",
-      "validation_result_sha256": "9f4dd7ad167ba600f90d609843591d33614ab75a34e04fe220b870c09421b731",
+      "validation_result_sha256": "3e6640c2d7624c5b10c07550bae9fbf61a4ccad8487df9a902abe96e9e6f78d2",
       "validation": {
         "backend": "scatter",
         "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1/2026.10.20/checkpoints/step-1907349",
@@ -1186,7 +1186,7 @@
           }
         },
         "schema": 1,
-        "training_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+        "training_wandb": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
         "validation_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-final-eval-loss-v1",
         "worker_source_sha256": "d8e998f2796f511604e033f06312ffa85b987dde4f9eabfb5d592d424e78dfd8"
       },

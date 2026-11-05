@@ -1,11 +1,7 @@
 # Results — exp586 paired d768 MarinMoE models
 
-This report compares the two requested final 1× checkpoints from [MarinDNA #586](https://github.com/Open-Athena/marin-dna/issues/586). Both saw the same 216.159B DNA bases (ten dataset epochs); every older-model value is reused from prior evaluations.
-
-| Model | Training run | Initialization and tokenizer | Total parameters | Active parameters | DNA training | Approx. training FLOPs |
-| :--- | :--- | :--- | ---: | ---: | ---: | ---: |
-| MarinMoE 1.5B-60M 0.22T (scratch, 1× LR) | [W&B](https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1) | Random; 8-token DNA vocabulary | 1.395B | 60.555M | 216.159B tokens | 1.36×10²⁰ |
-| MarinMoE 1.5B-60M 0.22T (language-pretrained, 1× LR) | [W&B](https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1) | d768 language checkpoint; 128,256-token vocabulary with character-forced DNA input | 1.592B | 60.555M | 216.159B tokens | 2.64×10²⁰ |
+This report compares the final scratch and language-pretrained 216B-token checkpoints from [MarinDNA #586](https://github.com/Open-Athena/marin-dna/issues/586). Both saw the same 216.159B DNA bases (ten dataset epochs); every older-model value is reused from prior evaluations.
+Model specifications and training runs are in the [PR description](https://github.com/plantcad/plantcad2/pull/22).
 
 The models share the same core architecture, data, one-base-per-token input, LR heuristic, and schedule. This comparison changes both initialization and tokenizer/output head, so it is not a pure initialization ablation. The language head explains the pretrained model’s higher parameter count and roughly 1.94× analytic training FLOPs.
 

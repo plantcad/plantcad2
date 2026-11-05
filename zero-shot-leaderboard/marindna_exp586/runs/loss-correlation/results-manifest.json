@@ -29,7 +29,12 @@
     "m61-l-1t.json": {
       "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/results/d768-pretrained-1t/result.json",
       "sha256": "9f4dd7ad167ba600f90d609843591d33614ab75a34e04fe220b870c09421b731",
-      "bytes": 296303
+      "bytes": 296303,
+      "repository_copy": {
+        "sha256": "3e6640c2d7624c5b10c07550bae9fbf61a4ccad8487df9a902abe96e9e6f78d2",
+        "bytes": 296322,
+        "metadata_update": "Training-run link updated after the W&B run moved to plantcad/marin-dna; source-object hash and numerical results unchanged."
+      }
     }
   }
 }
