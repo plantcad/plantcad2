@@ -14,6 +14,8 @@ from matplotlib.patches import FancyBboxPatch
 from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
 
 HERE = Path(__file__).resolve().parent
+PALETTE_PATH = HERE / "figure-palette.json"
+PALETTE = json.loads(PALETTE_PATH.read_text())
 RUNS = ["216B-token run", "1T-token run"]
 METRICS = [
     ("Composite +SV", "Composite", "Mean category score"),
@@ -38,7 +40,7 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
             for method_index in range(2):
                 row = 2 * pair_row + method_index
                 axes[row, column] = fig.add_subplot(4, 3, row * 3 + column + 1)
-    colors = plt.rcParams["axes.prop_cycle"].by_key()["color"][:2]
+    colors = [PALETTE["marin"][key] for key in ["216b", "1t"]]
     seen = set()
     for index, (metric, _, unit) in enumerate(METRICS):
         pair_row, column = divmod(index, 3)
@@ -160,6 +162,8 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
     plt.close(fig)
     (HERE / ("line-figure-provenance.json" if mode == "tokens" else "progress-figure-provenance.json")).write_text(json.dumps({
         "source_sha256": hashlib.sha256((HERE/"all-category-scores.csv").read_bytes()).hexdigest(),
+        "palette_sha256": hashlib.sha256(PALETTE_PATH.read_bytes()).hexdigest(),
+        "run_colors": dict(zip(RUNS, colors, strict=True)),
         "progress_sha256": hashlib.sha256((HERE/"run-progress.csv").read_bytes()).hexdigest(),
         "panels": 12, "score_points": len(seen), "card_geometry": cards,
         "horizontal_gaps": gaps,

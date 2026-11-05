@@ -16,6 +16,8 @@ from matplotlib.ticker import FuncFormatter
 from matplotlib.transforms import Bbox
 
 HERE = Path(__file__).resolve().parent
+PALETTE_PATH = HERE / "figure-palette.json"
+PALETTE = json.loads(PALETTE_PATH.read_text())
 PROJECT = HERE.parents[2] / "zero-shot-leaderboard/marindna_exp586"
 CATEGORIES = ["Conservation", "Masked motif", "Core/non-core", "Structural variant"]
 DISPLAY = ["Conservation", "Motifs", "Core/non-core", "SV impact", "Composite"]
@@ -155,15 +157,15 @@ def main() -> None:
                     for c in CATEGORIES]
     dense_scores.append(mean(dense_scores))
     np.testing.assert_allclose(dense_scores, historical["groups"]["056t"], rtol=0, atol=1e-14)
-    models = [{"label": f"MarinDNA 1B {tokens/1e9:.0f}B", "color": "#8c2d27",
+    models = [{"label": f"MarinDNA 1B {tokens/1e9:.0f}B", "color": PALETTE["marin"]["dense"],
                "scores": dense_scores, "DNA_tokens": tokens, "source": "historical/056t"}]
     sources = {"historical": {"path": str(historical_path.relative_to(PROJECT)),
                               "sha256": sha256(historical_path)}}
     with (HERE / "all-category-scores.csv").open() as stream:
         trajectory = list(csv.DictReader(stream))
     for path, checkpoint, run, label, color in [
-        (args.short_results, "dna-216b", "216B-token run", "MarinMoE 1.5B–60M 216B", "#f28e2b"),
-        (args.long_results, "dna-1000b", "1T-token run", "MarinMoE 1.5B–60M 1T", "#c43c39"),
+        (args.short_results, "dna-216b", "216B-token run", "MarinMoE 1.5B–60M 216B", PALETTE["marin"]["216b"]),
+        (args.long_results, "dna-1000b", "1T-token run", "MarinMoE 1.5B–60M 1T", PALETTE["marin"]["1t"]),
     ]:
         raw = json.loads(path.read_text())[checkpoint]
         tasks = raw["zero_shot"]["profiles"]["context-8192"]["tasks"]
@@ -204,7 +206,8 @@ def main() -> None:
         "aggregation": "Equal-weight task mean within each category; Composite gives each of four categories 25%; AF separate",
         "moe_scope": "Final language-pretrained checkpoints only, 8192-base examples, character-forced nucleotide tokenization",
         "historical_values": "Previously computed values reused without running models or fitting probes",
-        "colors": "Exact dense and published-model fills sampled from original plot; original orange/red Marin colors reused for the two MoE runs",
+        "colors": PALETTE["description"],
+        "palette_sha256": sha256(PALETTE_PATH),
         "excluded": ["PlantCAD 512 bp", "other dense checkpoints", "Composite without SV", "probe scores"],
         "values": 40, "GitHub_comment_updates": False,
         "panels": ["All five benchmark categories", "Conservation ranking", "SV impact ranking", "Composite ranking"],

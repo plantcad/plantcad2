@@ -1,5 +1,10 @@
 {
-  "benchmark_source_sha256": "df7458dd23daef91a43e6e55f2da09ddabd3a0441e1f43e25704d6db000befef",
+  "benchmark_source_sha256": "60eaa892a4445ff7acf1b48a350b2b2b01ae9d3d725cfa490199d107cd7f8282",
+  "palette_sha256": "a3d32b4dd4d390849d8a6b5a5b4befa1621a0fb2e97dec8f3893baf1cc7a8a77",
+  "run_colors": {
+    "216b": "#c49500",
+    "1t": "#b51f4f"
+  },
   "sources": {
     "216b": {
       "metadata": {
@@ -199,7 +204,7 @@
   ],
   "plot_data_sha256": "5a6ede2392b8f1a4be3f4ae7e996232f79c5b77f9809db0d9235aec179ccc16b",
   "figure_sha256": {
-    "png": "e3a1e50704b3656befaf23fc164d45af206d9c679074bfc716c795bbf99fcaa1",
-    "svg": "d681c3da64f581acaebdffa6ce25d4622daee3b759f27ee18104660a7ebd62a6"
+    "png": "12b97908a26b10fd1f6fadba57b56eb301cdeb4d32222b3f44f6a6fdbf565917",
+    "svg": "f9510cb3a0bd3b37a2f8c44c90efb477bc9f4a2777c71cf5dd22e628a2c9af01"
   }
 }

@@ -1,5 +1,10 @@
 {
   "source_sha256": "3f350bd6668ba71046f618a4dd44cab8cd86114927b32d551a8e32634d01a6ca",
+  "palette_sha256": "a3d32b4dd4d390849d8a6b5a5b4befa1621a0fb2e97dec8f3893baf1cc7a8a77",
+  "run_colors": {
+    "216B-token run": "#c49500",
+    "1T-token run": "#b51f4f"
+  },
   "progress_sha256": "67e93a1dae79ee323c91ec62e8c181f031ed5bf60936a7e51a91dccd0051d681",
   "panels": 12,
   "score_points": 120,

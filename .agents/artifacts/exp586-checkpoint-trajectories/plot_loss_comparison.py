@@ -15,6 +15,7 @@ from matplotlib.lines import Line2D
 from matplotlib.ticker import FuncFormatter, MultipleLocator
 
 HERE = Path(__file__).resolve().parent
+PALETTE_PATH = HERE / "figure-palette.json"
 START_TOKENS = 1_000_000_000
 HALF_LIFE_TOKENS = 1_000_000_000
 MODELS = {"216b": "MarinMoE 1.5B–60M 216B", "1t": "MarinMoE 1.5B–60M 1T"}
@@ -84,8 +85,12 @@ def main() -> None:
     benchmark = json.loads(benchmark_path.read_text())
     models = {key: next(model for model in benchmark["models"] if model["label"] == label)
               for key, label in MODELS.items()}
+    palette = json.loads(PALETTE_PATH.read_text())
+    assert all(model["color"] == palette["marin"][key] for key, model in models.items())
     provenance = {
         "benchmark_source_sha256": digest(benchmark_path),
+        "palette_sha256": digest(PALETTE_PATH),
+        "run_colors": {key: model["color"] for key, model in models.items()},
         "sources": {}, "normalization": "Latest W&B step at each identical input-token count",
         "curve_start_tokens": START_TOKENS,
         "training_smoothing": {"method": "Exponential smoothing", "half_life_tokens": HALF_LIFE_TOKENS,

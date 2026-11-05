@@ -16,7 +16,9 @@ Five evaluated checkpoints from each text-pretrained d768 run, with 216B-token a
   The scatter contains four points and two descriptive connecting segments, with identical numeric limits on both score axes and no fitted trend or uncertainty estimate.
 - `loss-figure-data.json` and `loss-figure-provenance.json`: complete plotted validation values, compact exact-smoothed training samples, final scatter values, source hashes and history counts.
   Full source history archives remain outside Git and are referenced by immutable CoreWeave storage receipts in `loss-history-receipts.json`.
-- `benchmark-comparison-data.json` and `benchmark-comparison-provenance.json`: all forty overview values, original colors, source hashes and the exact dense token-count check.
+- `benchmark-comparison-data.json` and `benchmark-comparison-provenance.json`: all forty overview values, model colors, source hashes and the exact dense token-count check.
+- `figure-palette.json`: shared model colors across the overview, loss comparison and both checkpoint line figures: dense MarinDNA brown, 216B MoE gold, 1T MoE cranberry.
+  The warm Marin family is separated from the original PlantCAD blues and Evo purple; the heatmap retains its independent increase/decrease colors.
 - `all-category-scores.csv`: 140 scores; each line figure uses 120 in twelve panels, excluding the composite without SV.
 - `original-category-scores.csv`: the 110 scores preceding motif probes, preserved unchanged.
 - `motif-probe-summary.json`: eight whole-motif probe scores per unique checkpoint, controls, sample sizes and immutable result receipts.
