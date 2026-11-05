@@ -12,11 +12,17 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import FuncFormatter
+from matplotlib.transforms import Bbox
 
 HERE = Path(__file__).resolve().parent
 PROJECT = HERE.parents[2] / "zero-shot-leaderboard/marindna_exp586"
 CATEGORIES = ["Conservation", "Masked motif", "Core/non-core", "Structural variant"]
 DISPLAY = ["Conservation", "Motifs", "Core/non-core", "SV impact", "Composite"]
+RANKING_RANGES = {"Conservation": (.62, .82), "SV impact": (.72, .89), "Composite": (.67, .78)}
+RANKING_TICKS = {"Conservation": [.62, .66, .70, .74, .78, .82],
+                 "SV impact": [.72, .76, .80, .84, .88],
+                 "Composite": [.67, .70, .73, .76]}
 PUBLISHED = [
     ("PlantCAD2.5-Large", "PlantCAD2.5-Large", "#174a7e"),
     ("PlantCAD2-Large", "PlantCAD2-Large", "#2f78a8"),
@@ -57,7 +63,7 @@ def render(models: list[dict]) -> None:
     legend = fig.legend(*ax.get_legend_handles_labels(), loc="center", ncols=3,
                         bbox_to_anchor=(.51, .495), frameon=False,
                         columnspacing=2.3, handletextpad=.7)
-    ranking_axes = []
+    ranking_axes, zero_axes = [], []
     for metric, position, xlabel in [
         ("Conservation", (2.42 / 19.2, .075, 3.15 / 19.2, .345), "AUROC"),
         ("SV impact", (8.82 / 19.2, .075, 3.15 / 19.2, .345), "Average precision"),
@@ -65,28 +71,50 @@ def render(models: list[dict]) -> None:
     ]:
         category_index = DISPLAY.index(metric)
         ranked = sorted(models, key=lambda model: model["scores"][category_index], reverse=True)
-        ranking = fig.add_axes(position)
+        left, bottom, total_width, height = position
+        stub_width, break_gap = .22 / 19.2, .12 / 19.2
+        zero = fig.add_axes((left, bottom, stub_width, height))
+        ranking = fig.add_axes((left + stub_width + break_gap, bottom,
+                                total_width - stub_width - break_gap, height), sharey=zero)
+        zero_axes.append(zero)
         ranking_axes.append(ranking)
         values = [model["scores"][category_index] for model in ranked]
-        ranking.barh(np.arange(len(ranked)), values, height=.72,
-                     color=[model["color"] for model in ranked])
+        low, high = RANKING_RANGES[metric]
+        assert .05 < low < min(values) < max(values) < high
+        for part in [zero, ranking]:
+            part.barh(np.arange(len(ranked)), values, height=.72,
+                      color=[model["color"] for model in ranked])
         # Keep complete model names, wrapping only the shared MoE token budgets.
         labels = [model["label"].replace("1.5B–60M ", "1.5B–60M\n") for model in ranked]
-        ranking.set_yticks(np.arange(len(ranked)), labels)
-        ranking.invert_yaxis()
-        ranking.set_xlim(0, .9)
-        ranking.set_xticks([0, .2, .4, .6, .8])
+        zero.set_yticks(np.arange(len(ranked)), labels)
+        zero.set_ylim(len(ranked) - .5, -.5)
+        zero.set_xlim(0, .05)
+        zero.set_xticks([0], ["0"])
+        zero.spines[["top", "right"]].set_visible(False)
+        zero.tick_params(axis="y", length=0, pad=8)
+        ranking.set_xlim(low, high)
+        ranking.set_xticks(RANKING_TICKS[metric])
+        ranking.xaxis.set_major_formatter(FuncFormatter(lambda value, _: f"{value:.2f}"))
         ranking.set_title(metric, weight="bold", pad=10)
         ranking.set_xlabel(xlabel)
         ranking.grid(axis="x", color="#e4e4e4", linewidth=.7)
-        ranking.spines[["top", "right"]].set_visible(False)
-        ranking.tick_params(axis="y", length=0, pad=8)
+        ranking.spines[["top", "right", "left"]].set_visible(False)
+        ranking.tick_params(axis="y", left=False, labelleft=False)
+        # Both pieces retain the same observations; the blank gap and diagonals
+        # explicitly identify the omitted x interval rather than a zero baseline.
+        for part, edge in [(zero, 1), (ranking, 0)]:
+            dx = .035 / (part.get_position().width * fig.get_figwidth())
+            dy = .035 / (height * fig.get_figheight())
+            for y in [0, 1]:
+                part.plot([edge - dx, edge + dx], [y - dy, y + dy],
+                          transform=part.transAxes, color="#333333", linewidth=1.1,
+                          clip_on=False, zorder=10)
         for row, value in enumerate(values):
             annotations.append(ranking.annotate(
                 f"{value:.4f}", (value, row), xytext=(5, 0),
                 textcoords="offset points", va="center", fontsize=11))
     assert len(ax.patches) == 40 and len(ranking_axes) == 3
-    assert all(len(panel.patches) == 8 for panel in ranking_axes)
+    assert all(len(panel.patches) == 8 for panel in [*ranking_axes, *zero_axes])
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     boxes = [text.get_window_extent(renderer).padded(1.8 * fig.dpi / 72)
@@ -96,7 +124,9 @@ def render(models: list[dict]) -> None:
                 for i in range(len(boxes)) for j in range(i+1, len(boxes))
                 if boxes[i].overlaps(boxes[j])]
     assert not overlaps, overlaps
-    panel_boxes = [panel.get_tightbbox(renderer) for panel in [ax, *ranking_axes]]
+    panel_boxes = [ax.get_tightbbox(renderer),
+                   *[Bbox.union([zero.get_tightbbox(renderer), ranking.get_tightbbox(renderer)])
+                     for zero, ranking in zip(zero_axes, ranking_axes, strict=True)]]
     assert all(not a.overlaps(b) for i, a in enumerate(panel_boxes[1:]) for b in panel_boxes[i+2:])
     assert all(not panel.overlaps(legend.get_window_extent(renderer)) for panel in panel_boxes)
     assert panel_boxes[0].y0 > max(panel.y1 for panel in panel_boxes[1:])
@@ -184,6 +214,11 @@ def main() -> None:
             for metric in ["Conservation", "SV impact", "Composite"]
         },
         "displayed_bars": 64,
+        "ranking_x_axes": {
+            metric: {"visible_intervals": [[0, .05], list(interval)],
+                     "omitted_interval": [.05, interval[0]], "marked_breaks": True}
+            for metric, interval in RANKING_RANGES.items()
+        },
         "model_summary": {
             "DNA_tokens": 1_000_000_192_512,
             "DNA_tokens_per_epoch": 21_615_869_952,

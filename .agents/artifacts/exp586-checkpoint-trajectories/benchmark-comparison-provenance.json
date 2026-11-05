@@ -153,6 +153,59 @@
     ]
   },
   "displayed_bars": 64,
+  "ranking_x_axes": {
+    "Conservation": {
+      "visible_intervals": [
+        [
+          0,
+          0.05
+        ],
+        [
+          0.62,
+          0.82
+        ]
+      ],
+      "omitted_interval": [
+        0.05,
+        0.62
+      ],
+      "marked_breaks": true
+    },
+    "SV impact": {
+      "visible_intervals": [
+        [
+          0,
+          0.05
+        ],
+        [
+          0.72,
+          0.89
+        ]
+      ],
+      "omitted_interval": [
+        0.05,
+        0.72
+      ],
+      "marked_breaks": true
+    },
+    "Composite": {
+      "visible_intervals": [
+        [
+          0,
+          0.05
+        ],
+        [
+          0.67,
+          0.78
+        ]
+      ],
+      "omitted_interval": [
+        0.05,
+        0.67
+      ],
+      "marked_breaks": true
+    }
+  },
   "model_summary": {
     "DNA_tokens": 1000000192512,
     "DNA_tokens_per_epoch": 21615869952,

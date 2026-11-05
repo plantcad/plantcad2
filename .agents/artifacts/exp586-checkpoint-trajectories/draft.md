@@ -1,10 +1,10 @@
 WIP
 
 The text-pretrained 1T-token MarinMoE model has trained for ~46.3 DNA epochs, with ~1.5B total parameters, ~60M active per token, and a heuristic dense-equivalent size of √(1.5B × 60M) ≈ 300M parameters.[^dense-equivalent]
-That 300M estimate is comparable in size to **PlantCAD2-M** (311M parameters).
+That 300M estimate is comparable in size to **PlantCAD2-Medium** (311M parameters).
 
 <p align="center">
-  <img src="figures/benchmark-comparison.png" alt="Top row: full zero-shot PlantCAD2 benchmark comparing MarinDNA 1B trained on 562B tokens, MarinMoE 1.5B–60M trained on 216B or 1T DNA tokens, PlantCAD2 Small/Medium/Large, PlantCAD2.5 Large and Evo 2 20B. Bottom row, left to right: separate horizontal rankings for Conservation, SV impact and Composite, each sorted by score. Composite averages conservation, motifs, core/non-core and SV equally." />
+  <img src="figures/benchmark-comparison.png" alt="Top row: full zero-shot PlantCAD2 benchmark comparing MarinDNA 1B trained on 562B tokens, MarinMoE 1.5B–60M trained on 216B or 1T DNA tokens, PlantCAD2 Small/Medium/Large, PlantCAD2.5 Large and Evo 2 20B. Bottom row, left to right: separate horizontal rankings for Conservation, SV impact and Composite, each sorted by score and using a marked broken x-axis. Composite averages conservation, motifs, core/non-core and SV equally." />
 </p>
 
 These evaluations follow five checkpoints from each text-pretrained MarinMoE 1.5B–60M run (216B and 1T DNA tokens), including their shared starting model before DNA training.
