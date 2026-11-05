@@ -9,7 +9,7 @@
     "216b": {
       "metadata": {
         "run_id": "exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
-        "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+        "wandb_url": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
         "observed_at_utc": "2026-11-05T13:35:01.468753+00:00",
         "expected_final_tokens": 216158699520,
         "summary": {
@@ -53,7 +53,7 @@
         "reader": "sdk",
         "expected_last_wandb_step": 416688
       },
-      "metadata_sha256": "986e1f09f7dc6a4633330c68a46ca21130f5af5ba55e9ac0b562b5b2aff82efe",
+      "metadata_sha256": "6e293ab8ff2fe26e33031e759847d1a9031ebcf870876ada5e1472a28c728192",
       "normalization_counts": {
         "training": {
           "source_rows": 416688,
@@ -188,9 +188,9 @@
   "uncertainty": "None estimated: two individual training runs; connecting segments are descriptive",
   "scatter_loss_source": {
     "comment": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302",
-    "commit": "f3ca4161a8c507006508a711731d00db60215663",
+    "commit": "d67c9ab6267d636a9cbeb7ac12e8a7c586bc68d8",
     "file": "zero-shot-leaderboard/marindna_exp586/runs/loss-correlation/analysis.json",
-    "sha256": "99ada9f66f17e06693d8ac27c17df9e775e68f99de69675609f36c841bf486ae",
+    "sha256": "0f3fea347f311b7af85bfa50ae9a0443ac69be3a9c0d9f41b9bb5a856625cf38",
     "validation_windows": 65536,
     "bases_per_window": 8192,
     "targets": 536805376,
@@ -247,6 +247,6 @@
   "plot_data_sha256": "a0f4ab25ec015b995b17e61ca023cb26f25dd04f58d4d9d2cd66ea700b580cf4",
   "figure_sha256": {
     "png": "dfe2324c86a1e72d3945399a48a968c31d26b8b0844ef4d7d5e2f032271ab7a9",
-    "svg": "2215b0f1d1ae7d77dbb6aea3268a8cf999f516f53659c5623c3f62b803696f99"
+    "svg": "b7c26dcdc1f28029781f2fe8b9c4c622d4f19fd376feb83afe7538ee2dd60ff6"
   }
 }
