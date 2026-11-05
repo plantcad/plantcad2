@@ -243,10 +243,18 @@ def main() -> None:
         )
         label.set_gid(f"dense-rug-label-{row['model'].lower()}")
         rug_labels.append(label)
-    dense_note = scatter_ax.text(
-        .035, .10, "Dense MarinDNA (1B parameters)\nDNA training tokens",
-        transform=scatter_ax.transAxes, ha="left", va="bottom", fontsize=9.5, color="#505050",
+    dense_note = scatter_ax.annotate(
+        "Dense MarinDNA (1B parameters)\nDNA training tokens",
+        xy=(min(row["validation_loss"] for row in rugs), .035),
+        xycoords=scatter_ax.get_xaxis_transform(), xytext=(.035, .10), textcoords="axes fraction",
+        ha="left", va="bottom", fontsize=9.5, color="#505050",
+        bbox={"facecolor": "white", "edgecolor": "none", "pad": .2},
+        arrowprops={"arrowstyle": "->", "color": palette["marin"]["dense"],
+                    "linewidth": 1.1, "mutation_scale": 11, "relpos": (1, .25),
+                    "connectionstyle": "arc3,rad=-.10", "shrinkA": 6, "shrinkB": 3},
     )
+    dense_note.set_gid("dense-rug-note")
+    dense_note.arrow_patch.set_gid("dense-rug-note-arrow")
     scatter_ax.set_xlim(.875, .99)
     scatter_ax.set_xticks([.89, .91, .93, .95, .97, .99])
     # Identical numerical limits avoid implying arbitrary slopes from independent scales.
@@ -270,7 +278,7 @@ def main() -> None:
     for label in [*title_boxes, model_box, smoothing_legend.get_window_extent(renderer),
                   metric_legend.get_window_extent(renderer), dense_note.get_window_extent(renderer)]:
         assert fig.bbox.contains(label.x0, label.y0) and fig.bbox.contains(label.x1, label.y1)
-    note_boxes = [dense_note.get_window_extent(renderer)] + [label.get_bbox_patch().get_window_extent(renderer) for label in rug_labels]
+    note_boxes = [dense_note.get_bbox_patch().get_window_extent(renderer)] + [label.get_bbox_patch().get_window_extent(renderer) for label in rug_labels]
     for index, box in enumerate(note_boxes):
         assert scatter_ax.bbox.contains(box.x0, box.y0) and scatter_ax.bbox.contains(box.x1, box.y1)
         assert not any(box.overlaps(other) for other in note_boxes[index + 1:])
