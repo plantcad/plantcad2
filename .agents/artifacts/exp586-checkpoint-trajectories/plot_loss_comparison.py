@@ -249,7 +249,7 @@ def main() -> None:
         xycoords=scatter_ax.get_xaxis_transform(), xytext=(.035, .10), textcoords="axes fraction",
         ha="left", va="bottom", fontsize=9.5, color="#505050",
         bbox={"facecolor": "white", "edgecolor": "none", "pad": .2},
-        arrowprops={"arrowstyle": "->", "color": palette["marin"]["dense"],
+        arrowprops={"arrowstyle": "->", "color": "black",
                     "linewidth": 1.1, "mutation_scale": 11, "relpos": (1, .25),
                     "connectionstyle": "arc3,rad=-.10", "shrinkA": 6, "shrinkB": 3},
     )
