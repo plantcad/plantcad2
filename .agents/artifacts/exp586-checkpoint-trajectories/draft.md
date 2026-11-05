@@ -1,9 +1,9 @@
 WIP
 
-Final text-pretrained MarinMoE checkpoints versus dense MarinDNA and published baselines on the zero-shot PlantCAD2 benchmark.
+The text-pretrained **1T-token MarinMoE** model has trained for **~46.3 DNA epochs**, with **~1.5B total parameters**, **~60M active per token**, and a heuristic dense-equivalent size of **√(1.5B × 60M) ≈ 300M parameters**.[^dense-equivalent]
 
 <p align="center">
-  <img src="figures/benchmark-comparison.png" alt="Full zero-shot PlantCAD2 benchmark comparing MarinDNA 1B trained on 562B tokens, MarinMoE 1.5B–60M trained on 216B or 1T DNA tokens, PlantCAD2 Small/Medium/Large, PlantCAD2.5 Large and Evo 2 20B. Composite averages conservation, motifs, core/non-core and SV equally." />
+  <img src="figures/benchmark-comparison.png" alt="Top row: full zero-shot PlantCAD2 benchmark comparing MarinDNA 1B trained on 562B tokens, MarinMoE 1.5B–60M trained on 216B or 1T DNA tokens, PlantCAD2 Small/Medium/Large, PlantCAD2.5 Large and Evo 2 20B. Bottom row: separate horizontal rankings for Conservation and Composite, each sorted by score. Composite averages conservation, motifs, core/non-core and SV equally." />
 </p>
 
 These evaluations follow five checkpoints from each text-pretrained MarinMoE 1.5B–60M run (216B and 1T DNA tokens), including their shared starting model before DNA training.
@@ -74,3 +74,5 @@ Zero-shot scores weight tasks equally but use a different cohort.
 | **Equal-task mean** | | **83.71%** | **83.12%** | **83.29%** |
 
 </details>
+
+[^dense-equivalent]: Geometric-mean heuristic using rounded parameter counts, as presented in [Marin’s Scaling Laws Explorer, MoE adjustment](https://marin.community/analysis/scaling-laws-analysis/); see [Clark et al. (2022), *Unified Scaling Laws for Routed Language Models*](https://proceedings.mlr.press/v162/clark22a.html) for effective-parameter scaling. This is an approximate size comparison, not a measured dense-model equivalence on DNA.

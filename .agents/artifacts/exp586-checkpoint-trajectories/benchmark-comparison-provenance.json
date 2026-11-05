@@ -41,5 +41,95 @@
     "probe scores"
   ],
   "values": 40,
-  "GitHub_comment_updates": false
+  "GitHub_comment_updates": false,
+  "panels": [
+    "All five benchmark categories",
+    "Conservation ranking",
+    "Composite ranking"
+  ],
+  "ranking_order": {
+    "Conservation": [
+      {
+        "model": "Evo 2 20B",
+        "score": 0.7886666666666665
+      },
+      {
+        "model": "PlantCAD2.5-Large",
+        "score": 0.7096666666666667
+      },
+      {
+        "model": "PlantCAD2-Large",
+        "score": 0.7024333333333334
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 1T",
+        "score": 0.6992670021034327
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 216B",
+        "score": 0.6890951690966782
+      },
+      {
+        "model": "PlantCAD2-Medium",
+        "score": 0.6864333333333333
+      },
+      {
+        "model": "MarinDNA 1B 562B",
+        "score": 0.6693395658903151
+      },
+      {
+        "model": "PlantCAD2-Small",
+        "score": 0.6445333333333333
+      }
+    ],
+    "Composite": [
+      {
+        "model": "Evo 2 20B",
+        "score": 0.7565729166666666
+      },
+      {
+        "model": "PlantCAD2-Large",
+        "score": 0.7344489583333333
+      },
+      {
+        "model": "PlantCAD2-Medium",
+        "score": 0.7247583333333334
+      },
+      {
+        "model": "PlantCAD2.5-Large",
+        "score": 0.7228541666666666
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 216B",
+        "score": 0.7039986301759926
+      },
+      {
+        "model": "MarinDNA 1B 562B",
+        "score": 0.6966408334196177
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 1T",
+        "score": 0.693604777105964
+      },
+      {
+        "model": "PlantCAD2-Small",
+        "score": 0.6818208333333333
+      }
+    ]
+  },
+  "displayed_bars": 56,
+  "model_summary": {
+    "DNA_tokens": 1000000192512,
+    "DNA_tokens_per_epoch": 21615869952,
+    "DNA_epochs": 46.262315360547184,
+    "rounded_total_parameters": 1500000000,
+    "rounded_active_parameters_per_token": 60000000,
+    "heuristic_dense_equivalent_parameters": 300000000.0,
+    "approximation_sources": [
+      "https://proceedings.mlr.press/v162/clark22a.html",
+      "https://marin.community/analysis/scaling-laws-analysis/"
+    ],
+    "interpretation": "Geometric-mean size heuristic using rounded counts; not a measured dense-model match on DNA",
+    "attribution": "Marin explicitly uses the geometric mean; Clark et al. 2022 Section 5.1 derives the more general effective-parameter scaling framework"
+  }
 }

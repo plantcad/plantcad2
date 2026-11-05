@@ -7,7 +7,7 @@ Five evaluated checkpoints from each text-pretrained d768 run, with 216B-token a
 - `figures/checkpoint-tokens.*`: paired zero-shot and frozen-probe trajectories against DNA tokens.
 - `figures/checkpoint-progress.*`: identical score values against recorded W&B `run_progress`.
 - `figures/checkpoint-changes.*`: changes between successive checkpoints in original score units.
-- `figures/benchmark-comparison.*`: full-benchmark zero-shot scores for final 216B/1T MoEs, dense MarinDNA at 562.022055936B tokens, and five archived baseline models.
+- `figures/benchmark-comparison.*`: full-benchmark zero-shot scores for final 216B/1T MoEs, dense MarinDNA at 562.022055936B tokens, and five archived baseline models, followed by independent Conservation and Composite rankings.
 - `figures/checkpoint-changes-primary.*`: draft heatmap with only the primary four-category Composite.
 - `benchmark-comparison-data.json` and `benchmark-comparison-provenance.json`: all forty overview values, original colors, source hashes and the exact dense token-count check.
 - `all-category-scores.csv`: 140 scores; each line figure uses 120 in twelve panels, excluding the composite without SV.
@@ -21,6 +21,6 @@ Both line figures arrange paired tasks as Composite/Conservation/Motifs above Co
 `add_motif_scores.py` adds verified motif probes and matching composites while asserting that every original score is unchanged.
 `plot_checkpoint_pairs.py` renders the token and recorded-progress figures; `plot_checkpoint_changes.py` renders draft checkpoint changes with only the primary Composite.
 `plot_benchmark_comparison.py` consumes the saved short/long trajectory `results.json` files via `--short-results` and `--long-results`; it runs no inference or fitting.
-`build_draft_preview.py --output <directory>` copies the four draft figures and creates a self-contained HTML preview.
+`uv run --no-project --with markdown-it-py --with mdit-py-plugins python build_draft_preview.py --output <directory>` copies the four draft figures and creates a self-contained HTML preview, including the GitHub-style reference footnote.
 Motif and composite probe results are included in the heatmap as well.
 Zero-shot and probe cohorts can differ; the plotted levels are not a paired comparison.

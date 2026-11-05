@@ -33,7 +33,8 @@ def sha256(path: Path) -> str:
 def render(models: list[dict]) -> None:
     """Retain the reference's grouped bars, warm Marin colors and blue baselines."""
     plt.rcParams.update({"font.size": 12, "svg.fonttype": "none", "axes.axisbelow": True})
-    fig, ax = plt.subplots(figsize=(19.2, 7.0))
+    fig = plt.figure(figsize=(19.2, 12.0))
+    ax = fig.add_axes((.055, .58, .94, .37))
     centers = np.arange(5)
     width = .115
     annotations = []
@@ -53,10 +54,35 @@ def render(models: list[dict]) -> None:
     ax.set_ylabel("Group score / composite")
     ax.set_title("Zero-shot PlantCAD2 benchmark", weight="bold", pad=10)
     ax.grid(axis="y", color="#e4e4e4", linewidth=.7)
-    fig.subplots_adjust(left=.055, right=.995, top=.92, bottom=.27)
-    fig.legend(*ax.get_legend_handles_labels(), loc="center", ncols=3,
-               bbox_to_anchor=(.51, .105), frameon=False,
-               columnspacing=2.3, handletextpad=.7)
+    legend = fig.legend(*ax.get_legend_handles_labels(), loc="center", ncols=3,
+                        bbox_to_anchor=(.51, .495), frameon=False,
+                        columnspacing=2.3, handletextpad=.7)
+    ranking_axes = []
+    for metric, position, xlabel in [
+        ("Conservation", (.18, .075, .30, .345), "AUROC"),
+        ("Composite", (.69, .075, .30, .345), "Mean category score"),
+    ]:
+        category_index = DISPLAY.index(metric)
+        ranked = sorted(models, key=lambda model: model["scores"][category_index], reverse=True)
+        ranking = fig.add_axes(position)
+        ranking_axes.append(ranking)
+        values = [model["scores"][category_index] for model in ranked]
+        ranking.barh(np.arange(len(ranked)), values, height=.72,
+                     color=[model["color"] for model in ranked])
+        ranking.set_yticks(np.arange(len(ranked)), [model["label"] for model in ranked])
+        ranking.invert_yaxis()
+        ranking.set_xlim(0, .9)
+        ranking.set_xticks([0, .2, .4, .6, .8])
+        ranking.set_title(metric, weight="bold", pad=10)
+        ranking.set_xlabel(xlabel)
+        ranking.grid(axis="x", color="#e4e4e4", linewidth=.7)
+        ranking.spines[["top", "right"]].set_visible(False)
+        ranking.tick_params(axis="y", length=0, pad=8)
+        for row, value in enumerate(values):
+            annotations.append(ranking.annotate(
+                f"{value:.4f}", (value, row), xytext=(5, 0),
+                textcoords="offset points", va="center", fontsize=11))
+    assert len(ax.patches) == 40 and all(len(panel.patches) == 8 for panel in ranking_axes)
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     boxes = [text.get_window_extent(renderer).padded(1.8 * fig.dpi / 72)
@@ -66,6 +92,10 @@ def render(models: list[dict]) -> None:
                 for i in range(len(boxes)) for j in range(i+1, len(boxes))
                 if boxes[i].overlaps(boxes[j])]
     assert not overlaps, overlaps
+    panel_boxes = [panel.get_tightbbox(renderer) for panel in [ax, *ranking_axes]]
+    assert not panel_boxes[1].overlaps(panel_boxes[2])
+    assert all(not panel.overlaps(legend.get_window_extent(renderer)) for panel in panel_boxes)
+    assert panel_boxes[0].y0 > max(panel.y1 for panel in panel_boxes[1:])
     for extension in ("svg", "png"):
         options = {"pil_kwargs": {"optimize": True}} if extension == "png" else {}
         fig.savefig(HERE / "figures" / f"benchmark-comparison.{extension}", dpi=156,
@@ -143,6 +173,27 @@ def main() -> None:
         "colors": "Exact dense and published-model fills sampled from original plot; original orange/red Marin colors reused for the two MoE runs",
         "excluded": ["PlantCAD 512 bp", "other dense checkpoints", "Composite without SV", "probe scores"],
         "values": 40, "GitHub_comment_updates": False,
+        "panels": ["All five benchmark categories", "Conservation ranking", "Composite ranking"],
+        "ranking_order": {
+            metric: [{"model": model["label"], "score": model["scores"][DISPLAY.index(metric)]}
+                     for model in sorted(models, key=lambda m: m["scores"][DISPLAY.index(metric)], reverse=True)]
+            for metric in ["Conservation", "Composite"]
+        },
+        "displayed_bars": 56,
+        "model_summary": {
+            "DNA_tokens": 1_000_000_192_512,
+            "DNA_tokens_per_epoch": 21_615_869_952,
+            "DNA_epochs": 1_000_000_192_512 / 21_615_869_952,
+            "rounded_total_parameters": 1_500_000_000,
+            "rounded_active_parameters_per_token": 60_000_000,
+            "heuristic_dense_equivalent_parameters": (1_500_000_000 * 60_000_000) ** .5,
+            "approximation_sources": [
+                "https://proceedings.mlr.press/v162/clark22a.html",
+                "https://marin.community/analysis/scaling-laws-analysis/",
+            ],
+            "interpretation": "Geometric-mean size heuristic using rounded counts; not a measured dense-model match on DNA",
+            "attribution": "Marin explicitly uses the geometric mean; Clark et al. 2022 Section 5.1 derives the more general effective-parameter scaling framework",
+        },
     }, indent=2) + "\n")
     render(models)
     print(json.dumps({model["label"]: dict(zip(DISPLAY, model["scores"], strict=True)) for model in models}, indent=2))

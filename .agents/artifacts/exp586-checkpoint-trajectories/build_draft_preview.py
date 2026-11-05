@@ -10,6 +10,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 from markdown_it import MarkdownIt
+from mdit_py_plugins.footnote import footnote_plugin
 
 HERE = Path(__file__).resolve().parent
 FIGURES = ["benchmark-comparison", "checkpoint-tokens", "checkpoint-progress", "checkpoint-changes-primary"]
@@ -48,7 +49,10 @@ def main() -> None:
     assert markdown.startswith("WIP\n\n")
     assert not re.search(r"\b(we|our|ours|us|Natural|likelihood)\b", markdown, re.IGNORECASE)
     assert "Composite −SV" not in markdown and "🤖" not in markdown
-    body = MarkdownIt("commonmark", {"html": True}).enable("table").render(markdown)
+    body = MarkdownIt("commonmark", {"html": True}).enable("table").use(footnote_plugin).render(markdown)
+    assert 'class="footnote-ref"' in body and 'class="footnotes' in body
+    assert 'href="https://proceedings.mlr.press/v162/clark22a.html"' in body
+    assert 'href="https://marin.community/analysis/scaling-laws-analysis/"' in body
     structure = Structure()
     structure.feed(body)
     assert structure.depth == 0 and structure.tables == 2
