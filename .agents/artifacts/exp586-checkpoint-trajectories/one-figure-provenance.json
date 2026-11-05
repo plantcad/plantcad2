@@ -1,0 +1,26 @@
+{
+  "source": "/home/exedev/repos/marin-dna-br/codex-exp586-probes/.agents/artifacts/exp586-monotonicity/all-category-scores.csv",
+  "source_sha256": "5aa4a5aa4c58414bcf31cfecd984fd7d0d56ff512e0699a9113a590f4cfd5446",
+  "input_scores": 110,
+  "displayed_checkpoint_changes": 88,
+  "metrics": [
+    "Conservation",
+    "Motifs",
+    "Core/non-core",
+    "SV impact",
+    "Allele frequency",
+    "Composite \u2212SV",
+    "Composite +SV"
+  ],
+  "runs": [
+    "216B-token run",
+    "1T-token run"
+  ],
+  "readouts": [
+    "Zero-shot likelihood",
+    "Linear probe"
+  ],
+  "context_bp": 8192,
+  "color_encoding": "Sign only; annotations give magnitude",
+  "GitHub_updates": false
+}

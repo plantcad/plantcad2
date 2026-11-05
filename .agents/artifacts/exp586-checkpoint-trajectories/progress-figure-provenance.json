@@ -1,0 +1,131 @@
+{
+  "source": "/home/exedev/repos/marin-dna-br/codex-exp586-probes/.agents/artifacts/exp586-monotonicity/all-category-scores.csv",
+  "source_sha256": "5aa4a5aa4c58414bcf31cfecd984fd7d0d56ff512e0699a9113a590f4cfd5446",
+  "plotted_scores": 100,
+  "panels": 10,
+  "runs": [
+    "216B-token run",
+    "1T-token run"
+  ],
+  "layout": "Five columns and two rows; zero-shot-only column first, Composite above Motifs, followed by four paired task columns",
+  "grouping": "Equal-width, equal-height column cards with uniform gutters; first column has a task divider",
+  "card_geometry": [
+    {
+      "left": 0.010500000000000047,
+      "right": 0.19086614491051618,
+      "bottom": 0.009434734190695819,
+      "top": 0.8164473881885081
+    },
+    {
+      "left": 0.20975555555555558,
+      "right": 0.39012170046607175,
+      "bottom": 0.009434734190695819,
+      "top": 0.8164473881885081
+    },
+    {
+      "left": 0.40901111111111116,
+      "right": 0.5893772560216273,
+      "bottom": 0.009434734190695819,
+      "top": 0.8164473881885081
+    },
+    {
+      "left": 0.6082666666666666,
+      "right": 0.7886328115771828,
+      "bottom": 0.009434734190695819,
+      "top": 0.8164473881885081
+    },
+    {
+      "left": 0.8075222222222221,
+      "right": 0.9878883671327383,
+      "bottom": 0.009434734190695819,
+      "top": 0.8164473881885081
+    }
+  ],
+  "gutter_widths_figure_fraction": [
+    0.018889410645039406,
+    0.018889410645039406,
+    0.01888941064503935,
+    0.01888941064503935
+  ],
+  "composite": "Original four-category definition, including SV",
+  "excluded_from_this_figure": "Composite without SV",
+  "checkpoints": "All five evaluated checkpoints per run, including the shared 0B model",
+  "readouts": "Unchanged fixed readouts from the preceding verified tables",
+  "context_bp": 8192,
+  "smoothing": false,
+  "y_scales": "Independent by panel",
+  "x_scale": "Linear actual W&B run_progress, expressed as a percentage",
+  "progress_source": {
+    "path": "/home/exedev/repos/marin-dna-br/codex-exp586-probes/scratch/checkpoint-evals-022t/catalog.json",
+    "sha256": "18787526d50e69067fd036401abd65d70dd888ca2574e41b56c6a5fed2dd6644",
+    "checkpoints": [
+      {
+        "run": "216B-token run",
+        "checkpoint": "dna-000b",
+        "DNA_tokens_B": 0.0,
+        "run_progress_percent": 0.0
+      },
+      {
+        "run": "1T-token run",
+        "checkpoint": "dna-000b",
+        "DNA_tokens_B": 0.0,
+        "run_progress_percent": 0.0
+      },
+      {
+        "run": "216B-token run",
+        "checkpoint": "dna-002b",
+        "DNA_tokens_B": 2.161639424,
+        "run_progress_percent": 1.0000242547721263
+      },
+      {
+        "run": "1T-token run",
+        "checkpoint": "dna-010b",
+        "DNA_tokens_B": 10.000269312,
+        "run_progress_percent": 1.0000267386828525
+      },
+      {
+        "run": "216B-token run",
+        "checkpoint": "dna-031b",
+        "DNA_tokens_B": 30.880038912,
+        "run_progress_percent": 14.285818234737684
+      },
+      {
+        "run": "1T-token run",
+        "checkpoint": "dna-182b",
+        "DNA_tokens_B": 181.818359808,
+        "run_progress_percent": 18.181832480579065
+      },
+      {
+        "run": "216B-token run",
+        "checkpoint": "dna-124b",
+        "DNA_tokens_B": 123.51963136,
+        "run_progress_percent": 57.14303039122947
+      },
+      {
+        "run": "1T-token run",
+        "checkpoint": "dna-545b",
+        "DNA_tokens_B": 545.455079424,
+        "run_progress_percent": 54.5454974417372
+      },
+      {
+        "run": "216B-token run",
+        "checkpoint": "dna-216b",
+        "DNA_tokens_B": 216.15869952,
+        "run_progress_percent": 100.0
+      },
+      {
+        "run": "1T-token run",
+        "checkpoint": "dna-1000b",
+        "DNA_tokens_B": 1000.000192512,
+        "run_progress_percent": 100.0
+      }
+    ]
+  },
+  "original_figure_unchanged": {
+    "all-metrics-one-figure.svg": "a7168ec251cba0b18469c23ba2e4e9a7d2cd2f3f57213b8e34fb9c8bffc07898",
+    "all-metrics-one-figure.png": "cb1cd4033a9ae479c47987e47928535af9298bda952964a269cdd0766db634b3",
+    "all-metrics-line-figure.svg": "d317fa4e5d4cb3fecbd52710662578f5ef748fc11b5c475e9d556730d07c833c",
+    "all-metrics-line-figure.png": "a41df4db6bdb70f4632a7cba6e55bc7e3add7d5fd75857ba0522e2e3208ccac4"
+  },
+  "GitHub_updates": false
+}

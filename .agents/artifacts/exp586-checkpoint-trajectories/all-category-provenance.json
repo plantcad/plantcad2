@@ -1,0 +1,87 @@
+{
+  "sources": {
+    "exp586-checkpoint-trajectory-022t": {
+      "path": "/home/exedev/repos/plantcad2-br/codex-exp586-probes/zero-shot-leaderboard/marindna_exp586/runs/exp586-checkpoint-trajectory-022t/results.json",
+      "sha256": "1da421c0bb53052a705deb1bf523c83f14a18e8d2bcc3c288dfe24edc3ee0b1e"
+    },
+    "exp586-checkpoint-trajectory": {
+      "path": "/home/exedev/repos/plantcad2-br/codex-exp586-probes/zero-shot-leaderboard/marindna_exp586/runs/exp586-checkpoint-trajectory/results.json",
+      "sha256": "e4769f8a6f6d6a4a77993d04062e8ecf7413aa18374180e284fd513b775cbe06"
+    }
+  },
+  "context_bp": 8192,
+  "selection": "Every evaluated checkpoint, including 0B",
+  "metrics": [
+    "Conservation",
+    "Motifs",
+    "Core/non-core",
+    "SV impact",
+    "Allele frequency",
+    "Composite \u2212SV",
+    "Composite +SV"
+  ],
+  "plotted_scores": 110,
+  "change_encoding": "Color indicates sign only; annotations give signed score differences to four decimals",
+  "declines": {
+    "216B-token run": {
+      "Conservation/Zero-shot likelihood": [],
+      "Motifs/Zero-shot likelihood": [],
+      "Core/non-core/Zero-shot likelihood": [],
+      "SV impact/Zero-shot likelihood": [],
+      "Allele frequency/Zero-shot likelihood": [],
+      "Composite \u2212SV/Zero-shot likelihood": [],
+      "Composite +SV/Zero-shot likelihood": [],
+      "Conservation/Linear probe": [],
+      "Core/non-core/Linear probe": [],
+      "SV impact/Linear probe": [],
+      "Allele frequency/Linear probe": []
+    },
+    "1T-token run": {
+      "Conservation/Zero-shot likelihood": [],
+      "Motifs/Zero-shot likelihood": [],
+      "Core/non-core/Zero-shot likelihood": [
+        {
+          "from_B": 545.455079424,
+          "to_B": 1000.000192512,
+          "delta": -0.007309937596567062
+        }
+      ],
+      "SV impact/Zero-shot likelihood": [
+        {
+          "from_B": 545.455079424,
+          "to_B": 1000.000192512,
+          "delta": -0.058568618425180796
+        }
+      ],
+      "Allele frequency/Zero-shot likelihood": [
+        {
+          "from_B": 545.455079424,
+          "to_B": 1000.000192512,
+          "delta": -0.011702231977948868
+        }
+      ],
+      "Composite \u2212SV/Zero-shot likelihood": [],
+      "Composite +SV/Zero-shot likelihood": [
+        {
+          "from_B": 545.455079424,
+          "to_B": 1000.000192512,
+          "delta": -0.0005620904987418962
+        }
+      ],
+      "Conservation/Linear probe": [],
+      "Core/non-core/Linear probe": [
+        {
+          "from_B": 181.818359808,
+          "to_B": 545.455079424,
+          "delta": -0.0024670005129494577
+        }
+      ],
+      "SV impact/Linear probe": [],
+      "Allele frequency/Linear probe": []
+    }
+  },
+  "raw_curve_axis": "Logarithmic above 10B; linear from 0B through 10B to include the pre-DNA checkpoint",
+  "readouts": "Same fixed readouts and cohorts as the preceding verified tables",
+  "uncertainty": "Descriptive ordering of observed fixed-benchmark point estimates, not statistical significance",
+  "GitHub_updates": false
+}
