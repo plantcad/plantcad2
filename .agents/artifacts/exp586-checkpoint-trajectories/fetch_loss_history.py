@@ -12,7 +12,7 @@ from pathlib import Path
 import wandb
 
 RUNS = {
-    "216b": ("eric-czech/marin/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1", 216_158_699_520),
+    "216b": ("plantcad/marin-dna/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1", 216_158_699_520),
     "1t": ("plantcad/marin-dna/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1", 1_000_000_192_512),
 }
 

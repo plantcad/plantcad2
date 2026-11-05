@@ -49,7 +49,7 @@
     "evaluation_backend": "sonic"
   },
   "sources": {
-    "training_wandb": "https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+    "training_wandb": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
     "evaluation_code_commit": "747de1dc93cfc5eff834c38561a854146a8ef9aa",
     "marin_source_commit": "187a34fa46cfe8feedc9d4573a2886e293d1e643",
     "active_parameter_source": "experiments/grug/fast_track/launch.py::_BASELINE_ACTIVE_PARAMS",

@@ -186,7 +186,7 @@ Equal two-sided PoE lowers held-out nucleotide NLL at every tested context for b
 - Verification: checkpoint/tokenizer identities, exact batching, finite nonconstant outputs, repeat and context oracles, planned shards, receipts, and NPZ hashes were checked directly against CoreWeave S3. The new pretrained evaluation verified all 4,655 worker NPZs (3.55 GB) and all 19 postprocessed files (674.6 MB).
 - Backend: ring EP trained scratch; fixed pooled-wave EP trained pretrained. Evaluation used dropless Sonic only after independent real-genome parity checks against each training backend.
 - Final checkpoints: update 412,290; canonical digests scratch `737fa99f…72d9`, pretrained `275e68e8…4a89`.
-- Scratch: [training](https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1) · [postprocess](https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-final-eval-postprocess-v1)
-- Language-pretrained: [training](https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1) · [postprocess](https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-final-eval-postprocess-v1)
+- Scratch: [training](https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1) · [postprocess](https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-final-eval-postprocess-v1)
+- Language-pretrained: [training](https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1) · [postprocess](https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-final-eval-postprocess-v1)
 
 </details>

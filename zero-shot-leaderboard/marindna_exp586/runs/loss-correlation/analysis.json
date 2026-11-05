@@ -610,8 +610,8 @@
       "total_parameters_approx": 1591848448,
       "active_parameters_approx": 60555264,
       "vocab_size": 128256,
-      "wandb_path": "eric-czech/marin/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
-      "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+      "wandb_path": "plantcad/marin-dna/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+      "wandb_url": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
       "original_metric": "eval/loss",
       "original_loss": 0.9475062713027,
       "original_history_step": 416688,
@@ -723,7 +723,7 @@
       },
       "plot_family": "small",
       "validation_result_file": "validation/m61-l.json",
-      "validation_result_sha256": "fb0dac77429acecff1360d29f5dc16ee28b5e7eeea192e925ed6e964035740fd",
+      "validation_result_sha256": "6903c8db85a1fdcdd64c891939b229144499d8e3e171c5c46f6ba1704737ed1a",
       "validation": {
         "backend": "fixed_pooled_wave_all_to_all",
         "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
@@ -763,7 +763,7 @@
           }
         },
         "schema": 1,
-        "training_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+        "training_wandb": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
         "validation_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-loss-corr-m61-l-final-eval-v1",
         "worker_source_sha256": "330510b70a1561a59c7a64761d88a66f8b75faa366d3d87fd4ce418ff1ec634a"
       },
@@ -778,8 +778,8 @@
       "total_parameters_approx": 1394859520,
       "active_parameters_approx": 60555264,
       "vocab_size": 8,
-      "wandb_path": "eric-czech/marin/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
-      "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+      "wandb_path": "plantcad/marin-dna/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+      "wandb_url": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
       "original_metric": "eval/loss",
       "original_loss": 0.9491407051682472,
       "original_history_step": 412289,
@@ -891,7 +891,7 @@
       },
       "plot_family": "small",
       "validation_result_file": "validation/m61-s.json",
-      "validation_result_sha256": "a4e85f98e92e0ea4cf0352391f5d6b6a5dab0a4daa955c2d250628c26fcad174",
+      "validation_result_sha256": "89844e8e4ce03cee305f87e375e770214d86a3c73b88f8671202cf65f4cb0853",
       "validation": {
         "backend": "ring",
         "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-scratch-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
@@ -931,7 +931,7 @@
           }
         },
         "schema": 1,
-        "training_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+        "training_wandb": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
         "validation_wandb": "https://wandb.ai/eric-czech/marin/runs/exp586-loss-corr-m61-s-final-eval-v1",
         "worker_source_sha256": "330510b70a1561a59c7a64761d88a66f8b75faa366d3d87fd4ce418ff1ec634a"
       },

@@ -20,8 +20,8 @@ On the identical validation sample, loss falls from **0.946216 to 0.887302**, wh
 | D562 | Dense 0.97B / 0.97B | Scratch | 562.02B | 7 | 0.965427 | [W&B](https://wandb.ai/plantcad/marin-dna/runs/exp472-plantcad2-angiosperm-lr0p0005-wd0p1-train-s02-v1) |
 | M481-L | MoE 11.53B / 481.3M | Language → DNA | 11.24B | 128,256 | 1.034050 | [W&B](https://wandb.ai/plantcad/marin-dna/runs/exp582-plantcad2-d1536-pretrained-lrm1-seed0-v1) |
 | M481-S | MoE 11.14B / 481.3M | Scratch | 11.24B | 8 | 1.040699 | [W&B](https://wandb.ai/plantcad/marin-dna/runs/exp582-plantcad2-d1536-random-lrm2-seed0-v1) |
-| M61-L | MoE 1.59B / 60.6M | Language → DNA | 216.16B | 128,256 | 0.946216 | [W&B](https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1) |
-| M61-S | MoE 1.39B / 60.6M | Scratch | 216.16B | 8 | 0.948175 | [W&B](https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1) |
+| M61-L | MoE 1.59B / 60.6M | Language → DNA | 216.16B | 128,256 | 0.946216 | [W&B](https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1) |
+| M61-S | MoE 1.39B / 60.6M | Scratch | 216.16B | 8 | 0.948175 | [W&B](https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1) |
 | M61-L-1T | MoE 1.59B / 60.6M | Language → DNA | 1000.00B | 128,256 | 0.887302 | [W&B](https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1) |
 
 MoE active counts exclude input/output embeddings; total counts include them. S = scratch; L = language-initialized; D = dense. Dense IDs indicate billions of DNA training tokens; M61-L and M61-S use 216.16B tokens, and M61-L-1T uses 1T.

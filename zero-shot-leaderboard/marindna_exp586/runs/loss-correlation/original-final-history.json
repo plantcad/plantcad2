@@ -50,7 +50,7 @@
     ]
   },
   {
-    "path": "eric-czech/marin/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+    "path": "plantcad/marin-dna/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
     "key": "eval/loss",
     "last_loss_rows": [
       {
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "path": "eric-czech/marin/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+    "path": "plantcad/marin-dna/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
     "key": "eval/loss",
     "last_loss_rows": [
       {

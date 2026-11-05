@@ -487,8 +487,8 @@
       "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
       "total_parameters_approx": 1592000000,
       "vocab_size": 128256,
-      "wandb_path": "eric-czech/marin/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
-      "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1"
+      "wandb_path": "plantcad/marin-dna/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+      "wandb_url": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1"
     },
     {
       "active_parameters_approx": 60555000,
@@ -573,8 +573,8 @@
       "tokenizer_sha256": "0753679acf1dcd1dbf781254637cf003b144d1582392649c493dec03ee5ce78c",
       "total_parameters_approx": 1395000000,
       "vocab_size": 8,
-      "wandb_path": "eric-czech/marin/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
-      "wandb_url": "https://wandb.ai/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1"
+      "wandb_path": "plantcad/marin-dna/exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+      "wandb_url": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-v1"
     }
   ],
   "runtime_marin_release": "0.2.224.dev40027069267",

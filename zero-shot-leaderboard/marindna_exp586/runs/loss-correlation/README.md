@@ -12,7 +12,8 @@ The entire common sample was checked against the historical dense cache.
 Dense losses are retained after a D216 restoration/sampling replay; each MoE replays its original 512 windows and then scores the common sample.
 `results-manifest.json` records durable S3 locations and hashes for all six raw execution outputs under `validation/`.
 Their batch sufficient statistics were independently summed, and all common-sample evaluations require zero dropped expert assignments.
-For the relocated 1T W&B run, `repository_copy` records the local file checksum after updating its training-run link; the original S3 checksum is retained.
+For relocated W&B runs, `repository_copy` records each local file checksum after updating its training-run link; original S3 checksums are retained.
+`request_repository_copy` records the link-only request edits; saved execution outputs retain their original request hashes.
 
 The final 1T common-sample loss is reused from its completed evaluation, with exactly the same input hashes as the original analysis.
 Its archived downstream outputs and AF probe are under `downstream/m61-l-1t/`; `provenance.json` records file hashes and the checkpoint-bound execution receipt verified directly from CoreWeave S3.
