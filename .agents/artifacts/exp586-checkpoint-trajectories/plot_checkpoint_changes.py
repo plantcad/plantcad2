@@ -1,4 +1,4 @@
-"""One figure: all categories, checkpoints, readouts and training horizons."""
+"""Draft heatmap of checkpoint changes, retaining only the primary composite."""
 import csv
 import hashlib
 import json
@@ -18,7 +18,7 @@ with source.open() as stream:
     rows = list(csv.DictReader(stream))
 assert len(rows) == 140
 metrics = ['Conservation', 'Motifs', 'Core/non-core', 'SV impact', 'Allele frequency',
-           'Composite −SV', 'Composite +SV']
+           'Composite +SV']
 runs = ['216B-token run', '1T-token run']
 readouts = ['Zero-shot likelihood', 'Linear probe']
 palette = ['#ffe0bd', '#f1f1f1', '#dceaf6']
@@ -48,7 +48,7 @@ for row_index, run in enumerate(runs):
                     color='#999999' if np.isnan(value) else '#202020')
         ax.set_xticks(range(4), intervals)
         ax.xaxis.tick_top()
-        ax.set_yticks(range(len(metrics)), metrics)
+        ax.set_yticks(range(len(metrics)), ['Composite' if m == 'Composite +SV' else m for m in metrics])
         ax.tick_params(axis='both', which='major', length=0, pad=9)
         ax.set_xticks(np.arange(-.5, 4, 1), minor=True)
         ax.set_yticks(np.arange(-.5, len(metrics), 1), minor=True)
@@ -59,7 +59,7 @@ for row_index, run in enumerate(runs):
         horizon = '216B' if row_index == 0 else '1T'
         method = 'zero-shot' if column == 0 else 'linear probes'
         ax.set_title(f'{horizon} run · {method}', pad=40)
-assert count == 112
+assert count == 96
 fig.suptitle('Where scores improve or decline during DNA training', y=.995)
 fig.legend(handles=[Patch(facecolor=palette[2], label='Increase'),
                     Patch(facecolor=palette[0], label='Decrease'),
@@ -68,10 +68,10 @@ fig.legend(handles=[Patch(facecolor=palette[2], label='Increase'),
 fig.subplots_adjust(left=.20, right=.99, bottom=.12, top=.83, hspace=.55, wspace=.06)
 fig.supxlabel('DNA-token intervals (rounded)', y=.075)
 for extension in ['svg', 'png']:
-    fig.savefig(out/'figures'/f'checkpoint-changes.{extension}', dpi=160,
+    fig.savefig(out/'figures'/f'checkpoint-changes-primary.{extension}', dpi=160,
                 facecolor='white', bbox_inches='tight', pad_inches=.12)
 plt.close(fig)
-(out/'one-figure-provenance.json').write_text(json.dumps({
+(out/'primary-change-figure-provenance.json').write_text(json.dumps({
     'source': str(source), 'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
     'input_scores': len(rows), 'displayed_checkpoint_changes': count,
     'metrics': metrics, 'runs': runs, 'readouts': readouts,

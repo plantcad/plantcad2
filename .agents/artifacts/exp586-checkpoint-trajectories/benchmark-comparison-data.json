@@ -1,0 +1,598 @@
+{
+  "categories": [
+    "Conservation",
+    "Motifs",
+    "Core/non-core",
+    "SV impact",
+    "Composite"
+  ],
+  "models": [
+    {
+      "label": "MarinDNA 1B 562B",
+      "color": "#8c2d27",
+      "scores": [
+        0.6693395658903151,
+        0.5695589982938926,
+        0.6950956647853589,
+        0.8525691047089042,
+        0.6966408334196177
+      ],
+      "DNA_tokens": 562022055936,
+      "source": "historical/056t"
+    },
+    {
+      "label": "MarinMoE 1.5B\u201360M 216B",
+      "color": "#f28e2b",
+      "scores": [
+        0.6890951690966782,
+        0.5834242332292299,
+        0.6893799896331129,
+        0.8540951287449496,
+        0.7039986301759926
+      ],
+      "DNA_tokens": 216158699520,
+      "source": "dna-216b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+      "initialization": "language-pretrained",
+      "task_scores": [
+        {
+          "key": "conservation_andropogoneae",
+          "category": "Conservation",
+          "task": "Andropogoneae, genome-wide",
+          "metric": "auroc",
+          "samples": 38060,
+          "natural": 0.7368613984225476,
+          "natural_context": "right_reverse_complement",
+          "left": 0.7358682559744012,
+          "reverse_complement": 0.7368613984225476,
+          "bidirectional_poe": 0.7537971877796736
+        },
+        {
+          "key": "conservation_poaceae_non_tis",
+          "category": "Conservation",
+          "task": "Poaceae, non-TIS CDS",
+          "metric": "auroc",
+          "samples": 183685,
+          "natural": 0.7165985663103005,
+          "natural_context": "right_reverse_complement",
+          "left": 0.7156044910785113,
+          "reverse_complement": 0.7165985663103005,
+          "bidirectional_poe": 0.7678628328927455
+        },
+        {
+          "key": "conservation_poaceae_tis",
+          "category": "Conservation",
+          "task": "Poaceae, TIS CDS",
+          "metric": "auroc",
+          "samples": 36662,
+          "natural": 0.6138255425571866,
+          "natural_context": "right_reverse_complement",
+          "left": 0.5093706613976924,
+          "reverse_complement": 0.6138255425571866,
+          "bidirectional_poe": 0.606028566845489
+        },
+        {
+          "key": "motif_maize_tis",
+          "category": "Masked motif",
+          "task": "Maize TIS (start)",
+          "metric": "motif_accuracy",
+          "samples": 39035,
+          "natural": 0.5454592032791085,
+          "natural_context": "right_reverse_complement",
+          "left": 0.1327526578711413,
+          "reverse_complement": 0.5454592032791085,
+          "bidirectional_poe": 0.5405405405405406
+        },
+        {
+          "key": "motif_maize_tts",
+          "category": "Masked motif",
+          "task": "Maize TTS (stop)",
+          "metric": "motif_accuracy",
+          "samples": 39035,
+          "natural": 0.4396311002946074,
+          "natural_context": "left",
+          "left": 0.4396311002946074,
+          "reverse_complement": 0.11046496733700525,
+          "bidirectional_poe": 0.46988599974381967
+        },
+        {
+          "key": "motif_maize_donor",
+          "category": "Masked motif",
+          "task": "Maize splice donor",
+          "metric": "motif_accuracy",
+          "samples": 153869,
+          "natural": 0.8285944537236221,
+          "natural_context": "left",
+          "left": 0.8285944537236221,
+          "reverse_complement": 0.37082193294295795,
+          "bidirectional_poe": 0.8482345371712301
+        },
+        {
+          "key": "motif_maize_acceptor",
+          "category": "Masked motif",
+          "task": "Maize splice acceptor",
+          "metric": "motif_accuracy",
+          "samples": 153869,
+          "natural": 0.8270671805236922,
+          "natural_context": "right_reverse_complement",
+          "left": 0.3711013914433707,
+          "reverse_complement": 0.8270671805236922,
+          "bidirectional_poe": 0.8467072639713003
+        },
+        {
+          "key": "motif_tomato_tis",
+          "category": "Masked motif",
+          "task": "Tomato TIS (start)",
+          "metric": "motif_accuracy",
+          "samples": 35484,
+          "natural": 0.4044874143811483,
+          "natural_context": "right_reverse_complement",
+          "left": 0.07483721847957832,
+          "reverse_complement": 0.4044874143811483,
+          "bidirectional_poe": 0.3715646757053866
+        },
+        {
+          "key": "motif_tomato_tts",
+          "category": "Masked motif",
+          "task": "Tomato TTS (stop)",
+          "metric": "motif_accuracy",
+          "samples": 35483,
+          "natural": 0.21654686398872444,
+          "natural_context": "left",
+          "left": 0.21654686398872444,
+          "reverse_complement": 0.05093727977448908,
+          "bidirectional_poe": 0.22187455954897817
+        },
+        {
+          "key": "motif_tomato_donor",
+          "category": "Masked motif",
+          "task": "Tomato splice donor",
+          "metric": "motif_accuracy",
+          "samples": 140456,
+          "natural": 0.7068301400488427,
+          "natural_context": "left",
+          "left": 0.7068301400488427,
+          "reverse_complement": 0.21371154352763597,
+          "bidirectional_poe": 0.7156161223487195
+        },
+        {
+          "key": "motif_tomato_acceptor",
+          "category": "Masked motif",
+          "task": "Tomato splice acceptor",
+          "metric": "motif_accuracy",
+          "samples": 140455,
+          "natural": 0.6987775095940933,
+          "natural_context": "right_reverse_complement",
+          "left": 0.24152195427586845,
+          "reverse_complement": 0.6987775095940933,
+          "bidirectional_poe": 0.7114509686652284
+        },
+        {
+          "key": "core_maize_tis",
+          "category": "Core/non-core",
+          "task": "Maize TIS (start)",
+          "metric": "auroc",
+          "samples": 36409,
+          "natural": 0.6143774887898461,
+          "natural_context": "right_reverse_complement",
+          "left": 0.353306486734682,
+          "reverse_complement": 0.6143774887898461,
+          "bidirectional_poe": 0.5407105633390645
+        },
+        {
+          "key": "core_maize_tts",
+          "category": "Core/non-core",
+          "task": "Maize TTS (stop)",
+          "metric": "auroc",
+          "samples": 36409,
+          "natural": 0.6362736384119122,
+          "natural_context": "left",
+          "left": 0.6362736384119122,
+          "reverse_complement": 0.3492511057497682,
+          "bidirectional_poe": 0.572860973644296
+        },
+        {
+          "key": "core_maize_donor",
+          "category": "Core/non-core",
+          "task": "Maize splice donor",
+          "metric": "auroc",
+          "samples": 144550,
+          "natural": 0.7407745397924657,
+          "natural_context": "left",
+          "left": 0.7407745397924657,
+          "reverse_complement": 0.5183330900686851,
+          "bidirectional_poe": 0.696867390033229
+        },
+        {
+          "key": "core_maize_acceptor",
+          "category": "Core/non-core",
+          "task": "Maize splice acceptor",
+          "metric": "auroc",
+          "samples": 144550,
+          "natural": 0.7758067216764104,
+          "natural_context": "right_reverse_complement",
+          "left": 0.5063899760951494,
+          "reverse_complement": 0.7758067216764104,
+          "bidirectional_poe": 0.7141295525904103
+        },
+        {
+          "key": "core_tomato_tis",
+          "category": "Core/non-core",
+          "task": "Tomato TIS (start)",
+          "metric": "auroc",
+          "samples": 35478,
+          "natural": 0.6173517759665389,
+          "natural_context": "right_reverse_complement",
+          "left": 0.44731923545863866,
+          "reverse_complement": 0.6173517759665389,
+          "bidirectional_poe": 0.5906037859513649
+        },
+        {
+          "key": "core_tomato_tts",
+          "category": "Core/non-core",
+          "task": "Tomato TTS (stop)",
+          "metric": "auroc",
+          "samples": 35477,
+          "natural": 0.6215684828309531,
+          "natural_context": "left",
+          "left": 0.6215684828309531,
+          "reverse_complement": 0.42498733625863166,
+          "bidirectional_poe": 0.5967465055545877
+        },
+        {
+          "key": "core_tomato_donor",
+          "category": "Core/non-core",
+          "task": "Tomato splice donor",
+          "metric": "auroc",
+          "samples": 140451,
+          "natural": 0.7554781092023782,
+          "natural_context": "left",
+          "left": 0.7554781092023782,
+          "reverse_complement": 0.540832379129393,
+          "bidirectional_poe": 0.7451337244746636
+        },
+        {
+          "key": "core_tomato_acceptor",
+          "category": "Core/non-core",
+          "task": "Tomato splice acceptor",
+          "metric": "auroc",
+          "samples": 140451,
+          "natural": 0.7534091603943986,
+          "natural_context": "right_reverse_complement",
+          "left": 0.5155751326346525,
+          "reverse_complement": 0.7534091603943986,
+          "bidirectional_poe": 0.7457948712345821
+        },
+        {
+          "key": "sv_impact",
+          "category": "Structural variant",
+          "task": "Impact prediction",
+          "metric": "auprc",
+          "samples": 18075,
+          "natural": 0.8540951287449496,
+          "natural_context": "left",
+          "left": 0.8540951287449496,
+          "reverse_complement": null,
+          "bidirectional_poe": null
+        }
+      ]
+    },
+    {
+      "label": "MarinMoE 1.5B\u201360M 1T",
+      "color": "#c43c39",
+      "scores": [
+        0.6992670021034327,
+        0.6178430913064623,
+        0.6792308545001416,
+        0.7780781605138195,
+        0.693604777105964
+      ],
+      "DNA_tokens": 1000000192512,
+      "source": "dna-1000b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1/2026.10.20/checkpoints/step-1907349",
+      "initialization": "language-pretrained",
+      "task_scores": [
+        {
+          "key": "conservation_andropogoneae",
+          "category": "Conservation",
+          "task": "Andropogoneae, genome-wide",
+          "metric": "auroc",
+          "samples": 38060,
+          "natural": 0.7588434570632591,
+          "natural_context": "left",
+          "left": 0.7588434570632591,
+          "reverse_complement": 0.7478492238794348,
+          "bidirectional_poe": 0.7743109905564383
+        },
+        {
+          "key": "conservation_poaceae_non_tis",
+          "category": "Conservation",
+          "task": "Poaceae, non-TIS CDS",
+          "metric": "auroc",
+          "samples": 183685,
+          "natural": 0.7117770195412225,
+          "natural_context": "right_reverse_complement",
+          "left": 0.7105576891029284,
+          "reverse_complement": 0.7117770195412225,
+          "bidirectional_poe": 0.7626658750728795
+        },
+        {
+          "key": "conservation_poaceae_tis",
+          "category": "Conservation",
+          "task": "Poaceae, TIS CDS",
+          "metric": "auroc",
+          "samples": 36662,
+          "natural": 0.6271805297058165,
+          "natural_context": "right_reverse_complement",
+          "left": 0.5037265637707546,
+          "reverse_complement": 0.6271805297058165,
+          "bidirectional_poe": 0.6170375586819269
+        },
+        {
+          "key": "motif_maize_tis",
+          "category": "Masked motif",
+          "task": "Maize TIS (start)",
+          "metric": "motif_accuracy",
+          "samples": 39035,
+          "natural": 0.6509030357371589,
+          "natural_context": "right_reverse_complement",
+          "left": 0.18175995901114383,
+          "reverse_complement": 0.6509030357371589,
+          "bidirectional_poe": 0.6507493275265787
+        },
+        {
+          "key": "motif_maize_tts",
+          "category": "Masked motif",
+          "task": "Maize TTS (stop)",
+          "metric": "motif_accuracy",
+          "samples": 39035,
+          "natural": 0.5502497758421929,
+          "natural_context": "left",
+          "left": 0.5502497758421929,
+          "reverse_complement": 0.15773024209043165,
+          "bidirectional_poe": 0.5798386063788907
+        },
+        {
+          "key": "motif_maize_donor",
+          "category": "Masked motif",
+          "task": "Maize splice donor",
+          "metric": "motif_accuracy",
+          "samples": 153869,
+          "natural": 0.8549350421462413,
+          "natural_context": "left",
+          "left": 0.8549350421462413,
+          "reverse_complement": 0.4806426245702513,
+          "bidirectional_poe": 0.8790009683561991
+        },
+        {
+          "key": "motif_maize_acceptor",
+          "category": "Masked motif",
+          "task": "Maize splice acceptor",
+          "metric": "motif_accuracy",
+          "samples": 153869,
+          "natural": 0.856215352020225,
+          "natural_context": "right_reverse_complement",
+          "left": 0.4870441739401699,
+          "reverse_complement": 0.856215352020225,
+          "bidirectional_poe": 0.8780911034711345
+        },
+        {
+          "key": "motif_tomato_tis",
+          "category": "Masked motif",
+          "task": "Tomato TIS (start)",
+          "metric": "motif_accuracy",
+          "samples": 35484,
+          "natural": 0.4242466950418581,
+          "natural_context": "right_reverse_complement",
+          "left": 0.07269498548355273,
+          "reverse_complement": 0.4242466950418581,
+          "bidirectional_poe": 0.39126758181356935
+        },
+        {
+          "key": "motif_tomato_tts",
+          "category": "Masked motif",
+          "task": "Tomato TTS (stop)",
+          "metric": "motif_accuracy",
+          "samples": 35483,
+          "natural": 0.21899929527836504,
+          "natural_context": "left",
+          "left": 0.21899929527836504,
+          "reverse_complement": 0.05088090204369274,
+          "bidirectional_poe": 0.2264693446088795
+        },
+        {
+          "key": "motif_tomato_donor",
+          "category": "Masked motif",
+          "task": "Tomato splice donor",
+          "metric": "motif_accuracy",
+          "samples": 140456,
+          "natural": 0.6971755274081353,
+          "natural_context": "left",
+          "left": 0.6971755274081353,
+          "reverse_complement": 0.22652740101530072,
+          "bidirectional_poe": 0.7082185246100063
+        },
+        {
+          "key": "motif_tomato_acceptor",
+          "category": "Masked motif",
+          "task": "Tomato splice acceptor",
+          "metric": "motif_accuracy",
+          "samples": 140455,
+          "natural": 0.6900200069775224,
+          "natural_context": "right_reverse_complement",
+          "left": 0.24958170465144427,
+          "reverse_complement": 0.6900200069775224,
+          "bidirectional_poe": 0.7034196979729586
+        },
+        {
+          "key": "core_maize_tis",
+          "category": "Core/non-core",
+          "task": "Maize TIS (start)",
+          "metric": "auroc",
+          "samples": 36409,
+          "natural": 0.5995145270265946,
+          "natural_context": "right_reverse_complement",
+          "left": 0.2864103968079118,
+          "reverse_complement": 0.5995145270265946,
+          "bidirectional_poe": 0.49382702309643656
+        },
+        {
+          "key": "core_maize_tts",
+          "category": "Core/non-core",
+          "task": "Maize TTS (stop)",
+          "metric": "auroc",
+          "samples": 36409,
+          "natural": 0.5846777946187307,
+          "natural_context": "left",
+          "left": 0.5846777946187307,
+          "reverse_complement": 0.29436573983253916,
+          "bidirectional_poe": 0.507475462076641
+        },
+        {
+          "key": "core_maize_donor",
+          "category": "Core/non-core",
+          "task": "Maize splice donor",
+          "metric": "auroc",
+          "samples": 144550,
+          "natural": 0.7225974837348536,
+          "natural_context": "left",
+          "left": 0.7225974837348536,
+          "reverse_complement": 0.4346509541498993,
+          "bidirectional_poe": 0.6032273074801375
+        },
+        {
+          "key": "core_maize_acceptor",
+          "category": "Core/non-core",
+          "task": "Maize splice acceptor",
+          "metric": "auroc",
+          "samples": 144550,
+          "natural": 0.7644227514694575,
+          "natural_context": "right_reverse_complement",
+          "left": 0.4270959112257165,
+          "reverse_complement": 0.7644227514694575,
+          "bidirectional_poe": 0.6173975027835714
+        },
+        {
+          "key": "core_tomato_tis",
+          "category": "Core/non-core",
+          "task": "Tomato TIS (start)",
+          "metric": "auroc",
+          "samples": 35478,
+          "natural": 0.6311959559356266,
+          "natural_context": "right_reverse_complement",
+          "left": 0.4464938564792423,
+          "reverse_complement": 0.6311959559356266,
+          "bidirectional_poe": 0.6050093722767357
+        },
+        {
+          "key": "core_tomato_tts",
+          "category": "Core/non-core",
+          "task": "Tomato TTS (stop)",
+          "metric": "auroc",
+          "samples": 35477,
+          "natural": 0.6276815666839768,
+          "natural_context": "left",
+          "left": 0.6276815666839768,
+          "reverse_complement": 0.42694154758225916,
+          "bidirectional_poe": 0.6050465791759143
+        },
+        {
+          "key": "core_tomato_donor",
+          "category": "Core/non-core",
+          "task": "Tomato splice donor",
+          "metric": "auroc",
+          "samples": 140451,
+          "natural": 0.7539227999031595,
+          "natural_context": "left",
+          "left": 0.7539227999031595,
+          "reverse_complement": 0.5458427548401088,
+          "bidirectional_poe": 0.7460577410107041
+        },
+        {
+          "key": "core_tomato_acceptor",
+          "category": "Core/non-core",
+          "task": "Tomato splice acceptor",
+          "metric": "auroc",
+          "samples": 140451,
+          "natural": 0.7498339566287338,
+          "natural_context": "right_reverse_complement",
+          "left": 0.5178154239828905,
+          "reverse_complement": 0.7498339566287338,
+          "bidirectional_poe": 0.7443663749076119
+        },
+        {
+          "key": "sv_impact",
+          "category": "Structural variant",
+          "task": "Impact prediction",
+          "metric": "auprc",
+          "samples": 18075,
+          "natural": 0.7780781605138195,
+          "natural_context": "left",
+          "left": 0.7780781605138195,
+          "reverse_complement": null,
+          "bidirectional_poe": null
+        }
+      ]
+    },
+    {
+      "label": "PlantCAD2.5-Large",
+      "color": "#174a7e",
+      "scores": [
+        0.7096666666666667,
+        0.695375,
+        0.7413749999999999,
+        0.745,
+        0.7228541666666666
+      ],
+      "source": "historical/published_groups/PlantCAD2.5-Large"
+    },
+    {
+      "label": "PlantCAD2-Large",
+      "color": "#2f78a8",
+      "scores": [
+        0.7024333333333334,
+        0.6777375000000001,
+        0.7166250000000001,
+        0.841,
+        0.7344489583333333
+      ],
+      "source": "historical/published_groups/PlantCAD2-Large"
+    },
+    {
+      "label": "PlantCAD2-Medium",
+      "color": "#4e90b6",
+      "scores": [
+        0.6864333333333333,
+        0.6627000000000001,
+        0.7164999999999999,
+        0.8334,
+        0.7247583333333334
+      ],
+      "source": "historical/published_groups/PlantCAD2-Medium"
+    },
+    {
+      "label": "PlantCAD2-Small",
+      "color": "#66a6c9",
+      "scores": [
+        0.6445333333333333,
+        0.6059,
+        0.68225,
+        0.7946,
+        0.6818208333333333
+      ],
+      "source": "historical/published_groups/PlantCAD2-Small"
+    },
+    {
+      "label": "Evo 2 20B",
+      "color": "#7a5195",
+      "scores": [
+        0.7886666666666665,
+        0.65525,
+        0.722375,
+        0.86,
+        0.7565729166666666
+      ],
+      "source": "historical/published_groups/evo2_20b"
+    }
+  ]
+}
