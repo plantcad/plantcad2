@@ -30,7 +30,7 @@ PUBLISHED = [
     ("PlantCAD2-Large", "PlantCAD2-Large", "#2f78a8"),
     ("PlantCAD2-Medium", "PlantCAD2-Medium", "#4e90b6"),
     ("PlantCAD2-Small", "PlantCAD2-Small", "#66a6c9"),
-    ("evo2_20b", "Evo 2 20B", "#7a5195"),
+    ("evo2_20b", "Evo 2 20B", PALETTE["baselines"]["evo2"]),
 ]
 
 

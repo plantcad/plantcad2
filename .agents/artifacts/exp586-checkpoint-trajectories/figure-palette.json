@@ -1,9 +1,12 @@
 {
   "marin": {
-    "dense": "#70452b",
+    "dense": "#92528c",
     "216b": "#c49500",
-    "1t": "#b51f4f"
+    "1t": "#c43c4a"
   },
-  "description": "Warm Marin family: dense MarinDNA brown, 216B MoE gold, 1T MoE cranberry. Published PlantCAD blues and Evo purple remain unchanged.",
+  "baselines": {
+    "evo2": "#318564"
+  },
+  "description": "Dense MarinDNA reddish plum, 216B MoE deep gold, 1T MoE cherry red, Evo 2 emerald green. Published PlantCAD blues remain unchanged.",
   "scope": "Model identity in the benchmark overview, loss comparison and both checkpoint line figures. Heatmap colors retain their independent increase/decrease meaning."
 }
