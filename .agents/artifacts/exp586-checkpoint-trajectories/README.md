@@ -1,8 +1,8 @@
 # MarinMoE checkpoint trajectories
 
 Five evaluated checkpoints from each text-pretrained d768 run, with 216B-token and 1T-token DNA training horizons.
-`post.md` is the source for the checkpoint comparison comment on PlantCAD2 PR #22.
-`draft.md` adds the requested eight-model overview first; it has not replaced the live comment.
+`post.md` is the source for the [results comment on PlantCAD2 PR #22](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065).
+`draft.md` retains the reviewed version, including the eight-model overview and loss comparison.
 
 - `figures/checkpoint-tokens.*`: paired zero-shot and frozen-probe trajectories against DNA tokens.
 - `figures/checkpoint-progress.*`: identical score values against recorded W&B `run_progress`.
@@ -16,6 +16,7 @@ Five evaluated checkpoints from each text-pretrained d768 run, with 216B-token a
   The scatter contains four points, two descriptive connecting segments and three dense-checkpoint rugs, with identical numeric limits on both score axes and no fitted trend or uncertainty estimate.
   Scatter and rug losses come from the same 65,536-window sample in PR #22 comment 6604041302; they intentionally differ from the 512-window W&B curve endpoints.
   Coral rugs reuse dense losses at 216B, 389B and 562B DNA tokens, with opacity increasing linearly from 0.35 to 0.95 across those token totals; parameter counts are identical.
+  The rugs carry direct token-count labels; an adjacent annotation identifies the dense model as approximately 1B parameters and explains that labels count DNA training tokens.
 - `loss-figure-data.json` and `loss-figure-provenance.json`: complete plotted validation values, compact exact-smoothed training samples, final scatter values, source hashes and history counts.
   Full source history archives remain outside Git and are referenced by immutable CoreWeave storage receipts in `loss-history-receipts.json`.
 - `benchmark-comparison-data.json` and `benchmark-comparison-provenance.json`: all forty overview values, model colors, source hashes and the exact dense token-count check.

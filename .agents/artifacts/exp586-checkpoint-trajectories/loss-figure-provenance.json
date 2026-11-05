@@ -221,6 +221,7 @@
       }
     ],
     "opacity": "Linear in DNA training tokens: 0.35 at 216B, 0.95 at 562B; equal rug heights",
+    "labels": "Direct DNA-token labels; shared annotation identifies the dense model as 1B parameters",
     "total_parameters_each": 973178880
   },
   "scatter": [
@@ -245,7 +246,7 @@
   ],
   "plot_data_sha256": "a0f4ab25ec015b995b17e61ca023cb26f25dd04f58d4d9d2cd66ea700b580cf4",
   "figure_sha256": {
-    "png": "0d0b9fa4240f2853ebaed56e09d892e29da11fb801b694b784742df012b66b38",
-    "svg": "fa8c16571456d7d2de774423f5fd76a55ef8a255b90fc6efe9ee42b5cd081062"
+    "png": "21479512f1bcdd988f297e54a668d22cd89d13e39ccb10a6d5a86beb0a0440b0",
+    "svg": "605759396d5b9ca8dbd037b65cdf2989b7b26a1a7c2f232fffe67d4d1a0c2fb2"
   }
 }

@@ -8,7 +8,7 @@ That 300M estimate is comparable in size to **PlantCAD2-Medium** (311M parameter
 </p>
 
 <p align="center">
-  <img src="figures/loss-comparison.png" alt="W&B training loss with raw curves and exponential smoothing, validation loss, and matched-sample final validation loss versus Composite and Conservation for the 216B-token and 1T-token MoE runs. Loss curves use DNA tokens on logarithmic x-axes, starting at 1B tokens. The scatter uses the same 65,536-window loss values as the earlier loss analysis, with four MoE points and coral dense-checkpoint rugs at 216B, 389B and 562B training tokens; darker rugs mean more training tokens. Both score axes use identical numeric limits." />
+  <img src="figures/loss-comparison.png" alt="W&B training loss with raw curves and exponential smoothing, validation loss, and matched-sample final validation loss versus Composite and Conservation for the 216B-token and 1T-token MoE runs. Loss curves use DNA tokens on logarithmic x-axes, starting at 1B tokens. The scatter uses the same 65,536-window loss values as the earlier loss analysis, with four MoE points and coral dense-checkpoint rugs labeled directly as 216B, 389B and 562B DNA training tokens. An annotation identifies the dense model as 1B parameters; darker rugs mean more training tokens. Both score axes use identical numeric limits." />
 </p>
 
 Curves use W&B losses; the scatter uses the [matched 65,536-window sample](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302), with darker coral rugs for later dense checkpoints.

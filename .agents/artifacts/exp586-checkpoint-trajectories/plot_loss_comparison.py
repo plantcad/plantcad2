@@ -134,6 +134,7 @@ def main() -> None:
         },
         "dense_rugs": {"color": palette["marin"]["dense"], "rows": rugs,
                        "opacity": "Linear in DNA training tokens: 0.35 at 216B, 0.95 at 562B; equal rug heights",
+                       "labels": "Direct DNA-token labels; shared annotation identifies the dense model as 1B parameters",
                        "total_parameters_each": dense[0]["total_parameters_approx"]},
         "scatter": [],
     }
@@ -224,15 +225,28 @@ def main() -> None:
             dot_count += 1
         metric_handles.append(Line2D([], [], color="#626262", marker=marker, linestyle=style,
                                      label=metric, markersize=7))
-    rug_handles = []
+    rug_labels = []
+    offsets = {"D216": (0, 12, "center"), "D389": (0, 32, "center"), "D562": (-4, 12, "right")}
     for row in rugs:
         rug = scatter_ax.vlines(row["validation_loss"], 0, .065,
                                 transform=scatter_ax.get_xaxis_transform(),
                                 color=palette["marin"]["dense"], alpha=row["alpha"], linewidth=3, zorder=5)
         rug.set_gid(f"dense-rug-{row['model'].lower()}")
-        rug_handles.append(Line2D([], [], color=palette["marin"]["dense"], alpha=row["alpha"],
-                                  marker="|", markersize=12, markeredgewidth=3, linestyle="none",
-                                  label=f"{row['DNA_tokens']/1e9:.0f}B"))
+        dx, dy, alignment = offsets[row["model"]]
+        label = scatter_ax.annotate(
+            f"{row['DNA_tokens']/1e9:.0f}B", (row["validation_loss"], .065),
+            xycoords=scatter_ax.get_xaxis_transform(), xytext=(dx, dy), textcoords="offset points",
+            ha=alignment, va="bottom", fontsize=10, color="#505050", zorder=6,
+            bbox={"facecolor": "white", "edgecolor": "none", "pad": .2},
+            arrowprops={"arrowstyle": "-", "color": palette["marin"]["dense"],
+                        "alpha": row["alpha"], "linewidth": 1, "shrinkA": 2, "shrinkB": 0},
+        )
+        label.set_gid(f"dense-rug-label-{row['model'].lower()}")
+        rug_labels.append(label)
+    dense_note = scatter_ax.text(
+        .035, .10, "Dense MarinDNA: 1B parameters\nLabels show DNA training tokens",
+        transform=scatter_ax.transAxes, ha="left", va="bottom", fontsize=9.5, color="#505050",
+    )
     scatter_ax.set_xlim(.875, .99)
     scatter_ax.set_xticks([.89, .91, .93, .95, .97, .99])
     # Identical numerical limits avoid implying arbitrary slopes from independent scales.
@@ -244,10 +258,6 @@ def main() -> None:
     scatter_ax.set_xlabel("Matched validation loss")
     metric_legend = scatter_ax.legend(handles=metric_handles, loc="upper center", ncols=2,
                                       frameon=False, fontsize=10, columnspacing=1.0, handlelength=1.6)
-    scatter_ax.add_artist(metric_legend)
-    dense_legend = scatter_ax.legend(handles=rug_handles, title="Dense training tokens", loc="lower center",
-                                     bbox_to_anchor=(.5, .085), ncols=3, frameon=False,
-                                     fontsize=9, title_fontsize=10, columnspacing=1.0, handlelength=.8)
     model_legend = fig.legend(smooth_lines, ["216B-token run", "1T-token run"],
                               title="DNA training horizon", loc="upper center", bbox_to_anchor=(.5, 1.01),
                               ncols=2, frameon=False, columnspacing=2.2)
@@ -258,10 +268,16 @@ def main() -> None:
     model_box = model_legend.get_window_extent(renderer)
     assert not any(box.overlaps(model_box) for box in title_boxes)
     for label in [*title_boxes, model_box, smoothing_legend.get_window_extent(renderer),
-                  metric_legend.get_window_extent(renderer), dense_legend.get_window_extent(renderer)]:
+                  metric_legend.get_window_extent(renderer), dense_note.get_window_extent(renderer)]:
         assert fig.bbox.contains(label.x0, label.y0) and fig.bbox.contains(label.x1, label.y1)
-    lowest_dot = min(row[metric] for row in rows for metric in ["Composite", "Conservation"])
-    assert dense_legend.get_window_extent(renderer).y1 + 5 < scatter_ax.transData.transform((.9, lowest_dot))[1]
+    note_boxes = [dense_note.get_window_extent(renderer)] + [label.get_bbox_patch().get_window_extent(renderer) for label in rug_labels]
+    for index, box in enumerate(note_boxes):
+        assert scatter_ax.bbox.contains(box.x0, box.y0) and scatter_ax.bbox.contains(box.x1, box.y1)
+        assert not any(box.overlaps(other) for other in note_boxes[index + 1:])
+        for row in rows:
+            for metric in ["Composite", "Conservation"]:
+                dot = scatter_ax.transData.transform((row["final_validation_loss"], row[metric]))
+                assert not box.expanded(1.05, 1.1).contains(*dot)
     assert all(scatter_ax.get_xlim()[0] < row["validation_loss"] < scatter_ax.get_xlim()[1] for row in rugs)
     target = HERE / "figures" / "loss-comparison"
     fig.savefig(target.with_suffix(".png"), dpi=180, facecolor="white")
