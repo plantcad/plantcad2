@@ -21,7 +21,7 @@ HALF_LIFE_TOKENS = 1_000_000_000
 MODELS = {"216b": "MarinMoE 1.5B–60M 216B", "1t": "MarinMoE 1.5B–60M 1T"}
 REFERENCE_CODES = {"216b": "M61-L", "1t": "M61-L-1T"}
 MATCHED_PATH = HERE.parents[2] / "zero-shot-leaderboard/marindna_exp586/runs/loss-correlation/analysis.json"
-MATCHED_SHA256 = "b4b15aa88bf470481eceda6a582dc0b0977d9c1f27a4764623a81216f7e3c2e7"
+MATCHED_SHA256 = "99ada9f66f17e06693d8ac27c17df9e775e68f99de69675609f36c841bf486ae"
 REFERENCE_COMMENT = "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302"
 
 
@@ -125,7 +125,7 @@ def main() -> None:
         "validation_smoothing": "None; every unique logged evaluation at or above 1B tokens",
         "uncertainty": "None estimated: two individual training runs; connecting segments are descriptive",
         "scatter_loss_source": {
-            "comment": REFERENCE_COMMENT, "commit": "b6e2962fe6d2ac27dd97992b54781ded4dd8427d",
+            "comment": REFERENCE_COMMENT, "commit": "f3ca4161a8c507006508a711731d00db60215663",
             "file": str(MATCHED_PATH.relative_to(HERE.parents[2])), "sha256": MATCHED_SHA256,
             "validation_windows": 65_536, "bases_per_window": 8192,
             "targets": 536_805_376, "sample_sha256": next(iter(common_hashes)),
