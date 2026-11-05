@@ -244,7 +244,7 @@ def main() -> None:
         label.set_gid(f"dense-rug-label-{row['model'].lower()}")
         rug_labels.append(label)
     dense_note = scatter_ax.text(
-        .035, .10, "Dense MarinDNA: 1B parameters\nLabels show DNA training tokens",
+        .035, .10, "Dense MarinDNA (1B parameters)\nDNA training tokens",
         transform=scatter_ax.transAxes, ha="left", va="bottom", fontsize=9.5, color="#505050",
     )
     scatter_ax.set_xlim(.875, .99)
