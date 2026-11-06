@@ -30,9 +30,10 @@ Reference membership, tie handling and source task values are frozen in `frozen-
 
 ## Presentation
 
-The primary grouped bars retain four native task-family scores and add a labeled value to every bar.
-The vertical axis has a marked break omitting 0.05–0.50.
-Avg Rank is shown on its own percentile axis in the third sorted horizontal panel, avoiding a mixture of 0–1 native metrics and 0–100 ranks on one scale.
+The primary grouped bars show all five readouts: four native task-family scores and Avg Rank, with a labeled value on every bar.
+The native vertical axis has a marked break omitting 0.05–0.50.
+The fifth group, Avg Rank, uses its own clearly labeled percentile axis with a marked break omitting 5–45.
+Avg Rank is also retained in the third sorted horizontal panel.
 The loss scatter replaces Composite with Avg Rank and retains Conservation AUROC on the explicitly labeled secondary axis.
 Checkpoint plots and the change heatmap replace Composite with Marin Avg Rank; the five native family panels are unchanged.
 The heatmap reports rank changes in percentile points and native changes in their original units; colors encode sign only.

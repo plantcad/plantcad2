@@ -1,6 +1,7 @@
 {
   "native_top_bar_labels": 32,
-  "all_annotated_labels": 56,
+  "rank_top_bar_labels": 8,
+  "all_annotated_labels": 64,
   "overlapping_value_labels": 0,
   "top_axis_intervals": [
     [
@@ -13,6 +14,16 @@
     ]
   ],
   "breaks_marked": true,
+  "rank_top_axis_intervals": [
+    [
+      0,
+      5
+    ],
+    [
+      45,
+      95
+    ]
+  ],
   "native_values_unchanged": true,
-  "Avg_Rank_axis": "Separate percentile axis; four equally weighted families"
+  "Avg_Rank_axis": "Fifth group in primary vertical chart with its own percentile axis; also retained in sorted horizontal chart"
 }

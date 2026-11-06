@@ -8,10 +8,10 @@ Overall, the 1T model greatly outperforms all other MarinDNA models (dense or sp
 However, monotonicity with scale is nearly perfect when using linear probes rather than zero-shot likelihoods.
 
 <p align="center">
-  <img src="figures/benchmark-comparison.png" alt="Zero-shot comparison of eight models. Top: native mean Conservation AUROC, motif accuracy, core/non-core AUROC and SV average precision, with a marked broken vertical scale and a value on every bar. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank, with marked broken horizontal scales. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models." />
+  <img src="figures/benchmark-comparison.png" alt="Zero-shot comparison of eight models. Top: Conservation AUROC, motif accuracy, core/non-core AUROC, SV average precision and Avg Rank. The four task families retain native mean scores; Avg Rank has its own labeled percentile axis. Both vertical scales have marked breaks and every bar is annotated. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank, with marked broken horizontal scales. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models." />
 </p>
 
-_Native task-family scores are unchanged; Avg Rank averages task percentiles within four equally weighted families. Higher is better; rank definitions are below._
+_Task families retain native scores; Avg Rank has its own percentile axis and averages task percentiles within four equally weighted families. Higher is better; rank definitions are below._
 
 <p align="center">
   <img src="figures/loss-comparison.png" alt="Unchanged W&B training and validation loss curves versus DNA tokens. Right: matched-sample final loss versus Avg Rank on the left percentile axis (solid circles) and native Conservation AUROC on the right axis (dashed diamonds). Colors identify 216B and 1T MoE models. Dense MarinDNA 1B checkpoint rugs retain the matched losses, with direct training-token labels and darker rugs for later checkpoints." />

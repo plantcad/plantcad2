@@ -15,7 +15,7 @@ def main() -> None:
     body = re.sub(r'https://raw\.githubusercontent\.com/plantcad/plantcad2/[^"\s]+/figures/([a-z-]+\.png)', r'figures/\1', source)
     original_images = re.findall(r'<img src="([^"]+)" alt="([^"]+)" />', body)
     alts = {
-        "benchmark-comparison": "Zero-shot comparison of eight models. Top: native mean Conservation AUROC, motif accuracy, core/non-core AUROC and SV average precision, with a marked broken vertical scale and a value on every bar. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank, with marked broken horizontal scales. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models.",
+        "benchmark-comparison": "Zero-shot comparison of eight models. Top: Conservation AUROC, motif accuracy, core/non-core AUROC, SV average precision and Avg Rank. The four task families retain native mean scores; Avg Rank has its own labeled percentile axis. Both vertical scales have marked breaks and every bar is annotated. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank, with marked broken horizontal scales. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models.",
         "loss-comparison": "Unchanged W&B training and validation loss curves versus DNA tokens. Right: matched-sample final loss versus Avg Rank on the left percentile axis (solid circles) and native Conservation AUROC on the right axis (dashed diamonds). Colors identify 216B and 1T MoE models. Dense MarinDNA 1B checkpoint rugs retain the matched losses, with direct training-token labels and darker rugs for later checkpoints.",
         "checkpoint-tokens": "Six paired zero-shot and linear-probe metrics across DNA training. Top: Marin Avg Rank, Conservation, Motifs; bottom: Core/non-core, SV impact, Allele frequency. Only Marin Avg Rank is percentile-scaled; the other families keep their native scores. References are the same nine unique checkpoints, separately for each readout, with five equally weighted families including AF.",
         "checkpoint-progress": "The same six paired metrics versus actual W&B run progress. Marin Avg Rank includes all five task families; individual families retain native units.",
@@ -27,7 +27,7 @@ def main() -> None:
         body = body.replace(f'alt="{old_alt}"', f'alt="{alts[name]}"')
     body = body.replace(
         f'  <img src="figures/benchmark-comparison.png" alt="{alts["benchmark-comparison"]}" />\n</p>',
-        f'  <img src="figures/benchmark-comparison.png" alt="{alts["benchmark-comparison"]}" />\n</p>\n\n_Native task-family scores are unchanged; Avg Rank averages task percentiles within four equally weighted families. Higher is better; rank definitions are below._')
+        f'  <img src="figures/benchmark-comparison.png" alt="{alts["benchmark-comparison"]}" />\n</p>\n\n_Task families retain native scores; Avg Rank has its own percentile axis and averages task percentiles within four equally weighted families. Higher is better; rank definitions are below._')
     body = body.replace(
         'with darker coral rugs for later dense checkpoints.',
         'with darker coral rugs for later dense checkpoints. The scatter now uses Avg Rank (left axis) and Conservation AUROC (right axis).')
