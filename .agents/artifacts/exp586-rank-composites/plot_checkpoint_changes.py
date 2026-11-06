@@ -14,12 +14,12 @@ from matplotlib.colors import ListedColormap
 from matplotlib.patches import Patch
 
 out = Path(__file__).resolve().parent
-source = out/'all-category-scores.csv'
+source = out/'normalized-category-scores.csv'
 with source.open() as stream:
     rows = list(csv.DictReader(stream))
 assert len(rows) == 120
 metrics = ['Conservation', 'Motifs', 'Core/non-core', 'SV impact', 'Allele frequency',
-           'Marin Avg Rank']
+           'Avg normalized score']
 runs = ['216B-token run', '1T-token run']
 readouts = ['Zero-shot', 'Linear probe']
 palette = ['#ffe0bd', '#f1f1f1', '#dceaf6']
@@ -46,7 +46,7 @@ for row_index, run in enumerate(runs):
         ax.imshow(signs, cmap=ListedColormap(palette), vmin=-1, vmax=1,
                   aspect='auto', interpolation='nearest')
         for (i, j), value in np.ndenumerate(values):
-            ax.text(j, i, '—' if np.isnan(value) else (f'{value:+.1f}' if metrics[i] == 'Marin Avg Rank' else f'{value:+.4f}'), ha='center', va='center',
+            ax.text(j, i, '—' if np.isnan(value) else f'{value:+.4f}', ha='center', va='center',
                     color='#999999' if np.isnan(value) else '#202020')
         ax.set_xticks(range(4), intervals)
         ax.xaxis.tick_top()

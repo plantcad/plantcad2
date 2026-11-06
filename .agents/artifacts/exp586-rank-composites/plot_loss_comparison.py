@@ -25,7 +25,7 @@ REFERENCE_CODES = {"216b": "M61-L", "1t": "M61-L-1T"}
 MATCHED_PATH = HERE.parents[2] / "zero-shot-leaderboard/marindna_exp586/runs/loss-correlation/analysis.json"
 MATCHED_SHA256 = "0f3fea347f311b7af85bfa50ae9a0443ac69be3a9c0d9f41b9bb5a856625cf38"
 REFERENCE_COMMENT = "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302"
-PROBE_METRICS = ["Conservation", "Motifs", "Core/non-core", "SV impact", "Allele frequency", "Marin Avg Rank"]
+PROBE_METRICS = ["Conservation", "Motifs", "Core/non-core", "SV impact", "Allele frequency", "Win Rate"]
 FINAL_CHECKPOINTS = {"216b": ("216B-token run", "dna-216b"), "1t": ("1T-token run", "dna-1000b")}
 
 
@@ -99,11 +99,16 @@ def main() -> None:
     for key, model in models.items():
         run, checkpoint = FINAL_CHECKPOINTS[key]
         selected = [row for row in saved_scores if row["run"] == run and row["checkpoint"] == checkpoint
-                    and row["readout"] == "Linear probe"]
-        assert len(selected) == len(PROBE_METRICS)
-        assert {row["metric"] for row in selected} == set(PROBE_METRICS)
+                    and row["readout"] == "Linear probe" and row["metric"] in PROBE_METRICS[:-1]]
+        assert len(selected) == len(PROBE_METRICS) - 1
+        assert {row["metric"] for row in selected} == set(PROBE_METRICS[:-1])
         assert all(float(row["DNA_tokens_B"]) == model["DNA_tokens"] / 1e9 for row in selected)
         model["probe_scores"] = {row["metric"]: float(row["score"]) for row in selected}
+    summaries_path = HERE / "marin-summaries.json"
+    summaries = json.loads(summaries_path.read_text())
+    for key, model in models.items():
+        identity = "short-216b" if key == "216b" else "long-1000b"
+        model["probe_scores"]["Win Rate"] = summaries["probe_win_rates"][identity]["score"]
     palette = json.loads(PALETTE_PATH.read_text())
     assert all(model["color"] == palette["marin"][key] for key, model in models.items())
     assert digest(MATCHED_PATH) == MATCHED_SHA256, "Matched-loss reference changed; review before plotting"
@@ -134,6 +139,7 @@ def main() -> None:
         "probe_bar_annotations": 12,
         "benchmark_source_sha256": digest(benchmark_path),
         "probe_source_sha256": digest(score_path),
+        "summary_source_sha256": digest(summaries_path),
         "frozen_reference_sha256": digest(HERE / "frozen-references.json"),
         "palette_sha256": digest(PALETTE_PATH),
         "run_colors": {key: model["color"] for key, model in models.items()},
@@ -155,11 +161,11 @@ def main() -> None:
                        "opacity": "Linear in DNA training tokens: 0.35 at 216B, 0.95 at 562B; equal rug heights",
                        "labels": "Direct DNA-token labels; shared annotation identifies the dense model as 1B parameters",
                        "total_parameters_each": dense[0]["total_parameters_approx"]},
-        "scatter_readout": "Linear probe: Marin Avg Rank (left), Conservation AUROC (right)",
+        "scatter_readout": "Linear probe: Win Rate (left), Conservation AUROC (right)",
         "probe_benchmark": {
             "metrics": PROBE_METRICS, "models": {key: model["probe_scores"] for key, model in models.items()},
-            "display_multipliers": {metric: 1 if metric == "Marin Avg Rank" else 100 for metric in PROBE_METRICS},
-            "aggregation": "Native family means; only Marin Avg Rank aggregates across families and includes AF",
+            "display_multipliers": {metric: 1 if metric == "Win Rate" else 100 for metric in PROBE_METRICS},
+            "aggregation": "Native family means; Win Rate compares only the two final models per task, then averages task wins within families and five families equally",
         },
         "scatter": [],
     }
@@ -173,7 +179,7 @@ def main() -> None:
     bar_labels = []
     for index, (key, model) in enumerate(models.items()):
         x = np.arange(len(PROBE_METRICS)) + (index - .5) * .30
-        scores = [model["probe_scores"][metric] * (1 if metric == "Marin Avg Rank" else 100)
+        scores = [model["probe_scores"][metric] * (1 if metric == "Win Rate" else 100)
                   for metric in PROBE_METRICS]
         assert all(0 <= score <= 100 for score in scores)
         bars = probe_ax.bar(x, scores, width=.30, color=model["color"], edgecolor="white", linewidth=.4)
@@ -185,7 +191,7 @@ def main() -> None:
     probe_ax.set_xlim(-.5, len(PROBE_METRICS) - .5)
     probe_ax.set_ylim(0, 104)
     probe_ax.set_yticks([0, 20, 40, 60, 80, 100])
-    probe_ax.set_ylabel("Metric score (×100) or percentile rank")
+    probe_ax.set_ylabel("Metric score (×100) or win rate (%)")
     probe_ax.spines[["top", "right"]].set_visible(False)
     probe_ax.grid(axis="y", color="#e4e4e4", linewidth=.7)
     training_ax = fig.add_axes((.054, .075, .247, .345))
@@ -236,7 +242,7 @@ def main() -> None:
                "final_validation_loss": matched["loss"],
                "logged_final_validation_loss": metadata["summary"]["eval/loss"],
                "matched_reference_code": REFERENCE_CODES[key],
-               **{name: model["probe_scores"][name] for name in ["Marin Avg Rank", "Conservation"]}}
+               **{name: model["probe_scores"][name] for name in ["Win Rate", "Conservation"]}}
         provenance["scatter"].append(row)
         plot_data["scatter"].append(row)
     for axis in [training_ax, validation_ax, scatter_ax]:
@@ -260,7 +266,7 @@ def main() -> None:
     metric_handles = []
     dot_count = 0
     for metric, axis, marker, style in [
-        ("Marin Avg Rank", scatter_ax, "o", "-"), ("Conservation", conservation_ax, "D", "--"),
+        ("Win Rate", scatter_ax, "o", "-"), ("Conservation", conservation_ax, "D", "--"),
     ]:
         xs = [row["final_validation_loss"] for row in rows]
         ys = [row[metric] for row in rows]
@@ -270,7 +276,7 @@ def main() -> None:
                          edgecolor="white", linewidth=.8, zorder=4)
             dot_count += 1
         metric_handles.append(Line2D([], [], color="#626262", marker=marker, linestyle=style,
-                                     label=f"{metric} ({'left' if metric == 'Marin Avg Rank' else 'right'})", markersize=7, linewidth=1.8))
+                                     label=f"{metric} ({'left' if metric == 'Win Rate' else 'right'})", markersize=7, linewidth=1.8))
     rug_labels = []
     offsets = {"D216": (0, 12, "center"), "D389": (0, 32, "center"), "D562": (-4, 12, "right")}
     for row in rugs:
@@ -304,12 +310,12 @@ def main() -> None:
     dense_note.arrow_patch.set_gid("dense-rug-note-arrow")
     scatter_ax.set_xlim(.875, .99)
     scatter_ax.set_xticks([.89, .91, .93, .95, .97, .99])
-    # Rank percentiles and AUROC have different units; label both scales.
-    scatter_ax.set_ylim(70, 90)
-    scatter_ax.yaxis.set_major_locator(MultipleLocator(5))
+    # Win rates and AUROC have different units; label both scales.
+    scatter_ax.set_ylim(0, 100)
+    scatter_ax.yaxis.set_major_locator(MultipleLocator(25))
     conservation_ax.set_ylim(.88, .90)
     conservation_ax.yaxis.set_major_locator(MultipleLocator(.005))
-    scatter_ax.set_ylabel("Marin Avg Rank (percentile ↑)")
+    scatter_ax.set_ylabel("Win Rate (%)")
     conservation_ax.set_ylabel("Conservation (AUROC)", labelpad=10)
     scatter_ax.set_xlabel("Matched validation loss")
     metric_legend = scatter_ax.legend(handles=metric_handles, loc="upper right", ncols=1,
@@ -338,7 +344,7 @@ def main() -> None:
         assert scatter_ax.bbox.contains(box.x0, box.y0) and scatter_ax.bbox.contains(box.x1, box.y1)
         assert not any(box.overlaps(other) for other in note_boxes[index + 1:])
         for row in rows:
-            for metric, axis in [("Marin Avg Rank", scatter_ax), ("Conservation", conservation_ax)]:
+            for metric, axis in [("Win Rate", scatter_ax), ("Conservation", conservation_ax)]:
                 dot = axis.transData.transform((row["final_validation_loss"], row[metric]))
                 assert not box.expanded(1.05, 1.1).contains(*dot)
     assert all(scatter_ax.get_xlim()[0] < row["validation_loss"] < scatter_ax.get_xlim()[1] for row in rugs)

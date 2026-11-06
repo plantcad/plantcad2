@@ -6,7 +6,7 @@
       "Core/non-core",
       "SV impact",
       "Allele frequency",
-      "Marin Avg Rank"
+      "Win Rate"
     ],
     "models": {
       "216b": {
@@ -15,7 +15,7 @@
         "SV impact": 0.9367569338854964,
         "Allele frequency": 0.18852680714157333,
         "Motifs": 0.8615695943025675,
-        "Marin Avg Rank": 79.44444444444444
+        "Win Rate": 34.166666666666664
       },
       "1t": {
         "Conservation": 0.889637543718755,
@@ -23,7 +23,7 @@
         "SV impact": 0.9411080566331625,
         "Allele frequency": 0.19271995089663327,
         "Motifs": 0.8649079873103453,
-        "Marin Avg Rank": 82.45370370370371
+        "Win Rate": 65.83333333333333
       }
     },
     "display_multipliers": {
@@ -32,9 +32,9 @@
       "Core/non-core": 100,
       "SV impact": 100,
       "Allele frequency": 100,
-      "Marin Avg Rank": 1
+      "Win Rate": 1
     },
-    "aggregation": "Native family means; only Marin Avg Rank aggregates across families and includes AF"
+    "aggregation": "Native family means; Win Rate compares only the two final models per task, then averages task wins within families and five families equally"
   },
   "training": {
     "216b": [
@@ -20839,7 +20839,7 @@
       "final_validation_loss": 0.9462159565554304,
       "logged_final_validation_loss": 0.9475062713027,
       "matched_reference_code": "M61-L",
-      "Marin Avg Rank": 79.44444444444444,
+      "Win Rate": 34.166666666666664,
       "Conservation": 0.8904026596143884
     },
     {
@@ -20848,7 +20848,7 @@
       "final_validation_loss": 0.8873021401353057,
       "logged_final_validation_loss": 0.8898855298757553,
       "matched_reference_code": "M61-L-1T",
-      "Marin Avg Rank": 82.45370370370371,
+      "Win Rate": 65.83333333333333,
       "Conservation": 0.889637543718755
     }
   ],

@@ -19,7 +19,7 @@ PALETTE_PATH = HERE / "figure-palette.json"
 PALETTE = json.loads(PALETTE_PATH.read_text())
 RUNS = ["216B-token run", "1T-token run"]
 METRICS = [
-    ("Marin Avg Rank", "Marin Avg Rank", "Percentile rank ↑"),
+    ("Avg normalized score", "Avg normalized score", "Normalized score"),
     ("Conservation", "Conservation", "AUROC"),
     ("Motifs", "Motifs", "Accuracy"),
     ("Core/non-core", "Core/non-core", "AUROC"),
@@ -78,6 +78,9 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
             ax.set_title("Zero-shot" if method_index == 0 else "Linear probe")
             ax.grid(axis="y", color="#e4e4e4", linewidth=.8)
             ax.margins(y=.12)
+            if metric == "Avg normalized score":
+                ax.set_ylim(-.035, 1.035)
+                ax.set_yticks([0, .25, .5, .75, 1])
     assert len(seen) == 120
     handles, labels = axes[0, 0].get_legend_handles_labels()
     title = fig.suptitle("Zero-shot scores and frozen linear probes", va="top")
@@ -163,7 +166,7 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
     normalize_svg(HERE / "figures" / f"{name}.svg")
     plt.close(fig)
     (HERE / ("line-figure-provenance.json" if mode == "tokens" else "progress-figure-provenance.json")).write_text(json.dumps({
-        "source_sha256": hashlib.sha256((HERE/"all-category-scores.csv").read_bytes()).hexdigest(),
+        "source_sha256": hashlib.sha256((HERE/"normalized-category-scores.csv").read_bytes()).hexdigest(),
         "palette_sha256": hashlib.sha256(PALETTE_PATH.read_bytes()).hexdigest(),
         "run_colors": dict(zip(RUNS, colors, strict=True)),
         "progress_sha256": hashlib.sha256((HERE/"run-progress.csv").read_bytes()).hexdigest(),
@@ -173,14 +176,14 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
         "plot_size_inches": [plot_width, plot_height],
         "figure_size_inches": [width, height],
         "header_gaps_inches": {"title_to_legend": title_legend_gap, "legend_to_facets": legend_cards_gap},
-        "layout": "Top: Marin Avg Rank, Conservation, Motifs; bottom: Core/non-core, SV, AF; zero-shot above probe in each pair",
-        "aggregate": "Marin Avg Rank: per-task percentile against nine fixed checkpoints in the same readout, averaged within five families, including AF, then equally across families",
+        "layout": "Top: Avg normalized score, Conservation, Motifs; bottom: Core/non-core, SV, AF; zero-shot above probe in each pair",
+        "aggregate": "Min–max scale each saved family mean across both runs’ checkpoints, separately for each readout, then average the five normalized families equally, including AF",
         "x_axis": mode, "smoothing": False, "y_scales": "Independent per panel",
     }, indent=2) + "\n")
 
 
 def main() -> None:
-    with (HERE / "all-category-scores.csv").open() as stream:
+    with (HERE / "normalized-category-scores.csv").open() as stream:
         rows = list(csv.DictReader(stream))
     with (HERE / "run-progress.csv").open() as stream:
         progress = {(row["run"], row["checkpoint"]): row for row in csv.DictReader(stream)}

@@ -1,6 +1,6 @@
 {
-  "source": "/home/exedev/repos/plantcad2-br/codex-exp586-upstream/.agents/artifacts/exp586-rank-composites/all-category-scores.csv",
-  "source_sha256": "f2c0433f7de85e3f06dabf887a092b8a25aa3f420336ee1f0a7dbfdd5fd83c00",
+  "source": "/home/exedev/repos/plantcad2-br/codex-exp586-upstream/.agents/artifacts/exp586-rank-composites/normalized-category-scores.csv",
+  "source_sha256": "b603955c102e78b0dabba4faeda9f88056909c5f8c80e4ccddec735464de8779",
   "input_scores": 120,
   "displayed_checkpoint_changes": 96,
   "metrics": [
@@ -9,7 +9,7 @@
     "Core/non-core",
     "SV impact",
     "Allele frequency",
-    "Marin Avg Rank"
+    "Avg normalized score"
   ],
   "runs": [
     "216B-token run",

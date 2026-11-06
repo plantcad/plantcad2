@@ -14,25 +14,25 @@ However, monotonicity with scale is nearly perfect when using linear probes rath
 _Top: AUROC, accuracy and average precision ×100; Avg Rank is a percentile. Higher is better; rank definitions are below._
 
 <p align="center">
-  <img src="figures/loss-comparison.png" alt="Linear probe PlantCAD2 benchmark. Top: paired bars for only the final 216B and 1T MoE models, comparing Conservation, Motifs, Core/non-core, SV impact, Allele frequency and Marin Avg Rank. Native probe metrics are multiplied by 100 for display; Marin Avg Rank is already a percentile. Bottom: unchanged W&B training and validation loss curves versus DNA tokens, followed by matched final loss versus probe Marin Avg Rank (left, solid circles) and probe Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses, directly labeled with training tokens." />
+  <img src="figures/loss-comparison.png" alt="Linear probe PlantCAD2 benchmark. Top: paired bars for only the final 216B and 1T MoE models, comparing Conservation, Motifs, Core/non-core, SV impact, Allele frequency and Win Rate. Native probe metrics are multiplied by 100 for display; Win Rate is the family-balanced percentage of task wins against the other final model, counting ties as half. Bottom: unchanged W&B training and validation loss curves versus DNA tokens, followed by matched final loss versus probe Win Rate (left, solid circles) and probe Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses, directly labeled with training tokens." />
 </p>
 
-Top: probe AUROC, accuracy, average precision and Spearman correlation ×100; Marin Avg Rank is a percentile. Below: W&B loss curves and [matched final loss](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302) versus probe scores; darker coral rugs mark later dense checkpoints.
+Top: native probe metrics ×100 and family-balanced Win Rate against the other final model. Below: W&B loss curves and [matched final loss](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302) versus probe scores; darker coral rugs mark later dense checkpoints.
 
 These evaluations follow five checkpoints from each text-pretrained MarinMoE 1.5B–60M run (216B and 1T DNA tokens), including their shared starting model before DNA training.
 Alongside the existing allele-frequency (AF) regression probe, frozen linear classifiers were added for conservation, motif recovery, core/non-core and structural-variant (SV) impact, with task-specific inputs described below.
 
 <p align="center">
-  <img src="figures/checkpoint-tokens.png" alt="Six paired zero-shot and linear-probe metrics across DNA training. Top: Marin Avg Rank, Conservation, Motifs; bottom: Core/non-core, SV impact, Allele frequency. Only Marin Avg Rank is percentile-scaled; the other families keep their native scores. References are the same nine unique checkpoints, separately for each readout, with five equally weighted families including AF." />
+  <img src="figures/checkpoint-tokens.png" alt="Six paired zero-shot and linear-probe metrics across DNA training. Top: Avg normalized score, Conservation, Motifs; bottom: Core/non-core, SV impact, Allele frequency. Avg normalized score first min–max scales each task family's native mean over all checkpoints from both runs, separately for each readout, then averages the five normalized families including AF. Other panels retain native scores." />
 </p>
 
-_Marin Avg Rank includes AF and uses nine fixed checkpoint references, separately for zero-shot and probes. All other panels retain native scores._
+_Avg normalized score gives each of five task families equal weight after scaling its observed checkpoint range to 0–1. Other panels retain native scores._
 
 <details>
 <summary>Run progress and score definitions</summary>
 
 <p align="center">
-  <img src="figures/checkpoint-progress.png" alt="The same six paired metrics versus actual W&B run progress. Marin Avg Rank includes all five task families; individual families retain native units." />
+  <img src="figures/checkpoint-progress.png" alt="The same six paired metrics versus actual W&B run progress. Avg normalized score equally averages five min–max normalized task-family means, including AF; individual families retain native units." />
 </p>
 
 _Same scores, using recorded W&B `run_progress`: 100% is each run's final checkpoint, at different token totals.
@@ -40,19 +40,18 @@ Intermediate checkpoints are approximately matched in progress.
 The checkpoint token axis is linear through 10B and logarithmic above it.
 The motif score averages eight recovery tasks: start/stop codons and splice donor/acceptor sites in maize and tomato._
 
-### Rank definitions
+### Aggregate score definitions
 
 Only summaries **across task families** change. Conservation/core AUROC, motif accuracy, SV average precision and AF Spearman correlation retain their definitions and existing means across tasks within each family. The primary bar chart displays task-family scores ×100; other panels retain native units.
 
-For each task, the percentile is `100 × (reference scores below the model + half the ties) / reference count`, using exact stored values. Average these task percentiles within each family, then average the families equally. Both rank summaries run from **0 to 100, higher is better**; they measure relative standing, not accuracy or effect size.
-
-- **Avg Rank:** conservation, motifs, core/non-core and SV receive 25% each. Each task is ranked against the same **11 published baseline models**, frozen at the [archived leaderboard revision](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/data/results.csv). AF is unavailable for these baselines and is excluded.
-- **Marin Avg Rank:** those four families plus AF receive 20% each. Each task is ranked against the **nine unique language-initialized MarinMoE checkpoints**, using separate zero-shot and probe reference scores. No published zero-shot values enter probe ranks.
+- **Avg Rank** remains unchanged for the zero-shot baseline comparison: rank each task against the same **11 published baseline models**, frozen at the [archived leaderboard revision](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/data/results.csv), then average task percentiles within families and give conservation, motifs, core/non-core and SV 25% each. Per-task percentile is `100 × (reference scores below the model + half the ties) / reference count`, using exact stored values. AF is unavailable for these baselines and is excluded.
+- **Win Rate** compares only the two final probe models. For each task, award 1 for a higher score, ½ for an exact tie and 0 for a lower score. Average task wins within each family, then give all five families—including AF—20% each. Display the result as a percentage. This is a family-balanced fraction of task wins, not a fraction of correctly predicted examples; win margins do not affect it.
+- **Avg normalized score** describes checkpoint progress. First compute each family's existing mean task score, then scale it as `(score − minimum) / (maximum − minimum)` over all nine unique checkpoints from both runs. Use separate bounds for zero-shot and probes, shared across both runs within each readout. Average the five normalized family scores equally, including AF, to obtain a **0–1** score.
 
 The 11-model reference comprises PlantCAD (512 bp), PlantCAD2 Small/Medium/Large, PlantCAD2.5 Large, Evo 2 7B/20B, GPN, Carbon-3B and NTv3 100M/650M; it includes models not drawn in the overview.
-The Marin reference contains the shared pre-DNA model once, four checkpoints from the 216B run (2.16B, 30.88B, 123.52B, 216.16B tokens), and four from the 1T run (10B, 181.82B, 545.46B, 1T tokens).
+The normalization population contains the shared pre-DNA model once, four checkpoints from the 216B run (2.16B, 30.88B, 123.52B, 216.16B tokens), and four from the 1T run (10B, 181.82B, 545.46B, 1T tokens).
 
-Reference membership stays fixed when adding future models. Finite reference sets make ranks coarse and can hide improvements within a rank interval; the native family panels retain that information. Compare rank values only within the same definition and readout. This follows the leaderboard's per-task percentile idea but gives families equal weight and freezes the reference sets.
+Higher is better for all three summaries, but they have different meanings and should not be compared numerically with each other. The normalized average is descriptive of the checkpoint set shown; adding checkpoints can change its bounds. Its levels are not comparable between zero-shot and probes. Native family panels retain the absolute scores.
 
 </details>
 
@@ -60,10 +59,10 @@ Reference membership stays fixed when adding future models. Finite reference set
 <summary>Changes between checkpoints</summary>
 
 <p align="center">
-  <img src="figures/checkpoint-changes-primary.png" alt="Changes between successive checkpoints for zero-shot and linear probes. Family-score changes retain native units; Marin Avg Rank changes are in percentile points. Blue means increase, orange decrease, gray no change; color encodes sign only." />
+  <img src="figures/checkpoint-changes-primary.png" alt="Changes between successive checkpoints for zero-shot and linear probes. Family changes retain native units; the final row shows changes in Avg normalized score on a 0–1 scale. Blue means increase, orange decrease, gray no change; color encodes sign only." />
 </p>
 
-_Family changes use native units; Marin Avg Rank changes use percentile points. Colors show direction, not magnitude._
+_Family changes use native units; Avg normalized score changes use normalized 0–1 units. Colors show direction, not magnitude._
 
 </details>
 

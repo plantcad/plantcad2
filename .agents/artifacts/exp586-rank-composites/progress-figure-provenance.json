@@ -1,5 +1,5 @@
 {
-  "source_sha256": "f2c0433f7de85e3f06dabf887a092b8a25aa3f420336ee1f0a7dbfdd5fd83c00",
+  "source_sha256": "b603955c102e78b0dabba4faeda9f88056909c5f8c80e4ccddec735464de8779",
   "palette_sha256": "fc45caa09074fb8c14f03143d8f4aeb067578c263e72e7ad8f24ea8142a40648",
   "run_colors": {
     "216B-token run": "#c8a229",
@@ -10,7 +10,7 @@
   "score_points": 120,
   "card_geometry": [
     {
-      "metric": "Marin Avg Rank",
+      "metric": "Avg normalized score",
       "left": 0.00923076923076923,
       "right": 0.3251282051282051,
       "top": 0.9266943175053693,
@@ -79,8 +79,8 @@
     "title_to_legend": 0.08,
     "legend_to_facets": 0.14
   },
-  "layout": "Top: Marin Avg Rank, Conservation, Motifs; bottom: Core/non-core, SV, AF; zero-shot above probe in each pair",
-  "aggregate": "Marin Avg Rank: per-task percentile against nine fixed checkpoints in the same readout, averaged within five families, including AF, then equally across families",
+  "layout": "Top: Avg normalized score, Conservation, Motifs; bottom: Core/non-core, SV, AF; zero-shot above probe in each pair",
+  "aggregate": "Min\u2013max scale each saved family mean across both runs\u2019 checkpoints, separately for each readout, then average the five normalized families equally, including AF",
   "x_axis": "progress",
   "smoothing": false,
   "y_scales": "Independent per panel"

@@ -4,6 +4,7 @@
   "probe_bar_annotations": 12,
   "benchmark_source_sha256": "4cb7e31103e17f974c7b2c9524a11ea2d9a10231f9164a2dc289ecef46740641",
   "probe_source_sha256": "f2c0433f7de85e3f06dabf887a092b8a25aa3f420336ee1f0a7dbfdd5fd83c00",
+  "summary_source_sha256": "bab13e314f078a48727d33ab2cf1579b5e13e2ce7b95cd707502a44d4c855fb7",
   "frozen_reference_sha256": "cc0905125229d2d29b741ffd8431c427845d61e703a485481164ff8c8581913f",
   "palette_sha256": "fc45caa09074fb8c14f03143d8f4aeb067578c263e72e7ad8f24ea8142a40648",
   "run_colors": {
@@ -229,7 +230,7 @@
     "labels": "Direct DNA-token labels; shared annotation identifies the dense model as 1B parameters",
     "total_parameters_each": 973178880
   },
-  "scatter_readout": "Linear probe: Marin Avg Rank (left), Conservation AUROC (right)",
+  "scatter_readout": "Linear probe: Win Rate (left), Conservation AUROC (right)",
   "probe_benchmark": {
     "metrics": [
       "Conservation",
@@ -237,7 +238,7 @@
       "Core/non-core",
       "SV impact",
       "Allele frequency",
-      "Marin Avg Rank"
+      "Win Rate"
     ],
     "models": {
       "216b": {
@@ -246,7 +247,7 @@
         "SV impact": 0.9367569338854964,
         "Allele frequency": 0.18852680714157333,
         "Motifs": 0.8615695943025675,
-        "Marin Avg Rank": 79.44444444444444
+        "Win Rate": 34.166666666666664
       },
       "1t": {
         "Conservation": 0.889637543718755,
@@ -254,7 +255,7 @@
         "SV impact": 0.9411080566331625,
         "Allele frequency": 0.19271995089663327,
         "Motifs": 0.8649079873103453,
-        "Marin Avg Rank": 82.45370370370371
+        "Win Rate": 65.83333333333333
       }
     },
     "display_multipliers": {
@@ -263,9 +264,9 @@
       "Core/non-core": 100,
       "SV impact": 100,
       "Allele frequency": 100,
-      "Marin Avg Rank": 1
+      "Win Rate": 1
     },
-    "aggregation": "Native family means; only Marin Avg Rank aggregates across families and includes AF"
+    "aggregation": "Native family means; Win Rate compares only the two final models per task, then averages task wins within families and five families equally"
   },
   "scatter": [
     {
@@ -274,7 +275,7 @@
       "final_validation_loss": 0.9462159565554304,
       "logged_final_validation_loss": 0.9475062713027,
       "matched_reference_code": "M61-L",
-      "Marin Avg Rank": 79.44444444444444,
+      "Win Rate": 34.166666666666664,
       "Conservation": 0.8904026596143884
     },
     {
@@ -283,13 +284,13 @@
       "final_validation_loss": 0.8873021401353057,
       "logged_final_validation_loss": 0.8898855298757553,
       "matched_reference_code": "M61-L-1T",
-      "Marin Avg Rank": 82.45370370370371,
+      "Win Rate": 65.83333333333333,
       "Conservation": 0.889637543718755
     }
   ],
-  "plot_data_sha256": "2273d7d4aa0783c20191456324bf6829f7ee92012ef0928563caf535089e2f9f",
+  "plot_data_sha256": "a5ff965645f43ae08997dcd10613ea2b4d39e48cfb6e6dc3356b0911bbdced29",
   "figure_sha256": {
-    "png": "93315764da52cbcb6739817e81ee9be7c641d7f883d0e54b44ce2e054a896227",
-    "svg": "36c96522fe6610524c5e995382c3eda4d7e815ddc7e5afb383997630f8d20e57"
+    "png": "a0768f07ecf0bfae6356a7bd8b7a0a8cba6885a1c39220ebc9a6e6316bf14d45",
+    "svg": "5e4431e21c59f7cd35e8568b515a35ab4140bd285baf1b1377e0a6ef4a8b6cfd"
   }
 }
