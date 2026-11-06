@@ -16,7 +16,7 @@ def main() -> None:
     original_images = re.findall(r'<img src="([^"]+)" alt="([^"]+)" />', body)
     alts = {
         "benchmark-comparison": "Zero-shot comparison of eight models. Top: Conservation, Motifs, Core/non-core, SV impact and Avg Rank are grouped together on one Metric score (×100) or percentile rank axis with a marked break and a value on every bar. Task-family AUROC, accuracy and average precision are multiplied by 100 for display; Avg Rank is already a percentile. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank retain their existing native scales and marked horizontal breaks. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models.",
-        "loss-comparison": "Linear probe PlantCAD2 benchmark. Top: paired bars for only the final 216B and 1T MoE models, comparing Conservation, Motifs, Core/non-core, SV impact, Allele frequency and Win Rate. Native probe metrics are multiplied by 100 for display; Win Rate is the family-balanced percentage of task wins against the other final model, counting ties as half. Bottom: unchanged W&B training and validation loss curves versus DNA tokens, followed by matched final loss versus probe Win Rate (left, solid circles) and probe Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses, directly labeled with training tokens.",
+        "loss-comparison": "Linear probe PlantCAD2 benchmark. Top left: family-average Conservation, Motifs, Core/non-core, SV impact and Allele frequency scores for the final 216B and 1T models, using native metrics multiplied by 100. Top right: stacked task-win shares for each family, annotated with counts such as 2/3, followed by the family-balanced overall task win rate. Gold is 216B and plum is 1T. Bottom: unchanged training and validation loss curves, followed by matched final loss versus probe Win Rate (left, solid circles) and Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses and training-token labels.",
         "checkpoint-tokens": "Six paired zero-shot and linear-probe metrics across DNA training. Top: Avg normalized score, Conservation, Motifs; bottom: Core/non-core, SV impact, Allele frequency. Avg normalized score first min–max scales each task family's native mean over all checkpoints from both runs, separately for each readout, then averages the five normalized families including AF. Other panels retain native scores.",
         "checkpoint-progress": "The same six paired metrics versus actual W&B run progress. Avg normalized score equally averages five min–max normalized task-family means, including AF; individual families retain native units.",
         "checkpoint-changes-primary": "Changes between successive checkpoints for zero-shot and linear probes. Family changes retain native units; the final row shows changes in Avg normalized score on a 0–1 scale. Blue means increase, orange decrease, gray no change; color encodes sign only.",
@@ -25,12 +25,22 @@ def main() -> None:
     for image, old_alt in original_images:
         name = Path(image).stem
         body = body.replace(f'alt="{old_alt}"', f'alt="{alts[name]}"')
+    scorecard = '''<details>
+<summary>Per-task probe scores</summary>
+
+<p align="center">
+  <img src="figures/probe-scorecard.png" alt="The 21 held-out probe task scores for the final 216B and 1T MoE models, grouped by Conservation, Motifs, Core/non-core, SV impact and Allele frequency. Columns show the two native scores and the signed difference, 1T minus 216B. The difference cell is gold when 216B wins and plum when 1T wins; color indicates the winner, not the margin. Five decimal places preserve the smallest observed differences." />
+</p>
+
+_Native metric units; Δ = 1T − 216B. Colors identify the winning model; win counts use unrounded scores._
+
+</details>'''
     body = body.replace(
         f'  <img src="figures/benchmark-comparison.png" alt="{alts["benchmark-comparison"]}" />\n</p>',
         f'  <img src="figures/benchmark-comparison.png" alt="{alts["benchmark-comparison"]}" />\n</p>\n\n_Top: AUROC, accuracy and average precision ×100; Avg Rank is a percentile. Higher is better; rank definitions are below._')
     body = body.replace(
         'Curves use W&B losses; the scatter uses the [matched 65,536-window sample](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302), with darker coral rugs for later dense checkpoints.',
-        'Top: native probe metrics ×100 and family-balanced Win Rate against the other final model. Below: W&B loss curves and [matched final loss](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302) versus probe scores; darker coral rugs mark later dense checkpoints.')
+        'For Conservation, 1T wins two of three tasks but its larger Andropogoneae loss lowers the family average. Loss panels retain the W&B curves and [matched final-loss comparison](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302); darker coral rugs mark later dense checkpoints.\n\n' + scorecard)
     body = body.replace(
         f'  <img src="figures/checkpoint-tokens.png" alt="{alts["checkpoint-tokens"]}" />\n</p>',
         f'  <img src="figures/checkpoint-tokens.png" alt="{alts["checkpoint-tokens"]}" />\n</p>\n\n_Avg normalized score gives each of five task families equal weight after scaling its observed checkpoint range to 0–1. Other panels retain native scores._')
@@ -57,7 +67,7 @@ Higher is better for all three summaries, but they have different meanings and s
     assert body.split('<p align="center">', 1)[0] == opening
     assert "Composite" not in body and 'github.com/eric-czech/plantcad2' not in body
     assert "Marin Avg Rank" not in body
-    assert body.count('<details>') == body.count('</details>') == 5 and '<details open' not in body
+    assert body.count('<details>') == body.count('</details>') == 6 and '<details open' not in body
     assert re.findall(r'\|.*\|', body[body.index('<summary>Probe inputs'):]) == re.findall(r'\|.*\|', source[source.index('<summary>Probe inputs'):])
     (HERE / "draft.md").write_text(body)
     (HERE / "draft-text-provenance.json").write_text(json.dumps({

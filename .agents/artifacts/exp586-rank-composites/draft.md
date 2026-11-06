@@ -14,10 +14,21 @@ However, monotonicity with scale is nearly perfect when using linear probes rath
 _Top: AUROC, accuracy and average precision ×100; Avg Rank is a percentile. Higher is better; rank definitions are below._
 
 <p align="center">
-  <img src="figures/loss-comparison.png" alt="Linear probe PlantCAD2 benchmark. Top: paired bars for only the final 216B and 1T MoE models, comparing Conservation, Motifs, Core/non-core, SV impact, Allele frequency and Win Rate. Native probe metrics are multiplied by 100 for display; Win Rate is the family-balanced percentage of task wins against the other final model, counting ties as half. Bottom: unchanged W&B training and validation loss curves versus DNA tokens, followed by matched final loss versus probe Win Rate (left, solid circles) and probe Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses, directly labeled with training tokens." />
+  <img src="figures/loss-comparison.png" alt="Linear probe PlantCAD2 benchmark. Top left: family-average Conservation, Motifs, Core/non-core, SV impact and Allele frequency scores for the final 216B and 1T models, using native metrics multiplied by 100. Top right: stacked task-win shares for each family, annotated with counts such as 2/3, followed by the family-balanced overall task win rate. Gold is 216B and plum is 1T. Bottom: unchanged training and validation loss curves, followed by matched final loss versus probe Win Rate (left, solid circles) and Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses and training-token labels." />
 </p>
 
-Top: native probe metrics ×100 and family-balanced Win Rate against the other final model. Below: W&B loss curves and [matched final loss](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302) versus probe scores; darker coral rugs mark later dense checkpoints.
+For Conservation, 1T wins two of three tasks but its larger Andropogoneae loss lowers the family average. Loss panels retain the W&B curves and [matched final-loss comparison](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302); darker coral rugs mark later dense checkpoints.
+
+<details>
+<summary>Per-task probe scores</summary>
+
+<p align="center">
+  <img src="figures/probe-scorecard.png" alt="The 21 held-out probe task scores for the final 216B and 1T MoE models, grouped by Conservation, Motifs, Core/non-core, SV impact and Allele frequency. Columns show the two native scores and the signed difference, 1T minus 216B. The difference cell is gold when 216B wins and plum when 1T wins; color indicates the winner, not the margin. Five decimal places preserve the smallest observed differences." />
+</p>
+
+_Native metric units; Δ = 1T − 216B. Colors identify the winning model; win counts use unrounded scores._
+
+</details>
 
 These evaluations follow five checkpoints from each text-pretrained MarinMoE 1.5B–60M run (216B and 1T DNA tokens), including their shared starting model before DNA training.
 Alongside the existing allele-frequency (AF) regression probe, frozen linear classifiers were added for conservation, motif recovery, core/non-core and structural-variant (SV) impact, with task-specific inputs described below.

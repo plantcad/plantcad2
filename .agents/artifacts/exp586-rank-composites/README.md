@@ -40,14 +40,18 @@ The shared vertical axis has a marked break omitting 5–45.
 Underlying scores, definitions and family aggregation are unchanged; the horizontal rankings and other figures retain their native units.
 Avg Rank is also retained in the third sorted horizontal panel.
 The second figure is titled `Linear probe PlantCAD2 benchmark`.
-Its top row compares only the final 216B and 1T MoE models on all five probe task families, including AF, plus Win Rate.
-These grouped bars display native metrics ×100 and Win Rate as a percentage, with two-decimal annotations so close probe scores remain distinguishable.
+Its top left compares the final 216B and 1T MoE models on native family-average scores for Conservation, Motifs, Core/non-core, SV and AF.
+A separate top-right panel shows stacked task wins by family, annotated with win counts, followed by the explicitly labeled family-balanced overall task win rate.
+The grouped score bars display native metrics ×100 with two-decimal annotations; task-win shares use their own percentage axis.
 This row keeps the full score range because AF correlations lie below the first figure's 45-point axis break.
+A collapsed scorecard displays all 21 per-task scores in native units, grouped by family, with both model scores and Δ = 1T − 216B.
+Only the difference column is colored by winning model; five decimal places avoid false visible ties.
+`plot_probe_scorecard.py`, `probe-scorecard-data.json` and `probe-scorecard.csv` preserve the task identities, source scores, differences and checks against the family means and exact win counts.
 The training/validation loss curves and final-loss scatter occupy the second row.
 The scatter uses probe Win Rate on the left axis and native probe Conservation AUROC on the right; matched losses, W&B histories and dense rugs remain unchanged.
 Checkpoint plots and the change heatmap use Avg normalized score on a 0–1 scale; the five native family panels are unchanged.
 The heatmap reports normalized-score changes in 0–1 units and native changes in their original units; colors encode sign only.
-All five PNGs and SVGs were inspected, with programmatic overlap/boundary checks on labels and paired-card layouts.
+All six PNGs and SVGs were inspected, with programmatic overlap/boundary checks on labels and paired-card layouts.
 
 ## Reproduction and checks
 
@@ -59,6 +63,7 @@ Use the existing analysis environment:
 /home/exedev/repos/plantcad2-br/codex-exp586-probes/zero-shot-leaderboard/marindna_exp586/.venv/bin/python plot_benchmark_comparison.py
 /home/exedev/repos/plantcad2-br/codex-exp586-probes/zero-shot-leaderboard/marindna_exp586/.venv/bin/python plot_checkpoint_pairs.py
 /home/exedev/repos/plantcad2-br/codex-exp586-probes/zero-shot-leaderboard/marindna_exp586/.venv/bin/python plot_checkpoint_changes.py
+/home/exedev/repos/plantcad2-br/codex-exp586-probes/zero-shot-leaderboard/marindna_exp586/.venv/bin/python plot_probe_scorecard.py
 /home/exedev/repos/plantcad2-br/codex-exp586-probes/zero-shot-leaderboard/marindna_exp586/.venv/bin/python plot_loss_comparison.py --history-dir /home/exedev/repos/marin-dna-br/codex-exp586-probes/scratch/loss-figure-wandb
 /home/exedev/repos/plantcad2-br/codex-exp586-probes/zero-shot-leaderboard/marindna_exp586/.venv/bin/python -m pytest test_rank_scores.py test_marin_summaries.py -q
 python build_draft.py
@@ -67,5 +72,5 @@ uv run --no-project --with markdown-it-py --with mdit-py-plugins python build_dr
 
 The tests check published-reference percentiles against SciPy, min–max normalization of family means, equal family weighting, half-credit task ties, final-only Win Rate comparisons, rejection of missing/constant families and preservation of all native family values.
 Training/validation arrays and dense loss rugs were compared directly with the old saved figure data and are identical.
-The HTML builder embeds PNGs into a self-contained, content-hashed preview and verifies five correctly placed figures, five closed dropdowns and unchanged methods/control tables.
+The HTML builder embeds PNGs into a self-contained, content-hashed preview and verifies six correctly placed figures, six closed dropdowns and unchanged methods/control tables.
 The live comment was re-fetched after drafting to confirm no edits were lost or published.

@@ -109,6 +109,17 @@ def main() -> None:
     for key, model in models.items():
         identity = "short-216b" if key == "216b" else "long-1000b"
         model["probe_scores"]["Win Rate"] = summaries["probe_win_rates"][identity]["score"]
+    task_wins = {}
+    for family in PROBE_METRICS[:-1]:
+        tasks = summaries["families"][family]
+        task_wins[family] = {}
+        for key in models:
+            identity = "short-216b" if key == "216b" else "long-1000b"
+            points = sum(summaries["probe_win_rates"][identity]["tasks"][task] for task in tasks)
+            share = 100 * points / len(tasks)
+            np.testing.assert_allclose(share, summaries["probe_win_rates"][identity]["families"][family], rtol=0, atol=1e-12)
+            task_wins[family][key] = {"points": points, "tasks": len(tasks), "percent": share}
+        np.testing.assert_allclose(sum(row["percent"] for row in task_wins[family].values()), 100, rtol=0, atol=1e-12)
     palette = json.loads(PALETTE_PATH.read_text())
     assert all(model["color"] == palette["marin"][key] for key, model in models.items())
     assert digest(MATCHED_PATH) == MATCHED_SHA256, "Matched-loss reference changed; review before plotting"
@@ -135,8 +146,8 @@ def main() -> None:
     assert common_hashes == {reference["D216"]["validation"]["samples"]["common-65536"]["input_sha256"]}
     provenance = {
         "figure_title": "Linear probe PlantCAD2 benchmark",
-        "layout": "Two rows: six paired probe metrics above three loss panels",
-        "probe_bar_annotations": 12,
+        "layout": "Family-average score bars and task-win panel above three unchanged loss panels",
+        "probe_bar_annotations": 10,
         "benchmark_source_sha256": digest(benchmark_path),
         "probe_source_sha256": digest(score_path),
         "summary_source_sha256": digest(summaries_path),
@@ -164,36 +175,71 @@ def main() -> None:
         "scatter_readout": "Linear probe: Win Rate (left), Conservation AUROC (right)",
         "probe_benchmark": {
             "metrics": PROBE_METRICS, "models": {key: model["probe_scores"] for key, model in models.items()},
+            "family_score_bars": PROBE_METRICS[:-1],
             "display_multipliers": {metric: 1 if metric == "Win Rate" else 100 for metric in PROBE_METRICS},
             "aggregation": "Native family means; Win Rate compares only the two final models per task, then averages task wins within families and five families equally",
         },
+        "task_wins": task_wins,
         "scatter": [],
     }
     plot_data = {"probe_benchmark": provenance["probe_benchmark"],
-                 "training": {}, "validation": {}, "scatter": [], "dense_rugs": rugs}
+                 "task_wins": task_wins, "training": {}, "validation": {}, "scatter": [], "dense_rugs": rugs}
     plt.rcParams.update({"font.size": 12, "svg.fonttype": "none", "axes.axisbelow": True})
     fig = plt.figure(figsize=(20.8, 12.1))
     title = fig.text(.5225, .989, "Linear probe PlantCAD2 benchmark", weight="bold",
                      fontsize="large", ha="center", va="top")
-    probe_ax = fig.add_axes((.055, .603, .935, .343))
+    probe_ax = fig.add_axes((.055, .603, .600, .322))
+    win_ax = fig.add_axes((.790, .603, .200, .322))
     bar_labels = []
+    family_metrics = PROBE_METRICS[:-1]
     for index, (key, model) in enumerate(models.items()):
-        x = np.arange(len(PROBE_METRICS)) + (index - .5) * .30
-        scores = [model["probe_scores"][metric] * (1 if metric == "Win Rate" else 100)
-                  for metric in PROBE_METRICS]
+        x = np.arange(len(family_metrics)) + (index - .5) * .30
+        scores = [model["probe_scores"][metric] * 100 for metric in family_metrics]
         assert all(0 <= score <= 100 for score in scores)
         bars = probe_ax.bar(x, scores, width=.30, color=model["color"], edgecolor="white", linewidth=.4)
         np.testing.assert_array_equal([bar.get_height() for bar in bars], scores)
         for xpos, score in zip(x, scores, strict=True):
             bar_labels.append(probe_ax.annotate(f"{score:.2f}", (xpos, score), xytext=(0, 5),
                                                 textcoords="offset points", ha="center", va="bottom", fontsize=11))
-    probe_ax.set_xticks(np.arange(len(PROBE_METRICS)), PROBE_METRICS)
-    probe_ax.set_xlim(-.5, len(PROBE_METRICS) - .5)
+    probe_ax.set_xticks(np.arange(len(family_metrics)), family_metrics)
+    probe_ax.set_xlim(-.5, len(family_metrics) - .5)
     probe_ax.set_ylim(0, 104)
     probe_ax.set_yticks([0, 20, 40, 60, 80, 100])
-    probe_ax.set_ylabel("Metric score (×100) or win rate (%)")
+    probe_ax.set_title("Family-average scores", weight="bold", pad=12)
+    probe_ax.set_ylabel("Metric score (×100)")
     probe_ax.spines[["top", "right"]].set_visible(False)
     probe_ax.grid(axis="y", color="#e4e4e4", linewidth=.7)
+    # Keep task consistency separate from the magnitude of family-average scores.
+    positions = [0, 1, 2, 3, 4, 5.6]
+    win_labels = []
+    for row_index, y in enumerate(positions):
+        left = 0.0
+        for key, model in models.items():
+            if row_index < len(family_metrics):
+                record = task_wins[family_metrics[row_index]][key]
+                value = record["percent"]
+                numerator = f"{record['points']:g}"
+                text = f"{numerator}/{record['tasks']}"
+            else:
+                value = model["probe_scores"]["Win Rate"]
+                text = f"{value:.2f}%"
+            win_ax.barh(y, value, left=left, height=.62, color=model["color"],
+                        edgecolor="white", linewidth=.6)
+            if value:
+                win_labels.append(win_ax.text(left + value / 2, y, text, ha="center", va="center",
+                                               color="#1f2328" if key == "216b" else "white", fontsize=11))
+            left += value
+        np.testing.assert_allclose(left, 100, rtol=0, atol=1e-12)
+    win_ax.axhline(4.8, color="#cbd2d9", linewidth=.8)
+    win_ax.set_yticks(positions, [*family_metrics, "Family-balanced\ntask win rate"])
+    win_ax.get_yticklabels()[-1].set_weight("bold")
+    win_ax.set_ylim(6.35, -.7)
+    win_ax.set_xlim(0, 100)
+    win_ax.set_xticks([0, 25, 50, 75, 100])
+    win_ax.set_title("Task wins by family", weight="bold", pad=12)
+    win_ax.set_xlabel("Task wins (%)")
+    win_ax.tick_params(axis="y", length=0, pad=9)
+    win_ax.spines[["top", "right", "left"]].set_visible(False)
     training_ax = fig.add_axes((.054, .075, .247, .345))
     validation_ax = fig.add_axes((.382, .075, .247, .345))
     scatter_ax = fig.add_axes((.710, .075, .237, .345))
@@ -329,11 +375,17 @@ def main() -> None:
     title_boxes = [axis.title.get_window_extent(renderer) for axis in [training_ax, validation_ax, scatter_ax]]
     model_box = model_legend.get_window_extent(renderer)
     boxes = [label.get_window_extent(renderer).padded(1) for label in bar_labels]
-    assert len(bar_labels) == len(probe_ax.patches) == 12
+    assert len(bar_labels) == len(probe_ax.patches) == 10
     assert not any(a.overlaps(b) for i, a in enumerate(boxes) for b in boxes[i + 1:])
     assert all(probe_ax.bbox.contains(box.x0, box.y0) and probe_ax.bbox.contains(box.x1, box.y1) for box in boxes)
-    assert title.get_window_extent(renderer).y0 > probe_ax.get_tightbbox(renderer).y1
-    assert probe_ax.get_tightbbox(renderer).y0 > model_box.y1
+    win_boxes = [label.get_window_extent(renderer).padded(1) for label in win_labels]
+    assert len(win_ax.patches) == 12
+    assert not any(a.overlaps(b) for i, a in enumerate(win_boxes) for b in win_boxes[i + 1:])
+    assert all(win_ax.bbox.contains(box.x0, box.y0) and win_ax.bbox.contains(box.x1, box.y1) for box in win_boxes)
+    top_boxes = [probe_ax.get_tightbbox(renderer), win_ax.get_tightbbox(renderer)]
+    assert not top_boxes[0].overlaps(top_boxes[1])
+    assert title.get_window_extent(renderer).y0 > max(box.y1 for box in top_boxes)
+    assert min(box.y0 for box in top_boxes) > model_box.y1
     assert model_box.y0 > max(box.y1 for box in title_boxes)
     assert not any(box.overlaps(model_box) for box in title_boxes)
     for label in [*title_boxes, model_box, smoothing_legend.get_window_extent(renderer),

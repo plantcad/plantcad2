@@ -12,7 +12,8 @@ from markdown_it import MarkdownIt
 from mdit_py_plugins.footnote import footnote_plugin
 
 HERE = Path(__file__).resolve().parent
-FIGURES = ["benchmark-comparison", "loss-comparison", "checkpoint-tokens", "checkpoint-progress", "checkpoint-changes-primary"]
+FIGURES = ["benchmark-comparison", "loss-comparison", "probe-scorecard", "checkpoint-tokens", "checkpoint-progress", "checkpoint-changes-primary"]
+IMAGE_DEPTHS = [0, 0, 1, 0, 1, 1]
 
 
 class Structure(HTMLParser):
@@ -56,7 +57,7 @@ def main() -> None:
     structure = Structure()
     structure.feed(body)
     assert structure.depth == 0 and structure.tables == 2
-    assert structure.images == [(depth, f"figures/{name}.png") for depth, name in zip([0, 0, 0, 1, 1], FIGURES, strict=True)]
+    assert structure.images == [(depth, f"figures/{name}.png") for depth, name in zip(IMAGE_DEPTHS, FIGURES, strict=True)]
     hashes = {}
     for name in FIGURES:
         for extension in ("png", "svg"):

@@ -26,6 +26,13 @@
         "Win Rate": 65.83333333333333
       }
     },
+    "family_score_bars": [
+      "Conservation",
+      "Motifs",
+      "Core/non-core",
+      "SV impact",
+      "Allele frequency"
+    ],
     "display_multipliers": {
       "Conservation": 100,
       "Motifs": 100,
@@ -35,6 +42,68 @@
       "Win Rate": 1
     },
     "aggregation": "Native family means; Win Rate compares only the two final models per task, then averages task wins within families and five families equally"
+  },
+  "task_wins": {
+    "Conservation": {
+      "216b": {
+        "points": 1.0,
+        "tasks": 3,
+        "percent": 33.333333333333336
+      },
+      "1t": {
+        "points": 2.0,
+        "tasks": 3,
+        "percent": 66.66666666666667
+      }
+    },
+    "Motifs": {
+      "216b": {
+        "points": 3.0,
+        "tasks": 8,
+        "percent": 37.5
+      },
+      "1t": {
+        "points": 5.0,
+        "tasks": 8,
+        "percent": 62.5
+      }
+    },
+    "Core/non-core": {
+      "216b": {
+        "points": 8.0,
+        "tasks": 8,
+        "percent": 100.0
+      },
+      "1t": {
+        "points": 0.0,
+        "tasks": 8,
+        "percent": 0.0
+      }
+    },
+    "SV impact": {
+      "216b": {
+        "points": 0.0,
+        "tasks": 1,
+        "percent": 0.0
+      },
+      "1t": {
+        "points": 1.0,
+        "tasks": 1,
+        "percent": 100.0
+      }
+    },
+    "Allele frequency": {
+      "216b": {
+        "points": 0.0,
+        "tasks": 1,
+        "percent": 0.0
+      },
+      "1t": {
+        "points": 1.0,
+        "tasks": 1,
+        "percent": 100.0
+      }
+    }
   },
   "training": {
     "216b": [

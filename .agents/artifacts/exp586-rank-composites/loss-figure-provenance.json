@@ -1,7 +1,7 @@
 {
   "figure_title": "Linear probe PlantCAD2 benchmark",
-  "layout": "Two rows: six paired probe metrics above three loss panels",
-  "probe_bar_annotations": 12,
+  "layout": "Family-average score bars and task-win panel above three unchanged loss panels",
+  "probe_bar_annotations": 10,
   "benchmark_source_sha256": "4cb7e31103e17f974c7b2c9524a11ea2d9a10231f9164a2dc289ecef46740641",
   "probe_source_sha256": "f2c0433f7de85e3f06dabf887a092b8a25aa3f420336ee1f0a7dbfdd5fd83c00",
   "summary_source_sha256": "bab13e314f078a48727d33ab2cf1579b5e13e2ce7b95cd707502a44d4c855fb7",
@@ -258,6 +258,13 @@
         "Win Rate": 65.83333333333333
       }
     },
+    "family_score_bars": [
+      "Conservation",
+      "Motifs",
+      "Core/non-core",
+      "SV impact",
+      "Allele frequency"
+    ],
     "display_multipliers": {
       "Conservation": 100,
       "Motifs": 100,
@@ -267,6 +274,68 @@
       "Win Rate": 1
     },
     "aggregation": "Native family means; Win Rate compares only the two final models per task, then averages task wins within families and five families equally"
+  },
+  "task_wins": {
+    "Conservation": {
+      "216b": {
+        "points": 1.0,
+        "tasks": 3,
+        "percent": 33.333333333333336
+      },
+      "1t": {
+        "points": 2.0,
+        "tasks": 3,
+        "percent": 66.66666666666667
+      }
+    },
+    "Motifs": {
+      "216b": {
+        "points": 3.0,
+        "tasks": 8,
+        "percent": 37.5
+      },
+      "1t": {
+        "points": 5.0,
+        "tasks": 8,
+        "percent": 62.5
+      }
+    },
+    "Core/non-core": {
+      "216b": {
+        "points": 8.0,
+        "tasks": 8,
+        "percent": 100.0
+      },
+      "1t": {
+        "points": 0.0,
+        "tasks": 8,
+        "percent": 0.0
+      }
+    },
+    "SV impact": {
+      "216b": {
+        "points": 0.0,
+        "tasks": 1,
+        "percent": 0.0
+      },
+      "1t": {
+        "points": 1.0,
+        "tasks": 1,
+        "percent": 100.0
+      }
+    },
+    "Allele frequency": {
+      "216b": {
+        "points": 0.0,
+        "tasks": 1,
+        "percent": 0.0
+      },
+      "1t": {
+        "points": 1.0,
+        "tasks": 1,
+        "percent": 100.0
+      }
+    }
   },
   "scatter": [
     {
@@ -288,9 +357,9 @@
       "Conservation": 0.889637543718755
     }
   ],
-  "plot_data_sha256": "a5ff965645f43ae08997dcd10613ea2b4d39e48cfb6e6dc3356b0911bbdced29",
+  "plot_data_sha256": "4b1f426c342bba4b0d9ee1d1de38ddaff50844b7a6ec8c3c088cdae407e67327",
   "figure_sha256": {
-    "png": "a0768f07ecf0bfae6356a7bd8b7a0a8cba6885a1c39220ebc9a6e6316bf14d45",
-    "svg": "5e4431e21c59f7cd35e8568b515a35ab4140bd285baf1b1377e0a6ef4a8b6cfd"
+    "png": "fd222b9285c877477b11358578d530848eca30c875a91aaad761a7c761de8e84",
+    "svg": "ab4914ad116899d1039279f3372d254b976443d0378e53f77221e9f35493c575"
   }
 }
