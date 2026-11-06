@@ -1,0 +1,35 @@
+{
+  "native_top_bar_labels": 32,
+  "rank_top_bar_labels": 16,
+  "all_annotated_labels": 80,
+  "overlapping_value_labels": 0,
+  "top_axis_intervals": [
+    [
+      0,
+      5
+    ],
+    [
+      45.0,
+      100.0
+    ]
+  ],
+  "breaks_marked": true,
+  "underlying_native_values_unchanged": true,
+  "primary_display_multipliers": {
+    "Conservation": 100,
+    "Motifs": 100,
+    "Core/non-core": 100,
+    "SV impact": 100,
+    "Unweighted Avg Rank": 1,
+    "Weighted Avg Rank": 1
+  },
+  "primary_y_label": "Metric score (\u00d7100) or percentile rank",
+  "rank_axes": "Unweighted and Weighted Avg Rank are the fifth and sixth primary groups, with separate sorted horizontal panels",
+  "horizontal_panels": 4,
+  "horizontal_bar_value_labels": 32,
+  "vertical_bar_value_label_rotation_degrees": 90,
+  "horizontal_bar_value_label_rotation_degrees": 0,
+  "native_horizontal_label_decimals": 4,
+  "native_horizontal_labels_omit_leading_zero": false,
+  "horizontal_value_labels": "Outside each bar, horizontal, with compact model labels and enough numeric headroom"
+}
