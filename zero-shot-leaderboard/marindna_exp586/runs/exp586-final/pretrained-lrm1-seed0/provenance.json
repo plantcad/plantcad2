@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "condition": "pretrained",
+  "checkpoint_role": "dna-trained",
+  "analysis_prefix": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/analysis/pretrained-lrm1-seed0",
+  "receipt_uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/analysis/pretrained-lrm1-seed0/receipt.json",
+  "receipt_sha256": "55e4d49489a72b5d820a085a3709db56302170bee16cf61074cf5dfb6a538ffc",
+  "requests_sha256": "f2f83a2803f8f43f154abd2eac18a02ea34e0ec2a41138a5e7463e3e5b3778e8",
+  "analysis_wheel_sha256": "09b36730652615d0d54e5d8730ce8b05221413e67fa6f90911425d887446c5ff",
+  "source_artifacts": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/results/pretrained-lrm1-seed0",
+  "probes_included": true,
+  "verified_files": 19,
+  "verified_bytes": 674572006,
+  "selected_files": {
+    "result.json": {
+      "bytes": 76378,
+      "sha256": "2629aa47dd9c95a6304ddfdbd2a070171cbf8a3f1d236ba8eaeedaa15d151625"
+    },
+    "context-8192/probes/result.json": {
+      "bytes": 32924,
+      "sha256": "d3c8e531d2a2af1b31e8173bc43141261e155aac671e1fb1e2585e484c9b2c42"
+    },
+    "context-2048/probes/result.json": {
+      "bytes": 32947,
+      "sha256": "00cc78b0cfd90fbcb03d1acd842053d7b03306450898db03ab8c6d5024071d52"
+    }
+  },
+  "postprocess_wandb": "https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-final-eval-postprocess-v1"
+}

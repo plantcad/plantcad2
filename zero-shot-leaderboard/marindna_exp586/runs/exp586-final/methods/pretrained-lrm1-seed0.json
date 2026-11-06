@@ -1,0 +1,406 @@
+{
+  "backend_parity": {
+    "absolute_accuracy_delta": 0.0,
+    "absolute_nll_delta": 0.00015991700303730205,
+    "acceptance": {
+      "absolute_accuracy_delta_at_most": 0.03,
+      "absolute_nll_delta_at_most": 0.01,
+      "argmax_agreement_at_least": 0.95,
+      "max_abs_at_most": 0.075,
+      "mean_abs_at_most": 0.003,
+      "p99_abs_at_most": 0.025
+    },
+    "accepted": true,
+    "argmax_agreement": 1.0,
+    "examples": 64,
+    "max_abs": 0.020698249340057373,
+    "mean_abs": 0.00101357267703861,
+    "p95_abs": 0.004978636745363474,
+    "p99_abs": 0.011130007915198803,
+    "positions_per_example": 3,
+    "reference_backend": "pooled-ep",
+    "reference_metrics": {
+      "accuracy": 0.5520833333333334,
+      "examples": 192,
+      "mean_true_probability": 0.4694200318190269,
+      "nll": 1.010000803228959
+    },
+    "reference_model": {
+      "attention_implementation": "gpu_fa4_cute",
+      "capacity_factor": 32.0,
+      "expert_chunks": 1,
+      "global_every": 4,
+      "global_kv_heads": 1,
+      "head_dim": 128,
+      "hidden_dim": 768,
+      "initializer_std": 0.018042195912175808,
+      "intermediate_dim": 384,
+      "latent_dim": 384,
+      "layer_norm_eps": 1e-05,
+      "local_kv_heads": 1,
+      "max_seq_len": 8192,
+      "moe_implementation": "fixed_pooled_wave_all_to_all",
+      "num_expert_waves": 3,
+      "num_experts": 384,
+      "num_experts_per_token": 8,
+      "num_heads": 6,
+      "num_kv_heads": 1,
+      "num_layers": 8,
+      "num_shared_experts": 2,
+      "pooled_transport_capacity_factor": 8.0,
+      "qb_estimator": "hist",
+      "qb_hist_bins": 10000,
+      "qk_mult": 1.3,
+      "remat_mode": "recompute_all",
+      "report_capacity_overflow": true,
+      "rope": {
+        "scaling_factor": null,
+        "theta": 10000.0
+      },
+      "rope_fused": true,
+      "sconv": true,
+      "sconv_kernel": 4,
+      "sconv_sites": [
+        "k",
+        "attn",
+        "mlp"
+      ],
+      "shared_expert_intermediate_dim": 384,
+      "sliding_window": 2048,
+      "vocab_size": 128256
+    },
+    "sonic_metrics": {
+      "accuracy": 0.5520833333333334,
+      "examples": 192,
+      "mean_true_probability": 0.46951864861087717,
+      "nll": 1.0098408862259216
+    },
+    "sonic_model": {
+      "attention_implementation": "gpu_fa4_cute",
+      "capacity_factor": 1.15,
+      "expert_chunks": 1,
+      "global_every": 4,
+      "global_kv_heads": 1,
+      "head_dim": 128,
+      "hidden_dim": 768,
+      "initializer_std": 0.018042195912175808,
+      "intermediate_dim": 384,
+      "latent_dim": 384,
+      "layer_norm_eps": 1e-05,
+      "local_kv_heads": 1,
+      "max_seq_len": 8192,
+      "moe_implementation": "sonic",
+      "num_expert_waves": 3,
+      "num_experts": 384,
+      "num_experts_per_token": 8,
+      "num_heads": 6,
+      "num_kv_heads": 1,
+      "num_layers": 8,
+      "num_shared_experts": 2,
+      "pooled_transport_capacity_factor": 1.15,
+      "qb_estimator": "hist",
+      "qb_hist_bins": 10000,
+      "qk_mult": 1.3,
+      "remat_mode": "recompute_all",
+      "report_capacity_overflow": true,
+      "rope": {
+        "scaling_factor": null,
+        "theta": 10000.0
+      },
+      "rope_fused": true,
+      "sconv": true,
+      "sconv_kernel": 4,
+      "sconv_sites": [
+        "k",
+        "attn",
+        "mlp"
+      ],
+      "shared_expert_intermediate_dim": 384,
+      "sliding_window": 2048,
+      "vocab_size": 128256
+    }
+  },
+  "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+  "checkpoint_binding": {
+    "checkpoint_metadata_raw_sha256": "f6028295e3790bf43606917a78e5dade8ce0eb12e19dd2a8e3cab886ae86ab34",
+    "checkpoint_role": "dna-trained",
+    "checkpoint_tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+    "evaluation_tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+    "runtime_moe_implementation": "fixed_pooled_wave_all_to_all"
+  },
+  "checkpoint_metadata_digest": "275e68e8a521333a4dd5c7bf2aa8f9c79c11517677a8af47ce7abc1aa5004a89",
+  "checkpoint_role": "dna-trained",
+  "condition": "pretrained",
+  "intrinsic": {
+    "context_sweep": {
+      "128": {
+        "calibration_weights": {
+          "0.0": {
+            "accuracy": 0.5390625,
+            "examples": 256,
+            "mean_true_probability": 0.43479772940841194,
+            "nll": 1.0131334744529898
+          },
+          "0.25": {
+            "accuracy": 0.578125,
+            "examples": 256,
+            "mean_true_probability": 0.43514251323076053,
+            "nll": 0.998641146713216
+          },
+          "0.5": {
+            "accuracy": 0.578125,
+            "examples": 256,
+            "mean_true_probability": 0.43211405212654486,
+            "nll": 1.009067827962916
+          },
+          "0.75": {
+            "accuracy": 0.5703125,
+            "examples": 256,
+            "mean_true_probability": 0.425327089758023,
+            "nll": 1.045064478990505
+          },
+          "1.0": {
+            "accuracy": 0.50390625,
+            "examples": 256,
+            "mean_true_probability": 0.4159750177066486,
+            "nll": 1.1060519116365057
+          }
+        },
+        "left_test": {
+          "accuracy": 0.4921875,
+          "examples": 256,
+          "mean_true_probability": 0.4002850908145774,
+          "nll": 1.0928333585970904
+        },
+        "poe_equal_test": {
+          "accuracy": 0.5,
+          "examples": 256,
+          "mean_true_probability": 0.41564976847841,
+          "nll": 1.0301981713958133
+        },
+        "poe_selected_test": {
+          "accuracy": 0.50390625,
+          "examples": 256,
+          "mean_true_probability": 0.41032479019969387,
+          "nll": 1.0449399628406262
+        },
+        "right_test": {
+          "accuracy": 0.484375,
+          "examples": 256,
+          "mean_true_probability": 0.4007611621709657,
+          "nll": 1.0920390822496473
+        },
+        "selected_forward_weight": 0.25,
+        "sequence_length": 129
+      },
+      "2048": {
+        "calibration_weights": {
+          "0.0": {
+            "accuracy": 0.61328125,
+            "examples": 256,
+            "mean_true_probability": 0.485634554849389,
+            "nll": 0.9241842877887426
+          },
+          "0.25": {
+            "accuracy": 0.625,
+            "examples": 256,
+            "mean_true_probability": 0.4897697346530873,
+            "nll": 0.8963297945259067
+          },
+          "0.5": {
+            "accuracy": 0.6171875,
+            "examples": 256,
+            "mean_true_probability": 0.4885865244000007,
+            "nll": 0.8961870281842755
+          },
+          "0.75": {
+            "accuracy": 0.609375,
+            "examples": 256,
+            "mean_true_probability": 0.4806867265064918,
+            "nll": 0.9257041616213154
+          },
+          "1.0": {
+            "accuracy": 0.546875,
+            "examples": 256,
+            "mean_true_probability": 0.4682919626483719,
+            "nll": 0.9858195360354102
+          }
+        },
+        "left_test": {
+          "accuracy": 0.53125,
+          "examples": 256,
+          "mean_true_probability": 0.4562984274525661,
+          "nll": 0.992114934616566
+        },
+        "poe_equal_test": {
+          "accuracy": 0.58984375,
+          "examples": 256,
+          "mean_true_probability": 0.47155503712618196,
+          "nll": 0.9214271608786333
+        },
+        "poe_selected_test": {
+          "accuracy": 0.58984375,
+          "examples": 256,
+          "mean_true_probability": 0.47155503712618196,
+          "nll": 0.9214271608786333
+        },
+        "right_test": {
+          "accuracy": 0.57421875,
+          "examples": 256,
+          "mean_true_probability": 0.463616601209651,
+          "nll": 0.9598846452014856
+        },
+        "selected_forward_weight": 0.5,
+        "sequence_length": 2049
+      },
+      "4095": {
+        "calibration_weights": {
+          "0.0": {
+            "accuracy": 0.59765625,
+            "examples": 256,
+            "mean_true_probability": 0.48660728550588783,
+            "nll": 0.9248673551482877
+          },
+          "0.25": {
+            "accuracy": 0.609375,
+            "examples": 256,
+            "mean_true_probability": 0.49138992142393234,
+            "nll": 0.8953959666234135
+          },
+          "0.5": {
+            "accuracy": 0.6328125,
+            "examples": 256,
+            "mean_true_probability": 0.49065925349153955,
+            "nll": 0.8953269135384697
+          },
+          "0.75": {
+            "accuracy": 0.59765625,
+            "examples": 256,
+            "mean_true_probability": 0.4826713186936566,
+            "nll": 0.9257845894781515
+          },
+          "1.0": {
+            "accuracy": 0.55078125,
+            "examples": 256,
+            "mean_true_probability": 0.4697812345222461,
+            "nll": 0.9875677901170683
+          }
+        },
+        "left_test": {
+          "accuracy": 0.53125,
+          "examples": 256,
+          "mean_true_probability": 0.4590707408133312,
+          "nll": 0.989765265821817
+        },
+        "poe_equal_test": {
+          "accuracy": 0.58984375,
+          "examples": 256,
+          "mean_true_probability": 0.47708512637959033,
+          "nll": 0.9123960814928584
+        },
+        "poe_selected_test": {
+          "accuracy": 0.58984375,
+          "examples": 256,
+          "mean_true_probability": 0.47708512637959033,
+          "nll": 0.9123960814928584
+        },
+        "right_test": {
+          "accuracy": 0.57421875,
+          "examples": 256,
+          "mean_true_probability": 0.4667740660315758,
+          "nll": 0.9550339937065875
+        },
+        "selected_forward_weight": 0.5,
+        "sequence_length": 4096
+      },
+      "512": {
+        "calibration_weights": {
+          "0.0": {
+            "accuracy": 0.59765625,
+            "examples": 256,
+            "mean_true_probability": 0.47316787476419664,
+            "nll": 0.946888243098039
+          },
+          "0.25": {
+            "accuracy": 0.59375,
+            "examples": 256,
+            "mean_true_probability": 0.4771635655568847,
+            "nll": 0.9257149459890739
+          },
+          "0.5": {
+            "accuracy": 0.60546875,
+            "examples": 256,
+            "mean_true_probability": 0.47593099823865226,
+            "nll": 0.9316752846674763
+          },
+          "0.75": {
+            "accuracy": 0.59375,
+            "examples": 256,
+            "mean_true_probability": 0.4681214797188384,
+            "nll": 0.9648935021975841
+          },
+          "1.0": {
+            "accuracy": 0.52734375,
+            "examples": 256,
+            "mean_true_probability": 0.4557796723446677,
+            "nll": 1.0248514051889464
+          }
+        },
+        "left_test": {
+          "accuracy": 0.53515625,
+          "examples": 256,
+          "mean_true_probability": 0.44434734535752796,
+          "nll": 1.0027507037935415
+        },
+        "poe_equal_test": {
+          "accuracy": 0.5703125,
+          "examples": 256,
+          "mean_true_probability": 0.4603575216152396,
+          "nll": 0.9432571890031727
+        },
+        "poe_selected_test": {
+          "accuracy": 0.578125,
+          "examples": 256,
+          "mean_true_probability": 0.4581421438055482,
+          "nll": 0.9561142068241728
+        },
+        "right_test": {
+          "accuracy": 0.55078125,
+          "examples": 256,
+          "mean_true_probability": 0.45024401173577644,
+          "nll": 0.9995795051407721
+        },
+        "selected_forward_weight": 0.25,
+        "sequence_length": 513
+      }
+    },
+    "oriented_examples": 512,
+    "prompt_methods_2048": {
+      "rotated": {
+        "accuracy": 0.52734375,
+        "examples": 256,
+        "mean_true_probability": 0.45689368137391284,
+        "nll": 0.9926896503645514
+      },
+      "sandwich": {
+        "accuracy": 0.3203125,
+        "examples": 256,
+        "mean_true_probability": 0.32629702903570035,
+        "nll": 4.843391488832364
+      }
+    },
+    "sample_sha256": "5fa6fa9f94d99414ddb6ec480ca3823196287b63ecac3a470ec1b8db35acd965",
+    "selected_2048_forward_weight": 0.5,
+    "selected_2048_method": "poe_equal",
+    "selected_2048_metrics": {
+      "accuracy": 0.58984375,
+      "examples": 256,
+      "mean_true_probability": 0.47155503712618196,
+      "nll": 0.9214271608786333
+    },
+    "source_windows": 256,
+    "split": "source-index parity; both orientations remain in the same membership"
+  },
+  "schema": 1,
+  "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e"
+}

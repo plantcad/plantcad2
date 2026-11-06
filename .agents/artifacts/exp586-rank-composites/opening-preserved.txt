@@ -1,0 +1,8 @@
+WIP
+
+The text-pretrained 1T-token MarinMoE model has trained for ~46.3 DNA epochs, with ~1.5B total parameters, ~60M active per token, and a heuristic dense-equivalent size of √(1.5B × 60M) ≈ 300M parameters.[^dense-equivalent]
+That 300M estimate is most comparable in size to **PlantCAD2-Medium** (311M parameters).
+
+Overall, the 1T model greatly outperforms all other MarinDNA models (dense or sparse) on matched validation loss samples.  It also outperforms all other Marin models on tasks most directly related to next token prediction like conservation estimation and splicing/start/stop motif recognition.  It saturates or regresses on all other zero-shot tasks though, particularly SV prediction (similar to PlantCAD2.5).
+
+However, monotonicity with scale is nearly perfect when using linear probes rather than zero-shot likelihoods.

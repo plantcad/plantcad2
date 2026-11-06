@@ -1,0 +1,252 @@
+{
+  "benchmark_source_sha256": "93a1056c84070e9e48862e81906ca441d81afb284718d3e02473deeb318cd0a4",
+  "palette_sha256": "fc45caa09074fb8c14f03143d8f4aeb067578c263e72e7ad8f24ea8142a40648",
+  "run_colors": {
+    "216b": "#c8a229",
+    "1t": "#7e4b6c"
+  },
+  "sources": {
+    "216b": {
+      "metadata": {
+        "run_id": "exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+        "wandb_url": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+        "observed_at_utc": "2026-11-05T13:35:01.468753+00:00",
+        "expected_final_tokens": 216158699520,
+        "summary": {
+          "train/input_tokens": 216158699520,
+          "train/step": 412290,
+          "train/loss": 0.9345500469207764,
+          "eval/loss": 0.9475062713027,
+          "eval/examples": 512,
+          "run_progress": 1
+        },
+        "sampling": "None; complete W&B scan_history for each metric",
+        "histories": {
+          "validation": {
+            "file": "216b-validation.jsonl.gz",
+            "rows": 217,
+            "last": {
+              "wandb_step": 416688,
+              "input_tokens": 216158699520,
+              "loss": 0.9475062713027
+            },
+            "token_rollbacks": 0,
+            "null_metric_or_coordinate_rows_skipped": 416472,
+            "sha256": "bd4f74e648c7c12f4352323d1a2a321a2c71c272fa3d0e54cbbf80f6b1a6d705",
+            "bytes": 4456
+          },
+          "training": {
+            "file": "216b-training.jsonl.gz",
+            "rows": 416688,
+            "last": {
+              "wandb_step": 416688,
+              "input_tokens": 216158699520,
+              "loss": 0.9345500469207764
+            },
+            "token_rollbacks": 13,
+            "null_metric_or_coordinate_rows_skipped": 1,
+            "sha256": "79d4bab4ad5202d814d830e5e2faa3cf5dd7927d80c321b7e864a06e645e5217",
+            "bytes": 7766776
+          }
+        },
+        "wandb_sdk_version": "0.30.0",
+        "reader": "sdk",
+        "expected_last_wandb_step": 416688
+      },
+      "metadata_sha256": "6e293ab8ff2fe26e33031e759847d1a9031ebcf870876ada5e1472a28c728192",
+      "normalization_counts": {
+        "training": {
+          "source_rows": 416688,
+          "replayed_coordinates_removed": 4398,
+          "unique_rows_before_start_filter": 412290,
+          "plotted_raw_rows": 410383,
+          "unique_token_increment_range": [
+            524288,
+            524288
+          ],
+          "first_plotted_tokens": 1000341504,
+          "last_plotted_tokens": 216158699520,
+          "raw_loss_range": [
+            0.8216443657875061,
+            1.2713563442230225
+          ],
+          "updates_without_unique_loss_record": 0
+        },
+        "validation": {
+          "source_rows": 217,
+          "replayed_coordinates_removed": 2,
+          "unique_rows_before_start_filter": 215,
+          "plotted_raw_rows": 214,
+          "unique_token_increment_range": [
+            64487424,
+            1048576000
+          ],
+          "first_plotted_tokens": 1048576000,
+          "last_plotted_tokens": 216158699520,
+          "raw_loss_range": [
+            0.9475062713027,
+            1.2517344951629639
+          ]
+        }
+      }
+    },
+    "1t": {
+      "metadata": {
+        "run_id": "exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+        "wandb_url": "https://forge.coreweave.com/wandb/plantcad/marin-dna/runs/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+        "wandb_sdk_version": "0.22.3",
+        "reader": "paged",
+        "observed_at_utc": "2026-11-05T13:49:48.913967+00:00",
+        "expected_final_tokens": 1000000192512,
+        "summary": {
+          "train/input_tokens": 1000000192512,
+          "train/step": 1907349,
+          "train/loss": 0.8241231441497803,
+          "eval/loss": 0.8898855298757553,
+          "eval/examples": 512,
+          "run_progress": 1
+        },
+        "sampling": "None; complete W&B scan, with page windows strictly below the row budget when using --reader paged",
+        "histories": {
+          "validation": {
+            "file": "1t-validation.jsonl.gz",
+            "rows": 988,
+            "last": {
+              "wandb_step": 1916906,
+              "input_tokens": 1000000192512,
+              "loss": 0.8898855298757553
+            },
+            "token_rollbacks": 0,
+            "null_metric_or_coordinate_rows_skipped": 0,
+            "identical_page_boundary_rows_skipped": 0,
+            "sha256": "c90985d153c32be2c9198c068bc88349d0a6a6f64b80b9fc50ec70d14a0c7ceb",
+            "bytes": 19496
+          },
+          "training": {
+            "file": "1t-training.jsonl.gz",
+            "rows": 1916906,
+            "last": {
+              "wandb_step": 1916906,
+              "input_tokens": 1000000192512,
+              "loss": 0.8241231441497803
+            },
+            "token_rollbacks": 46,
+            "null_metric_or_coordinate_rows_skipped": 0,
+            "identical_page_boundary_rows_skipped": 0,
+            "sha256": "d91bc39e0dcb365dcf87c2745d165e5904b7dd392e78a26acbaa8b5e11e17def",
+            "bytes": 36028451
+          }
+        },
+        "expected_last_wandb_step": 1916906
+      },
+      "metadata_sha256": "d9b6c860a0f8164f1f316287316999324121b2a8a09e1e7e1d8a2cdf3a1cec7c",
+      "normalization_counts": {
+        "training": {
+          "source_rows": 1916906,
+          "replayed_coordinates_removed": 10706,
+          "unique_rows_before_start_filter": 1906200,
+          "plotted_raw_rows": 1904293,
+          "unique_token_increment_range": [
+            524288,
+            272105472
+          ],
+          "first_plotted_tokens": 1000341504,
+          "last_plotted_tokens": 1000000192512,
+          "raw_loss_range": [
+            0.693321943283081,
+            1.2920440435409546
+          ],
+          "updates_without_unique_loss_record": 1149
+        },
+        "validation": {
+          "source_rows": 988,
+          "replayed_coordinates_removed": 4,
+          "unique_rows_before_start_filter": 984,
+          "plotted_raw_rows": 983,
+          "unique_token_increment_range": [
+            24117248,
+            1048576000
+          ],
+          "first_plotted_tokens": 1048576000,
+          "last_plotted_tokens": 1000000192512,
+          "raw_loss_range": [
+            0.8898855298757553,
+            1.2763441056013107
+          ]
+        }
+      }
+    }
+  },
+  "normalization": "Latest W&B step at each identical input-token count",
+  "curve_start_tokens": 1000000000,
+  "training_smoothing": {
+    "method": "Exponential smoothing",
+    "half_life_tokens": 1000000000,
+    "initialization": "First raw observation at or above 1B tokens"
+  },
+  "validation_smoothing": "None; every unique logged evaluation at or above 1B tokens",
+  "uncertainty": "None estimated: two individual training runs; connecting segments are descriptive",
+  "scatter_loss_source": {
+    "comment": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302",
+    "commit": "d67c9ab6267d636a9cbeb7ac12e8a7c586bc68d8",
+    "file": "zero-shot-leaderboard/marindna_exp586/runs/loss-correlation/analysis.json",
+    "sha256": "0f3fea347f311b7af85bfa50ae9a0443ac69be3a9c0d9f41b9bb5a856625cf38",
+    "validation_windows": 65536,
+    "bases_per_window": 8192,
+    "targets": 536805376,
+    "sample_sha256": "da9530a08c76d783628a3538d8a5c9b473194a562024aaf262fe90dbe42d3a1c",
+    "loss": "Full-native-vocabulary cross-entropy, in nats, exactly as in the reference plot",
+    "curves": "W&B histories retain their original 512-window evaluation values"
+  },
+  "dense_rugs": {
+    "color": "#d88470",
+    "rows": [
+      {
+        "model": "D216",
+        "DNA_tokens": 216158699520,
+        "validation_loss": 0.9812506437301636,
+        "alpha": 0.35
+      },
+      {
+        "model": "D389",
+        "DNA_tokens": 389090902016,
+        "validation_loss": 0.9701314568519592,
+        "alpha": 0.6500009095291367
+      },
+      {
+        "model": "D562",
+        "DNA_tokens": 562022055936,
+        "validation_loss": 0.9654271602630615,
+        "alpha": 0.95
+      }
+    ],
+    "opacity": "Linear in DNA training tokens: 0.35 at 216B, 0.95 at 562B; equal rug heights",
+    "labels": "Direct DNA-token labels; shared annotation identifies the dense model as 1B parameters",
+    "total_parameters_each": 973178880
+  },
+  "scatter": [
+    {
+      "model": "216b",
+      "DNA_tokens": 216158699520,
+      "final_validation_loss": 0.9462159565554304,
+      "logged_final_validation_loss": 0.9475062713027,
+      "matched_reference_code": "M61-L",
+      "Composite": 0.7039986301759926,
+      "Conservation": 0.6890951690966782
+    },
+    {
+      "model": "1t",
+      "DNA_tokens": 1000000192512,
+      "final_validation_loss": 0.8873021401353057,
+      "logged_final_validation_loss": 0.8898855298757553,
+      "matched_reference_code": "M61-L-1T",
+      "Composite": 0.693604777105964,
+      "Conservation": 0.6992670021034327
+    }
+  ],
+  "plot_data_sha256": "a0f4ab25ec015b995b17e61ca023cb26f25dd04f58d4d9d2cd66ea700b580cf4",
+  "figure_sha256": {
+    "png": "dfe2324c86a1e72d3945399a48a968c31d26b8b0844ef4d7d5e2f032271ab7a9",
+    "svg": "b7c26dcdc1f28029781f2fe8b9c4c622d4f19fd376feb83afe7538ee2dd60ff6"
+  }
+}

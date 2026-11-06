@@ -1,0 +1,389 @@
+{
+  "normalization": {
+    "Zero-shot": {
+      "bounds": {
+        "Allele frequency": {
+          "min": 0.039567182479236095,
+          "max": 0.1395559856053653
+        },
+        "Conservation": {
+          "min": 0.5109020504149807,
+          "max": 0.6992670021034327
+        },
+        "Core/non-core": {
+          "min": 0.4860943656639233,
+          "max": 0.689379989633113
+        },
+        "Motifs": {
+          "min": 0.009884317805830501,
+          "max": 0.6178430913064623
+        },
+        "SV impact": {
+          "min": 0.4147366719608797,
+          "max": 0.8540951287449496
+        }
+      },
+      "checkpoints": {
+        "base-000b": {
+          "score": 0.0,
+          "families": {
+            "Allele frequency": 0.0,
+            "Conservation": 0.0,
+            "Core/non-core": 0.0,
+            "Motifs": 0.0,
+            "SV impact": 0.0
+          }
+        },
+        "short-002b": {
+          "score": 0.20524734392725777,
+          "families": {
+            "Allele frequency": 0.42749261851603493,
+            "Conservation": 0.045350761109959156,
+            "Core/non-core": 0.23892607227824972,
+            "Motifs": 0.16438422077399015,
+            "SV impact": 0.1500830469580549
+          }
+        },
+        "short-031b": {
+          "score": 0.6396159347090864,
+          "families": {
+            "Allele frequency": 0.7400223273197989,
+            "Conservation": 0.5488815264034859,
+            "Core/non-core": 0.6535723165996723,
+            "Motifs": 0.5959621701102384,
+            "SV impact": 0.6596413331122367
+          }
+        },
+        "short-124b": {
+          "score": 0.8350947680476966,
+          "families": {
+            "Allele frequency": 0.851870465106803,
+            "Conservation": 0.757476154823185,
+            "Core/non-core": 0.8996142229903723,
+            "Motifs": 0.7980584865937747,
+            "SV impact": 0.8684545107243481
+          }
+        },
+        "short-216b": {
+          "score": 0.9758179011807081,
+          "families": {
+            "Allele frequency": 0.9897039755173067,
+            "Conservation": 0.9459993331265882,
+            "Core/non-core": 1.0,
+            "Motifs": 0.9433861972596458,
+            "SV impact": 1.0
+          }
+        },
+        "long-010b": {
+          "score": 0.3367744574954448,
+          "families": {
+            "Allele frequency": 0.518416368499418,
+            "Conservation": 0.2173952537712572,
+            "Core/non-core": 0.3333753529198964,
+            "Motifs": 0.2798039327431217,
+            "SV impact": 0.33488137954353087
+          }
+        },
+        "long-182b": {
+          "score": 0.8338307159487939,
+          "families": {
+            "Allele frequency": 0.8185637579090306,
+            "Conservation": 0.7893232095114396,
+            "Core/non-core": 0.8979574521390996,
+            "Motifs": 0.8077390197745732,
+            "SV impact": 0.8555701404098264
+          }
+        },
+        "long-545b": {
+          "score": 0.9579343309099653,
+          "families": {
+            "Allele frequency": 1.0,
+            "Conservation": 0.9246755573475094,
+            "Core/non-core": 0.9860334563705568,
+            "Motifs": 0.9186758853056785,
+            "SV impact": 0.9602867555260814
+          }
+        },
+        "long-1000b": {
+          "score": 0.9320041951646226,
+          "families": {
+            "Allele frequency": 0.882964575911692,
+            "Conservation": 1.0,
+            "Core/non-core": 0.9500745063285462,
+            "Motifs": 1.0,
+            "SV impact": 0.8269818935828748
+          }
+        }
+      }
+    },
+    "Linear probe": {
+      "bounds": {
+        "Allele frequency": {
+          "min": 0.16298336442746192,
+          "max": 0.19271995089663327
+        },
+        "Conservation": {
+          "min": 0.6883006621089437,
+          "max": 0.8904026596143884
+        },
+        "Core/non-core": {
+          "min": 0.7649314855639573,
+          "max": 0.9130195087879133
+        },
+        "Motifs": {
+          "min": 0.8447593259577043,
+          "max": 0.8649079873103453
+        },
+        "SV impact": {
+          "min": 0.7786123916869351,
+          "max": 0.9411080566331625
+        }
+      },
+      "checkpoints": {
+        "base-000b": {
+          "score": 0.0,
+          "families": {
+            "Allele frequency": 0.0,
+            "Conservation": 0.0,
+            "Core/non-core": 0.0,
+            "Motifs": 0.0,
+            "SV impact": 0.0
+          }
+        },
+        "short-002b": {
+          "score": 0.48819547810011593,
+          "families": {
+            "Allele frequency": 0.029793223751506837,
+            "Conservation": 0.788207748624176,
+            "Core/non-core": 0.7776715086754787,
+            "Motifs": 0.24972106203798833,
+            "SV impact": 0.5955838474114299
+          }
+        },
+        "short-031b": {
+          "score": 0.7772314176116732,
+          "families": {
+            "Allele frequency": 0.5809031639462261,
+            "Conservation": 0.9337944679153625,
+            "Core/non-core": 0.9700992347569591,
+            "Motifs": 0.5186618377925433,
+            "SV impact": 0.882698383647275
+          }
+        },
+        "short-124b": {
+          "score": 0.8206329452269513,
+          "families": {
+            "Allele frequency": 0.64590390641447,
+            "Conservation": 0.9751625643998136,
+            "Core/non-core": 0.974881886716964,
+            "Motifs": 0.5716044765823796,
+            "SV impact": 0.9356118920211295
+          }
+        },
+        "short-216b": {
+          "score": 0.9333050959452017,
+          "families": {
+            "Allele frequency": 0.8589904137313449,
+            "Conservation": 1.0,
+            "Core/non-core": 1.0,
+            "Motifs": 0.834311920313245,
+            "SV impact": 0.9732231456814187
+          }
+        },
+        "long-010b": {
+          "score": 0.6128007763957312,
+          "families": {
+            "Allele frequency": 0.3294586863002961,
+            "Conservation": 0.8412319472690113,
+            "Core/non-core": 0.8978941941979648,
+            "Motifs": 0.24425744676567002,
+            "SV impact": 0.7511616074457138
+          }
+        },
+        "long-182b": {
+          "score": 0.8579938541113276,
+          "families": {
+            "Allele frequency": 0.6991185282793719,
+            "Conservation": 0.9719956719213905,
+            "Core/non-core": 0.9767882651032366,
+            "Motifs": 0.6737256040744003,
+            "SV impact": 0.9683412011782385
+          }
+        },
+        "long-545b": {
+          "score": 0.9357016628282324,
+          "families": {
+            "Allele frequency": 0.8885658179687737,
+            "Conservation": 0.9937294857483311,
+            "Core/non-core": 0.9601292506924725,
+            "Motifs": 0.8398873076276308,
+            "SV impact": 0.9961964521039541
+          }
+        },
+        "long-1000b": {
+          "score": 0.9919897032232965,
+          "families": {
+            "Allele frequency": 1.0,
+            "Conservation": 0.9962142091365885,
+            "Core/non-core": 0.9637343069798938,
+            "Motifs": 1.0,
+            "SV impact": 1.0
+          }
+        }
+      }
+    }
+  },
+  "probe_win_rates": {
+    "short-216b": {
+      "score": 34.166666666666664,
+      "families": {
+        "Conservation": 33.33333333333333,
+        "Motifs": 37.5,
+        "Core/non-core": 100.0,
+        "SV impact": 0.0,
+        "Allele frequency": 0.0
+      },
+      "tasks": {
+        "af": 0.0,
+        "conservation_andropogoneae": 1.0,
+        "conservation_poaceae_non_tis": 0.0,
+        "conservation_poaceae_tis": 0.0,
+        "core_maize_acceptor": 1.0,
+        "core_maize_donor": 1.0,
+        "core_maize_tis": 1.0,
+        "core_maize_tts": 1.0,
+        "core_tomato_acceptor": 1.0,
+        "core_tomato_donor": 1.0,
+        "core_tomato_tis": 1.0,
+        "core_tomato_tts": 1.0,
+        "motif_maize_acceptor": 1.0,
+        "motif_maize_donor": 0.0,
+        "motif_maize_tis": 0.0,
+        "motif_maize_tts": 0.0,
+        "motif_tomato_acceptor": 1.0,
+        "motif_tomato_donor": 1.0,
+        "motif_tomato_tis": 0.0,
+        "motif_tomato_tts": 0.0,
+        "sv_impact": 0.0
+      }
+    },
+    "long-1000b": {
+      "score": 65.83333333333333,
+      "families": {
+        "Conservation": 66.66666666666666,
+        "Motifs": 62.5,
+        "Core/non-core": 0.0,
+        "SV impact": 100.0,
+        "Allele frequency": 100.0
+      },
+      "tasks": {
+        "af": 1.0,
+        "conservation_andropogoneae": 0.0,
+        "conservation_poaceae_non_tis": 1.0,
+        "conservation_poaceae_tis": 1.0,
+        "core_maize_acceptor": 0.0,
+        "core_maize_donor": 0.0,
+        "core_maize_tis": 0.0,
+        "core_maize_tts": 0.0,
+        "core_tomato_acceptor": 0.0,
+        "core_tomato_donor": 0.0,
+        "core_tomato_tis": 0.0,
+        "core_tomato_tts": 0.0,
+        "motif_maize_acceptor": 0.0,
+        "motif_maize_donor": 1.0,
+        "motif_maize_tis": 1.0,
+        "motif_maize_tts": 1.0,
+        "motif_tomato_acceptor": 0.0,
+        "motif_tomato_donor": 0.0,
+        "motif_tomato_tis": 1.0,
+        "motif_tomato_tts": 1.0,
+        "sv_impact": 1.0
+      }
+    }
+  },
+  "normalization_definition": "Normalize each saved family mean to its observed 0\u20131 range across both runs' nine unique checkpoints, separately by readout; average five families equally",
+  "win_rate_definition": "Compare the two final probes per task: win=1, exact tie=0.5, loss=0; average within families, then five families equally; display \u00d7100",
+  "source_native_csv_sha256": "f2c0433f7de85e3f06dabf887a092b8a25aa3f420336ee1f0a7dbfdd5fd83c00",
+  "source_task_scores_sha256": "c342f2ff0327ee51a25afe0322fba80e7ade1e74d21eda1153c6be609a61c14d",
+  "families": {
+    "Conservation": [
+      "conservation_andropogoneae",
+      "conservation_poaceae_non_tis",
+      "conservation_poaceae_tis"
+    ],
+    "Motifs": [
+      "motif_maize_tis",
+      "motif_maize_tts",
+      "motif_maize_donor",
+      "motif_maize_acceptor",
+      "motif_tomato_tis",
+      "motif_tomato_tts",
+      "motif_tomato_donor",
+      "motif_tomato_acceptor"
+    ],
+    "Core/non-core": [
+      "core_maize_tis",
+      "core_maize_tts",
+      "core_maize_donor",
+      "core_maize_acceptor",
+      "core_tomato_tis",
+      "core_tomato_tts",
+      "core_tomato_donor",
+      "core_tomato_acceptor"
+    ],
+    "SV impact": [
+      "sv_impact"
+    ],
+    "Allele frequency": [
+      "af"
+    ]
+  },
+  "constant_family_policy": "Reject instead of silently choosing a normalization",
+  "population": {
+    "base-000b": {
+      "id": "base-000b",
+      "checkpoint": "s3://marin-us-east-02a/marin/grug/rav-ladder-d768-v2/2026.08.18/checkpoints/step-11420",
+      "DNA_tokens": 0
+    },
+    "long-010b": {
+      "id": "long-010b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1/2026.10.20/checkpoints/step-19074",
+      "DNA_tokens": 10000269312
+    },
+    "long-1000b": {
+      "id": "long-1000b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1/2026.10.20/checkpoints/step-1907349",
+      "DNA_tokens": 1000000192512
+    },
+    "long-182b": {
+      "id": "long-182b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1/2026.10.20/checkpoints/step-346791",
+      "DNA_tokens": 181818359808
+    },
+    "long-545b": {
+      "id": "long-545b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1/2026.10.20/checkpoints/step-1040373",
+      "DNA_tokens": 545455079424
+    },
+    "short-002b": {
+      "id": "short-002b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-4123",
+      "DNA_tokens": 2161639424
+    },
+    "short-031b": {
+      "id": "short-031b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-58899",
+      "DNA_tokens": 30880038912
+    },
+    "short-124b": {
+      "id": "short-124b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-235595",
+      "DNA_tokens": 123519631360
+    },
+    "short-216b": {
+      "id": "short-216b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+      "DNA_tokens": 216158699520
+    }
+  }
+}

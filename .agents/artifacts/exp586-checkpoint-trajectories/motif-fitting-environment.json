@@ -1,0 +1,22 @@
+{
+  "observed_from": "W&B requirements.txt and wandb-metadata.json of original canary and optimizer retry; identical versions verified",
+  "python": "CPython 3.12.16",
+  "packages": {
+    "fsspec": "2026.2.0",
+    "joblib": "1.6.0",
+    "wandb": "0.30.0",
+    "pyarrow": "25.0.1",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "pandas": "3.1.0rc0"
+  },
+  "runs": [
+    "exp586-plantcad2-d768-pretrained-motif-probe-short-216b-head-tomato-tis-final-eval-v1",
+    "exp586-plantcad2-d768-pretrained-motif-probe-base-000b-head-tomato-donor-final-eval-v1"
+  ],
+  "marin_runtime_uv_lock_sha256": "4a28ef2fdaf38f285e3abdf7653407f81b69890ff6fc52e4f8defd7f9fa795e4",
+  "initial_analysis_wheel_sha256": "5d1042e8dccfa93648733fa23fec8f15537a3d688614ce6f65932b362c241efa",
+  "optimizer_retry_wheel_sha256": "d80bab0782c62bf64e59752cabb87abf062f9fa9910bd14a2045e443b8a89140",
+  "optimizer_change": "max_iter 2000 to 10000; loss, C grid, tolerance and folds unchanged; every accepted head converged"
+}

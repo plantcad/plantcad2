@@ -1,0 +1,29 @@
+{
+  "analysis_prefix": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/probes/pretrained-lrm1-seed0",
+  "analysis_wheel_sha256": "ae5062da2a55d1631d92dddc8af8e1ab7b8137e96c45fb9d5e4e0561083efb06",
+  "checkpoint_role": "dna-trained",
+  "condition": "pretrained",
+  "receipt_sha256": "6080ff88d84804533f9c19dc24000c8b9f164d98ad72572312161ccc4c6cecac",
+  "receipt_uri": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/probes/pretrained-lrm1-seed0/receipt.json",
+  "reduced_analysis": {
+    "files": {
+      "context-2048/af-predictions.parquet": "7b52b8f603c7fe47c3bbd8264264e15af54e68389e422fd14f3e33fc4a744406",
+      "context-8192/af-predictions.parquet": "bbbfab328fcc572ad87889e61c86b22203415a48fc6d87eb49c9b575a2bef9d0"
+    },
+    "receipt_sha256": "68c7049c583effb5061c71027ae40bb8a56d7c78edadec045a318d4e0b0a5aad",
+    "root": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/analysis/pretrained-lrm1-seed0"
+  },
+  "requests_sha256": "4a4b2ed6ad05199ef0185260b51f1a9111582318432596669ec4b25942770557",
+  "schema": 1,
+  "selected_files": {
+    "context-2048/probes/result.json": {
+      "bytes": 32910,
+      "sha256": "825333caebd23ae7e82192bdf59e8006c024ec9fb17e79a73ec46ef751964b12"
+    },
+    "context-8192/probes/result.json": {
+      "bytes": 32916,
+      "sha256": "c5cd5551a6c8f41ffb3d50c2c1ce9ec6eb4da8da809dd128a660ae7fddbfc461"
+    }
+  },
+  "source_artifacts": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/results/pretrained-lrm1-seed0"
+}

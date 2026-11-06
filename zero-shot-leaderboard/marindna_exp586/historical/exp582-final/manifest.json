@@ -1,0 +1,84 @@
+{
+  "files": {
+    "language-base/context-2048/probes/result.json": {
+      "bytes": 32905,
+      "sha256": "cc60126254fa36484ad1f9f83b291ca85a0097226f231cc3c2cbb74b594362ef"
+    },
+    "language-base/context-8192/probes/result.json": {
+      "bytes": 32917,
+      "sha256": "877b9daa1384a667904a03f4ffaad7f68de610a19df7e13b7856b58e927989dc"
+    },
+    "language-base/probe-provenance.json": {
+      "bytes": 1534,
+      "sha256": "62451b42b065058aa7c0522b018547b865063df2f42f2cd7379eb0f5fc07a563"
+    },
+    "language-base/provenance.json": {
+      "bytes": 916,
+      "sha256": "4c32d9ee031e900790e62c114dddec999278796ad7a614b62286dc870f85a121"
+    },
+    "language-base/result.json": {
+      "bytes": 76441,
+      "sha256": "c5ffab700d9a3f270b37287a17c1dd4d4b7ff03ea7fcaf940b0f0aa911d3718e"
+    },
+    "methods/language-base.json": {
+      "bytes": 12378,
+      "sha256": "39d6d6396ee7ccbc1ac2e8d30357da27e6dbe67a87419c743b8c29f1ab8d0410"
+    },
+    "methods/pretrained.json": {
+      "bytes": 12102,
+      "sha256": "84d795f932f2304cac4f600f265d5bb5bbb001d79a57b04b9f3eef3bc28d5b8e"
+    },
+    "methods/provenance.json": {
+      "bytes": 2237,
+      "sha256": "ba4fcd33b81b6302fdef48199cb2eeab05cfeb5e75f1d48c5433d2d12c5fed5b"
+    },
+    "methods/random.json": {
+      "bytes": 12080,
+      "sha256": "e34a88d7c9e9dfa2b2402478e416d5432bb4131129a40e725dc3a2b3e1a1208e"
+    },
+    "pretrained/context-2048/probes/result.json": {
+      "bytes": 32910,
+      "sha256": "825333caebd23ae7e82192bdf59e8006c024ec9fb17e79a73ec46ef751964b12"
+    },
+    "pretrained/context-8192/probes/result.json": {
+      "bytes": 32916,
+      "sha256": "c5cd5551a6c8f41ffb3d50c2c1ce9ec6eb4da8da809dd128a660ae7fddbfc461"
+    },
+    "pretrained/probe-provenance.json": {
+      "bytes": 1564,
+      "sha256": "a728e8cd961e4ab642125f0ee10fd7577444343793ebddcef32d37cd5adc8881"
+    },
+    "pretrained/provenance.json": {
+      "bytes": 938,
+      "sha256": "ae0c337fa263b944b70c1c49534789cb3596ea8bde84430afc07636c382da616"
+    },
+    "pretrained/result.json": {
+      "bytes": 76344,
+      "sha256": "2e891d316119eaff340889282e0390a996a245237831a937082082bc2ba83077"
+    },
+    "random/context-2048/probes/result.json": {
+      "bytes": 32918,
+      "sha256": "cb527082b88a32966beb9c6e69612c73041be5c9a51ae59ffa4557c70a71983f"
+    },
+    "random/context-8192/probes/result.json": {
+      "bytes": 32940,
+      "sha256": "4488e5b63ced5fe8f789bbedfec916df05ae2b549b1f3c84b1e03516d3de9de9"
+    },
+    "random/probe-provenance.json": {
+      "bytes": 1544,
+      "sha256": "927b5bb2e08ffad9bfb4163fd668468b9f89afb52c2ba2668772bba87770fcee"
+    },
+    "random/provenance.json": {
+      "bytes": 922,
+      "sha256": "c9e0d7b2c336407f47e71216cbdc4f99888fd9da687a8791975b6084f676847b"
+    },
+    "random/result.json": {
+      "bytes": 76373,
+      "sha256": "af54adcd0fc537d88bd324c205ea0fe4e74420f58c248c78bd3d0e17b5486365"
+    }
+  },
+  "policy": "Archived exp582 computations copied for comparison; no historical model was rerun.",
+  "schema": 1,
+  "archive_path": "zero-shot-leaderboard/marindna_exp586/historical/exp582-final",
+  "original_source_commit": "92365ad509f56be730b67923c32285e8262a20ee"
+}

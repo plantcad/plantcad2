@@ -1,0 +1,89 @@
+{
+  "analysis_wheel_sha256": "09b36730652615d0d54e5d8730ce8b05221413e67fa6f90911425d887446c5ff",
+  "checkpoint_role": "dna-trained",
+  "condition": "scratch",
+  "files": {
+    "context-2048/af-predictions.parquet": {
+      "bytes": 331908717,
+      "sha256": "ec22b8a5de7644c221f415ba89a7fc3ecd71d61a7d8bb8b6a353ea90a08bda20"
+    },
+    "context-2048/probes/predictions.parquet": {
+      "bytes": 4336841,
+      "sha256": "63cbf0b68f3c1683ad95da3057c0cbeea53046c1b60a83c042aaee9244a03ac0"
+    },
+    "context-2048/probes/probe_variant_token_directional.joblib": {
+      "bytes": 83963,
+      "sha256": "1ba6c298d3ac5cd17d154a437f4dca4ab89418221495fa29f547359c07849ea2"
+    },
+    "context-2048/probes/probe_variant_token_strand_average.joblib": {
+      "bytes": 42396,
+      "sha256": "4cfc36ce259674677dcac8c1730ec6002f52e1be5bdd23f4ac2d7397a22897b5"
+    },
+    "context-2048/probes/probe_whole_window_directional.joblib": {
+      "bytes": 83860,
+      "sha256": "e669814a9426c1e456002f9b55151e5ff43bae1967b5089d0b7de555c3645763"
+    },
+    "context-2048/probes/probe_whole_window_strand_average.joblib": {
+      "bytes": 42402,
+      "sha256": "1a547871af639637d01dd872557361562300e0df43ea52a418d0a0d1b5f9ac5f"
+    },
+    "context-2048/probes/result.json": {
+      "bytes": 32925,
+      "sha256": "15cd94363dd7767e87819cee6f149ee72d57db26885e23e8b5f4d3e64ac8b3eb"
+    },
+    "context-2048/probes/split.parquet": {
+      "bytes": 713741,
+      "sha256": "8a56c9c50ab3478c5faca9491ba6eca86e0727bf411a8ec8a91a69ce8ff922e0"
+    },
+    "context-2048/tasks.tsv": {
+      "bytes": 3172,
+      "sha256": "c08688d99fe4a81b212e5370620b6fea6f9e83245b01b05568d4270ea3fada81"
+    },
+    "context-8192/af-predictions.parquet": {
+      "bytes": 331908621,
+      "sha256": "3109daf811ff2950de65b496139d564fb367569965521509e95a7e83233529ca"
+    },
+    "context-8192/probes/predictions.parquet": {
+      "bytes": 4336809,
+      "sha256": "36367c1c8d1669faf34342dc57932a74ab4e1ce0a2a2688a7d468a93ab711db4"
+    },
+    "context-8192/probes/probe_variant_token_directional.joblib": {
+      "bytes": 83960,
+      "sha256": "96843c1c4213e048ffafa07a72ef74e85bae99a6a96e147b6e7a640824b800d7"
+    },
+    "context-8192/probes/probe_variant_token_strand_average.joblib": {
+      "bytes": 42428,
+      "sha256": "9dee3e49c8d17838419ec06759a6d743a736c81d4bb24a68c289187cde70c5ce"
+    },
+    "context-8192/probes/probe_whole_window_directional.joblib": {
+      "bytes": 83961,
+      "sha256": "3355ff00693c0b266c6d69baeb97fc775e55387d985798837829277b60d9431c"
+    },
+    "context-8192/probes/probe_whole_window_strand_average.joblib": {
+      "bytes": 42466,
+      "sha256": "278de002bdb7012dc3b522920623708feb819b9d9bee633aba50922d0e40e08a"
+    },
+    "context-8192/probes/result.json": {
+      "bytes": 32907,
+      "sha256": "072a9c4541f110bf5cb892d08043f3d12e51a0a22c7f1537c35ec445a988a664"
+    },
+    "context-8192/probes/split.parquet": {
+      "bytes": 713741,
+      "sha256": "8a56c9c50ab3478c5faca9491ba6eca86e0727bf411a8ec8a91a69ce8ff922e0"
+    },
+    "context-8192/tasks.tsv": {
+      "bytes": 3280,
+      "sha256": "440f7e6e3bc54eed570c16ddccdaf32c15a5ee28f02c0648df73aee0442ca3cf"
+    },
+    "result.json": {
+      "bytes": 76404,
+      "sha256": "5ff68ac4ae8b76760b836dee7995cb2000fe3f33d18e623e0a55ecdcd4c3ebed"
+    }
+  },
+  "mode": "full",
+  "probes_included": true,
+  "reduced_analysis": null,
+  "requests_sha256": "f2f83a2803f8f43f154abd2eac18a02ea34e0ec2a41138a5e7463e3e5b3778e8",
+  "schema": 2,
+  "source_artifacts": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/results/scratch-lrm1-seed0"
+}

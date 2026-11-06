@@ -1,0 +1,25 @@
+{
+  "source": "/home/exedev/repos/plantcad2-br/codex-exp586-upstream/.agents/artifacts/exp586-rank-composites/normalized-category-scores.csv",
+  "source_sha256": "b603955c102e78b0dabba4faeda9f88056909c5f8c80e4ccddec735464de8779",
+  "input_scores": 120,
+  "displayed_checkpoint_changes": 96,
+  "metrics": [
+    "Conservation",
+    "Motifs",
+    "Core/non-core",
+    "SV impact",
+    "Allele frequency",
+    "Avg normalized score"
+  ],
+  "runs": [
+    "216B-token run",
+    "1T-token run"
+  ],
+  "readouts": [
+    "Zero-shot",
+    "Linear probe"
+  ],
+  "context_bp": 8192,
+  "color_encoding": "Sign only; annotations give magnitude",
+  "GitHub_updates": false
+}

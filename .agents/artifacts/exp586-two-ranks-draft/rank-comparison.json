@@ -1,0 +1,34 @@
+{
+  "MarinDNA 1B 562B": {
+    "Unweighted Avg Rank": 64.20454545454545,
+    "Weighted Avg Rank": 57.27272727272727
+  },
+  "MarinMoE 1.5B\u201360M 216B": {
+    "Unweighted Avg Rank": 68.37121212121212,
+    "Weighted Avg Rank": 60.90909090909091
+  },
+  "MarinMoE 1.5B\u201360M 1T": {
+    "Unweighted Avg Rank": 56.81818181818182,
+    "Weighted Avg Rank": 59.09090909090909
+  },
+  "PlantCAD2.5-Large": {
+    "Unweighted Avg Rank": 78.88257575757575,
+    "Weighted Avg Rank": 92.27272727272727
+  },
+  "PlantCAD2-Large": {
+    "Unweighted Avg Rank": 85.03787878787878,
+    "Weighted Avg Rank": 84.54545454545455
+  },
+  "PlantCAD2-Medium": {
+    "Unweighted Avg Rank": 75.2840909090909,
+    "Weighted Avg Rank": 75.9090909090909
+  },
+  "PlantCAD2-Small": {
+    "Unweighted Avg Rank": 53.977272727272734,
+    "Weighted Avg Rank": 58.18181818181818
+  },
+  "Evo 2 20B": {
+    "Unweighted Avg Rank": 88.92045454545455,
+    "Weighted Avg Rank": 82.27272727272727
+  }
+}

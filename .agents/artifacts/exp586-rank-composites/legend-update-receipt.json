@@ -1,0 +1,15 @@
+{
+  "url": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
+  "before_updated_at": "2026-11-06T17:11:58Z",
+  "before_body_sha256": "4a61f0b1dadce5b335fcc0225ea5614eadf3266bf377b3cd29b5cd5288fd2bd9",
+  "published_body_sha256": "b23ff6e7da8c6d28454ad59e9d671b5c29a67aea626583e38a501976a9283803",
+  "old_image_url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png",
+  "new_image_url": "https://raw.githubusercontent.com/plantcad/plantcad2/4dab0a800333bfb645e45483d451a3796506f4b4/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png",
+  "figure_commit": "4dab0a800333bfb645e45483d451a3796506f4b4",
+  "image_sha256": "210eae20c832ec318ab0e7cd916b7fc1f7e72740530f44fb1f9b1cc2800cda29",
+  "only_one_image_url_replaced": true,
+  "all_author_text_preserved": true,
+  "updated_at": "2026-11-06T17:17:14Z",
+  "re_fetched_exactly_verified": true,
+  "author_text_preserved_exactly": true
+}

@@ -1,0 +1,63 @@
+{
+  "source_comment": "https://github.com/plantcad/plantcad2/pull/20#issuecomment-5585800169",
+  "source_image": "https://raw.githubusercontent.com/plantcad/plantcad2/475fba58f81b79efa234d0018eb0776d1a960bfd/zero-shot-leaderboard/evo2_20b/pilot/runs/assets/marindna-1b-full-lr5e4-family-comparison-20260831.png",
+  "image_sha256": "59980231a9e6aa718ce43a187a16f4953aec8db31990b13350938bde0e82e824",
+  "dominant_colors": [
+    [
+      "#7a5195",
+      103784
+    ],
+    [
+      "#2f78a8",
+      100676
+    ],
+    [
+      "#4e90b6",
+      99334
+    ],
+    [
+      "#174a7e",
+      99135
+    ],
+    [
+      "#8c2d27",
+      95668
+    ],
+    [
+      "#c43c39",
+      95132
+    ],
+    [
+      "#66a6c9",
+      94027
+    ],
+    [
+      "#f28e2b",
+      93891
+    ],
+    [
+      "#a6cee3",
+      93543
+    ],
+    [
+      "#8a66a2",
+      5462
+    ],
+    [
+      "#4888b2",
+      5310
+    ],
+    [
+      "#649dbf",
+      5242
+    ],
+    [
+      "#33608e",
+      5232
+    ],
+    [
+      "#9a4741",
+      5054
+    ]
+  ]
+}

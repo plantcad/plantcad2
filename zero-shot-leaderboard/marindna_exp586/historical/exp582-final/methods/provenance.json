@@ -1,0 +1,30 @@
+{
+  "reports": {
+    "language-base": {
+      "bytes": 12378,
+      "checkpoint": "s3://marin-us-east-02a/marin/grug/rav-ladder-d1536/2026.08.18/checkpoints/step-15128",
+      "checkpoint_metadata_digest": "7198833f20fd9d1f442e6d0d9ef9738e634d674ff225ed276e7b56d71cf60227",
+      "checkpoint_role": "language-base",
+      "sha256": "39d6d6396ee7ccbc1ac2e8d30357da27e6dbe67a87419c743b8c29f1ab8d0410",
+      "source": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/validation/language-base/methods-v1/report-39d6d6396ee7ccbc1ac2e8d30357da27e6dbe67a87419c743b8c29f1ab8d0410.json",
+      "wandb": "https://wandb.ai/eric-czech/marin/runs/exp582-plantcad2-d1536-language-base-methods-smoke-v1"
+    },
+    "pretrained": {
+      "bytes": 12102,
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/checkpoints/exp582-plantcad2-d1536-pretrained-lrm1-seed0-v1/2026.10.06/checkpoints/short-linear-v2/step-21440",
+      "checkpoint_metadata_digest": "c882f2cedb62266fc33f5dc60d0b83741b72fb506892baee99a70c7cd7efa4d6",
+      "sha256": "84d795f932f2304cac4f600f265d5bb5bbb001d79a57b04b9f3eef3bc28d5b8e",
+      "source": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/validation/pretrained-lrm1-seed0/methods-v2/report-84d795f932f2304cac4f600f265d5bb5bbb001d79a57b04b9f3eef3bc28d5b8e.json",
+      "wandb": "https://wandb.ai/eric-czech/marin/runs/exp582-plantcad2-d1536-pretrained-lrm1-seed0-methods-smoke-v2"
+    },
+    "random": {
+      "bytes": 12080,
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/checkpoints/exp582-plantcad2-d1536-random-lrm2-seed0-v1/2026.10.06/checkpoints/short-linear-v2/step-21440",
+      "checkpoint_metadata_digest": "4a1ddbd00f0e204a662c20b431ec68dc72d398ce77022318755758b1df98c347",
+      "sha256": "e34a88d7c9e9dfa2b2402478e416d5432bb4131129a40e725dc3a2b3e1a1208e",
+      "source": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/validation/random-lrm2-seed0/methods-v2/report-e34a88d7c9e9dfa2b2402478e416d5432bb4131129a40e725dc3a2b3e1a1208e.json",
+      "wandb": "https://wandb.ai/eric-czech/marin/runs/exp582-plantcad2-d1536-random-lrm2-seed0-methods-smoke-v2"
+    }
+  },
+  "schema": 1
+}

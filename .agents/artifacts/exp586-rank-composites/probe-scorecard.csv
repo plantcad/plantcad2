@@ -1,0 +1,22 @@
+family,metric,task_id,task,216b,1t,delta_1t_minus_216b,winner
+Conservation,AUROC,conservation_andropogoneae,"Andropogoneae, genome-wide",0.9149659483366833,0.9096167320509779,-0.005349216285705394,216b
+Conservation,AUROC,conservation_poaceae_non_tis,"Poaceae, non-TIS CDS",0.9114049188054206,0.9130128016066168,0.0016078828011961699,1t
+Conservation,AUROC,conservation_poaceae_tis,"Poaceae, TIS CDS",0.844837111701061,0.8462830974986704,0.0014459857976093504,1t
+Motifs,Exact-match accuracy,motif_maize_tis,Maize TIS (start),0.9739645858343338,0.9744897959183674,0.0005252100840336116,1t
+Motifs,Exact-match accuracy,motif_maize_tts,Maize TTS (stop),0.5651489010576851,0.5833770909909234,0.01822818993323827,1t
+Motifs,Exact-match accuracy,motif_maize_donor,Maize splice donor,0.9852723768175609,0.986956603102719,0.0016842262851581857,1t
+Motifs,Exact-match accuracy,motif_maize_acceptor,Maize splice acceptor,0.9987274020286708,0.998708687352622,-1.871467604885879e-05,216b
+Motifs,Exact-match accuracy,motif_tomato_tis,Tomato TIS (start),0.967189085578983,0.9673018378622167,0.000112752283233708,1t
+Motifs,Exact-match accuracy,motif_tomato_tts,Tomato TTS (stop),0.46465100595706416,0.47173204450938516,0.007081038552321006,1t
+Motifs,Exact-match accuracy,motif_tomato_donor,Tomato splice donor,0.963210323749151,0.9625028299750962,-0.0007074937740548792,216b
+Motifs,Exact-match accuracy,motif_tomato_acceptor,Tomato splice acceptor,0.9743930733970912,0.9741950087714334,-0.00019806462565785665,216b
+Core/non-core,AUROC,core_maize_tis,Maize TIS (start),0.9608224731570942,0.9564751654517096,-0.0043473077053846065,216b
+Core/non-core,AUROC,core_maize_tts,Maize TTS (stop),0.9565782417133537,0.9495383903634083,-0.007039851349945447,216b
+Core/non-core,AUROC,core_maize_donor,Maize splice donor,0.9738153061756758,0.9708911336979441,-0.00292417247773169,216b
+Core/non-core,AUROC,core_maize_acceptor,Maize splice acceptor,0.9744876636855229,0.9693341707220116,-0.005153492963511308,216b
+Core/non-core,AUROC,core_tomato_tis,Tomato TIS (start),0.8416600915839896,0.829696590749829,-0.011963500834160534,216b
+Core/non-core,AUROC,core_tomato_tts,Tomato TTS (stop),0.8552823121032592,0.8488988399169594,-0.006383472186299866,216b
+Core/non-core,AUROC,core_tomato_donor,Tomato splice donor,0.8709337682759238,0.8658086843982731,-0.00512508387765076,216b
+Core/non-core,AUROC,core_tomato_acceptor,Tomato splice acceptor,0.8705762136084872,0.8705489766816166,-2.7236926870677358e-05,216b
+SV impact,Average precision,sv_impact,Impact prediction,0.9367569338854964,0.9411080566331625,0.004351122747666136,1t
+Allele frequency,Spearman correlation,af,Alternate-allele frequency,0.18852680714157333,0.19271995089663327,0.0041931437550599415,1t

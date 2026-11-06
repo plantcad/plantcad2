@@ -1,0 +1,17 @@
+{
+  "catalog.json": {
+    "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/complete/40969cadd092c04db4de0d312a30da4aace7710c2c236c6e49b7b2eba6eda074/catalog.json",
+    "sha256": "40969cadd092c04db4de0d312a30da4aace7710c2c236c6e49b7b2eba6eda074",
+    "bytes": 23650
+  },
+  "verified-results.json": {
+    "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/complete/c4eb461421f7d26e5c7e53ae7063bad00a6e8d60236793477a4216671850136d/verified-results.json",
+    "sha256": "c4eb461421f7d26e5c7e53ae7063bad00a6e8d60236793477a4216671850136d",
+    "bytes": 436036
+  },
+  "verified-environments.json": {
+    "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/complete/6b9a472bc6f77f166de8779cfa6268c2f68728781a3fa59229530fa69c2aed27/verified-environments.json",
+    "sha256": "6b9a472bc6f77f166de8779cfa6268c2f68728781a3fa59229530fa69c2aed27",
+    "bytes": 945
+  }
+}

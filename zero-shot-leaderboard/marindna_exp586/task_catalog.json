@@ -1,0 +1,267 @@
+{
+  "repo": "plantcad/PlantCAD2_zero_shot_tasks",
+  "revision": "d340debe0c8402c84f0696cd2002f87c2f7ba6db",
+  "full_rows": 1727943,
+  "tasks": [
+    {
+      "key": "conservation_andropogoneae",
+      "kind": "conservation",
+      "file": "conservation_within_andropogoneae__test.tsv",
+      "positions": [
+        4095
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "conservation_poaceae_non_tis",
+      "kind": "conservation",
+      "file": "conservation_within_poaceae_non_tis__test.tsv",
+      "positions": [
+        4095
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "conservation_poaceae_tis",
+      "kind": "conservation",
+      "file": "conservation_within_poaceae_tis__test.tsv",
+      "positions": [
+        4095
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "motif_maize_tis",
+      "kind": "motif",
+      "file": "tis_recovery__test_maize.tsv",
+      "positions": [
+        4094,
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "motif_maize_tts",
+      "kind": "motif",
+      "file": "tts_recovery__test_maize.tsv",
+      "positions": [
+        4094,
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "motif_maize_donor",
+      "kind": "motif",
+      "file": "donor_recovery__test_maize.tsv",
+      "positions": [
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "motif_maize_acceptor",
+      "kind": "motif",
+      "file": "acceptor_recovery__test_maize.tsv",
+      "positions": [
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "motif_tomato_tis",
+      "kind": "motif",
+      "file": "tis_recovery__test_tomato.tsv",
+      "positions": [
+        4094,
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "motif_tomato_tts",
+      "kind": "motif",
+      "file": "tts_recovery__test_tomato.tsv",
+      "positions": [
+        4094,
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "motif_tomato_donor",
+      "kind": "motif",
+      "file": "donor_recovery__test_tomato.tsv",
+      "positions": [
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "motif_tomato_acceptor",
+      "kind": "motif",
+      "file": "acceptor_recovery__test_tomato.tsv",
+      "positions": [
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "core_maize_tis",
+      "kind": "core",
+      "file": "tis_core_noncore_classification__test_maize.tsv",
+      "positions": [
+        4094,
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "core_maize_tts",
+      "kind": "core",
+      "file": "tts_core_noncore_classification__test_maize.tsv",
+      "positions": [
+        4094,
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "core_maize_donor",
+      "kind": "core",
+      "file": "donor_core_noncore_classification__test_maize.tsv",
+      "positions": [
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "core_maize_acceptor",
+      "kind": "core",
+      "file": "acceptor_core_noncore_classification__test_maize.tsv",
+      "positions": [
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "core_tomato_tis",
+      "kind": "core",
+      "file": "tis_core_noncore_classification__test_tomato.tsv",
+      "positions": [
+        4094,
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "core_tomato_tts",
+      "kind": "core",
+      "file": "tts_core_noncore_classification__test_tomato.tsv",
+      "positions": [
+        4094,
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "core_tomato_donor",
+      "kind": "core",
+      "file": "donor_core_noncore_classification__test_tomato.tsv",
+      "positions": [
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "core_tomato_acceptor",
+      "kind": "core",
+      "file": "acceptor_core_noncore_classification__test_tomato.tsv",
+      "positions": [
+        4095,
+        4096
+      ],
+      "contexts": [
+        "left",
+        "right_reverse_complement"
+      ]
+    },
+    {
+      "key": "sv_impact",
+      "kind": "sv",
+      "file": "structural_variant_effect_prediction__test.tsv",
+      "contexts": [
+        "left"
+      ]
+    }
+  ]
+}

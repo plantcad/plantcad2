@@ -1,0 +1,25 @@
+{
+  "source": "/home/exedev/repos/plantcad2-br/codex-exp586-upstream/.agents/artifacts/exp586-checkpoint-trajectories/all-category-scores.csv",
+  "source_sha256": "3f350bd6668ba71046f618a4dd44cab8cd86114927b32d551a8e32634d01a6ca",
+  "input_scores": 140,
+  "displayed_checkpoint_changes": 96,
+  "metrics": [
+    "Conservation",
+    "Motifs",
+    "Core/non-core",
+    "SV impact",
+    "Allele frequency",
+    "Composite +SV"
+  ],
+  "runs": [
+    "216B-token run",
+    "1T-token run"
+  ],
+  "readouts": [
+    "Zero-shot likelihood",
+    "Linear probe"
+  ],
+  "context_bp": 8192,
+  "color_encoding": "Sign only; annotations give magnitude",
+  "GitHub_updates": false
+}

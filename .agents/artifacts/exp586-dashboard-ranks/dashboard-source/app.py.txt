@@ -1,0 +1,263 @@
+"""
+Genomic Language Model — Zero-Shot Plant Task Dashboard
+Streamlit app. Reads everything from ./data/*.csv so updating = editing a CSV.
+
+  data/models.csv    one row per model (metadata; key column: `model`)
+  data/tasks.csv     one row per zero-shot task (metric, higher_is_better, category, species)
+  data/results.csv   long format: model, task_id, value, n, context_bp, source_table
+
+Deploy: Hugging Face Spaces (SDK: docker). Push to update.
+"""
+import io
+import numpy as np
+import pandas as pd
+import streamlit as st
+import plotly.express as px
+
+st.set_page_config(page_title="Plant gLM Zero-Shot Dashboard", layout="wide",
+                   page_icon="\U0001F33E")
+
+DATA = "data"
+
+
+# ----------------------------- data loading -----------------------------
+@st.cache_data
+def load():
+    models = pd.read_csv(f"{DATA}/models.csv")
+    tasks = pd.read_csv(f"{DATA}/tasks.csv")
+    res = pd.read_csv(f"{DATA}/results.csv")
+    res["value"] = pd.to_numeric(res["value"], errors="coerce")
+    for c in ("n", "context_bp"):
+        if c in res.columns:
+            res[c] = pd.to_numeric(res[c], errors="coerce")
+    # display label falls back to model id
+    if "display_name" not in models.columns:
+        models["display_name"] = models["model"]
+    models["display_name"] = models["display_name"].fillna(models["model"])
+    if "model_url" not in models.columns:
+        models["model_url"] = ""
+    return models, tasks, res
+
+
+def rank_within_task(res, tasks):
+    """Per-task percentile rank (0-100), respecting metric direction."""
+    dirn = tasks.set_index("task_id")["higher_is_better"].to_dict()
+    out = []
+    for tid, g in res.dropna(subset=["value"]).groupby("task_id"):
+        # higher_is_better -> the largest value should get the highest percentile,
+        # i.e. rank ascending so the max lands at 100. (Flip for lower-is-better.)
+        asc = bool(dirn.get(tid, 1))
+        r = g["value"].rank(ascending=asc, pct=True) * 100
+        gg = g.copy()
+        gg["pct_rank"] = r
+        out.append(gg)
+    return pd.concat(out) if out else res.assign(pct_rank=np.nan)
+
+
+def model_label_with_parameters(row):
+    """Display labels such as PlantCAD2-Large (676M) without duplicating params."""
+    name = str(row.get("display_name") or row.get("model") or "")
+    params = row.get("parameters")
+    if pd.notna(params):
+        params = str(params).strip()
+        if params and params not in name:
+            return f"{name} ({params})"
+    return name
+
+
+def markdown_table(df):
+    """Small markdown table helper for clickable model links."""
+    clean = df.fillna("").astype(str)
+    header = "| " + " | ".join(clean.columns) + " |"
+    sep = "| " + " | ".join(["---"] * len(clean.columns)) + " |"
+    rows = ["| " + " | ".join(v.replace("|", "\\|") for v in r) + " |"
+            for r in clean.values]
+    return "\n".join([header, sep, *rows])
+
+
+# ------------------------------- sidebar --------------------------------
+models, tasks, res = load()
+have_results = res["value"].notna().any()
+
+st.sidebar.title("\U0001F33E Plant gLM Dashboard")
+st.sidebar.caption("Zero-shot benchmark tracker. Edit `data/*.csv` to update.")
+
+obj = st.sidebar.multiselect("Objective", sorted(models["objective"].dropna().unique()),
+                             default=list(sorted(models["objective"].dropna().unique())))
+scope = st.sidebar.multiselect("Scope", sorted(models["scope"].dropna().unique()),
+                               default=list(sorted(models["scope"].dropna().unique())))
+cats = sorted(tasks["category"].dropna().unique())
+cat_sel = st.sidebar.multiselect("Task category", cats, default=cats)
+if "species" in tasks.columns:
+    sp_opts = sorted(tasks["species"].dropna().unique())
+    sp_sel = st.sidebar.multiselect("Task species/clade", sp_opts, default=sp_opts)
+else:
+    sp_sel = None
+
+msel = models[models["objective"].isin(obj) & models["scope"].isin(scope)]
+tsel = tasks[tasks["category"].isin(cat_sel)]
+if sp_sel is not None:
+    tsel = tsel[tsel["species"].isin(sp_sel)]
+rsel = res[res["model"].isin(msel["model"]) & res["task_id"].isin(tsel["task_id"])]
+
+
+# ------------------------------- header ---------------------------------
+st.title("Genomic Language Models \u2014 Zero-Shot Plant Task Leaderboard")
+c1, c2, c3, c4 = st.columns(4)
+c1.metric("Models tracked", msel["model"].nunique())
+c2.metric("Zero-shot tasks", tsel["task_id"].nunique())
+c3.metric("Scores recorded", int(rsel["value"].notna().sum()))
+cov = rsel["value"].notna().mean() * 100 if len(rsel) else 0
+c4.metric("Matrix coverage", f"{cov:.0f}%")
+
+if not have_results:
+    st.info(
+        "**No scores yet.** This app is wired and ready \u2014 add your numbers to "
+        "`data/results.csv` (columns: `model, task_id, value, n`). "
+        "The leaderboard, heatmap and per-task views light up automatically. "
+        "Models and tasks below come from `data/models.csv` and `data/tasks.csv`."
+    )
+
+
+# ------------------------------- tabs -----------------------------------
+tab_lb, tab_heat, tab_task, tab_models, tab_data = st.tabs(
+    ["\U0001F3C6 Leaderboard", "\U0001F525 Heatmap", "\U0001F4CA Per-task",
+     "\U0001F9EC Models", "\U0001F4C1 Data"])
+
+with tab_lb:
+    st.subheader("Overall ranking")
+    st.caption("Mean of per-task percentile ranks (direction-aware), so AUROC, accuracy "
+               "and AUPRC tasks combine on one scale. Higher = better across tasks. "
+               "Note: models differ in context length \u2014 GPN and PlantCAD are shown at "
+               "512 bp; other models are shown at 8192 bp. For evo2_7b and evo2_20b, "
+               "the selected strand (forward or reverse-complement) is kept per task "
+               "(see the 'note' column in the per-task tab). Read the per-task tab for "
+               "like-for-like comparison.")
+    if have_results and rsel["value"].notna().any():
+        ranked = rank_within_task(rsel, tsel)
+        agg = (ranked.groupby("model")
+               .agg(mean_pct_rank=("pct_rank", "mean")).reset_index())
+        agg = agg.merge(models[["model", "display_name", "objective", "scope",
+                                "architecture", "parameters", "model_url"]],
+                        on="model", how="left")
+        agg["plot_name"] = agg.apply(model_label_with_parameters, axis=1)
+        agg = agg.sort_values("mean_pct_rank", ascending=False)
+        agg.insert(0, "rank", range(1, len(agg) + 1))
+        fig = px.bar(agg, x="mean_pct_rank", y="plot_name", orientation="h",
+                     color="objective",
+                     hover_data=["parameters", "scope", "architecture"],
+                     labels={"mean_pct_rank": "Mean percentile rank", "plot_name": "model"})
+        fig.update_layout(yaxis={"categoryorder": "total ascending"}, height=420,
+                          margin=dict(l=0, r=0, t=10, b=0))
+        st.plotly_chart(fig, use_container_width=True)
+        show = agg[["rank", "display_name", "model_url", "parameters", "objective",
+                    "scope", "architecture", "mean_pct_rank"]].copy()
+        show["model"] = show.apply(
+            lambda row: f"[{row['display_name']}]({row['model_url']})"
+            if pd.notna(row["model_url"]) and str(row["model_url"]).startswith("http")
+            else row["display_name"],
+            axis=1,
+        )
+        show["mean_pct_rank"] = show["mean_pct_rank"].map(lambda x: f"{x:.1f}")
+        show = show[["rank", "model", "parameters", "objective", "scope", "architecture",
+                     "mean_pct_rank"]]
+        st.markdown(markdown_table(show))
+    else:
+        st.write("Add results to populate the leaderboard.")
+
+with tab_heat:
+    st.subheader("Model \u00d7 task score matrix")
+    metric_choice = st.radio("Cell value", ["Raw score", "Per-task percentile"],
+                             horizontal=True)
+    if have_results and rsel["value"].notna().any():
+        if metric_choice == "Per-task percentile":
+            ranked = rank_within_task(rsel, tsel)
+            mat = ranked.pivot_table(index="model", columns="task_id", values="pct_rank")
+            zlabel = "percentile"
+        else:
+            mat = rsel.pivot_table(index="model", columns="task_id", values="value")
+            zlabel = "score"
+        tname = tasks.set_index("task_id")["task_name"].to_dict()
+        dname = models.set_index("model")["display_name"].to_dict()
+        mat = mat.rename(columns=tname, index=dname)
+        fig = px.imshow(mat, aspect="auto", color_continuous_scale="Viridis",
+                        labels=dict(color=zlabel))
+        fig.update_layout(height=max(300, 40 * len(mat) + 120),
+                          margin=dict(l=0, r=0, t=10, b=0))
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.write("Add results to populate the heatmap.")
+
+with tab_task:
+    st.subheader("Single-task ranking")
+    if len(tsel):
+        task_picker = tsel[["task_id", "task_name"]].drop_duplicates()
+        task_labels = task_picker["task_name"].tolist()
+        task_label_to_id = dict(zip(task_picker["task_name"], task_picker["task_id"]))
+        selected_task = st.radio("Task", task_labels, key="per_task_task")
+        tid = task_label_to_id[selected_task]
+        meta = tasks.set_index("task_id").loc[tid]
+        st.caption(f"**{meta['task_name']}** \u2014 {meta.get('description','')} "
+                   f"(metric: {meta['metric']}, higher is better: {bool(meta['higher_is_better'])})")
+        sub = rsel[rsel["task_id"] == tid].dropna(subset=["value"])
+        if len(sub):
+            sub = sub.merge(models[["model", "display_name", "objective", "scope"]],
+                            on="model", how="left")
+            sub = sub.sort_values("value", ascending=not bool(meta["higher_is_better"]))
+            fig = px.bar(sub, x="value", y="display_name", orientation="h", color="objective",
+                         labels={"value": meta["metric"], "display_name": "model"})
+            fig.update_layout(yaxis={"categoryorder": "total ascending"},
+                              height=max(250, 32 * len(sub)), margin=dict(l=0, r=0, t=10, b=0))
+            st.plotly_chart(fig, use_container_width=True)
+            base_cols = ["display_name", "value"]
+            if "context_bp" in sub.columns:
+                base_cols.append("context_bp")
+            if "note" in sub.columns and sub["note"].astype(str).str.strip().any():
+                base_cols.append("note")
+            base_cols += ["objective", "scope"]
+            tbl = sub[base_cols]
+            st.dataframe(tbl.rename(columns={"display_name": "model"}),
+                         use_container_width=True, hide_index=True)
+        else:
+            st.write("No scores recorded for this task yet.")
+
+with tab_models:
+    st.subheader("Tracked models")
+    st.caption("Reference roster \u2014 verify metadata against the cited paper; edit `data/models.csv`.")
+    # Render as a markdown table so the reference shows the formatted citation as a clickable link.
+    mshow = msel.drop(columns=["params_m"], errors="ignore").copy()
+
+    def _ref(row):
+        cite, url = row.get("citation"), row.get("reference")
+        label = cite if ("citation" in row and pd.notna(cite)) else url
+        if pd.notna(url) and str(url).startswith("http"):
+            return f"[{label}]({url})"
+        return label if pd.notna(label) else ""
+
+    if "reference" in mshow.columns:
+        mshow["reference"] = mshow.apply(_ref, axis=1)
+    mshow = mshow.drop(columns=["citation"], errors="ignore")
+    cols = [c for c in ["display_name", "architecture", "parameters", "objective",
+                        "scope", "tokenization", "reference"] if c in mshow.columns]
+    md = mshow[cols].rename(columns={"display_name": "model"}).fillna("")
+    header = "| " + " | ".join(md.columns) + " |"
+    sep = "| " + " | ".join(["---"] * len(md.columns)) + " |"
+    rows = ["| " + " | ".join(str(v) for v in r) + " |" for r in md.values]
+    st.markdown("\n".join([header, sep, *rows]))
+    st.subheader("Tasks")
+    st.dataframe(tsel.drop(columns=["source_table"], errors="ignore"),
+                 use_container_width=True, hide_index=True)
+
+with tab_data:
+    st.subheader("Download / inspect underlying data")
+    for name, df in [("models.csv", models), ("tasks.csv", tasks), ("results.csv", res)]:
+        buf = io.StringIO(); df.to_csv(buf, index=False)
+        st.download_button(f"Download {name}", buf.getvalue(), file_name=name, mime="text/csv")
+    st.markdown(
+        "**To add a model:** append a row to `models.csv`. "
+        "**To add a task:** append to `tasks.csv`. "
+        "**To record a score:** set `value` in `results.csv` for that `model,task_id`."
+    )
+
+st.caption("Built as a maintainable tracker \u2014 all state lives in data/*.csv. "
+           "Metric directions handled per task so MLM and CLM models compare fairly.")

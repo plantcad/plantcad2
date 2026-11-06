@@ -1,0 +1,21 @@
+task_id,task_name,category,metric,higher_is_better,species,description,source_table
+cons_andropogoneae,Conservation — Andropogoneae (genome-wide),Conservation,AUROC,1,Andropogoneae,"Cross-species evolutionary conservation, genome-wide",S3
+cons_poaceae_nontis,Conservation — Poaceae (non-TIS CDS),Conservation,AUROC,1,Poaceae,Conservation at non-TIS sites in coding sequence,S3
+cons_poaceae_tis,Conservation — Poaceae (TIS CDS),Conservation,AUROC,1,Poaceae,Conservation at TIS sites in coding sequence,S3
+sv_impact_auprc,Structural variant impact (AUPRC),Variant effect,AUPRC,1,multi,"Zero-shot SV deleteriousness, PR AUC",S5
+motif_maize_start_sites,Masked motif — Maize Start codon (TIS),Masked motif,Accuracy,1,Maize,Masked-token recovery of Start codon (TIS) in Maize,S4
+motif_maize_stop_sites,Masked motif — Maize Stop codon,Masked motif,Accuracy,1,Maize,Masked-token recovery of Stop codon in Maize,S4
+motif_maize_donor,Masked motif — Maize Splice donor,Masked motif,Accuracy,1,Maize,Masked-token recovery of Splice donor in Maize,S4
+motif_maize_acceptor,Masked motif — Maize Splice acceptor,Masked motif,Accuracy,1,Maize,Masked-token recovery of Splice acceptor in Maize,S4
+motif_tomato_start_sites,Masked motif — Tomato Start codon (TIS),Masked motif,Accuracy,1,Tomato,Masked-token recovery of Start codon (TIS) in Tomato,S4
+motif_tomato_stop_sites,Masked motif — Tomato Stop codon,Masked motif,Accuracy,1,Tomato,Masked-token recovery of Stop codon in Tomato,S4
+motif_tomato_donor,Masked motif — Tomato Splice donor,Masked motif,Accuracy,1,Tomato,Masked-token recovery of Splice donor in Tomato,S4
+motif_tomato_acceptor,Masked motif — Tomato Splice acceptor,Masked motif,Accuracy,1,Tomato,Masked-token recovery of Splice acceptor in Tomato,S4
+coreclass_maize_tis,Core vs non-core — Maize TIS (start),Core vs non-core classification,AUROC,1,Maize,Classify core vs non-core TIS (start) in Maize (masked-token ROC AUC),core_noncore
+coreclass_tomato_tis,Core vs non-core — Tomato TIS (start),Core vs non-core classification,AUROC,1,Tomato,Classify core vs non-core TIS (start) in Tomato (masked-token ROC AUC),core_noncore
+coreclass_maize_tts,Core vs non-core — Maize TTS (stop),Core vs non-core classification,AUROC,1,Maize,Classify core vs non-core TTS (stop) in Maize (masked-token ROC AUC),core_noncore
+coreclass_tomato_tts,Core vs non-core — Tomato TTS (stop),Core vs non-core classification,AUROC,1,Tomato,Classify core vs non-core TTS (stop) in Tomato (masked-token ROC AUC),core_noncore
+coreclass_maize_donor,Core vs non-core — Maize Splice donor,Core vs non-core classification,AUROC,1,Maize,Classify core vs non-core Splice donor in Maize (masked-token ROC AUC),core_noncore
+coreclass_tomato_donor,Core vs non-core — Tomato Splice donor,Core vs non-core classification,AUROC,1,Tomato,Classify core vs non-core Splice donor in Tomato (masked-token ROC AUC),core_noncore
+coreclass_maize_acceptor,Core vs non-core — Maize Splice acceptor,Core vs non-core classification,AUROC,1,Maize,Classify core vs non-core Splice acceptor in Maize (masked-token ROC AUC),core_noncore
+coreclass_tomato_acceptor,Core vs non-core — Tomato Splice acceptor,Core vs non-core classification,AUROC,1,Tomato,Classify core vs non-core Splice acceptor in Tomato (masked-token ROC AUC),core_noncore

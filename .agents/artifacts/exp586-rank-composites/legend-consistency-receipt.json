@@ -1,0 +1,38 @@
+{
+  "url": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
+  "source_updated_at": "2026-11-06T17:17:14Z",
+  "before_body_sha256": "b23ff6e7da8c6d28454ad59e9d671b5c29a67aea626583e38a501976a9283803",
+  "published_body_sha256": "e67786fd7f1644013ddf05398fa959f6c4aca77c90d1cf21694a74b6215e6a04",
+  "figure_commit": "0fad866b0dbf715eb49502a8720e7b6a09b7cda7",
+  "images": {
+    "loss-comparison": {
+      "new_url": "https://raw.githubusercontent.com/plantcad/plantcad2/0fad866b0dbf715eb49502a8720e7b6a09b7cda7/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png",
+      "sha256": "25d6f0116f3e8b8efbb5d7595effdc17e66623287cef4abbb2cedbe96c88bac3",
+      "bytes": 530225,
+      "old_url": "https://raw.githubusercontent.com/plantcad/plantcad2/4dab0a800333bfb645e45483d451a3796506f4b4/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png"
+    },
+    "checkpoint-tokens": {
+      "new_url": "https://raw.githubusercontent.com/plantcad/plantcad2/0fad866b0dbf715eb49502a8720e7b6a09b7cda7/.agents/artifacts/exp586-rank-composites/figures/checkpoint-tokens.png",
+      "sha256": "70d4c5d868f2502d56b14bfb12838dc1afbe8959ba608381b636631831cb5365",
+      "bytes": 484212,
+      "old_url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/checkpoint-tokens.png"
+    },
+    "checkpoint-progress": {
+      "new_url": "https://raw.githubusercontent.com/plantcad/plantcad2/0fad866b0dbf715eb49502a8720e7b6a09b7cda7/.agents/artifacts/exp586-rank-composites/figures/checkpoint-progress.png",
+      "sha256": "97caa54b5c6b8f166c9d371b5e58bd93d04c51dada62518df6264b2b0ca2d5c5",
+      "bytes": 484271,
+      "old_url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/checkpoint-progress.png"
+    }
+  },
+  "only_three_image_urls_replaced": true,
+  "all_author_text_preserved": true,
+  "legend_title": "MoE training horizon",
+  "legend_labels": [
+    "216B tokens",
+    "1T tokens"
+  ],
+  "label_weight": "normal",
+  "updated_at": "2026-11-06T17:23:38Z",
+  "re_fetched_exactly_verified": true,
+  "author_text_preserved_exactly": true
+}

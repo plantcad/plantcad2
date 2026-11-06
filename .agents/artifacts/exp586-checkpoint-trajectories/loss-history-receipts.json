@@ -1,0 +1,35 @@
+{
+  "owner": "MarinDNA/exp586_plantcad2_moe",
+  "files": {
+    "216b-training.jsonl.gz": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/reports/loss-figure/79d4bab4ad5202d814d830e5e2faa3cf5dd7927d80c321b7e864a06e645e5217/216b-training.jsonl.gz",
+      "sha256": "79d4bab4ad5202d814d830e5e2faa3cf5dd7927d80c321b7e864a06e645e5217",
+      "bytes": 7766776
+    },
+    "216b-validation.jsonl.gz": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/reports/loss-figure/bd4f74e648c7c12f4352323d1a2a321a2c71c272fa3d0e54cbbf80f6b1a6d705/216b-validation.jsonl.gz",
+      "sha256": "bd4f74e648c7c12f4352323d1a2a321a2c71c272fa3d0e54cbbf80f6b1a6d705",
+      "bytes": 4456
+    },
+    "216b-metadata.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/reports/loss-figure/986e1f09f7dc6a4633330c68a46ca21130f5af5ba55e9ac0b562b5b2aff82efe/216b-metadata.json",
+      "sha256": "986e1f09f7dc6a4633330c68a46ca21130f5af5ba55e9ac0b562b5b2aff82efe",
+      "bytes": 1452
+    },
+    "1t-training.jsonl.gz": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/reports/loss-figure/d91bc39e0dcb365dcf87c2745d165e5904b7dd392e78a26acbaa8b5e11e17def/1t-training.jsonl.gz",
+      "sha256": "d91bc39e0dcb365dcf87c2745d165e5904b7dd392e78a26acbaa8b5e11e17def",
+      "bytes": 36028451
+    },
+    "1t-validation.jsonl.gz": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/reports/loss-figure/c90985d153c32be2c9198c068bc88349d0a6a6f64b80b9fc50ec70d14a0c7ceb/1t-validation.jsonl.gz",
+      "sha256": "c90985d153c32be2c9198c068bc88349d0a6a6f64b80b9fc50ec70d14a0c7ceb",
+      "bytes": 19496
+    },
+    "1t-metadata.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/reports/loss-figure/d79d4840893d1aa9b3a54f69ef0c00cf53ada4c8f84d6e59a22feb94ea882657/1t-metadata.json",
+      "sha256": "d79d4840893d1aa9b3a54f69ef0c00cf53ada4c8f84d6e59a22feb94ea882657",
+      "bytes": 1617
+    }
+  }
+}

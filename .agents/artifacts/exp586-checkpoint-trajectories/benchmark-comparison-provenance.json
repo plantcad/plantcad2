@@ -1,0 +1,224 @@
+{
+  "sources": {
+    "historical": {
+      "path": "historical/exp472-lr5e4-full-coreweave-20260831.json",
+      "sha256": "76e5bb907568e7b800e5803216f72495933d584e95bf2a03cbae597d7cc6391b"
+    },
+    "216B-token run": {
+      "file": "results.json",
+      "sha256": "1da421c0bb53052a705deb1bf523c83f14a18e8d2bcc3c288dfe24edc3ee0b1e",
+      "provenance_sha256": "bfbdd180ac92b442135e70b4ae5af0636c38d24bbea5ecac10df59d880c10d71",
+      "native_source": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/analysis/pretrained-lrm1-seed0",
+        "receipt_sha256": "55e4d49489a72b5d820a085a3709db56302170bee16cf61074cf5dfb6a538ffc"
+      }
+    },
+    "1T-token run": {
+      "file": "results.json",
+      "sha256": "e4769f8a6f6d6a4a77993d04062e8ecf7413aa18374180e284fd513b775cbe06",
+      "provenance_sha256": "5fd53cba211c530fde3ed3ed75219c6ab2a4e5a8fedb6b08807b647b0b528d2b",
+      "native_source": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/analysis/pretrained-lrm1-seed0-1t",
+        "receipt_sha256": "3eae61324fa290f8277b880e586813358362852da2c8fdfd801201d10289c213"
+      }
+    }
+  },
+  "historical_source_commit": "475fba58f81b79efa234d0018eb0776d1a960bfd",
+  "published_leaderboard_revision": "f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29",
+  "original_plot": "https://github.com/plantcad/plantcad2/pull/20#issuecomment-5585800169",
+  "dense_tokens_exact": 562022055936,
+  "dense_tokens_billions": 562.022055936,
+  "dense_token_crosscheck": "(checkpoint step 535985 + 1) \u00d7 batch 128 \u00d7 sequence 8192",
+  "readout": "Original full-benchmark zero-shot rule: max completed forward/RC task metric for non-SV; SV forward",
+  "aggregation": "Equal-weight task mean within each category; Composite gives each of four categories 25%; AF separate",
+  "moe_scope": "Final language-pretrained checkpoints only, 8192-base examples, character-forced nucleotide tokenization",
+  "historical_values": "Previously computed values reused without running models or fitting probes",
+  "colors": "Cohesive muted palette: dense MarinDNA coral, 216B MoE rich gold, 1T MoE deep plum, Evo 2 emerald green. Published PlantCAD blues remain unchanged.",
+  "palette_sha256": "fc45caa09074fb8c14f03143d8f4aeb067578c263e72e7ad8f24ea8142a40648",
+  "excluded": [
+    "PlantCAD 512 bp",
+    "other dense checkpoints",
+    "Composite without SV",
+    "probe scores"
+  ],
+  "values": 40,
+  "GitHub_comment_updates": false,
+  "panels": [
+    "All five benchmark categories",
+    "Conservation ranking",
+    "SV impact ranking",
+    "Composite ranking"
+  ],
+  "ranking_order": {
+    "Conservation": [
+      {
+        "model": "Evo 2 20B",
+        "score": 0.7886666666666665
+      },
+      {
+        "model": "PlantCAD2.5-Large",
+        "score": 0.7096666666666667
+      },
+      {
+        "model": "PlantCAD2-Large",
+        "score": 0.7024333333333334
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 1T",
+        "score": 0.6992670021034327
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 216B",
+        "score": 0.6890951690966782
+      },
+      {
+        "model": "PlantCAD2-Medium",
+        "score": 0.6864333333333333
+      },
+      {
+        "model": "MarinDNA 1B 562B",
+        "score": 0.6693395658903151
+      },
+      {
+        "model": "PlantCAD2-Small",
+        "score": 0.6445333333333333
+      }
+    ],
+    "SV impact": [
+      {
+        "model": "Evo 2 20B",
+        "score": 0.86
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 216B",
+        "score": 0.8540951287449496
+      },
+      {
+        "model": "MarinDNA 1B 562B",
+        "score": 0.8525691047089042
+      },
+      {
+        "model": "PlantCAD2-Large",
+        "score": 0.841
+      },
+      {
+        "model": "PlantCAD2-Medium",
+        "score": 0.8334
+      },
+      {
+        "model": "PlantCAD2-Small",
+        "score": 0.7946
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 1T",
+        "score": 0.7780781605138195
+      },
+      {
+        "model": "PlantCAD2.5-Large",
+        "score": 0.745
+      }
+    ],
+    "Composite": [
+      {
+        "model": "Evo 2 20B",
+        "score": 0.7565729166666666
+      },
+      {
+        "model": "PlantCAD2-Large",
+        "score": 0.7344489583333333
+      },
+      {
+        "model": "PlantCAD2-Medium",
+        "score": 0.7247583333333334
+      },
+      {
+        "model": "PlantCAD2.5-Large",
+        "score": 0.7228541666666666
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 216B",
+        "score": 0.7039986301759926
+      },
+      {
+        "model": "MarinDNA 1B 562B",
+        "score": 0.6966408334196177
+      },
+      {
+        "model": "MarinMoE 1.5B\u201360M 1T",
+        "score": 0.693604777105964
+      },
+      {
+        "model": "PlantCAD2-Small",
+        "score": 0.6818208333333333
+      }
+    ]
+  },
+  "displayed_bars": 64,
+  "ranking_x_axes": {
+    "Conservation": {
+      "visible_intervals": [
+        [
+          0,
+          0.05
+        ],
+        [
+          0.62,
+          0.82
+        ]
+      ],
+      "omitted_interval": [
+        0.05,
+        0.62
+      ],
+      "marked_breaks": true
+    },
+    "SV impact": {
+      "visible_intervals": [
+        [
+          0,
+          0.05
+        ],
+        [
+          0.72,
+          0.89
+        ]
+      ],
+      "omitted_interval": [
+        0.05,
+        0.72
+      ],
+      "marked_breaks": true
+    },
+    "Composite": {
+      "visible_intervals": [
+        [
+          0,
+          0.05
+        ],
+        [
+          0.67,
+          0.78
+        ]
+      ],
+      "omitted_interval": [
+        0.05,
+        0.67
+      ],
+      "marked_breaks": true
+    }
+  },
+  "model_summary": {
+    "DNA_tokens": 1000000192512,
+    "DNA_tokens_per_epoch": 21615869952,
+    "DNA_epochs": 46.262315360547184,
+    "rounded_total_parameters": 1500000000,
+    "rounded_active_parameters_per_token": 60000000,
+    "heuristic_dense_equivalent_parameters": 300000000.0,
+    "approximation_sources": [
+      "https://proceedings.mlr.press/v162/clark22a.html",
+      "https://marin.community/analysis/scaling-laws-analysis/"
+    ],
+    "interpretation": "Geometric-mean size heuristic using rounded counts; not a measured dense-model match on DNA",
+    "attribution": "Marin explicitly uses the geometric mean; Clark et al. 2022 Section 5.1 derives the more general effective-parameter scaling framework"
+  }
+}

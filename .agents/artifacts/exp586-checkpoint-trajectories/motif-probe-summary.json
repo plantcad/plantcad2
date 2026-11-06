@@ -1,0 +1,812 @@
+{
+  "base-000b": {
+    "motif_maize_tis": {
+      "test_score": 0.9728391356542617,
+      "majority_baseline": 0.9728391356542617,
+      "shuffled_labels": 0.9728391356542617,
+      "train_rows": 25566,
+      "test_rows": 13328,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.9746061164319814,
+      "receipt_sha256": "1f0c4bbd0cd56b1f4cbcbbfa1517deb3e449371afbdb1f4d03e159265f1cc3a1",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/base-000b/motif_maize_tis"
+    },
+    "motif_maize_tts": {
+      "test_score": 0.4840597104493286,
+      "majority_baseline": 0.4635061135698747,
+      "shuffled_labels": 0.4635061135698747,
+      "train_rows": 25586,
+      "test_rows": 13331,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.48679874739820134,
+      "receipt_sha256": "bee765fe90669d264ec41862c7ef3be53537d1a046acc60079f8041be0b354a7",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads-optimizer-v2/base-000b/motif_maize_tts"
+    },
+    "motif_maize_donor": {
+      "test_score": 0.983251305275371,
+      "majority_baseline": 0.9830828826468552,
+      "shuffled_labels": 0.9830828826468552,
+      "train_rows": 100022,
+      "test_rows": 53437,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9820871134274224,
+      "receipt_sha256": "56dc90b7f2443405dd7236241e27bd1d3f4f3ff4964e2f9d220ed776e7e4ab6e",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/base-000b/motif_maize_donor"
+    },
+    "motif_maize_acceptor": {
+      "test_score": 0.9981846764232511,
+      "majority_baseline": 0.9981846764232511,
+      "shuffled_labels": 0.9981846764232511,
+      "train_rows": 100032,
+      "test_rows": 53434,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.9975442195541607,
+      "receipt_sha256": "72116aac2aee414870ad5cc6e33bb737561e584438c921bb20b090a4a7807a9a",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/base-000b/motif_maize_acceptor"
+    },
+    "motif_tomato_tis": {
+      "test_score": 0.967189085578983,
+      "majority_baseline": 0.967189085578983,
+      "shuffled_labels": 0.967189085578983,
+      "train_rows": 25428,
+      "test_rows": 8869,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.9646912635574992,
+      "receipt_sha256": "e6466384bbd1213b593e87fabb7990c36035cfc040b93017343594070d8b5aaa",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/base-000b/motif_tomato_tis"
+    },
+    "motif_tomato_tts": {
+      "test_score": 0.422389569517815,
+      "majority_baseline": 0.3839496459480724,
+      "shuffled_labels": 0.3756322355850287,
+      "train_rows": 25415,
+      "test_rows": 8897,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.4269968868549661,
+      "receipt_sha256": "5a4f4302251bd1777018e560fbf422a55fc681466b5a6784fa558b70a6c00e24",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/base-000b/motif_tomato_tts"
+    },
+    "motif_tomato_donor": {
+      "test_score": 0.9590785601086711,
+      "majority_baseline": 0.9583710663346162,
+      "shuffled_labels": 0.9583710663346162,
+      "train_rows": 102952,
+      "test_rows": 35336,
+      "selected_C": 0.001,
+      "development_accuracy": 0.954846519994673,
+      "receipt_sha256": "fe9644ef541a54be25e8f38206d31ae0b27de12931ec3589f210b45f01fd5e36",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads-optimizer-v2/base-000b/motif_tomato_donor"
+    },
+    "motif_tomato_acceptor": {
+      "test_score": 0.9710825646539528,
+      "majority_baseline": 0.9698375870069605,
+      "shuffled_labels": 0.9698375870069605,
+      "train_rows": 102953,
+      "test_rows": 35342,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9641863396732009,
+      "receipt_sha256": "fe56982e063d358d5b40199dc2e66af9ffb19679e0cbb247e6a7d35c71e17d37",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads-optimizer-v2/base-000b/motif_tomato_acceptor"
+    }
+  },
+  "long-010b": {
+    "motif_maize_tis": {
+      "test_score": 0.9727641056422569,
+      "majority_baseline": 0.9728391356542617,
+      "shuffled_labels": 0.9728391356542617,
+      "train_rows": 25566,
+      "test_rows": 13328,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9748036183672245,
+      "receipt_sha256": "2ad91dcd25b36e33f0aa16a5bc188e32e95b0eb38cce845bec01797100c0ebb1",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-010b/motif_maize_tis"
+    },
+    "motif_maize_tts": {
+      "test_score": 0.5012377166004051,
+      "majority_baseline": 0.4635061135698747,
+      "shuffled_labels": 0.46215587727852375,
+      "train_rows": 25586,
+      "test_rows": 13331,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.5059318732685044,
+      "receipt_sha256": "903ed099829cc5bef7f34b9962a5751c9f9daa261b15214e75a17e984be52bf0",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-010b/motif_maize_tts"
+    },
+    "motif_maize_donor": {
+      "test_score": 0.9836442914085746,
+      "majority_baseline": 0.9830828826468552,
+      "shuffled_labels": 0.9830828826468552,
+      "train_rows": 100022,
+      "test_rows": 53437,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9824187315586889,
+      "receipt_sha256": "4b3410f668368b71e0625e5dbe42671c6226a9224269ff0554bf68aff67f3846",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-010b/motif_maize_donor"
+    },
+    "motif_maize_acceptor": {
+      "test_score": 0.998222105775349,
+      "majority_baseline": 0.9981846764232511,
+      "shuffled_labels": 0.9981846764232511,
+      "train_rows": 100032,
+      "test_rows": 53434,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9975720256343701,
+      "receipt_sha256": "b0856ba163ba363367aa7581317f299b862715e4799cbbc4c4a40d100f0e766e",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-010b/motif_maize_acceptor"
+    },
+    "motif_tomato_tis": {
+      "test_score": 0.967189085578983,
+      "majority_baseline": 0.967189085578983,
+      "shuffled_labels": 0.967189085578983,
+      "train_rows": 25428,
+      "test_rows": 8869,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9647242211740045,
+      "receipt_sha256": "33b85367fc64cff30231ae8c544f5650765efbea25f0d339ee6edd6f28794483",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-010b/motif_tomato_tis"
+    },
+    "motif_tomato_tts": {
+      "test_score": 0.43947397999325616,
+      "majority_baseline": 0.3839496459480724,
+      "shuffled_labels": 0.37911655614251993,
+      "train_rows": 25415,
+      "test_rows": 8897,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.4402908741165598,
+      "receipt_sha256": "8a857de62f8f7e5bc872ea1e157d9af3a2f09e25ab9bdcd24158c8cc317fd1e2",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-010b/motif_tomato_tts"
+    },
+    "motif_tomato_donor": {
+      "test_score": 0.9610312429250623,
+      "majority_baseline": 0.9583710663346162,
+      "shuffled_labels": 0.9583710663346162,
+      "train_rows": 102952,
+      "test_rows": 35336,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.9567721432649748,
+      "receipt_sha256": "92f5ded67f9729998bff52bce521b11f3ac57d2b9a3a5d0badc5fccea75f64e7",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-010b/motif_tomato_donor"
+    },
+    "motif_tomato_acceptor": {
+      "test_score": 0.9738837643596854,
+      "majority_baseline": 0.9698375870069605,
+      "shuffled_labels": 0.9698375870069605,
+      "train_rows": 102953,
+      "test_rows": 35342,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9674188512741765,
+      "receipt_sha256": "eea24745759e9b6621e00716436cdb31222d8fba9711759de9bae50cfa51b882",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-010b/motif_tomato_acceptor"
+    }
+  },
+  "long-1000b": {
+    "motif_maize_tis": {
+      "test_score": 0.9744897959183674,
+      "majority_baseline": 0.9728391356542617,
+      "shuffled_labels": 0.9727641056422569,
+      "train_rows": 25566,
+      "test_rows": 13328,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9774590790682128,
+      "receipt_sha256": "4463226139c1dd83916e3b2006b18896ae22ac45daca1af7e6896087ed3f6eb2",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-1000b/motif_maize_tis"
+    },
+    "motif_maize_tts": {
+      "test_score": 0.5833770909909234,
+      "majority_baseline": 0.4635061135698747,
+      "shuffled_labels": 0.4418273197809617,
+      "train_rows": 25586,
+      "test_rows": 13331,
+      "selected_C": 0.001,
+      "development_accuracy": 0.5857577245642971,
+      "receipt_sha256": "1adb1fba16de7e3bed856632f86fadc93702b8edfc35c5d587c487b18e7bcf67",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-1000b/motif_maize_tts"
+    },
+    "motif_maize_donor": {
+      "test_score": 0.986956603102719,
+      "majority_baseline": 0.9830828826468552,
+      "shuffled_labels": 0.9830454553960739,
+      "train_rows": 100022,
+      "test_rows": 53437,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9857795660702697,
+      "receipt_sha256": "eec38ff581f6ae5108a23caef13eeddcc9a61f938ca7e89ffa7c884193cead48",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-1000b/motif_maize_donor"
+    },
+    "motif_maize_acceptor": {
+      "test_score": 0.998708687352622,
+      "majority_baseline": 0.9981846764232511,
+      "shuffled_labels": 0.9978852416064677,
+      "train_rows": 100032,
+      "test_rows": 53434,
+      "selected_C": 0.01,
+      "development_accuracy": 0.9981496998833856,
+      "receipt_sha256": "d7a075168a715ae8e9fc292e89f8d09278b3bc36da2a1e715cf5b936eadcb5da",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-1000b/motif_maize_acceptor"
+    },
+    "motif_tomato_tis": {
+      "test_score": 0.9673018378622167,
+      "majority_baseline": 0.967189085578983,
+      "shuffled_labels": 0.967189085578983,
+      "train_rows": 25428,
+      "test_rows": 8869,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9648668722155428,
+      "receipt_sha256": "cd6c2537e6cf3afebfe6a50cfa48718e03b2636cf399334b881ed87385298673",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-1000b/motif_tomato_tis"
+    },
+    "motif_tomato_tts": {
+      "test_score": 0.47173204450938516,
+      "majority_baseline": 0.3839496459480724,
+      "shuffled_labels": 0.3722603124648758,
+      "train_rows": 25415,
+      "test_rows": 8897,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.4699035409873367,
+      "receipt_sha256": "3c829192a393fbd492ea56ad4e99aff6385cc2e8fe6f80021ad093857f80cb03",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-1000b/motif_tomato_tts"
+    },
+    "motif_tomato_donor": {
+      "test_score": 0.9625028299750962,
+      "majority_baseline": 0.9583710663346162,
+      "shuffled_labels": 0.958342766583654,
+      "train_rows": 102952,
+      "test_rows": 35336,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9583265383759131,
+      "receipt_sha256": "da2d9f1b293c6e3f00df3447d388e58a917ce7891b1df3219efaf85a994342ee",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-1000b/motif_tomato_donor"
+    },
+    "motif_tomato_acceptor": {
+      "test_score": 0.9741950087714334,
+      "majority_baseline": 0.9698375870069605,
+      "shuffled_labels": 0.9698375870069605,
+      "train_rows": 102953,
+      "test_rows": 35342,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9693310138604048,
+      "receipt_sha256": "9206e4267e7a1185e8248f914b89bd1ce3683ceba0890eb35cdbe13fbfe46ae1",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-1000b/motif_tomato_acceptor"
+    }
+  },
+  "long-182b": {
+    "motif_maize_tis": {
+      "test_score": 0.9732142857142857,
+      "majority_baseline": 0.9728391356542617,
+      "shuffled_labels": 0.9727641056422569,
+      "train_rows": 25566,
+      "test_rows": 13328,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9750406139959261,
+      "receipt_sha256": "5d966c774d2dffd2a34ece34499ba761b07f42bc15421ca402184efd55e6e878",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-182b/motif_maize_tis"
+    },
+    "motif_maize_tts": {
+      "test_score": 0.5437701597779612,
+      "majority_baseline": 0.4635061135698747,
+      "shuffled_labels": 0.4391268471982597,
+      "train_rows": 25586,
+      "test_rows": 13331,
+      "selected_C": 0.001,
+      "development_accuracy": 0.5421486105389451,
+      "receipt_sha256": "b31b4100288e74e412389497f63f30d6ec783f2f2965a09fecf9e7f6ac5eaac5",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-182b/motif_maize_tts"
+    },
+    "motif_maize_donor": {
+      "test_score": 0.983887568538653,
+      "majority_baseline": 0.9830828826468552,
+      "shuffled_labels": 0.9830454553960739,
+      "train_rows": 100022,
+      "test_rows": 53437,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9830394407793684,
+      "receipt_sha256": "04eee189e75bcaba05c6e869556a76010eb631da080321c1d0d90b459d1a9d65",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-182b/motif_maize_donor"
+    },
+    "motif_maize_acceptor": {
+      "test_score": 0.9986151139723771,
+      "majority_baseline": 0.9981846764232511,
+      "shuffled_labels": 0.9979975296627616,
+      "train_rows": 100032,
+      "test_rows": 53434,
+      "selected_C": 0.01,
+      "development_accuracy": 0.9979547978312513,
+      "receipt_sha256": "32aa98474c852f00c9a8f69f850be9368d1b273c3887d9e2359ed3880e4706d1",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-182b/motif_maize_acceptor"
+    },
+    "motif_tomato_tis": {
+      "test_score": 0.9670763332957493,
+      "majority_baseline": 0.967189085578983,
+      "shuffled_labels": 0.967189085578983,
+      "train_rows": 25428,
+      "test_rows": 8869,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9648807113391141,
+      "receipt_sha256": "baf8911952f3e574ce342138b8c1f641bda34b40f18556f0b3f8ccfc3b2b51d8",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-182b/motif_tomato_tis"
+    },
+    "motif_tomato_tts": {
+      "test_score": 0.46397662133303363,
+      "majority_baseline": 0.3839496459480724,
+      "shuffled_labels": 0.3745082612116444,
+      "train_rows": 25415,
+      "test_rows": 8897,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.46822301953715373,
+      "receipt_sha256": "60fe5ae9babb76a94d387d26267a835aeacfc53a88864fb6cae78aa9f096cce2",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-182b/motif_tomato_tts"
+    },
+    "motif_tomato_donor": {
+      "test_score": 0.9621349332125877,
+      "majority_baseline": 0.9583710663346162,
+      "shuffled_labels": 0.9583710663346162,
+      "train_rows": 102952,
+      "test_rows": 35336,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9576215955078912,
+      "receipt_sha256": "5c4af2b673d96b169be914cb4b28784330519ddd2a41cf365b3431f1e63a012a",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-182b/motif_tomato_donor"
+    },
+    "motif_tomato_acceptor": {
+      "test_score": 0.9739969441457755,
+      "majority_baseline": 0.9698375870069605,
+      "shuffled_labels": 0.969809292060438,
+      "train_rows": 102953,
+      "test_rows": 35342,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9697630980743971,
+      "receipt_sha256": "c16b58cf2ab00eb2ec586615925c2e132bd285faa3c3fb53b58938f0fae64255",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-182b/motif_tomato_acceptor"
+    }
+  },
+  "long-545b": {
+    "motif_maize_tis": {
+      "test_score": 0.973889555822329,
+      "majority_baseline": 0.9728391356542617,
+      "shuffled_labels": 0.9728391356542617,
+      "train_rows": 25566,
+      "test_rows": 13328,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9760929988131558,
+      "receipt_sha256": "b843c30eb73706a6d3b1c139c3d07fd3af0cfb43d78d2d6a6b966b236082ffaa",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-545b/motif_maize_tis"
+    },
+    "motif_maize_tts": {
+      "test_score": 0.5664991373490361,
+      "majority_baseline": 0.4635061135698747,
+      "shuffled_labels": 0.4414522541444753,
+      "train_rows": 25586,
+      "test_rows": 13331,
+      "selected_C": 0.001,
+      "development_accuracy": 0.5598084263668793,
+      "receipt_sha256": "d539ec8ea7c8395c279361e4dcac6e464e6fc3065f2e7f77b57c99f7dde0be10",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-545b/motif_maize_tts"
+    },
+    "motif_maize_donor": {
+      "test_score": 0.9850852405636544,
+      "majority_baseline": 0.9830828826468552,
+      "shuffled_labels": 0.9830267417706833,
+      "train_rows": 100022,
+      "test_rows": 53437,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9837855002636989,
+      "receipt_sha256": "365ca2957a9fb6d1c335c1680a5cecb870a936f67d79df72198a76b8702122b3",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-545b/motif_maize_donor"
+    },
+    "motif_maize_acceptor": {
+      "test_score": 0.998689972676573,
+      "majority_baseline": 0.9981846764232511,
+      "shuffled_labels": 0.9981846764232511,
+      "train_rows": 100032,
+      "test_rows": 53434,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9980299747296671,
+      "receipt_sha256": "787e64549e62608afce8f612ee718f44fa162f59b92335d9e8bbfb4d3eb29d48",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-545b/motif_maize_acceptor"
+    },
+    "motif_tomato_tis": {
+      "test_score": 0.967189085578983,
+      "majority_baseline": 0.967189085578983,
+      "shuffled_labels": 0.967189085578983,
+      "train_rows": 25428,
+      "test_rows": 8869,
+      "selected_C": 0.001,
+      "development_accuracy": 0.964847753722609,
+      "receipt_sha256": "724e9aae742cd4bc7fd0532404d05328286a7df22d0be31032c3ba48b03e22f2",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-545b/motif_tomato_tis"
+    },
+    "motif_tomato_tts": {
+      "test_score": 0.46611217264246374,
+      "majority_baseline": 0.3839496459480724,
+      "shuffled_labels": 0.3788917612678431,
+      "train_rows": 25415,
+      "test_rows": 8897,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.4692753941604282,
+      "receipt_sha256": "652426f57d5bd754d13d20cca52630ef2355ccdb7da3e2ba9af50275a4d97a68",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-545b/motif_tomato_tts"
+    },
+    "motif_tomato_donor": {
+      "test_score": 0.9614274394385329,
+      "majority_baseline": 0.9583710663346162,
+      "shuffled_labels": 0.958342766583654,
+      "train_rows": 102952,
+      "test_rows": 35336,
+      "selected_C": 0.001,
+      "development_accuracy": 0.958111138848938,
+      "receipt_sha256": "67c26a87b01bf5ee066a9ddc15cf0badd9df455ae72b6bbcb1d06553a94ab91f",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-545b/motif_tomato_donor"
+    },
+    "motif_tomato_acceptor": {
+      "test_score": 0.9745628430762265,
+      "majority_baseline": 0.9698375870069605,
+      "shuffled_labels": 0.9697244072208704,
+      "train_rows": 102953,
+      "test_rows": 35342,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9697318305760582,
+      "receipt_sha256": "cfeef8f740ed5050d184c7887fd83159fc068cd9fa68da137e5939f075d68159",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/long-545b/motif_tomato_acceptor"
+    }
+  },
+  "short-002b": {
+    "motif_maize_tis": {
+      "test_score": 0.9726890756302521,
+      "majority_baseline": 0.9728391356542617,
+      "shuffled_labels": 0.9728391356542617,
+      "train_rows": 25566,
+      "test_rows": 13328,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.9746355516485844,
+      "receipt_sha256": "4371abab056175e41e7bb45c23c5cf123db158961b741a7620ac04ca0e0e15b2",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-002b/motif_maize_tis"
+    },
+    "motif_maize_tts": {
+      "test_score": 0.5046883204560798,
+      "majority_baseline": 0.4635061135698747,
+      "shuffled_labels": 0.4638811792063611,
+      "train_rows": 25586,
+      "test_rows": 13331,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.5045111521089806,
+      "receipt_sha256": "4625198f1050fabb4bf6ab0de8e6639a64fd3f67aa098ed99a32f1a8d4db5e9f",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-002b/motif_maize_tts"
+    },
+    "motif_maize_donor": {
+      "test_score": 0.983307446151543,
+      "majority_baseline": 0.9830828826468552,
+      "shuffled_labels": 0.9830828826468552,
+      "train_rows": 100022,
+      "test_rows": 53437,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.9822529079845658,
+      "receipt_sha256": "ef669bc7a435ada7dd8d1a976c83cd1eba522ade638a6305a07bf3f3603517bc",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-002b/motif_maize_donor"
+    },
+    "motif_maize_acceptor": {
+      "test_score": 0.9981846764232511,
+      "majority_baseline": 0.9981846764232511,
+      "shuffled_labels": 0.9981846764232511,
+      "train_rows": 100032,
+      "test_rows": 53434,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9975636545468234,
+      "receipt_sha256": "4674dabbfd1697642b6908cfd363f420603a8cd24348b5e11c803de917a30d09",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-002b/motif_maize_acceptor"
+    },
+    "motif_tomato_tis": {
+      "test_score": 0.9669635810125154,
+      "majority_baseline": 0.967189085578983,
+      "shuffled_labels": 0.967189085578983,
+      "train_rows": 25428,
+      "test_rows": 8869,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9647380602975759,
+      "receipt_sha256": "b394ce960731cb257225a6c45d44c9561c570698b15e414df8f8bda05aaaeba8",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-002b/motif_tomato_tis"
+    },
+    "motif_tomato_tts": {
+      "test_score": 0.43936158255591773,
+      "majority_baseline": 0.3839496459480724,
+      "shuffled_labels": 0.38181409463864224,
+      "train_rows": 25415,
+      "test_rows": 8897,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.44046107651843225,
+      "receipt_sha256": "6d702bf2924908c19d56726923d1280c11fa7a12e95b11fbb9ce4d7800e63ca9",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-002b/motif_tomato_tts"
+    },
+    "motif_tomato_donor": {
+      "test_score": 0.9602105501471587,
+      "majority_baseline": 0.9583710663346162,
+      "shuffled_labels": 0.9582861670817296,
+      "train_rows": 102952,
+      "test_rows": 35336,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9558949671737781,
+      "receipt_sha256": "df1f969c5db2aa04fd51db701be2d8e17884de9fecc78e56a0fc0f35b2bfa2de",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-002b/motif_tomato_donor"
+    },
+    "motif_tomato_acceptor": {
+      "test_score": 0.9729217361779187,
+      "majority_baseline": 0.9698375870069605,
+      "shuffled_labels": 0.9696961122743478,
+      "train_rows": 102953,
+      "test_rows": 35342,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9667213443985175,
+      "receipt_sha256": "036850571f2c7ac464cffad1b0ea3e20e68e5983a87f9ff7900c3dacca025821",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-002b/motif_tomato_acceptor"
+    }
+  },
+  "short-031b": {
+    "motif_maize_tis": {
+      "test_score": 0.9728391356542617,
+      "majority_baseline": 0.9728391356542617,
+      "shuffled_labels": 0.9728391356542617,
+      "train_rows": 25566,
+      "test_rows": 13328,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9746317167069652,
+      "receipt_sha256": "6df271e43d18d7fd905e342b0283635d704bef733b0e49ee70d3cbe200de2057",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-031b/motif_maize_tis"
+    },
+    "motif_maize_tts": {
+      "test_score": 0.5220163528617509,
+      "majority_baseline": 0.4635061135698747,
+      "shuffled_labels": 0.4603555622233891,
+      "train_rows": 25586,
+      "test_rows": 13331,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.5175380294097712,
+      "receipt_sha256": "75495959a61ad65fd57c521022c425d85e4e806a6de62057533a53d0c5fb0f15",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-031b/motif_maize_tts"
+    },
+    "motif_maize_donor": {
+      "test_score": 0.9837191459101372,
+      "majority_baseline": 0.9830828826468552,
+      "shuffled_labels": 0.9830828826468552,
+      "train_rows": 100022,
+      "test_rows": 53437,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9824188665613051,
+      "receipt_sha256": "410831c5101b82feb8b1689a4a0222e32e20996aa3f11401399c0885049383db",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-031b/motif_maize_donor"
+    },
+    "motif_maize_acceptor": {
+      "test_score": 0.9983343938316428,
+      "majority_baseline": 0.9981846764232511,
+      "shuffled_labels": 0.9981285323951042,
+      "train_rows": 100032,
+      "test_rows": 53434,
+      "selected_C": 0.01,
+      "development_accuracy": 0.9977496766343479,
+      "receipt_sha256": "b2f71d1d504b09910ba8eb7c3e2945f1971d2dda1ed8496bf1256324511b751b",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-031b/motif_maize_acceptor"
+    },
+    "motif_tomato_tis": {
+      "test_score": 0.967189085578983,
+      "majority_baseline": 0.967189085578983,
+      "shuffled_labels": 0.967189085578983,
+      "train_rows": 25428,
+      "test_rows": 8869,
+      "selected_C": 0.001,
+      "development_accuracy": 0.964779067886521,
+      "receipt_sha256": "592b0d09f7a66dc2618dddba17ee1fbbbb9bc77987f470718afc17aa0b2cb4dd",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-031b/motif_tomato_tis"
+    },
+    "motif_tomato_tts": {
+      "test_score": 0.4615038777115882,
+      "majority_baseline": 0.3839496459480724,
+      "shuffled_labels": 0.37169832527818364,
+      "train_rows": 25415,
+      "test_rows": 8897,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.45842518256370846,
+      "receipt_sha256": "91d1ad45e85d86311fbe28732d13d0ee1498a26a7d3438fc84d752a5a115d7af",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-031b/motif_tomato_tts"
+    },
+    "motif_tomato_donor": {
+      "test_score": 0.9625028299750962,
+      "majority_baseline": 0.9583710663346162,
+      "shuffled_labels": 0.9583710663346162,
+      "train_rows": 102952,
+      "test_rows": 35336,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9581647095940587,
+      "receipt_sha256": "421985b8a76541f4274a997b23ae5c897b2cbc1005c7741112b830dfc5c7a4e4",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-031b/motif_tomato_donor"
+    },
+    "motif_tomato_acceptor": {
+      "test_score": 0.9735725199479373,
+      "majority_baseline": 0.9698375870069605,
+      "shuffled_labels": 0.9698658819534831,
+      "train_rows": 102953,
+      "test_rows": 35342,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9695983074198894,
+      "receipt_sha256": "41f42454cf126655c906f9b83776c95f46846f5845cdfb77d1cbc718133c5535",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-031b/motif_tomato_acceptor"
+    }
+  },
+  "short-124b": {
+    "motif_maize_tis": {
+      "test_score": 0.9727641056422569,
+      "majority_baseline": 0.9728391356542617,
+      "shuffled_labels": 0.9728391356542617,
+      "train_rows": 25566,
+      "test_rows": 13328,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9752810744592653,
+      "receipt_sha256": "669a77a8f43ed35cdb411e870acf14bc80806c3a656b2618e532917211f5fe6c",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-124b/motif_maize_tis"
+    },
+    "motif_maize_tts": {
+      "test_score": 0.5289175605731002,
+      "majority_baseline": 0.4635061135698747,
+      "shuffled_labels": 0.4371765058885305,
+      "train_rows": 25586,
+      "test_rows": 13331,
+      "selected_C": 0.001,
+      "development_accuracy": 0.5383264718985686,
+      "receipt_sha256": "68e3041044a59d8a3b159c7029185abf68bbccbad22e8df5830fb366a91c5607",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-124b/motif_maize_tts"
+    },
+    "motif_maize_donor": {
+      "test_score": 0.9843928364242005,
+      "majority_baseline": 0.9830828826468552,
+      "shuffled_labels": 0.9830641690214645,
+      "train_rows": 100022,
+      "test_rows": 53437,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9828360713573466,
+      "receipt_sha256": "c822a1ab31ee131e395d92023873a9a03e2f1c970e77bd17025fb043d061f524",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-124b/motif_maize_donor"
+    },
+    "motif_maize_acceptor": {
+      "test_score": 0.9986338286484261,
+      "majority_baseline": 0.9981846764232511,
+      "shuffled_labels": 0.9981846764232511,
+      "train_rows": 100032,
+      "test_rows": 53434,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9978517716041814,
+      "receipt_sha256": "243c63ebc4a406ae1c40a89ccad94c944e1a45b07b9f2718e4096e01de6da123",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-124b/motif_maize_acceptor"
+    },
+    "motif_tomato_tis": {
+      "test_score": 0.9670763332957493,
+      "majority_baseline": 0.967189085578983,
+      "shuffled_labels": 0.967189085578983,
+      "train_rows": 25428,
+      "test_rows": 8869,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9648519026813172,
+      "receipt_sha256": "64e965256c94fbbb9cd1714ac9929756323566d087539cc5c5c715026df3cd8d",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-124b/motif_tomato_tis"
+    },
+    "motif_tomato_tts": {
+      "test_score": 0.46172867258626504,
+      "majority_baseline": 0.3839496459480724,
+      "shuffled_labels": 0.37551983814769024,
+      "train_rows": 25415,
+      "test_rows": 8897,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.46375060786392086,
+      "receipt_sha256": "d0b0359760c6f6f73ac284d4d3e221a1e74facc58206f853366aded71c33ac1f",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-124b/motif_tomato_tts"
+    },
+    "motif_tomato_donor": {
+      "test_score": 0.9622198324654743,
+      "majority_baseline": 0.9583710663346162,
+      "shuffled_labels": 0.9582861670817296,
+      "train_rows": 102952,
+      "test_rows": 35336,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9581814444389779,
+      "receipt_sha256": "a9a158bd72fa148430159415be3e84edacbd096ee8038e5dc23d8f44555f60e1",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-124b/motif_tomato_donor"
+    },
+    "motif_tomato_acceptor": {
+      "test_score": 0.974477958236659,
+      "majority_baseline": 0.9698375870069605,
+      "shuffled_labels": 0.969752702167393,
+      "train_rows": 102953,
+      "test_rows": 35342,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9693401496141912,
+      "receipt_sha256": "095ca7442e7711169f18c9a0df6b234582de66f6f59bdb01c85f47b665f9b853",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-124b/motif_tomato_acceptor"
+    }
+  },
+  "short-216b": {
+    "motif_maize_tis": {
+      "test_score": 0.9739645858343338,
+      "majority_baseline": 0.9728391356542617,
+      "shuffled_labels": 0.9728391356542617,
+      "train_rows": 25566,
+      "test_rows": 13328,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9760929988131558,
+      "receipt_sha256": "e686748f50ff9851045f0a4f2c804d57cc420ee49123ea6f029074e77ac18c9f",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-216b/motif_maize_tis"
+    },
+    "motif_maize_tts": {
+      "test_score": 0.5651489010576851,
+      "majority_baseline": 0.4635061135698747,
+      "shuffled_labels": 0.435151151451504,
+      "train_rows": 25586,
+      "test_rows": 13331,
+      "selected_C": 0.001,
+      "development_accuracy": 0.5683532486651798,
+      "receipt_sha256": "68705e10d083b0c752cbff04efac46ce8fec0accee23a308fcfbe1160bd6f27b",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-216b/motif_maize_tts"
+    },
+    "motif_maize_donor": {
+      "test_score": 0.9852723768175609,
+      "majority_baseline": 0.9830828826468552,
+      "shuffled_labels": 0.9830828826468552,
+      "train_rows": 100022,
+      "test_rows": 53437,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9841672419602024,
+      "receipt_sha256": "52f1a3991bcebaac7cb4cd5e1037c8ad6694f6a0683c301561a94c760570f2b2",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-216b/motif_maize_donor"
+    },
+    "motif_maize_acceptor": {
+      "test_score": 0.9987274020286708,
+      "majority_baseline": 0.9981846764232511,
+      "shuffled_labels": 0.9981846764232511,
+      "train_rows": 100032,
+      "test_rows": 53434,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9980105181127822,
+      "receipt_sha256": "d8396e4ea9e2b9ec56511cbd0e31af328887880ebb0796c736c841cb59fe2a69",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-216b/motif_maize_acceptor"
+    },
+    "motif_tomato_tis": {
+      "test_score": 0.967189085578983,
+      "majority_baseline": 0.967189085578983,
+      "shuffled_labels": 0.967189085578983,
+      "train_rows": 25428,
+      "test_rows": 8869,
+      "selected_C": 0.001,
+      "development_accuracy": 0.964826995037252,
+      "receipt_sha256": "b4b260aa18f7ca79d4fca23f2d6e6baa1a50a787c7cf2f5878d87bc4b266665a",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-216b/motif_tomato_tis"
+    },
+    "motif_tomato_tts": {
+      "test_score": 0.46465100595706416,
+      "majority_baseline": 0.3839496459480724,
+      "shuffled_labels": 0.3649544790378779,
+      "train_rows": 25415,
+      "test_rows": 8897,
+      "selected_C": 0.0001,
+      "development_accuracy": 0.4689369846443964,
+      "receipt_sha256": "5a7d665d98256964942d247972625705360144558bc96376d6e31f59f7a9cf7f",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-216b/motif_tomato_tts"
+    },
+    "motif_tomato_donor": {
+      "test_score": 0.963210323749151,
+      "majority_baseline": 0.9583710663346162,
+      "shuffled_labels": 0.9583710663346162,
+      "train_rows": 102952,
+      "test_rows": 35336,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9586145331626083,
+      "receipt_sha256": "4a56fdf472eeb3f01076559172c6056f2e14832c05c78c815618f2a5e6184920",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-216b/motif_tomato_donor"
+    },
+    "motif_tomato_acceptor": {
+      "test_score": 0.9743930733970912,
+      "majority_baseline": 0.9698375870069605,
+      "shuffled_labels": 0.969809292060438,
+      "train_rows": 102953,
+      "test_rows": 35342,
+      "selected_C": 0.001,
+      "development_accuracy": 0.9697690817289831,
+      "receipt_sha256": "8e1b8e228892a50109d9cdc35f2611a6502c660fa07688c62f72ee67b5d4d15a",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/heads/short-216b/motif_tomato_acceptor"
+    }
+  }
+}

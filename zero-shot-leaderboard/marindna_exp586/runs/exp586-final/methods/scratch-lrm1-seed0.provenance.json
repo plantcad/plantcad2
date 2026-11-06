@@ -1,0 +1,7 @@
+{
+  "bytes": 12585,
+  "schema": 1,
+  "sha256": "879a1adfa827de3a6ac04e4082a0267039b80822fc47549f424bde7fd8bbe99c",
+  "source_uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/validation/scratch-lrm1-seed0/methods-v1/report-879a1adfa827de3a6ac04e4082a0267039b80822fc47549f424bde7fd8bbe99c.json",
+  "wandb_run": "https://forge.coreweave.com/wandb/eric-czech/marin/runs/exp586-plantcad2-d768-scratch-lrm1-seed0-methods-v1"
+}

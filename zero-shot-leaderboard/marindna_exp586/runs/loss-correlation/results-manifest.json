@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "files": {
+    "d216.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/d216-v1/result.json",
+      "sha256": "b5a557661fd45c988d80e65bca1e1925f9897e439440ad5cd3392a8402472a64",
+      "bytes": 35837
+    },
+    "m481-l.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/m481-l-v1/result.json",
+      "sha256": "f5a2cc6d46c94cf0d9f1f45cf64a78292112728317cc1639aed6d6af0639c84f",
+      "bytes": 287409
+    },
+    "m481-s.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/m481-s-v1/result.json",
+      "sha256": "8c02c50ccdfe3fdb7a8556859c5f8939ea60b43769b19ed9efc0757835a23236",
+      "bytes": 286632
+    },
+    "m61-l.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/m61-l-v1/result.json",
+      "sha256": "fb0dac77429acecff1360d29f5dc16ee28b5e7eeea192e925ed6e964035740fd",
+      "bytes": 295002,
+      "repository_copy": {
+        "sha256": "6903c8db85a1fdcdd64c891939b229144499d8e3e171c5c46f6ba1704737ed1a",
+        "bytes": 295021,
+        "metadata_update": "Training-run link updated after the W&B run moved to plantcad/marin-dna; source-object hash and numerical results unchanged."
+      }
+    },
+    "m61-s.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/validation/m61-s-v1/result.json",
+      "sha256": "a4e85f98e92e0ea4cf0352391f5d6b6a5dab0a4daa955c2d250628c26fcad174",
+      "bytes": 295144,
+      "repository_copy": {
+        "sha256": "89844e8e4ce03cee305f87e375e770214d86a3c73b88f8671202cf65f4cb0853",
+        "bytes": 295163,
+        "metadata_update": "Training-run link updated after the W&B run moved to plantcad/marin-dna; source-object hash and numerical results unchanged."
+      }
+    },
+    "m61-l-1t.json": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/loss-correlation-v1/results/d768-pretrained-1t/result.json",
+      "sha256": "9f4dd7ad167ba600f90d609843591d33614ab75a34e04fe220b870c09421b731",
+      "bytes": 296303,
+      "repository_copy": {
+        "sha256": "3e6640c2d7624c5b10c07550bae9fbf61a4ccad8487df9a902abe96e9e6f78d2",
+        "bytes": 296322,
+        "metadata_update": "Training-run link updated after the W&B run moved to plantcad/marin-dna; source-object hash and numerical results unchanged."
+      }
+    }
+  },
+  "request_repository_copy": {
+    "source_sha256": "ef8e1b8cfbcaacfddf350fbb19419789ee4f073ba556cd23dd5cd332d8c7bd5f",
+    "sha256": "cb81fa6aa3746c53c57057957197a40b8b28607e8d9f25367c9251f0bd63f0f6",
+    "bytes": 21893,
+    "metadata_update": "Training-run paths and links updated after the two 216B runs moved; saved execution outputs retain their original request hashes."
+  }
+}

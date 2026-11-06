@@ -1,0 +1,162 @@
+{
+  "primary_score": "llr_acgt_avg",
+  "primary_metric": "direct Pearson/Spearman correlation of AF with (LLR_fwd + LLR_rc) / 2",
+  "llr_orientation": "log P(ALT sequence) - log P(REF sequence)",
+  "metrics": {
+    "10000": {
+      "requested_rows": 10000,
+      "actual_rows": 9998,
+      "llr_acgt_avg": {
+        "pearson": 0.1373240082942865,
+        "spearman": 0.15000452206925444
+      },
+      "llr_full_vocab_avg": {
+        "pearson": 0.13732323013493503,
+        "spearman": 0.15000410829526376
+      },
+      "llr_acgt_fwd": {
+        "pearson": 0.1295600913473606,
+        "spearman": 0.13879811661150968
+      },
+      "llr_acgt_rc": {
+        "pearson": 0.12302326803893525,
+        "spearman": 0.13824645382426273
+      },
+      "rows_with_non_acgt_targets": 0,
+      "max_abs_acgt_minus_full_vocab_llr": 0.021905899047851562
+    },
+    "20000": {
+      "requested_rows": 20000,
+      "actual_rows": 19997,
+      "llr_acgt_avg": {
+        "pearson": 0.1348493467856527,
+        "spearman": 0.1463383898683069
+      },
+      "llr_full_vocab_avg": {
+        "pearson": 0.13484838702491436,
+        "spearman": 0.1463373734663461
+      },
+      "llr_acgt_fwd": {
+        "pearson": 0.12392701881355911,
+        "spearman": 0.13465606736580135
+      },
+      "llr_acgt_rc": {
+        "pearson": 0.12375389228360528,
+        "spearman": 0.13904536129231462
+      },
+      "rows_with_non_acgt_targets": 0,
+      "max_abs_acgt_minus_full_vocab_llr": 0.021905899047851562
+    },
+    "50000": {
+      "requested_rows": 50000,
+      "actual_rows": 48625,
+      "llr_acgt_avg": {
+        "pearson": 0.13918626985051294,
+        "spearman": 0.1500112881168265
+      },
+      "llr_full_vocab_avg": {
+        "pearson": 0.1391851705910242,
+        "spearman": 0.15001085155384583
+      },
+      "llr_acgt_fwd": {
+        "pearson": 0.12838416925550944,
+        "spearman": 0.13504374237301953
+      },
+      "llr_acgt_rc": {
+        "pearson": 0.12520476537121064,
+        "spearman": 0.14222413952730442
+      },
+      "rows_with_non_acgt_targets": 0,
+      "max_abs_acgt_minus_full_vocab_llr": 0.021905899047851562
+    },
+    "100000": {
+      "requested_rows": 100000,
+      "actual_rows": 94075,
+      "llr_acgt_avg": {
+        "pearson": 0.1369569400279454,
+        "spearman": 0.14517219890361602
+      },
+      "llr_full_vocab_avg": {
+        "pearson": 0.13695593981367205,
+        "spearman": 0.1451719630526079
+      },
+      "llr_acgt_fwd": {
+        "pearson": 0.12554275690230252,
+        "spearman": 0.1328897843328555
+      },
+      "llr_acgt_rc": {
+        "pearson": 0.12291249494020703,
+        "spearman": 0.1348963639242768
+      },
+      "rows_with_non_acgt_targets": 0,
+      "max_abs_acgt_minus_full_vocab_llr": 0.03723478317260742
+    }
+  },
+  "historical_10k": {
+    "PlantCaduceus_l32": {
+      "window": 512,
+      "pearson": 0.167,
+      "spearman": 0.126
+    },
+    "PlantCAD2-Small": {
+      "window": 8192,
+      "pearson": 0.164,
+      "spearman": 0.127
+    },
+    "PlantCAD2-Medium": {
+      "window": 8192,
+      "pearson": 0.186,
+      "spearman": 0.147
+    },
+    "PlantCAD2-Large": {
+      "window": 8192,
+      "pearson": 0.202,
+      "spearman": 0.158
+    }
+  },
+  "exclusions": [
+    {
+      "chrom": "2",
+      "pos": 234358020,
+      "ref": "A",
+      "alt": "T",
+      "reason": "The 8,192-bp window contains 771 non-ACGT reference bases; reverse complementation places them in the scored causal suffix."
+    }
+  ],
+  "predictions": {
+    "path": "predictions.parquet",
+    "rows": 94953,
+    "columns": [
+      "row_id",
+      "chrom",
+      "pos",
+      "ref",
+      "alt",
+      "AC",
+      "AN",
+      "AF",
+      "MAF",
+      "consequence",
+      "original_consequence",
+      "in_sample_10000",
+      "in_sample_20000",
+      "in_sample_50000",
+      "in_sample_100000",
+      "llr_acgt_fwd",
+      "llr_acgt_rc",
+      "llr_full_vocab_fwd",
+      "llr_full_vocab_rc",
+      "non_acgt_targets_fwd",
+      "non_acgt_targets_rc",
+      "llr_acgt_avg",
+      "llr_full_vocab_avg",
+      "llr_acgt_minus_full_vocab_avg"
+    ]
+  },
+  "runtime": {
+    "workers": 16,
+    "max_worker_seconds": 1190.8476915359497,
+    "sum_worker_seconds": 18197.915401935577,
+    "aggregate_variants_per_second": 79.73563762594196
+  }
+}

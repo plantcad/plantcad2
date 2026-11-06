@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "execution": {
+    "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/results/pretrained-lrm1-seed0-1t/workers/worker-00.json",
+    "sha256": "e830a1cbdaf7d54c921b994056d7aabce2b1c653430ea256467e298a13011a35",
+    "bytes": 773716,
+    "binding": {
+      "checkpoint_digest": "6efe6918ab8cf65da43836f5132708a6c129ba293979e48e8fdf6fed2a432e77",
+      "checkpoint_metadata_raw_sha256": "52c4a4fd062b8a16dae680f0323dc81f1480308658916151e6e1a08975f7ebd2",
+      "checkpoint_role": "dna-trained",
+      "checkpoint_tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+      "condition": "pretrained",
+      "evaluation_tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+      "implementation_sha256": "4571e5487ba399b9f4b181bd6d2865d28a68bfa811b830940266b3eda91d51a6",
+      "model_config": {
+        "attention_implementation": "gpu_fa4_cute",
+        "capacity_factor": 1.15,
+        "expert_chunks": 1,
+        "global_every": 4,
+        "global_kv_heads": 1,
+        "head_dim": 128,
+        "hidden_dim": 768,
+        "initializer_std": 0.018042195912175808,
+        "intermediate_dim": 384,
+        "latent_dim": 384,
+        "layer_norm_eps": 1e-05,
+        "local_kv_heads": 1,
+        "max_seq_len": 8192,
+        "moe_implementation": "sonic",
+        "num_expert_waves": 3,
+        "num_experts": 384,
+        "num_experts_per_token": 8,
+        "num_heads": 6,
+        "num_kv_heads": 1,
+        "num_layers": 8,
+        "num_shared_experts": 2,
+        "pooled_transport_capacity_factor": 1.15,
+        "qb_estimator": "hist",
+        "qb_hist_bins": 10000,
+        "qk_mult": 1.3,
+        "remat_mode": "recompute_all",
+        "report_capacity_overflow": true,
+        "rope": {
+          "scaling_factor": null,
+          "theta": 10000.0
+        },
+        "rope_fused": true,
+        "sconv": true,
+        "sconv_kernel": 4,
+        "sconv_sites": [
+          "k",
+          "attn",
+          "mlp"
+        ],
+        "shared_expert_intermediate_dim": 384,
+        "sliding_window": 2048,
+        "vocab_size": 128256
+      },
+      "precision_policy": "params=bfloat16,compute=bfloat16,output=bfloat16",
+      "requests_sha256": "f2f83a2803f8f43f154abd2eac18a02ea34e0ec2a41138a5e7463e3e5b3778e8",
+      "runtime_moe_implementation": "scatter",
+      "schema": 2,
+      "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e"
+    }
+  },
+  "analysis_receipt_uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/analysis/pretrained-lrm1-seed0-1t/receipt.json",
+  "checkpoint_binding_uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/final-v1/inputs/manifests/final-1t-binding-be2eacf6a9ef0e5e3d1a9bedb0ba25325229934b0a38a9f58122493897b4bff2.json",
+  "selected_files": {
+    "result.json": {
+      "bytes": 76323,
+      "sha256": "741941112795d2edfad02c0f47206b2a951a73851decd84c778d4c887e674bbf"
+    },
+    "context-8192/probes/result.json": {
+      "bytes": 32930,
+      "sha256": "72e2dc96ce59677c94a660401e50817524d28847c33baf21f9fd1e562aaf773e"
+    },
+    "analysis-receipt.json": {
+      "bytes": 3622,
+      "sha256": "3eae61324fa290f8277b880e586813358362852da2c8fdfd801201d10289c213"
+    },
+    "checkpoint-binding.json": {
+      "bytes": 5122,
+      "sha256": "be2eacf6a9ef0e5e3d1a9bedb0ba25325229934b0a38a9f58122493897b4bff2"
+    }
+  }
+}

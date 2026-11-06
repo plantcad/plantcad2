@@ -1,0 +1,16 @@
+{
+  "source_body_sha256": "e67786fd7f1644013ddf05398fa959f6c4aca77c90d1cf21694a74b6215e6a04",
+  "source_updated_at": "2026-11-06T17:23:38Z",
+  "figure_url": "https://raw.githubusercontent.com/plantcad/plantcad2/834a7094a9709fe25c3af105dca84330602b8c55/.agents/artifacts/exp586-dashboard-ranks/figures/benchmark-comparison.png",
+  "figure_commit": "834a7094a9709fe25c3af105dca84330602b8c55",
+  "figure_sha256": "5947ad0111c4a802cb808051454532608974d7c479aa8a3016ff48f4fec44e85",
+  "manual_edits_preserved_by_reversible_patch": true,
+  "source_unchanged_since_initial_fetch": true,
+  "destination": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
+  "updated_at": "2026-11-06T19:12:40Z",
+  "published_body_sha256": "faddd61ed1a89a4a5ed03a4c3d56e14b445013835f9019eb9d0aceddc337bfb1",
+  "exact_readback_verified": true,
+  "rendered_figure_and_footnotes_verified": true,
+  "baseline_task_scores_and_ranks_verified": 220,
+  "baseline_averages_verified": 11
+}
