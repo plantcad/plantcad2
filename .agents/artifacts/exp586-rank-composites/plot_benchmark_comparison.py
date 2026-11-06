@@ -55,7 +55,7 @@ def main() -> None:
             top_labels.append(text)
     top.set_ylim(45, 95)
     top.set_yticks([50, 60, 70, 80, 90])
-    top.set_ylabel("Score (0–100)")
+    top.set_ylabel("Metric score (×100) or percentile rank")
     title = fig.text(.5225, .989, "Zero-shot PlantCAD2 benchmark", weight="bold",
                      fontsize="large", ha="center", va="top")
     top.spines[["bottom", "top", "right"]].set_visible(False)
@@ -132,7 +132,7 @@ def main() -> None:
         "top_axis_intervals": [[0, 5], [45, 95]], "breaks_marked": True,
         "underlying_native_values_unchanged": True,
         "primary_display_multipliers": dict(zip(categories, display_multipliers.tolist(), strict=True)),
-        "primary_y_label": "Score (0–100)",
+        "primary_y_label": "Metric score (×100) or percentile rank",
         "Avg_Rank_axis": "Fifth group on the same primary vertical axis; also retained in sorted horizontal chart",
     }, indent=2) + "\n")
 

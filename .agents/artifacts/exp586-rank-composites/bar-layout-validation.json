@@ -22,6 +22,6 @@
     "SV impact": 100,
     "Avg Rank": 1
   },
-  "primary_y_label": "Score (0\u2013100)",
+  "primary_y_label": "Metric score (\u00d7100) or percentile rank",
   "Avg_Rank_axis": "Fifth group on the same primary vertical axis; also retained in sorted horizontal chart"
 }

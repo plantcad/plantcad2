@@ -185,7 +185,7 @@ def main() -> None:
     probe_ax.set_xlim(-.5, len(PROBE_METRICS) - .5)
     probe_ax.set_ylim(0, 104)
     probe_ax.set_yticks([0, 20, 40, 60, 80, 100])
-    probe_ax.set_ylabel("Score (0–100)")
+    probe_ax.set_ylabel("Metric score (×100) or percentile rank")
     probe_ax.spines[["top", "right"]].set_visible(False)
     probe_ax.grid(axis="y", color="#e4e4e4", linewidth=.7)
     training_ax = fig.add_axes((.054, .075, .247, .345))

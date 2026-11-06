@@ -30,7 +30,7 @@ Reference membership, tie handling and source task values are frozen in `frozen-
 
 ## Presentation
 
-The primary grouped bars show all five readouts together on a single `Score (0–100)` axis, with a labeled value on every bar.
+The primary grouped bars show all five readouts together on a single `Metric score (×100) or percentile rank` axis, with a labeled value on every bar.
 For display only, the four task-family scores are multiplied by 100; Avg Rank already uses a 0–100 percentile scale.
 The shared vertical axis has a marked break omitting 5–45.
 Underlying scores, definitions and family aggregation are unchanged; the horizontal rankings and other figures retain their native units.
