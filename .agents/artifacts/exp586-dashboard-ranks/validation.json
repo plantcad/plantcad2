@@ -1,0 +1,77 @@
+{
+  "baseline_revision": "f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29",
+  "raw_values_verified": 220,
+  "task_ranks_verified": 220,
+  "all_baseline_models": {
+    "PlantCAD2.5-L": {
+      "dashboard": 92.27272727272728,
+      "ours": 92.27272727272727,
+      "max_per_task_error": 1.4210854715202004e-14,
+      "tasks_checked": 20
+    },
+    "PlantCAD2-L": {
+      "dashboard": 84.54545454545455,
+      "ours": 84.54545454545455,
+      "max_per_task_error": 1.4210854715202004e-14,
+      "tasks_checked": 20
+    },
+    "evo2_20b": {
+      "dashboard": 82.27272727272728,
+      "ours": 82.27272727272727,
+      "max_per_task_error": 1.4210854715202004e-14,
+      "tasks_checked": 20
+    },
+    "PlantCAD2-M": {
+      "dashboard": 75.9090909090909,
+      "ours": 75.9090909090909,
+      "max_per_task_error": 1.4210854715202004e-14,
+      "tasks_checked": 20
+    },
+    "PlantCAD2-S": {
+      "dashboard": 58.18181818181819,
+      "ours": 58.18181818181818,
+      "max_per_task_error": 1.4210854715202004e-14,
+      "tasks_checked": 20
+    },
+    "evo2_7b": {
+      "dashboard": 55.45454545454545,
+      "ours": 55.45454545454545,
+      "max_per_task_error": 7.105427357601002e-15,
+      "tasks_checked": 20
+    },
+    "PlantCAD": {
+      "dashboard": 52.72727272727273,
+      "ours": 52.72727272727273,
+      "max_per_task_error": 7.105427357601002e-15,
+      "tasks_checked": 20
+    },
+    "Carbon-3B": {
+      "dashboard": 35.0,
+      "ours": 35.0,
+      "max_per_task_error": 7.105427357601002e-15,
+      "tasks_checked": 20
+    },
+    "NTv3-650M": {
+      "dashboard": 28.18181818181818,
+      "ours": 28.181818181818183,
+      "max_per_task_error": 3.552713678800501e-15,
+      "tasks_checked": 20
+    },
+    "GPN": {
+      "dashboard": 25.909090909090914,
+      "ours": 25.90909090909091,
+      "max_per_task_error": 7.105427357601002e-15,
+      "tasks_checked": 20
+    },
+    "NTv3-100M": {
+      "dashboard": 9.545454545454547,
+      "ours": 9.545454545454547,
+      "max_per_task_error": 0.0,
+      "tasks_checked": 20
+    }
+  },
+  "native_scores_unchanged": true,
+  "other_five_figures_unchanged": true,
+  "baseline_ranks_unchanged_by_Marin_models": true,
+  "external_model_rule": "scipy.stats.percentileofscore(kind='rank') against fixed 11 baselines"
+}

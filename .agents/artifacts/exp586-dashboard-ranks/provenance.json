@@ -1,0 +1,18 @@
+{
+  "destination": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
+  "source_updated_at": "2026-11-06T17:23:38Z",
+  "source_body_sha256": "e67786fd7f1644013ddf05398fa959f6c4aca77c90d1cf21694a74b6215e6a04",
+  "baseline_revision": "f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29",
+  "raw_sha256": "36d116dd15db1824283bcc412059c83ac0129050f04dbc47389bb728c7e47b66",
+  "reference_models": 11,
+  "tasks": 20,
+  "task_weight": 0.05,
+  "family_weights": {
+    "Conservation": 0.15,
+    "Motifs": 0.4,
+    "Core/non-core": 0.4,
+    "SV impact": 0.05
+  },
+  "manual_wording_preserved_outside_explicit_edits": true,
+  "native_scores_probe_win_rates_normalized_scores_and_losses_unchanged": true
+}

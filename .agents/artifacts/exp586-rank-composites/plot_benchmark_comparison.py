@@ -53,7 +53,8 @@ def main() -> None:
                                 rotation=0, ha="center", va="bottom", fontsize=11)
             labels.append(text)
             top_labels.append(text)
-    top.set_ylim(45, 95)
+    displayed_max = max(max(np.array(model["scores"]) * display_multipliers) for model in models)
+    top.set_ylim(45, max(95, 5 * np.ceil(displayed_max / 5) + 5))
     top.set_yticks([50, 60, 70, 80, 90])
     top.set_ylabel("Metric score (×100) or percentile rank")
     title = fig.text(.5225, .989, "Zero-shot PlantCAD2 benchmark", weight="bold",
@@ -129,7 +130,7 @@ def main() -> None:
     (HERE / "bar-layout-validation.json").write_text(json.dumps({
         "native_top_bar_labels": 32, "rank_top_bar_labels": 8,
         "all_annotated_labels": len(labels), "overlapping_value_labels": 0,
-        "top_axis_intervals": [[0, 5], [45, 95]], "breaks_marked": True,
+        "top_axis_intervals": [[0, 5], list(top.get_ylim())], "breaks_marked": True,
         "underlying_native_values_unchanged": True,
         "primary_display_multipliers": dict(zip(categories, display_multipliers.tolist(), strict=True)),
         "primary_y_label": "Metric score (×100) or percentile rank",
