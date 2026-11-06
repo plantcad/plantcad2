@@ -1,0 +1,25 @@
+{
+  "source": "/home/exedev/repos/plantcad2-br/codex-exp586-upstream/.agents/artifacts/exp586-rank-composites/all-category-scores.csv",
+  "source_sha256": "f2c0433f7de85e3f06dabf887a092b8a25aa3f420336ee1f0a7dbfdd5fd83c00",
+  "input_scores": 120,
+  "displayed_checkpoint_changes": 96,
+  "metrics": [
+    "Conservation",
+    "Motifs",
+    "Core/non-core",
+    "SV impact",
+    "Allele frequency",
+    "Marin Avg Rank"
+  ],
+  "runs": [
+    "216B-token run",
+    "1T-token run"
+  ],
+  "readouts": [
+    "Zero-shot",
+    "Linear probe"
+  ],
+  "context_bp": 8192,
+  "color_encoding": "Sign only; annotations give magnitude",
+  "GitHub_updates": false
+}

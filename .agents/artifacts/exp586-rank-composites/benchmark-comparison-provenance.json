@@ -1,0 +1,9 @@
+{
+  "frozen_reference_sha256": "cc0905125229d2d29b741ffd8431c427845d61e703a485481164ff8c8581913f",
+  "historical_archive_sha256": "76e5bb907568e7b800e5803216f72495933d584e95bf2a03cbae597d7cc6391b",
+  "original_benchmark_sha256": "93a1056c84070e9e48862e81906ca441d81afb284718d3e02473deeb318cd0a4",
+  "native_categories_preserved": true,
+  "fresh_model_evaluations": false,
+  "live_post_changed": false,
+  "aggregate": "Avg Rank against 11 frozen published models, equal weights for four task families; no AF"
+}

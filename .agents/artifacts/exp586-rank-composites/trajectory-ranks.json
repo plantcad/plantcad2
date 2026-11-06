@@ -1,0 +1,686 @@
+{
+  "216B-token run": {
+    "dna-000b": {
+      "Zero-shot": {
+        "score": 8.61111111111111,
+        "families": {
+          "Conservation": 16.666666666666664,
+          "Motifs": 5.555555555555555,
+          "Core/non-core": 9.722222222222221,
+          "SV impact": 5.555555555555555,
+          "Allele frequency": 5.555555555555555
+        },
+        "tasks": {
+          "af": 5.555555555555555,
+          "conservation_andropogoneae": 5.555555555555555,
+          "conservation_poaceae_non_tis": 5.555555555555555,
+          "conservation_poaceae_tis": 38.888888888888886,
+          "core_maize_acceptor": 5.555555555555555,
+          "core_maize_donor": 5.555555555555555,
+          "core_maize_tis": 5.555555555555555,
+          "core_maize_tts": 16.666666666666668,
+          "core_tomato_acceptor": 5.555555555555555,
+          "core_tomato_donor": 5.555555555555555,
+          "core_tomato_tis": 5.555555555555555,
+          "core_tomato_tts": 27.77777777777778,
+          "motif_maize_acceptor": 5.555555555555555,
+          "motif_maize_donor": 5.555555555555555,
+          "motif_maize_tis": 5.555555555555555,
+          "motif_maize_tts": 5.555555555555555,
+          "motif_tomato_acceptor": 5.555555555555555,
+          "motif_tomato_donor": 5.555555555555555,
+          "motif_tomato_tis": 5.555555555555555,
+          "motif_tomato_tts": 5.555555555555555,
+          "sv_impact": 5.555555555555555
+        }
+      },
+      "Linear probe": {
+        "score": 8.055555555555555,
+        "families": {
+          "Conservation": 5.555555555555555,
+          "Motifs": 18.055555555555557,
+          "Core/non-core": 5.555555555555555,
+          "SV impact": 5.555555555555555,
+          "Allele frequency": 5.555555555555555
+        },
+        "tasks": {
+          "af": 5.555555555555555,
+          "conservation_andropogoneae": 5.555555555555555,
+          "conservation_poaceae_non_tis": 5.555555555555555,
+          "conservation_poaceae_tis": 5.555555555555555,
+          "core_maize_acceptor": 5.555555555555555,
+          "core_maize_donor": 5.555555555555555,
+          "core_maize_tis": 5.555555555555555,
+          "core_maize_tts": 5.555555555555555,
+          "core_tomato_acceptor": 5.555555555555555,
+          "core_tomato_donor": 5.555555555555555,
+          "core_tomato_tis": 5.555555555555555,
+          "core_tomato_tts": 5.555555555555555,
+          "motif_maize_acceptor": 11.11111111111111,
+          "motif_maize_donor": 5.555555555555555,
+          "motif_maize_tis": 44.44444444444444,
+          "motif_maize_tts": 5.555555555555555,
+          "motif_tomato_acceptor": 5.555555555555555,
+          "motif_tomato_donor": 5.555555555555555,
+          "motif_tomato_tis": 61.111111111111114,
+          "motif_tomato_tts": 5.555555555555555,
+          "sv_impact": 5.555555555555555
+        }
+      }
+    },
+    "dna-002b": {
+      "Zero-shot": {
+        "score": 16.48148148148148,
+        "families": {
+          "Conservation": 12.962962962962964,
+          "Motifs": 16.666666666666668,
+          "Core/non-core": 19.444444444444446,
+          "SV impact": 16.666666666666668,
+          "Allele frequency": 16.666666666666668
+        },
+        "tasks": {
+          "af": 16.666666666666668,
+          "conservation_andropogoneae": 16.666666666666668,
+          "conservation_poaceae_non_tis": 16.666666666666668,
+          "conservation_poaceae_tis": 5.555555555555555,
+          "core_maize_acceptor": 16.666666666666668,
+          "core_maize_donor": 16.666666666666668,
+          "core_maize_tis": 50.0,
+          "core_maize_tts": 5.555555555555555,
+          "core_tomato_acceptor": 16.666666666666668,
+          "core_tomato_donor": 16.666666666666668,
+          "core_tomato_tis": 16.666666666666668,
+          "core_tomato_tts": 16.666666666666668,
+          "motif_maize_acceptor": 16.666666666666668,
+          "motif_maize_donor": 16.666666666666668,
+          "motif_maize_tis": 16.666666666666668,
+          "motif_maize_tts": 16.666666666666668,
+          "motif_tomato_acceptor": 16.666666666666668,
+          "motif_tomato_donor": 16.666666666666668,
+          "motif_tomato_tis": 16.666666666666668,
+          "motif_tomato_tts": 16.666666666666668,
+          "sv_impact": 16.666666666666668
+        }
+      },
+      "Linear probe": {
+        "score": 17.546296296296298,
+        "families": {
+          "Conservation": 20.37037037037037,
+          "Motifs": 14.583333333333334,
+          "Core/non-core": 19.444444444444446,
+          "SV impact": 16.666666666666668,
+          "Allele frequency": 16.666666666666668
+        },
+        "tasks": {
+          "af": 16.666666666666668,
+          "conservation_andropogoneae": 16.666666666666668,
+          "conservation_poaceae_non_tis": 16.666666666666668,
+          "conservation_poaceae_tis": 27.77777777777778,
+          "core_maize_acceptor": 16.666666666666668,
+          "core_maize_donor": 16.666666666666668,
+          "core_maize_tis": 16.666666666666668,
+          "core_maize_tts": 16.666666666666668,
+          "core_tomato_acceptor": 16.666666666666668,
+          "core_tomato_donor": 16.666666666666668,
+          "core_tomato_tis": 38.888888888888886,
+          "core_tomato_tts": 16.666666666666668,
+          "motif_maize_acceptor": 11.11111111111111,
+          "motif_maize_donor": 16.666666666666668,
+          "motif_maize_tis": 5.555555555555555,
+          "motif_maize_tts": 27.77777777777778,
+          "motif_tomato_acceptor": 16.666666666666668,
+          "motif_tomato_donor": 16.666666666666668,
+          "motif_tomato_tis": 5.555555555555555,
+          "motif_tomato_tts": 16.666666666666668,
+          "sv_impact": 16.666666666666668
+        }
+      }
+    },
+    "dna-031b": {
+      "Zero-shot": {
+        "score": 38.148148148148145,
+        "families": {
+          "Conservation": 35.18518518518518,
+          "Motifs": 38.888888888888886,
+          "Core/non-core": 38.888888888888886,
+          "SV impact": 38.888888888888886,
+          "Allele frequency": 38.888888888888886
+        },
+        "tasks": {
+          "af": 38.888888888888886,
+          "conservation_andropogoneae": 38.888888888888886,
+          "conservation_poaceae_non_tis": 38.888888888888886,
+          "conservation_poaceae_tis": 27.77777777777778,
+          "core_maize_acceptor": 38.888888888888886,
+          "core_maize_donor": 38.888888888888886,
+          "core_maize_tis": 27.77777777777778,
+          "core_maize_tts": 50.0,
+          "core_tomato_acceptor": 38.888888888888886,
+          "core_tomato_donor": 38.888888888888886,
+          "core_tomato_tis": 38.888888888888886,
+          "core_tomato_tts": 38.888888888888886,
+          "motif_maize_acceptor": 38.888888888888886,
+          "motif_maize_donor": 38.888888888888886,
+          "motif_maize_tis": 38.888888888888886,
+          "motif_maize_tts": 38.888888888888886,
+          "motif_tomato_acceptor": 38.888888888888886,
+          "motif_tomato_donor": 38.888888888888886,
+          "motif_tomato_tis": 38.888888888888886,
+          "motif_tomato_tts": 38.888888888888886,
+          "sv_impact": 38.888888888888886
+        }
+      },
+      "Linear probe": {
+        "score": 46.666666666666664,
+        "families": {
+          "Conservation": 50.0,
+          "Motifs": 45.83333333333333,
+          "Core/non-core": 59.72222222222222,
+          "SV impact": 38.888888888888886,
+          "Allele frequency": 38.888888888888886
+        },
+        "tasks": {
+          "af": 38.888888888888886,
+          "conservation_andropogoneae": 72.22222222222223,
+          "conservation_poaceae_non_tis": 38.888888888888886,
+          "conservation_poaceae_tis": 38.888888888888886,
+          "core_maize_acceptor": 38.888888888888886,
+          "core_maize_donor": 38.888888888888886,
+          "core_maize_tis": 61.111111111111114,
+          "core_maize_tts": 38.888888888888886,
+          "core_tomato_acceptor": 72.22222222222223,
+          "core_tomato_donor": 61.111111111111114,
+          "core_tomato_tis": 94.44444444444444,
+          "core_tomato_tts": 72.22222222222223,
+          "motif_maize_acceptor": 38.888888888888886,
+          "motif_maize_donor": 38.888888888888886,
+          "motif_maize_tis": 44.44444444444444,
+          "motif_maize_tts": 38.888888888888886,
+          "motif_tomato_acceptor": 27.77777777777778,
+          "motif_tomato_donor": 77.77777777777777,
+          "motif_tomato_tis": 61.111111111111114,
+          "motif_tomato_tts": 38.888888888888886,
+          "sv_impact": 38.888888888888886
+        }
+      }
+    },
+    "dna-124b": {
+      "Zero-shot": {
+        "score": 60.0,
+        "families": {
+          "Conservation": 50.0,
+          "Motifs": 55.55555555555556,
+          "Core/non-core": 61.111111111111114,
+          "SV impact": 72.22222222222223,
+          "Allele frequency": 61.111111111111114
+        },
+        "tasks": {
+          "af": 61.111111111111114,
+          "conservation_andropogoneae": 50.0,
+          "conservation_poaceae_non_tis": 50.0,
+          "conservation_poaceae_tis": 50.0,
+          "core_maize_acceptor": 61.111111111111114,
+          "core_maize_donor": 61.111111111111114,
+          "core_maize_tis": 61.111111111111114,
+          "core_maize_tts": 83.33333333333333,
+          "core_tomato_acceptor": 61.111111111111114,
+          "core_tomato_donor": 61.111111111111114,
+          "core_tomato_tis": 50.0,
+          "core_tomato_tts": 50.0,
+          "motif_maize_acceptor": 50.0,
+          "motif_maize_donor": 61.111111111111114,
+          "motif_maize_tis": 50.0,
+          "motif_maize_tts": 50.0,
+          "motif_tomato_acceptor": 61.111111111111114,
+          "motif_tomato_donor": 61.111111111111114,
+          "motif_tomato_tis": 50.0,
+          "motif_tomato_tts": 61.111111111111114,
+          "sv_impact": 72.22222222222223
+        }
+      },
+      "Linear probe": {
+        "score": 55.46296296296296,
+        "families": {
+          "Conservation": 64.81481481481481,
+          "Motifs": 51.388888888888886,
+          "Core/non-core": 61.111111111111114,
+          "SV impact": 50.0,
+          "Allele frequency": 50.0
+        },
+        "tasks": {
+          "af": 50.0,
+          "conservation_andropogoneae": 83.33333333333333,
+          "conservation_poaceae_non_tis": 61.111111111111114,
+          "conservation_poaceae_tis": 50.0,
+          "core_maize_acceptor": 50.0,
+          "core_maize_donor": 50.0,
+          "core_maize_tis": 94.44444444444444,
+          "core_maize_tts": 72.22222222222223,
+          "core_tomato_acceptor": 38.888888888888886,
+          "core_tomato_donor": 38.888888888888886,
+          "core_tomato_tis": 83.33333333333333,
+          "core_tomato_tts": 61.111111111111114,
+          "motif_maize_acceptor": 61.111111111111114,
+          "motif_maize_donor": 61.111111111111114,
+          "motif_maize_tis": 22.22222222222222,
+          "motif_maize_tts": 50.0,
+          "motif_tomato_acceptor": 83.33333333333333,
+          "motif_tomato_donor": 61.111111111111114,
+          "motif_tomato_tis": 22.22222222222222,
+          "motif_tomato_tts": 50.0,
+          "sv_impact": 50.0
+        }
+      }
+    },
+    "dna-216b": {
+      "Zero-shot": {
+        "score": 83.98148148148148,
+        "families": {
+          "Conservation": 79.62962962962963,
+          "Motifs": 83.33333333333333,
+          "Core/non-core": 79.16666666666667,
+          "SV impact": 94.44444444444444,
+          "Allele frequency": 83.33333333333333
+        },
+        "tasks": {
+          "af": 83.33333333333333,
+          "conservation_andropogoneae": 83.33333333333333,
+          "conservation_poaceae_non_tis": 83.33333333333333,
+          "conservation_poaceae_tis": 72.22222222222223,
+          "core_maize_acceptor": 94.44444444444444,
+          "core_maize_donor": 94.44444444444444,
+          "core_maize_tis": 38.888888888888886,
+          "core_maize_tts": 72.22222222222223,
+          "core_tomato_acceptor": 94.44444444444444,
+          "core_tomato_donor": 94.44444444444444,
+          "core_tomato_tis": 72.22222222222223,
+          "core_tomato_tts": 72.22222222222223,
+          "motif_maize_acceptor": 83.33333333333333,
+          "motif_maize_donor": 83.33333333333333,
+          "motif_maize_tis": 83.33333333333333,
+          "motif_maize_tts": 83.33333333333333,
+          "motif_tomato_acceptor": 94.44444444444444,
+          "motif_tomato_donor": 94.44444444444444,
+          "motif_tomato_tis": 72.22222222222223,
+          "motif_tomato_tts": 72.22222222222223,
+          "sv_impact": 94.44444444444444
+        }
+      },
+      "Linear probe": {
+        "score": 79.44444444444444,
+        "families": {
+          "Conservation": 83.33333333333333,
+          "Motifs": 79.16666666666667,
+          "Core/non-core": 90.27777777777777,
+          "SV impact": 72.22222222222223,
+          "Allele frequency": 72.22222222222223
+        },
+        "tasks": {
+          "af": 72.22222222222223,
+          "conservation_andropogoneae": 94.44444444444444,
+          "conservation_poaceae_non_tis": 83.33333333333333,
+          "conservation_poaceae_tis": 72.22222222222223,
+          "core_maize_acceptor": 94.44444444444444,
+          "core_maize_donor": 94.44444444444444,
+          "core_maize_tis": 83.33333333333333,
+          "core_maize_tts": 94.44444444444444,
+          "core_tomato_acceptor": 94.44444444444444,
+          "core_tomato_donor": 94.44444444444444,
+          "core_tomato_tis": 72.22222222222223,
+          "core_tomato_tts": 94.44444444444444,
+          "motif_maize_acceptor": 94.44444444444444,
+          "motif_maize_donor": 83.33333333333333,
+          "motif_maize_tis": 83.33333333333333,
+          "motif_maize_tts": 72.22222222222223,
+          "motif_tomato_acceptor": 72.22222222222223,
+          "motif_tomato_donor": 94.44444444444444,
+          "motif_tomato_tis": 61.111111111111114,
+          "motif_tomato_tts": 72.22222222222223,
+          "sv_impact": 72.22222222222223
+        }
+      }
+    }
+  },
+  "1T-token run": {
+    "dna-000b": {
+      "Zero-shot": {
+        "score": 8.61111111111111,
+        "families": {
+          "Conservation": 16.666666666666664,
+          "Motifs": 5.555555555555555,
+          "Core/non-core": 9.722222222222221,
+          "SV impact": 5.555555555555555,
+          "Allele frequency": 5.555555555555555
+        },
+        "tasks": {
+          "af": 5.555555555555555,
+          "conservation_andropogoneae": 5.555555555555555,
+          "conservation_poaceae_non_tis": 5.555555555555555,
+          "conservation_poaceae_tis": 38.888888888888886,
+          "core_maize_acceptor": 5.555555555555555,
+          "core_maize_donor": 5.555555555555555,
+          "core_maize_tis": 5.555555555555555,
+          "core_maize_tts": 16.666666666666668,
+          "core_tomato_acceptor": 5.555555555555555,
+          "core_tomato_donor": 5.555555555555555,
+          "core_tomato_tis": 5.555555555555555,
+          "core_tomato_tts": 27.77777777777778,
+          "motif_maize_acceptor": 5.555555555555555,
+          "motif_maize_donor": 5.555555555555555,
+          "motif_maize_tis": 5.555555555555555,
+          "motif_maize_tts": 5.555555555555555,
+          "motif_tomato_acceptor": 5.555555555555555,
+          "motif_tomato_donor": 5.555555555555555,
+          "motif_tomato_tis": 5.555555555555555,
+          "motif_tomato_tts": 5.555555555555555,
+          "sv_impact": 5.555555555555555
+        }
+      },
+      "Linear probe": {
+        "score": 8.055555555555555,
+        "families": {
+          "Conservation": 5.555555555555555,
+          "Motifs": 18.055555555555557,
+          "Core/non-core": 5.555555555555555,
+          "SV impact": 5.555555555555555,
+          "Allele frequency": 5.555555555555555
+        },
+        "tasks": {
+          "af": 5.555555555555555,
+          "conservation_andropogoneae": 5.555555555555555,
+          "conservation_poaceae_non_tis": 5.555555555555555,
+          "conservation_poaceae_tis": 5.555555555555555,
+          "core_maize_acceptor": 5.555555555555555,
+          "core_maize_donor": 5.555555555555555,
+          "core_maize_tis": 5.555555555555555,
+          "core_maize_tts": 5.555555555555555,
+          "core_tomato_acceptor": 5.555555555555555,
+          "core_tomato_donor": 5.555555555555555,
+          "core_tomato_tis": 5.555555555555555,
+          "core_tomato_tts": 5.555555555555555,
+          "motif_maize_acceptor": 11.11111111111111,
+          "motif_maize_donor": 5.555555555555555,
+          "motif_maize_tis": 44.44444444444444,
+          "motif_maize_tts": 5.555555555555555,
+          "motif_tomato_acceptor": 5.555555555555555,
+          "motif_tomato_donor": 5.555555555555555,
+          "motif_tomato_tis": 61.111111111111114,
+          "motif_tomato_tts": 5.555555555555555,
+          "sv_impact": 5.555555555555555
+        }
+      }
+    },
+    "dna-010b": {
+      "Zero-shot": {
+        "score": 28.14814814814815,
+        "families": {
+          "Conservation": 24.074074074074076,
+          "Motifs": 27.77777777777778,
+          "Core/non-core": 33.333333333333336,
+          "SV impact": 27.77777777777778,
+          "Allele frequency": 27.77777777777778
+        },
+        "tasks": {
+          "af": 27.77777777777778,
+          "conservation_andropogoneae": 27.77777777777778,
+          "conservation_poaceae_non_tis": 27.77777777777778,
+          "conservation_poaceae_tis": 16.666666666666668,
+          "core_maize_acceptor": 27.77777777777778,
+          "core_maize_donor": 27.77777777777778,
+          "core_maize_tis": 94.44444444444444,
+          "core_maize_tts": 27.77777777777778,
+          "core_tomato_acceptor": 27.77777777777778,
+          "core_tomato_donor": 27.77777777777778,
+          "core_tomato_tis": 27.77777777777778,
+          "core_tomato_tts": 5.555555555555555,
+          "motif_maize_acceptor": 27.77777777777778,
+          "motif_maize_donor": 27.77777777777778,
+          "motif_maize_tis": 27.77777777777778,
+          "motif_maize_tts": 27.77777777777778,
+          "motif_tomato_acceptor": 27.77777777777778,
+          "motif_tomato_donor": 27.77777777777778,
+          "motif_tomato_tis": 27.77777777777778,
+          "motif_tomato_tts": 27.77777777777778,
+          "sv_impact": 27.77777777777778
+        }
+      },
+      "Linear probe": {
+        "score": 29.953703703703702,
+        "families": {
+          "Conservation": 24.074074074074076,
+          "Motifs": 31.25,
+          "Core/non-core": 38.888888888888886,
+          "SV impact": 27.77777777777778,
+          "Allele frequency": 27.77777777777778
+        },
+        "tasks": {
+          "af": 27.77777777777778,
+          "conservation_andropogoneae": 27.77777777777778,
+          "conservation_poaceae_non_tis": 27.77777777777778,
+          "conservation_poaceae_tis": 16.666666666666668,
+          "core_maize_acceptor": 27.77777777777778,
+          "core_maize_donor": 27.77777777777778,
+          "core_maize_tis": 27.77777777777778,
+          "core_maize_tts": 27.77777777777778,
+          "core_tomato_acceptor": 27.77777777777778,
+          "core_tomato_donor": 27.77777777777778,
+          "core_tomato_tis": 61.111111111111114,
+          "core_tomato_tts": 83.33333333333333,
+          "motif_maize_acceptor": 27.77777777777778,
+          "motif_maize_donor": 27.77777777777778,
+          "motif_maize_tis": 22.22222222222222,
+          "motif_maize_tts": 16.666666666666668,
+          "motif_tomato_acceptor": 38.888888888888886,
+          "motif_tomato_donor": 27.77777777777778,
+          "motif_tomato_tis": 61.111111111111114,
+          "motif_tomato_tts": 27.77777777777778,
+          "sv_impact": 27.77777777777778
+        }
+      }
+    },
+    "dna-182b": {
+      "Zero-shot": {
+        "score": 57.22222222222222,
+        "families": {
+          "Conservation": 61.111111111111114,
+          "Motifs": 55.55555555555556,
+          "Core/non-core": 58.333333333333336,
+          "SV impact": 61.111111111111114,
+          "Allele frequency": 50.0
+        },
+        "tasks": {
+          "af": 50.0,
+          "conservation_andropogoneae": 61.111111111111114,
+          "conservation_poaceae_non_tis": 61.111111111111114,
+          "conservation_poaceae_tis": 61.111111111111114,
+          "core_maize_acceptor": 50.0,
+          "core_maize_donor": 50.0,
+          "core_maize_tis": 83.33333333333333,
+          "core_maize_tts": 61.111111111111114,
+          "core_tomato_acceptor": 50.0,
+          "core_tomato_donor": 50.0,
+          "core_tomato_tis": 61.111111111111114,
+          "core_tomato_tts": 61.111111111111114,
+          "motif_maize_acceptor": 61.111111111111114,
+          "motif_maize_donor": 50.0,
+          "motif_maize_tis": 61.111111111111114,
+          "motif_maize_tts": 61.111111111111114,
+          "motif_tomato_acceptor": 50.0,
+          "motif_tomato_donor": 50.0,
+          "motif_tomato_tis": 61.111111111111114,
+          "motif_tomato_tts": 50.0,
+          "sv_impact": 61.111111111111114
+        }
+      },
+      "Linear probe": {
+        "score": 57.638888888888886,
+        "families": {
+          "Conservation": 50.0,
+          "Motifs": 50.69444444444444,
+          "Core/non-core": 65.27777777777777,
+          "SV impact": 61.111111111111114,
+          "Allele frequency": 61.111111111111114
+        },
+        "tasks": {
+          "af": 61.111111111111114,
+          "conservation_andropogoneae": 38.888888888888886,
+          "conservation_poaceae_non_tis": 50.0,
+          "conservation_poaceae_tis": 61.111111111111114,
+          "core_maize_acceptor": 72.22222222222223,
+          "core_maize_donor": 61.111111111111114,
+          "core_maize_tis": 72.22222222222223,
+          "core_maize_tts": 83.33333333333333,
+          "core_tomato_acceptor": 50.0,
+          "core_tomato_donor": 83.33333333333333,
+          "core_tomato_tis": 50.0,
+          "core_tomato_tts": 50.0,
+          "motif_maize_acceptor": 50.0,
+          "motif_maize_donor": 50.0,
+          "motif_maize_tis": 61.111111111111114,
+          "motif_maize_tts": 61.111111111111114,
+          "motif_tomato_acceptor": 50.0,
+          "motif_tomato_donor": 50.0,
+          "motif_tomato_tis": 22.22222222222222,
+          "motif_tomato_tts": 61.111111111111114,
+          "sv_impact": 61.111111111111114
+        }
+      }
+    },
+    "dna-545b": {
+      "Zero-shot": {
+        "score": 83.61111111111111,
+        "families": {
+          "Conservation": 83.33333333333333,
+          "Motifs": 77.77777777777777,
+          "Core/non-core": 79.16666666666667,
+          "SV impact": 83.33333333333333,
+          "Allele frequency": 94.44444444444444
+        },
+        "tasks": {
+          "af": 94.44444444444444,
+          "conservation_andropogoneae": 72.22222222222223,
+          "conservation_poaceae_non_tis": 94.44444444444444,
+          "conservation_poaceae_tis": 83.33333333333333,
+          "core_maize_acceptor": 72.22222222222223,
+          "core_maize_donor": 83.33333333333333,
+          "core_maize_tis": 72.22222222222223,
+          "core_maize_tts": 94.44444444444444,
+          "core_tomato_acceptor": 72.22222222222223,
+          "core_tomato_donor": 72.22222222222223,
+          "core_tomato_tis": 83.33333333333333,
+          "core_tomato_tts": 83.33333333333333,
+          "motif_maize_acceptor": 72.22222222222223,
+          "motif_maize_donor": 72.22222222222223,
+          "motif_maize_tis": 72.22222222222223,
+          "motif_maize_tts": 72.22222222222223,
+          "motif_tomato_acceptor": 83.33333333333333,
+          "motif_tomato_donor": 83.33333333333333,
+          "motif_tomato_tis": 83.33333333333333,
+          "motif_tomato_tts": 83.33333333333333,
+          "sv_impact": 83.33333333333333
+        }
+      },
+      "Linear probe": {
+        "score": 72.77777777777777,
+        "families": {
+          "Conservation": 72.22222222222223,
+          "Motifs": 72.22222222222223,
+          "Core/non-core": 52.77777777777778,
+          "SV impact": 83.33333333333333,
+          "Allele frequency": 83.33333333333333
+        },
+        "tasks": {
+          "af": 83.33333333333333,
+          "conservation_andropogoneae": 61.111111111111114,
+          "conservation_poaceae_non_tis": 72.22222222222223,
+          "conservation_poaceae_tis": 83.33333333333333,
+          "core_maize_acceptor": 83.33333333333333,
+          "core_maize_donor": 72.22222222222223,
+          "core_maize_tis": 50.0,
+          "core_maize_tts": 61.111111111111114,
+          "core_tomato_acceptor": 61.111111111111114,
+          "core_tomato_donor": 50.0,
+          "core_tomato_tis": 16.666666666666668,
+          "core_tomato_tts": 27.77777777777778,
+          "motif_maize_acceptor": 72.22222222222223,
+          "motif_maize_donor": 72.22222222222223,
+          "motif_maize_tis": 72.22222222222223,
+          "motif_maize_tts": 83.33333333333333,
+          "motif_tomato_acceptor": 94.44444444444444,
+          "motif_tomato_donor": 38.888888888888886,
+          "motif_tomato_tis": 61.111111111111114,
+          "motif_tomato_tts": 83.33333333333333,
+          "sv_impact": 83.33333333333333
+        }
+      }
+    },
+    "dna-1000b": {
+      "Zero-shot": {
+        "score": 73.79629629629629,
+        "families": {
+          "Conservation": 87.03703703703704,
+          "Motifs": 88.88888888888889,
+          "Core/non-core": 70.83333333333333,
+          "SV impact": 50.0,
+          "Allele frequency": 72.22222222222223
+        },
+        "tasks": {
+          "af": 72.22222222222223,
+          "conservation_andropogoneae": 94.44444444444444,
+          "conservation_poaceae_non_tis": 72.22222222222223,
+          "conservation_poaceae_tis": 94.44444444444444,
+          "core_maize_acceptor": 83.33333333333333,
+          "core_maize_donor": 72.22222222222223,
+          "core_maize_tis": 16.666666666666668,
+          "core_maize_tts": 38.888888888888886,
+          "core_tomato_acceptor": 83.33333333333333,
+          "core_tomato_donor": 83.33333333333333,
+          "core_tomato_tis": 94.44444444444444,
+          "core_tomato_tts": 94.44444444444444,
+          "motif_maize_acceptor": 94.44444444444444,
+          "motif_maize_donor": 94.44444444444444,
+          "motif_maize_tis": 94.44444444444444,
+          "motif_maize_tts": 94.44444444444444,
+          "motif_tomato_acceptor": 72.22222222222223,
+          "motif_tomato_donor": 72.22222222222223,
+          "motif_tomato_tis": 94.44444444444444,
+          "motif_tomato_tts": 94.44444444444444,
+          "sv_impact": 50.0
+        }
+      },
+      "Linear probe": {
+        "score": 82.45370370370371,
+        "families": {
+          "Conservation": 79.62962962962963,
+          "Motifs": 86.80555555555556,
+          "Core/non-core": 56.94444444444444,
+          "SV impact": 94.44444444444444,
+          "Allele frequency": 94.44444444444444
+        },
+        "tasks": {
+          "af": 94.44444444444444,
+          "conservation_andropogoneae": 50.0,
+          "conservation_poaceae_non_tis": 94.44444444444444,
+          "conservation_poaceae_tis": 94.44444444444444,
+          "core_maize_acceptor": 61.111111111111114,
+          "core_maize_donor": 83.33333333333333,
+          "core_maize_tis": 38.888888888888886,
+          "core_maize_tts": 50.0,
+          "core_tomato_acceptor": 83.33333333333333,
+          "core_tomato_donor": 72.22222222222223,
+          "core_tomato_tis": 27.77777777777778,
+          "core_tomato_tts": 38.888888888888886,
+          "motif_maize_acceptor": 83.33333333333333,
+          "motif_maize_donor": 94.44444444444444,
+          "motif_maize_tis": 94.44444444444444,
+          "motif_maize_tts": 94.44444444444444,
+          "motif_tomato_acceptor": 61.111111111111114,
+          "motif_tomato_donor": 77.77777777777777,
+          "motif_tomato_tis": 94.44444444444444,
+          "motif_tomato_tts": 94.44444444444444,
+          "sv_impact": 94.44444444444444
+        }
+      }
+    }
+  }
+}

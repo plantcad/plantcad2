@@ -1,0 +1,18 @@
+{
+  "native_top_bar_labels": 32,
+  "all_annotated_labels": 56,
+  "overlapping_value_labels": 0,
+  "top_axis_intervals": [
+    [
+      0,
+      0.05
+    ],
+    [
+      0.5,
+      0.95
+    ]
+  ],
+  "breaks_marked": true,
+  "native_values_unchanged": true,
+  "Avg_Rank_axis": "Separate percentile axis; four equally weighted families"
+}
