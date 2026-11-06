@@ -52,6 +52,11 @@
       "bottom": 0.008329662794474129
     }
   ],
+  "card_style": {
+    "facecolor": "white",
+    "edgecolor": "#cbd2d9",
+    "linewidth": 1
+  },
   "horizontal_gaps": [
     0.01692307692307693,
     0.01692307692307682,

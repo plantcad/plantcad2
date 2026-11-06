@@ -90,7 +90,7 @@ def token_axis(ax: plt.Axes) -> None:
 def task_winner_map(ax: plt.Axes, rows: list[dict], models: dict) -> dict:
     """Use species headers and one categorical tile for each measured task."""
     ax.set_xlim(0, 10)
-    ax.set_ylim(16.2, 0)
+    ax.set_ylim(15.1, 0)
     ax.axis("off")
     ax.set_title("Higher-scoring model by task", weight="bold", pad=12)
     texts = []
@@ -111,7 +111,7 @@ def task_winner_map(ax: plt.Axes, rows: list[dict], models: dict) -> dict:
         ax.add_patch(patch)
         if text:
             label(x + .825, y + height / 2, text,
-                  color="white" if winner == "1t" else "#1f2328", linespacing=1.15)
+                  color="white" if winner == "1t" else "#1f2328", linespacing=1.15, fontsize=10)
             tile_texts.append((patch, texts[-1]))
         cells.append({"task_id": task, "family": row["family"], "species": species,
                       "task": row["task"], "winner": winner,
@@ -147,25 +147,15 @@ def task_winner_map(ax: plt.Axes, rows: list[dict], models: dict) -> dict:
 
     label(.02, 11.7, "SV impact", weight="bold", ha="left")
     tile("sv_impact", 2.8, 11.2, "arabidopsis", "Arabidopsis")
-    label(5.6, 11.7, "Allele\nfrequency", weight="bold", ha="left")
-    tile("af", 8.2, 11.2, "maize", "Maize")
+    label(.02, 13.1, "Allele frequency", weight="bold", ha="left")
+    tile("af", 2.8, 12.6, "maize", "Maize")
 
-    label(.02, 13.3, "Family-balanced task win rate", weight="bold", ha="left")
-    left = 0.0
-    for key, model in models.items():
-        value = model["probe_scores"]["Win Rate"]
-        ax.add_patch(Rectangle((left / 10, 13.85), value / 10, 1.05,
-                               facecolor=model["color"], edgecolor="white", linewidth=.6))
-        label((left + value / 2) / 10, 14.375, f"{value:.2f}%",
-              color="white" if key == "1t" else "#1f2328")
-        left += value
-    np.testing.assert_allclose(left, 100, rtol=0, atol=1e-12)
-    label(5, 15.55, "One tile per task; summary weights the five families equally.", color="#505050")
+    label(5, 14.5, "One tile per task; color shows the higher-scoring model.", color="#505050")
     assert len(cells) == len({cell["task_id"] for cell in cells}) == len(source) == 21
     return {"cells": cells, "texts": texts, "tile_texts": tile_texts,
             "color": "Higher unrounded native task score; no margin encoding; gray for exact ties",
             "species_source": "zero-shot-leaderboard/marindna_exp586/src/exp586_evals/classification_data.py:task_species; maize AF protocol",
-            "summary": "Unchanged family-balanced task win rate; five families equally weighted"}
+            "summary": "Task-level breakdown of the separately plotted family-balanced and pooled win rates"}
 
 
 def main() -> None:
@@ -205,6 +195,24 @@ def main() -> None:
             np.testing.assert_allclose(share, summaries["probe_win_rates"][identity]["families"][family], rtol=0, atol=1e-12)
             task_wins[family][key] = {"points": points, "tasks": len(tasks), "percent": share}
         np.testing.assert_allclose(sum(row["percent"] for row in task_wins[family].values()), 100, rtol=0, atol=1e-12)
+    win_rates = {"Family-balanced": {}, "Pooled": {}}
+    pooled_points = {}
+    for key, model in models.items():
+        points = sum(.5 if row["winner"] == "tie" else float(row["winner"] == key) for row in probe_rows)
+        pooled_points[key] = points
+        np.testing.assert_allclose(points, sum(family[key]["points"] for family in task_wins.values()), rtol=0, atol=1e-12)
+        win_rates["Pooled"][key] = 100 * points / len(probe_rows)
+        win_rates["Family-balanced"][key] = model["probe_scores"]["Win Rate"]
+        np.testing.assert_allclose(model["probe_scores"]["Win Rate"],
+                                   np.mean([family[key]["percent"] for family in task_wins.values()]), rtol=0, atol=1e-12)
+    for rates in win_rates.values():
+        np.testing.assert_allclose(sum(rates.values()), 100, rtol=0, atol=1e-12)
+    win_rate_comparison = {
+        "percentages": win_rates, "pooled_task_count": len(probe_rows), "pooled_win_points": pooled_points,
+        "family_balanced": "Average task-win fractions within each family, then weight the five families equally",
+        "pooled": "Average the 21 task-win points equally, without family balancing",
+        "ties": "Half a win to each model for an exact stored-score tie",
+    }
     palette = json.loads(PALETTE_PATH.read_text())
     assert all(model["color"] == palette["marin"][key] for key, model in models.items())
     assert digest(MATCHED_PATH) == MATCHED_SHA256, "Matched-loss reference changed; review before plotting"
@@ -231,8 +239,9 @@ def main() -> None:
     assert common_hashes == {reference["D216"]["validation"]["samples"]["common-65536"]["input_sha256"]}
     provenance = {
         "figure_title": "Linear probe PlantCAD2 benchmark",
-        "layout": "Family-average score bars and species-labeled task-winner map above three unchanged loss panels",
+        "layout": "Three top facets: family-average scores, family-balanced/pooled win-rate bars, and species-labeled task tiles; three loss panels below",
         "probe_bar_annotations": 10,
+        "win_rate_bar_annotations": 4,
         "benchmark_source_sha256": digest(benchmark_path),
         "probe_source_sha256": digest(score_path),
         "summary_source_sha256": digest(summaries_path),
@@ -257,7 +266,7 @@ def main() -> None:
                        "opacity": "Linear in DNA training tokens: 0.35 at 216B, 0.95 at 562B; equal rug heights",
                        "labels": "Direct DNA-token labels; shared annotation identifies the dense model as 1B parameters",
                        "total_parameters_each": dense[0]["total_parameters_approx"]},
-        "scatter_readout": "Linear probe: Win Rate (left), Conservation AUROC (right)",
+        "scatter_readout": "Linear probe: family-balanced win rate (left), Conservation AUROC (right)",
         "probe_benchmark": {
             "metrics": PROBE_METRICS, "models": {key: model["probe_scores"] for key, model in models.items()},
             "family_score_bars": PROBE_METRICS[:-1],
@@ -265,27 +274,30 @@ def main() -> None:
             "aggregation": "Native family means; Win Rate compares only the two final models per task, then averages task wins within families and five families equally",
         },
         "task_wins": task_wins,
+        "win_rate_comparison": win_rate_comparison,
         "scatter": [],
     }
     plot_data = {"probe_benchmark": provenance["probe_benchmark"],
-                 "task_wins": task_wins, "training": {}, "validation": {}, "scatter": [], "dense_rugs": rugs}
+                 "task_wins": task_wins, "win_rate_comparison": win_rate_comparison,
+                 "training": {}, "validation": {}, "scatter": [], "dense_rugs": rugs}
     plt.rcParams.update({"font.size": 12, "svg.fonttype": "none", "axes.axisbelow": True})
     fig = plt.figure(figsize=(20.8, 12.1))
     title = fig.text(.5225, .989, "Linear probe PlantCAD2 benchmark", weight="bold",
                      fontsize="large", ha="center", va="top")
-    probe_ax = fig.add_axes((.055, .603, .485, .322))
-    win_ax = fig.add_axes((.605, .568, .382, .357))
+    probe_ax = fig.add_axes((.055, .603, .318, .322))
+    rate_ax = fig.add_axes((.430, .603, .160, .322))
+    win_ax = fig.add_axes((.645, .568, .342, .357))
     bar_labels = []
     family_metrics = PROBE_METRICS[:-1]
     for index, (key, model) in enumerate(models.items()):
-        x = np.arange(len(family_metrics)) + (index - .5) * .30
+        x = np.arange(len(family_metrics)) + (index - .5) * .36
         scores = [model["probe_scores"][metric] * 100 for metric in family_metrics]
         assert all(0 <= score <= 100 for score in scores)
-        bars = probe_ax.bar(x, scores, width=.30, color=model["color"], edgecolor="white", linewidth=.4)
+        bars = probe_ax.bar(x, scores, width=.36, color=model["color"], edgecolor="white", linewidth=.4)
         np.testing.assert_array_equal([bar.get_height() for bar in bars], scores)
         for xpos, score in zip(x, scores, strict=True):
             bar_labels.append(probe_ax.annotate(f"{score:.2f}", (xpos, score), xytext=(0, 5),
-                                                textcoords="offset points", ha="center", va="bottom", fontsize=11))
+                                                textcoords="offset points", ha="center", va="bottom", fontsize=10))
     probe_ax.set_xticks(np.arange(len(family_metrics)), family_metrics)
     probe_ax.set_xlim(-.5, len(family_metrics) - .5)
     probe_ax.set_ylim(0, 104)
@@ -294,6 +306,23 @@ def main() -> None:
     probe_ax.set_ylabel("Metric score (×100)")
     probe_ax.spines[["top", "right"]].set_visible(False)
     probe_ax.grid(axis="y", color="#e4e4e4", linewidth=.7)
+    rate_labels = []
+    for index, (key, model) in enumerate(models.items()):
+        x = np.arange(len(win_rates)) + (index - .5) * .32
+        scores = [rates[key] for rates in win_rates.values()]
+        bars = rate_ax.bar(x, scores, width=.32, color=model["color"], edgecolor="white", linewidth=.4)
+        np.testing.assert_array_equal([bar.get_height() for bar in bars], scores)
+        for xpos, score in zip(x, scores, strict=True):
+            rate_labels.append(rate_ax.annotate(f"{score:.2f}", (xpos, score), xytext=(0, 5),
+                                                 textcoords="offset points", ha="center", va="bottom", fontsize=10))
+    rate_ax.set_xticks([0, 1], ["Family-balanced\n(equal family weight)", "Pooled\n(equal task weight)"], fontsize=10)
+    rate_ax.set_xlim(-.5, 1.5)
+    rate_ax.set_ylim(0, 104)
+    rate_ax.set_yticks([0, 20, 40, 60, 80, 100])
+    rate_ax.set_title("Task win rates", weight="bold", pad=12)
+    rate_ax.set_ylabel("Win rate (%)")
+    rate_ax.spines[["top", "right"]].set_visible(False)
+    rate_ax.grid(axis="y", color="#e4e4e4", linewidth=.7)
     # Identify every measured task without mixing wins with native-score bars.
     winner_map = task_winner_map(win_ax, probe_rows, models)
     win_labels = winner_map.pop("texts")
@@ -382,7 +411,8 @@ def main() -> None:
                          edgecolor="white", linewidth=.8, zorder=4)
             dot_count += 1
         metric_handles.append(Line2D([], [], color="#626262", marker=marker, linestyle=style,
-                                     label=f"{metric} ({'left' if metric == 'Win Rate' else 'right'})", markersize=7, linewidth=1.8))
+                                     label="Family-balanced (left)" if metric == "Win Rate" else "Conservation (right)",
+                                     markersize=7, linewidth=1.8))
     rug_labels = []
     offsets = {"D216": (0, 12, "center"), "D389": (0, 32, "center"), "D562": (-4, 12, "right")}
     for row in rugs:
@@ -421,7 +451,7 @@ def main() -> None:
     scatter_ax.yaxis.set_major_locator(MultipleLocator(25))
     conservation_ax.set_ylim(.88, .90)
     conservation_ax.yaxis.set_major_locator(MultipleLocator(.005))
-    scatter_ax.set_ylabel("Win Rate (%)")
+    scatter_ax.set_ylabel("Family-balanced win rate (%)")
     conservation_ax.set_ylabel("Conservation (AUROC)", labelpad=10)
     scatter_ax.set_xlabel("Matched validation loss")
     metric_legend = scatter_ax.legend(handles=metric_handles, loc="upper right", ncols=1,
@@ -438,16 +468,21 @@ def main() -> None:
     assert len(bar_labels) == len(probe_ax.patches) == 10
     assert not any(a.overlaps(b) for i, a in enumerate(boxes) for b in boxes[i + 1:])
     assert all(probe_ax.bbox.contains(box.x0, box.y0) and probe_ax.bbox.contains(box.x1, box.y1) for box in boxes)
+    rate_boxes = [label.get_window_extent(renderer).padded(1) for label in rate_labels]
+    assert len(rate_labels) == len(rate_ax.patches) == 4
+    assert not any(a.overlaps(b) for i, a in enumerate(rate_boxes) for b in rate_boxes[i + 1:])
+    assert all(rate_ax.bbox.contains(box.x0, box.y0) and rate_ax.bbox.contains(box.x1, box.y1) for box in rate_boxes)
     win_boxes = [label.get_window_extent(renderer).padded(1) for label in win_labels]
-    assert len(win_ax.patches) == 23
+    assert len(win_ax.patches) == 21
     assert not any(a.overlaps(b) for i, a in enumerate(win_boxes) for b in win_boxes[i + 1:])
     assert all(win_ax.bbox.contains(box.x0, box.y0) and win_ax.bbox.contains(box.x1, box.y1) for box in win_boxes)
     for tile, text in tile_texts:
         tile_box = tile.get_window_extent(renderer)
         text_box = text.get_window_extent(renderer).padded(1)
-        assert tile_box.contains(text_box.x0, text_box.y0) and tile_box.contains(text_box.x1, text_box.y1)
-    top_boxes = [probe_ax.get_tightbbox(renderer), win_ax.get_tightbbox(renderer)]
-    assert not top_boxes[0].overlaps(top_boxes[1])
+        assert tile_box.contains(text_box.x0, text_box.y0) and tile_box.contains(text_box.x1, text_box.y1), (
+            tile.get_gid(), text.get_text(), tuple(tile_box.bounds), tuple(text_box.bounds))
+    top_boxes = [axis.get_tightbbox(renderer) for axis in [probe_ax, rate_ax, win_ax]]
+    assert not any(a.overlaps(b) for i, a in enumerate(top_boxes) for b in top_boxes[i + 1:])
     assert title.get_window_extent(renderer).y0 > max(box.y1 for box in top_boxes)
     assert min(box.y0 for box in top_boxes) > model_box.y1
     assert model_box.y0 > max(box.y1 for box in title_boxes)

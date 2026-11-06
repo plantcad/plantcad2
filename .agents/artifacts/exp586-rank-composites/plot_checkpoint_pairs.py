@@ -32,6 +32,7 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
     plt.rcParams.update({
         "font.size": 12, "axes.titlesize": "medium",
         "axes.spines.top": False, "axes.spines.right": False,
+        "axes.facecolor": "white", "figure.facecolor": "white",
         "svg.fonttype": "none", "axes.axisbelow": True,
     })
     fig = plt.figure(figsize=(13.0, 14.0))
@@ -131,7 +132,7 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
         left, right, top, bottom = left / width, (left + card_width) / width, top / height, bottom / height
         fig.add_artist(FancyBboxPatch((left, bottom), right-left, top-bottom,
                                      transform=fig.transFigure, boxstyle="round,pad=0",
-                                     facecolor="#f4f6f8", edgecolor="#cbd2d9", linewidth=1,
+                                     facecolor="white", edgecolor="#cbd2d9", linewidth=1,
                                      zorder=-1, clip_on=False))
         fig.text((left+right)/2, top-.09/height, heading, ha="center", va="top",
                  weight="bold", fontsize="large")
@@ -171,6 +172,7 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
         "run_colors": dict(zip(RUNS, colors, strict=True)),
         "progress_sha256": hashlib.sha256((HERE/"run-progress.csv").read_bytes()).hexdigest(),
         "panels": 12, "score_points": len(seen), "card_geometry": cards,
+        "card_style": {"facecolor": "white", "edgecolor": "#cbd2d9", "linewidth": 1},
         "horizontal_gaps": gaps,
         "facet_gap_inches": {"horizontal": [g * width for g in gaps], "vertical": vertical_gap},
         "plot_size_inches": [plot_width, plot_height],

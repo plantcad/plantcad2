@@ -14,7 +14,8 @@ All scores are higher-is-better.
 Reference membership, tie handling and source task values are frozen in `frozen-references.json`.
 
 - Avg Rank: 11 published baseline models, four equally weighted families, no AF.
-- Win Rate: compare only the two final probe checkpoints per task, award half credit for ties, average within each family, then weight the five families equally.
+- Family-balanced win rate: compare only the two final probe checkpoints per task, award half credit for ties, average within each family, then weight the five families equally.
+- Pooled win rate: use the same per-task wins, but weight the 21 tasks equally without balancing families.
 - Avg normalized score: min–max normalize each saved native family mean over all checkpoints from both runs, separately for zero-shot and probes, then equally average the five normalized families.
 - The shared pre-DNA checkpoint appears once in the normalization population, despite being displayed in both trajectories.
 - Normalization bounds describe the nine checkpoints shown and can change if that population changes; they do not use checkpoint percentiles.
@@ -40,12 +41,16 @@ The shared vertical axis has a marked break omitting 5–45.
 Underlying scores, definitions and family aggregation are unchanged; the horizontal rankings and other figures retain their native units.
 Avg Rank is also retained in the third sorted horizontal panel.
 The second figure is titled `Linear probe PlantCAD2 benchmark`.
-Its top left compares the final 216B and 1T MoE models on native family-average scores for Conservation, Motifs, Core/non-core, SV and AF.
-A separate top-right map shows one colored tile per task: gold for a higher 216B score, plum for a higher 1T score, gray for an exact tie.
+Its first row has three facets: family-average scores, task win-rate bars and a task-winner map.
+The first compares the final 216B and 1T MoE models on native family-average scores for Conservation, Motifs, Core/non-core, SV and AF.
+The second has paired bars for family-balanced and pooled win rates, explicitly labeled with equal family and equal task weighting.
+The third shows one colored tile per task: gold for a higher 216B score, plum for a higher 1T score, gray for an exact tie.
 Motifs and core/non-core share explicit Maize/Tomato row labels and start codon, stop codon, splice donor and splice acceptor columns.
 Conservation separates the sequence species (sorghum or Pharus) from the conservation clade (Andropogoneae or Poaceae); the SV and AF tiles identify Arabidopsis and maize, respectively.
 The two eight-task grids take more room than the three-task conservation strip and the single SV/AF tiles.
-The unchanged family-balanced task win rate remains as a stacked summary beneath the map.
+SV and AF have separate left-aligned rows, with the same tile position and single-line family labels.
+The map is solely a detailed task-level breakdown; both overall win rates appear in the middle facet.
+`loss-figure-data.json` records pooled win points, their denominator of 21 tasks and both percentage summaries.
 The grouped score bars display native metrics ×100 with two-decimal annotations; tile colors indicate winners without encoding the margin.
 This row keeps the full score range because AF correlations lie below the first figure's 45-point axis break.
 A collapsed scorecard displays all 21 per-task scores in native units, grouped by family, with both model scores and Δ = 1T − 216B.
@@ -53,8 +58,9 @@ Only the difference column is colored by winning model; five decimal places avoi
 `plot_probe_scorecard.py`, `probe-scorecard-data.json` and `probe-scorecard.csv` preserve the task identities, source scores, differences and checks against the family means and exact win counts.
 The map reuses the scorecard's validated native rows and records all 21 task/species/winner assignments in `loss-figure-data.json` and its provenance.
 The training/validation loss curves and final-loss scatter occupy the second row.
-The scatter uses probe Win Rate on the left axis and native probe Conservation AUROC on the right; matched losses, W&B histories and dense rugs remain unchanged.
+The scatter explicitly labels family-balanced probe win rate on the left axis and native probe Conservation AUROC on the right; matched losses, W&B histories and dense rugs remain unchanged.
 Checkpoint plots and the change heatmap use Avg normalized score on a 0–1 scale; the five native family panels are unchanged.
+Both dot-and-line figures use white cards and axes, retaining thin gray borders around the zero-shot/probe pairs.
 The heatmap reports normalized-score changes in 0–1 units and native changes in their original units; colors encode sign only.
 All six PNGs and SVGs were inspected, with programmatic overlap/boundary checks on labels and paired-card layouts.
 

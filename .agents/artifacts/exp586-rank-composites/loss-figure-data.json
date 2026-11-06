@@ -105,6 +105,26 @@
       }
     }
   },
+  "win_rate_comparison": {
+    "percentages": {
+      "Family-balanced": {
+        "216b": 34.166666666666664,
+        "1t": 65.83333333333333
+      },
+      "Pooled": {
+        "216b": 57.142857142857146,
+        "1t": 42.857142857142854
+      }
+    },
+    "pooled_task_count": 21,
+    "pooled_win_points": {
+      "216b": 12.0,
+      "1t": 9.0
+    },
+    "family_balanced": "Average task-win fractions within each family, then weight the five families equally",
+    "pooled": "Average the 21 task-win points equally, without family balancing",
+    "ties": "Half a win to each model for an exact stored-score tie"
+  },
   "training": {
     "216b": [
       {
@@ -21293,8 +21313,8 @@
         "1t": 0.19271995089663327,
         "delta_1t_minus_216b": 0.0041931437550599415,
         "xy": [
-          8.2,
-          11.2
+          2.8,
+          12.6
         ],
         "width": 1.65,
         "height": 1.0,
@@ -21303,6 +21323,6 @@
     ],
     "color": "Higher unrounded native task score; no margin encoding; gray for exact ties",
     "species_source": "zero-shot-leaderboard/marindna_exp586/src/exp586_evals/classification_data.py:task_species; maize AF protocol",
-    "summary": "Unchanged family-balanced task win rate; five families equally weighted"
+    "summary": "Task-level breakdown of the separately plotted family-balanced and pooled win rates"
   }
 }

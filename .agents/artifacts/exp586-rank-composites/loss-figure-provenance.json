@@ -1,7 +1,8 @@
 {
   "figure_title": "Linear probe PlantCAD2 benchmark",
-  "layout": "Family-average score bars and species-labeled task-winner map above three unchanged loss panels",
+  "layout": "Three top facets: family-average scores, family-balanced/pooled win-rate bars, and species-labeled task tiles; three loss panels below",
   "probe_bar_annotations": 10,
+  "win_rate_bar_annotations": 4,
   "benchmark_source_sha256": "4cb7e31103e17f974c7b2c9524a11ea2d9a10231f9164a2dc289ecef46740641",
   "probe_source_sha256": "f2c0433f7de85e3f06dabf887a092b8a25aa3f420336ee1f0a7dbfdd5fd83c00",
   "summary_source_sha256": "bab13e314f078a48727d33ab2cf1579b5e13e2ce7b95cd707502a44d4c855fb7",
@@ -230,7 +231,7 @@
     "labels": "Direct DNA-token labels; shared annotation identifies the dense model as 1B parameters",
     "total_parameters_each": 973178880
   },
-  "scatter_readout": "Linear probe: Win Rate (left), Conservation AUROC (right)",
+  "scatter_readout": "Linear probe: family-balanced win rate (left), Conservation AUROC (right)",
   "probe_benchmark": {
     "metrics": [
       "Conservation",
@@ -336,6 +337,26 @@
         "percent": 100.0
       }
     }
+  },
+  "win_rate_comparison": {
+    "percentages": {
+      "Family-balanced": {
+        "216b": 34.166666666666664,
+        "1t": 65.83333333333333
+      },
+      "Pooled": {
+        "216b": 57.142857142857146,
+        "1t": 42.857142857142854
+      }
+    },
+    "pooled_task_count": 21,
+    "pooled_win_points": {
+      "216b": 12.0,
+      "1t": 9.0
+    },
+    "family_balanced": "Average task-win fractions within each family, then weight the five families equally",
+    "pooled": "Average the 21 task-win points equally, without family balancing",
+    "ties": "Half a win to each model for an exact stored-score tie"
   },
   "scatter": [
     {
@@ -709,8 +730,8 @@
         "1t": 0.19271995089663327,
         "delta_1t_minus_216b": 0.0041931437550599415,
         "xy": [
-          8.2,
-          11.2
+          2.8,
+          12.6
         ],
         "width": 1.65,
         "height": 1.0,
@@ -719,11 +740,11 @@
     ],
     "color": "Higher unrounded native task score; no margin encoding; gray for exact ties",
     "species_source": "zero-shot-leaderboard/marindna_exp586/src/exp586_evals/classification_data.py:task_species; maize AF protocol",
-    "summary": "Unchanged family-balanced task win rate; five families equally weighted"
+    "summary": "Task-level breakdown of the separately plotted family-balanced and pooled win rates"
   },
-  "plot_data_sha256": "88e14cc95882399df165c374b20ebe0ea47419ff111925acc148bb3df6b941d8",
+  "plot_data_sha256": "1b47ecd289824f74570b975f42f163693bf5435b55fba7ee23e40d1a84d58c65",
   "figure_sha256": {
-    "png": "20956512d02e141d8de66953a18f5f556c8e010c1bdda59fd84c07a24ae09e43",
-    "svg": "9464f373e753bdfae05ce20cbc065fcf1fb87dedad304faccfdca39cbfdac844"
+    "png": "205ffc09650b685fd077492048fec3c232e1d7bff9379416dd329b20ecbcc720",
+    "svg": "fe8f1815928fb771dc85f27a71aff7e597f6fd8e34b204f2b516e4d83b802f31"
   }
 }
