@@ -1,6 +1,5 @@
 {
   "url": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
-  "figure_commit": "95aaac105a279baa79ad2b399261960887c10695",
   "body_sha256": "30f475b956498527d3e223436f7687217bc8f726e236e2c644d27b326a57dc4e",
   "before_body_sha256_LF": "fa0716464447ad0fdb5d1515c623f3e5f00995728e807319511481bcfe679b1c",
   "before_updated_at": "2026-11-06T12:40:02Z",
@@ -13,9 +12,9 @@
       "bytes": 363549
     },
     {
-      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png",
-      "sha256": "205ffc09650b685fd077492048fec3c232e1d7bff9379416dd329b20ecbcc720",
-      "bytes": 525609
+      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/4dab0a800333bfb645e45483d451a3796506f4b4/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png",
+      "sha256": "210eae20c832ec318ab0e7cd916b7fc1f7e72740530f44fb1f9b1cc2800cda29",
+      "bytes": 535007
     },
     {
       "url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/probe-scorecard.png",
@@ -38,12 +37,37 @@
       "bytes": 333157
     }
   ],
-  "status": "Published and re-fetched for exact verification",
+  "status": "Published; latest figure-only update preserves all manually edited text exactly",
   "published_comment_id": 6647191065,
-  "updated_at": "2026-11-06T16:33:56Z",
-  "published_body_sha256": "30f475b956498527d3e223436f7687217bc8f726e236e2c644d27b326a57dc4e",
-  "draft_sha256": "73e1dad9460c9aa3d1608a4d76a72df00881b167f638bbba85bb60657ac4124e",
+  "updated_at": "2026-11-06T17:17:14Z",
+  "published_body_sha256": "b23ff6e7da8c6d28454ad59e9d671b5c29a67aea626583e38a501976a9283803",
   "verified_rendered_images": 6,
   "verified_closed_details": 6,
-  "verified_tables": 2
+  "verified_tables": 2,
+  "historical_draft_sha256": "73e1dad9460c9aa3d1608a4d76a72df00881b167f638bbba85bb60657ac4124e",
+  "last_figure_update": {
+    "url": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
+    "before_updated_at": "2026-11-06T17:11:58Z",
+    "before_body_sha256": "4a61f0b1dadce5b335fcc0225ea5614eadf3266bf377b3cd29b5cd5288fd2bd9",
+    "published_body_sha256": "b23ff6e7da8c6d28454ad59e9d671b5c29a67aea626583e38a501976a9283803",
+    "old_image_url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png",
+    "new_image_url": "https://raw.githubusercontent.com/plantcad/plantcad2/4dab0a800333bfb645e45483d451a3796506f4b4/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png",
+    "figure_commit": "4dab0a800333bfb645e45483d451a3796506f4b4",
+    "image_sha256": "210eae20c832ec318ab0e7cd916b7fc1f7e72740530f44fb1f9b1cc2800cda29",
+    "only_one_image_url_replaced": true,
+    "all_author_text_preserved": true,
+    "updated_at": "2026-11-06T17:17:14Z",
+    "re_fetched_exactly_verified": true,
+    "author_text_preserved_exactly": true
+  },
+  "figure_commits": {
+    "benchmark-comparison.png": "95aaac105a279baa79ad2b399261960887c10695",
+    "loss-comparison.png": "4dab0a800333bfb645e45483d451a3796506f4b4",
+    "probe-scorecard.png": "95aaac105a279baa79ad2b399261960887c10695",
+    "checkpoint-tokens.png": "95aaac105a279baa79ad2b399261960887c10695",
+    "checkpoint-progress.png": "95aaac105a279baa79ad2b399261960887c10695",
+    "checkpoint-changes-primary.png": "95aaac105a279baa79ad2b399261960887c10695"
+  },
+  "post_md_line_endings": "LF; published GitHub body retains original line endings",
+  "post_md_sha256_LF": "1ece2c36993a942ae4f76768aea517a9829b67be0cfd95630c41320b6e4165e0"
 }

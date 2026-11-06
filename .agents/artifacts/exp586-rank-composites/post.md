@@ -1,23 +1,20 @@
-WIP
+The text-pretrained 1T-token MarinMoE model has trained for ~46.3 DNA epochs, with ~1.5B total parameters, ~60M active per token, and a heuristic dense-equivalent size of √(1.5B × 60M) ≈ 300M parameters.[^dense-equivalent]  That 300M estimate is most comparable in size to **PlantCAD2-Medium** (311M parameters).  It is compared below to the previous 216B-token MoE model of the same size that was trained for 10 epochs.
 
-The text-pretrained 1T-token MarinMoE model has trained for ~46.3 DNA epochs, with ~1.5B total parameters, ~60M active per token, and a heuristic dense-equivalent size of √(1.5B × 60M) ≈ 300M parameters.[^dense-equivalent]
-That 300M estimate is most comparable in size to **PlantCAD2-Medium** (311M parameters).
-
-Overall, the 1T model greatly outperforms all other MarinDNA models (dense or sparse) on matched validation loss samples.  It also outperforms all other Marin models on tasks most directly related to next token prediction like conservation estimation and splicing/start/stop motif recognition.  It saturates or regresses on all other zero-shot tasks though, particularly SV prediction (similar to PlantCAD2.5).
-
-However, monotonicity with scale is nearly perfect when using linear probes rather than zero-shot likelihoods.
+Overall, the 1T model greatly outperforms all other MarinDNA models (dense or sparse) on matched validation loss samples.  It also outperforms all other Marin models on tasks most directly related to next token prediction like conservation estimation and splicing/start/stop motif recognition.  It saturates or regresses on all other zero-shot tasks though, particularly SV prediction (similar to PlantCAD2.5):
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/benchmark-comparison.png" alt="Zero-shot comparison of eight models. Top: Conservation, Motifs, Core/non-core, SV impact and Avg Rank are grouped together on one Metric score (×100) or percentile rank axis with a marked break and a value on every bar. Task-family AUROC, accuracy and average precision are multiplied by 100 for display; Avg Rank is already a percentile. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank retain their existing native scales and marked horizontal breaks. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models." />
 </p>
 
-_Top: AUROC, accuracy and average precision ×100; Avg Rank is a percentile. Higher is better; rank definitions are below._
+_Top: AUROC, accuracy and average precision ×100; Avg Rank is a percentile. Higher is better._
+
+---
+
+Comparing linear probes on these tasks show that both the 1T and 216B token MoE models converge to roughly equivalent performance, indicating little to no gains from ~4.5x as much compute:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png" alt="Linear probe PlantCAD2 benchmark. Three top-row facets: native family-average scores multiplied by 100; paired bars for family-balanced and pooled task win rates; and one colored tile per task as the detailed breakdown. Family-balanced wins give the five families equal weight; pooled wins give all 21 tasks equal weight. Gold is 216B and plum is 1T. Motif and core/non-core grids use explicit Maize and Tomato row headers with start codon, stop codon, splice donor and splice acceptor columns. Conservation distinguishes sorghum sequences scored for Andropogoneae conservation from Pharus sequences scored for Poaceae conservation. SV uses Arabidopsis and AF uses maize in separate aligned rows. Tile colors show the higher score, regardless of margin. Bottom: unchanged training and validation loss curves, followed by matched final loss versus family-balanced probe win rate (left, solid circles) and Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses and training-token labels." />
+  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/4dab0a800333bfb645e45483d451a3796506f4b4/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png" alt="Linear probe PlantCAD2 benchmark. Three top-row facets: native family-average scores multiplied by 100; paired bars for family-balanced and pooled task win rates; and one colored tile per task as the detailed breakdown. Family-balanced wins give the five families equal weight; pooled wins give all 21 tasks equal weight. Gold is 216B and plum is 1T. Motif and core/non-core grids use explicit Maize and Tomato row headers with start codon, stop codon, splice donor and splice acceptor columns. Conservation distinguishes sorghum sequences scored for Andropogoneae conservation from Pharus sequences scored for Poaceae conservation. SV uses Arabidopsis and AF uses maize in separate aligned rows. Tile colors show the higher score, regardless of margin. Bottom: unchanged training and validation loss curves, followed by matched final loss versus family-balanced probe win rate (left, solid circles) and Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses and training-token labels." />
 </p>
-
-For Conservation, 1T wins two of three tasks but its larger Andropogoneae loss lowers the family average. Loss panels retain the W&B curves and [matched final-loss comparison](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302); darker coral rugs mark later dense checkpoints.
 
 <details>
 <summary>Per-task probe scores</summary>
@@ -30,14 +27,27 @@ _Native metric units; Δ = 1T − 216B. Colors identify the winning model; win c
 
 </details>
 
-These evaluations follow five checkpoints from each text-pretrained MarinMoE 1.5B–60M run (216B and 1T DNA tokens), including their shared starting model before DNA training.
-Alongside the existing allele-frequency (AF) regression probe, frozen linear classifiers were added for conservation, motif recovery, core/non-core and structural-variant (SV) impact, with task-specific inputs described below.
+---
+
+The linear probes do preserve monotonicity with scale far better than zero-shot scores though, and demonstrate that at least AF estimation is continuing to improve while others generally saturate. This is, again, despite the comparatively huge improvements on validation loss.  I'm not sure what to make of that:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/checkpoint-tokens.png" alt="Six paired zero-shot and linear-probe metrics across DNA training. Top: Avg normalized score, Conservation, Motifs; bottom: Core/non-core, SV impact, Allele frequency. Avg normalized score first min–max scales each task family's native mean over all checkpoints from both runs, separately for each readout, then averages the five normalized families including AF. Other panels retain native scores." />
 </p>
 
 _Avg normalized score gives each of five task families equal weight after scaling its observed checkpoint range to 0–1. Other panels retain native scores._
+
+---
+
+My primary takeaways from this are:
+
+1. The 216B token MoE model with ~300M effective dense params is pretty close in performance to `PlantCAD-M` (311M params)
+2. The 1T token MoE model is comparable in performance `PlantCAD-L` by conservation, but barely better or worse than `PlantCAD-S` on every other metric (especially SV)
+3. Linear probes preserve monotonicity with scale unlike zero-shot scores, similar to https://openathena.ai/blog/marin-dna/
+4. The 216B model is probably closest to delivering on something more compelling like "PlantCAD-M performance with 10x+ throughput", as suggested by the results in https://github.com/Open-Athena/marin-dna/pull/590
+5. It's unclear why benchmark scores here aren't tracking better with validation loss
+
+---
 
 <details>
 <summary>Run progress and score definitions</summary>
