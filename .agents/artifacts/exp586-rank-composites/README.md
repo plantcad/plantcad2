@@ -1,7 +1,8 @@
-# Draft: baseline ranks and Marin model summaries
+# Baseline ranks and Marin model summaries
 
-This is an unpublished replacement draft for [the checkpoint results post on PlantCAD2 PR #22](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065).
-No live comment or PR description was edited.
+These artifacts reproduce [the updated checkpoint results post on PlantCAD2 PR #22](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065).
+The reviewed draft was published to that existing comment; no new comment or PR-description edit was made.
+`post.md` contains the exact published text with commit-pinned figure URLs; `publication.json` records remote image hashes and verification of the re-fetched comment and rendered HTML.
 The original post, including the author's manual introduction edits, is archived in `live-post-source.json` and `live-post-source.md`.
 The opening in `draft.md` is identical in wording, with CRLF normalized to LF.
 Existing figures and draft files under `../exp586-checkpoint-trajectories/` remain unchanged.
@@ -84,4 +85,4 @@ uv run --no-project --with markdown-it-py --with mdit-py-plugins python build_dr
 The tests check published-reference percentiles against SciPy, min–max normalization of family means, equal family weighting, half-credit task ties, final-only Win Rate comparisons, rejection of missing/constant families and preservation of all native family values.
 Training/validation arrays and dense loss rugs were compared directly with the old saved figure data and are identical.
 The HTML builder embeds PNGs into a self-contained, content-hashed preview and verifies six correctly placed figures, six closed dropdowns and unchanged methods/control tables.
-The live comment was re-fetched after drafting to confirm no edits were lost or published.
+The live comment was checked before publication to preserve the author's edits, then re-fetched to verify the exact replacement text, six rendered images, six closed dropdowns and two tables.

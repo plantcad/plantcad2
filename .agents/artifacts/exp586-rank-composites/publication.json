@@ -1,0 +1,49 @@
+{
+  "url": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
+  "figure_commit": "95aaac105a279baa79ad2b399261960887c10695",
+  "body_sha256": "30f475b956498527d3e223436f7687217bc8f726e236e2c644d27b326a57dc4e",
+  "before_body_sha256_LF": "fa0716464447ad0fdb5d1515c623f3e5f00995728e807319511481bcfe679b1c",
+  "before_updated_at": "2026-11-06T12:40:02Z",
+  "preserved_opening": true,
+  "closed_details": 6,
+  "verified_images": [
+    {
+      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/benchmark-comparison.png",
+      "sha256": "72fb237907a53ee3b4438c236e40581a610d095125589a06e9e4391861141727",
+      "bytes": 363549
+    },
+    {
+      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png",
+      "sha256": "205ffc09650b685fd077492048fec3c232e1d7bff9379416dd329b20ecbcc720",
+      "bytes": 525609
+    },
+    {
+      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/probe-scorecard.png",
+      "sha256": "c173c1d889f27dc5597b5912c0899bebf078db13023791c20ad9c7be8e593743",
+      "bytes": 314927
+    },
+    {
+      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/checkpoint-tokens.png",
+      "sha256": "8fd0a4bf61dda4bf8c2c2f8b1b683176bde2aee6daea3db7c92f5dcc61b18490",
+      "bytes": 483589
+    },
+    {
+      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/checkpoint-progress.png",
+      "sha256": "fd2ae37b9206e21c4b4cfe52f60fc6892cfe44b46171ccb2da06297b2405e1f9",
+      "bytes": 483893
+    },
+    {
+      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/checkpoint-changes-primary.png",
+      "sha256": "699da8c27721ad8304688d039f79df41b53ccdbdd37fef988661b9e73f091235",
+      "bytes": 333157
+    }
+  ],
+  "status": "Published and re-fetched for exact verification",
+  "published_comment_id": 6647191065,
+  "updated_at": "2026-11-06T16:33:56Z",
+  "published_body_sha256": "30f475b956498527d3e223436f7687217bc8f726e236e2c644d27b326a57dc4e",
+  "draft_sha256": "73e1dad9460c9aa3d1608a4d76a72df00881b167f638bbba85bb60657ac4124e",
+  "verified_rendered_images": 6,
+  "verified_closed_details": 6,
+  "verified_tables": 2
+}

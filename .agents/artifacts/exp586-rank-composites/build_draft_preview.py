@@ -46,6 +46,9 @@ def main() -> None:
     args.output.mkdir(exist_ok=True, parents=True)
     (args.output / "figures").mkdir(exist_ok=True)
     markdown = (HERE / "draft.md").read_text()
+    publication_path = HERE / "publication.json"
+    publication = json.loads(publication_path.read_text()) if publication_path.exists() else {}
+    published = publication.get("draft_sha256") == hashlib.sha256(markdown.encode()).hexdigest()
     assert markdown.startswith("WIP\n\n")
     source = json.loads((HERE / "live-post-source.json").read_text())["body"].replace("\r\n", "\n")
     assert markdown.split('<p align="center">', 1)[0] == source.split('<p align="center">', 1)[0]
@@ -74,7 +77,9 @@ td,th{border:1px solid #d0d7de;padding:8px;text-align:left;vertical-align:top}th
 details{border:1px solid #d0d7de;border-radius:6px;padding:14px}details+details{margin-top:12px}summary{cursor:pointer;font-weight:600}
 code{background:#f6f8fa;padding:2px 4px}.draft{padding:12px;border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;margin-bottom:20px}
 """
-    banner = '<div class="draft">Draft for PlantCAD2 PR #22 — the live results comment has not been updated.</div>'
+    banner_text = ("Published on PlantCAD2 PR #22 — local preview of the updated results comment." if published
+                   else "Draft for PlantCAD2 PR #22 — unpublished revision.")
+    banner = f'<div class="draft">{banner_text}</div>'
     html = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Draft: MarinMoE comparisons</title><style>' + css + '</style></head><body>' + banner + body + '</body></html>'
     preview_sha256 = hashlib.sha256(html.encode()).hexdigest()
     preview_name = f"preview-{preview_sha256[:12]}.html"
@@ -83,7 +88,7 @@ code{background:#f6f8fa;padding:2px 4px}.draft{padding:12px;border:1px solid #d0
     (args.output / "post.md").write_text(markdown)
     manifest = {
         "destination": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
-        "status": "Unpublished draft; no live comment changes",
+        "status": "Published; local preview" if published else "Unpublished draft revision",
         "source": "draft.md",
         "preview_file": preview_name,
         "preview_sha256": preview_sha256,
