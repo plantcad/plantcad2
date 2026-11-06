@@ -44,7 +44,8 @@ The shared vertical axis has a marked break omitting 5–45.
 Underlying scores, definitions and family aggregation are unchanged; the horizontal rankings and other figures retain their native units.
 Avg Rank is also retained in the third sorted horizontal panel.
 The second figure is titled `Linear probe PlantCAD2 benchmark`.
-Its shared model key uses large bold labels and solid color swatches in a white bordered box between the score and loss rows.
+Its shared model key uses large regular-weight labels and solid color swatches in a white bordered box between the score and loss rows.
+Both dot-and-line figures use the same key style and wording: `MoE training horizon`, `216B tokens` and `1T tokens`.
 Its first row has three facets: family-average scores, task win-rate bars and a task-winner map.
 The first compares the final 216B and 1T MoE models on native family-average scores for Conservation, Motifs, Core/non-core, SV and AF.
 The second has paired bars for family-balanced and pooled win rates, explicitly labeled with equal family and equal task weighting.

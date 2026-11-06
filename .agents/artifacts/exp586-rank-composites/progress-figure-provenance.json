@@ -13,43 +13,43 @@
       "metric": "Avg normalized score",
       "left": 0.00923076923076923,
       "right": 0.3251282051282051,
-      "top": 0.9266943175053693,
-      "bottom": 0.4751585741624082
+      "top": 0.9210421226992812,
+      "bottom": 0.47226043528940986
     },
     {
       "metric": "Conservation",
       "left": 0.34205128205128205,
       "right": 0.6579487179487179,
-      "top": 0.9266943175053693,
-      "bottom": 0.4751585741624082
+      "top": 0.9210421226992812,
+      "bottom": 0.47226043528940986
     },
     {
       "metric": "Motifs",
       "left": 0.6748717948717947,
       "right": 0.9907692307692307,
-      "top": 0.9266943175053693,
-      "bottom": 0.4751585741624082
+      "top": 0.9210421226992812,
+      "bottom": 0.47226043528940986
     },
     {
       "metric": "Core/non-core",
       "left": 0.00923076923076923,
       "right": 0.3251282051282051,
-      "top": 0.45987321304394246,
-      "bottom": 0.00833746970098133
+      "top": 0.457068304308532,
+      "bottom": 0.008286616898660644
     },
     {
       "metric": "SV impact",
       "left": 0.34205128205128205,
       "right": 0.6579487179487179,
-      "top": 0.45987321304394246,
-      "bottom": 0.00833746970098133
+      "top": 0.457068304308532,
+      "bottom": 0.008286616898660644
     },
     {
       "metric": "Allele frequency",
       "left": 0.6748717948717947,
       "right": 0.9907692307692307,
-      "top": 0.45987321304394246,
-      "bottom": 0.00833746970098133
+      "top": 0.457068304308532,
+      "bottom": 0.008286616898660644
     }
   ],
   "card_style": {
@@ -70,7 +70,7 @@
       0.22000000000000008,
       0.21999999999999864
     ],
-    "vertical": 0.21999999999999964
+    "vertical": 0.2200000000000002
   },
   "plot_size_inches": [
     2.9360873720557406,
@@ -78,11 +78,22 @@
   ],
   "figure_size_inches": [
     13.0,
-    14.392855902777788
+    14.481181098090289
   ],
   "header_gaps_inches": {
     "title_to_legend": 0.08,
     "legend_to_facets": 0.14
+  },
+  "model_legend": {
+    "title": "MoE training horizon",
+    "labels": [
+      "216B tokens",
+      "1T tokens"
+    ],
+    "handles": "Filled color swatches",
+    "label_fontsize": 12,
+    "label_weight": "normal",
+    "frame": "White with a thin gray border"
   },
   "layout": "Top: Avg normalized score, Conservation, Motifs; bottom: Core/non-core, SV, AF; zero-shot above probe in each pair",
   "aggregate": "Min\u2013max scale each saved family mean across both runs\u2019 checkpoints, separately for each readout, then average the five normalized families equally, including AF",

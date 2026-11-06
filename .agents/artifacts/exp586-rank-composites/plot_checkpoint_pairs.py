@@ -11,7 +11,7 @@ from artifact_io import normalize_svg
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.patches import FancyBboxPatch
+from matplotlib.patches import FancyBboxPatch, Patch
 from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
 
 HERE = Path(__file__).resolve().parent
@@ -83,11 +83,16 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
                 ax.set_ylim(-.035, 1.035)
                 ax.set_yticks([0, .25, .5, .75, 1])
     assert len(seen) == 120
-    handles, labels = axes[0, 0].get_legend_handles_labels()
     title = fig.suptitle("Zero-shot scores and frozen linear probes", va="top")
-    legend = fig.legend(handles, labels, title="Training horizon", ncols=2,
-                        frameon=False, loc="upper center", borderaxespad=0,
-                        labelspacing=.25)
+    legend = fig.legend(
+        handles=[Patch(facecolor=color, edgecolor="none", label=label)
+                 for color, label in zip(colors, ["216B tokens", "1T tokens"], strict=True)],
+        title="MoE training horizon", title_fontsize=9.5, prop={"size": 12, "weight": "normal"},
+        ncols=2, loc="upper center", borderaxespad=0,
+        frameon=True, facecolor="white", edgecolor="#b8c0c9", framealpha=1,
+        borderpad=.65, labelspacing=.45, columnspacing=2.0,
+        handlelength=1.8, handleheight=.9, handletextpad=.65,
+    )
     # Measure text in inches, then give every card the same narrow physical gap.
     # Wider plot boxes fill the cards instead of leaving square-axis side gutters.
     fig.canvas.draw()
@@ -178,6 +183,9 @@ def render(rows: list[dict], progress: dict, mode: str) -> None:
         "plot_size_inches": [plot_width, plot_height],
         "figure_size_inches": [width, height],
         "header_gaps_inches": {"title_to_legend": title_legend_gap, "legend_to_facets": legend_cards_gap},
+        "model_legend": {"title": "MoE training horizon", "labels": ["216B tokens", "1T tokens"],
+                         "handles": "Filled color swatches", "label_fontsize": 12, "label_weight": "normal",
+                         "frame": "White with a thin gray border"},
         "layout": "Top: Avg normalized score, Conservation, Motifs; bottom: Core/non-core, SV, AF; zero-shot above probe in each pair",
         "aggregate": "Min–max scale each saved family mean across both runs’ checkpoints, separately for each readout, then average the five normalized families equally, including AF",
         "x_axis": mode, "smoothing": False, "y_scales": "Independent per panel",

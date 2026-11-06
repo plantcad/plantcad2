@@ -743,14 +743,14 @@
     "summary": "Task-level breakdown of the separately plotted family-balanced and pooled win rates"
   },
   "model_legend": {
-    "title": "DNA training tokens",
+    "title": "MoE training horizon",
     "labels": [
-      "216B-token model",
-      "1T-token model"
+      "216B tokens",
+      "1T tokens"
     ],
     "handles": "Filled color swatches",
     "label_fontsize": 18,
-    "label_weight": "bold",
+    "label_weight": "normal",
     "frame": "White with a thin gray border",
     "anchor": [
       0.51,
@@ -759,7 +759,7 @@
   },
   "plot_data_sha256": "1b47ecd289824f74570b975f42f163693bf5435b55fba7ee23e40d1a84d58c65",
   "figure_sha256": {
-    "png": "210eae20c832ec318ab0e7cd916b7fc1f7e72740530f44fb1f9b1cc2800cda29",
-    "svg": "be57f3ea5a146c972cbbf93c5aad4d646fab3ad695f20e8e130f99354c5a9512"
+    "png": "25d6f0116f3e8b8efbb5d7595effdc17e66623287cef4abbb2cedbe96c88bac3",
+    "svg": "7f3bbb0378d8bc8f613cbe0bbb7b4f392c091642916129804ecfa46a078b41c0"
   }
 }

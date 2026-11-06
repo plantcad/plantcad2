@@ -456,16 +456,16 @@ def main() -> None:
                                       frameon=False, fontsize=9, columnspacing=1.0, handlelength=3.6)
     model_legend = fig.legend(
         handles=[Patch(facecolor=models[key]["color"], edgecolor="none", label=label)
-                 for key, label in [("216b", "216B-token model"), ("1t", "1T-token model")]],
-        title="DNA training tokens", title_fontsize=14, prop={"size": 18, "weight": "bold"},
+                 for key, label in [("216b", "216B tokens"), ("1t", "1T tokens")]],
+        title="MoE training horizon", title_fontsize=14, prop={"size": 18, "weight": "normal"},
         loc="center", bbox_to_anchor=(.51, .510), ncols=2,
         frameon=True, facecolor="white", edgecolor="#b8c0c9", framealpha=1,
         borderpad=.65, labelspacing=.45, columnspacing=2.0,
         handlelength=1.8, handleheight=.9, handletextpad=.65,
     )
     provenance["model_legend"] = {
-        "title": "DNA training tokens", "labels": ["216B-token model", "1T-token model"],
-        "handles": "Filled color swatches", "label_fontsize": 18, "label_weight": "bold",
+        "title": "MoE training horizon", "labels": ["216B tokens", "1T tokens"],
+        "handles": "Filled color swatches", "label_fontsize": 18, "label_weight": "normal",
         "frame": "White with a thin gray border", "anchor": [.51, .510],
     }
     assert dot_count == 4 and len(rugs) == 3 and len(scatter_ax.lines) == len(conservation_ax.lines) == 1
