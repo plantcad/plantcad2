@@ -3,10 +3,12 @@ The text-pretrained 1T-token MarinMoE model has trained for ~46.3 DNA epochs, wi
 Overall, the 1T model greatly outperforms all other MarinDNA models (dense or sparse) on matched validation loss samples.  It also outperforms all other Marin models on tasks most directly related to next token prediction like conservation estimation and splicing/start/stop motif recognition.  It saturates or regresses on all other zero-shot tasks though, particularly SV prediction (similar to PlantCAD2.5):
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/benchmark-comparison.png" alt="Zero-shot comparison of eight models. Top: Conservation, Motifs, Core/non-core, SV impact and Avg Rank are grouped together on one Metric score (×100) or percentile rank axis with a marked break and a value on every bar. Task-family AUROC, accuracy and average precision are multiplied by 100 for display; Avg Rank is already a percentile. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank retain their existing native scales and marked horizontal breaks. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models." />
+  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/834a7094a9709fe25c3af105dca84330602b8c55/.agents/artifacts/exp586-dashboard-ranks/figures/benchmark-comparison.png" alt="Zero-shot comparison of eight models. Top: Conservation, Motifs, Core/non-core, SV impact and Avg Rank are grouped together on one Metric score (×100) or percentile rank axis with a marked break and a value on every bar. Task-family AUROC, accuracy and average precision are multiplied by 100 for display; Avg Rank is already a percentile. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank retain their existing native scales and marked horizontal breaks. Avg Rank uses the dashboard's average one-based percentile ranks against the fixed 11-model baseline reference, with each of 20 tasks weighted 5%: Conservation 15%, Motifs 40%, Core/non-core 40% and SV impact 5%." />
 </p>
 
 _Top: AUROC, accuracy and average precision ×100; Avg Rank is a percentile. Higher is better._
+
+Avg Rank uses the leaderboard’s baseline scores and percentile calculation:[^rank-baselines] each of 20 tasks contributes 5%—Conservation 15%, Motifs 40%, Core/non-core 40% and SV impact 5%; AF is excluded.[^rank-weighting]
 
 ---
 
@@ -65,7 +67,7 @@ The motif score averages eight recovery tasks: start/stop codons and splice dono
 
 Only summaries **across task families** change. Conservation/core AUROC, motif accuracy, SV average precision and AF Spearman correlation retain their definitions and existing means across tasks within each family. The primary bar chart displays task-family scores ×100; other panels retain native units.
 
-- **Avg Rank** remains unchanged for the zero-shot baseline comparison: rank each task against the same **11 published baseline models**, frozen at the [archived leaderboard revision](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/data/results.csv), then average task percentiles within families and give conservation, motifs, core/non-core and SV 25% each. Per-task percentile is `100 × (reference scores below the model + half the ties) / reference count`, using exact stored values. AF is unavailable for these baselines and is excluded.
+- **Avg Rank** equally averages the 20 zero-shot task percentiles (5% each), using the dashboard’s average one-based ranks against the fixed 11-model baseline reference.[^rank-baselines][^rank-weighting] AF is excluded.
 - **Win rate** compares only the two final probe models. For each task, award 1 for a higher score, ½ for an exact tie and 0 for a lower score. **Family-balanced** averages task wins within each family, then gives all five families—including AF—20% each. **Pooled** gives all 21 tasks equal weight instead. Both are percentages of task wins, not correctly predicted examples; win margins do not affect them. The loss scatter retains family-balanced win rate.
 - **Avg normalized score** describes checkpoint progress. First compute each family's existing mean task score, then scale it as `(score − minimum) / (maximum − minimum)` over all nine unique checkpoints from both runs. Use separate bounds for zero-shot and probes, shared across both runs within each readout. Average the five normalized family scores equally, including AF, to obtain a **0–1** score.
 
@@ -138,3 +140,7 @@ Zero-shot scores weight tasks equally but use a different cohort.
 </details>
 
 [^dense-equivalent]: Geometric-mean heuristic using rounded parameter counts, as presented in [Marin’s Scaling Laws Explorer, MoE adjustment](https://marin.community/analysis/scaling-laws-analysis/); see [Clark et al. (2022), *Unified Scaling Laws for Routed Language Models*](https://proceedings.mlr.press/v162/clark22a.html) for effective-parameter scaling. This is an approximate size comparison, not a measured dense-model equivalence on DNA.
+
+
+[^rank-baselines]: [Leaderboard baseline scores](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/data/results.csv) and [task definitions](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/data/tasks.csv), frozen at `f3c4ddb`: 11 models, 220 scores.
+[^rank-weighting]: Dashboard [percentiles](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/app.py#L42) and [equal-task mean](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/app.py#L137). All 11 baseline averages match the unfiltered dashboard. Marin models use [rank percentiles](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.percentileofscore.html) against that fixed reference without changing baseline ranks.

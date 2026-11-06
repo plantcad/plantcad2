@@ -11,12 +11,13 @@ Existing figures and draft files under `../exp586-checkpoint-trajectories/` rema
 
 ## Scoring contract
 
-`rank_scores.py` implements Avg Rank using a fixed-reference task percentile: `100 × (lower + ties / 2) / N`.
-Averages are taken first within task families and then equally across families.
+Current Avg Rank code, results and the first figure are in [`../exp586-dashboard-ranks/`](../exp586-dashboard-ranks/README.md).
+They reproduce the dashboard's one-based percentiles and equal 5% weighting for each of 20 tasks against the same fixed 11-model reference.
+`rank_scores.py` and the old benchmark snapshots here retain the superseded midpoint-percentile, equal-family calculation for audit; they are not the current published Avg Rank.
 All scores are higher-is-better.
 Reference membership, tie handling and source task values are frozen in `frozen-references.json`.
 
-- Avg Rank: 11 published baseline models, four equally weighted families, no AF.
+- Avg Rank: 11 published baseline models, 20 equally weighted tasks (Conservation 15%, Motifs 40%, Core/non-core 40%, SV impact 5%), no AF; dashboard one-based ranks.
 - Family-balanced win rate: compare only the two final probe checkpoints per task, award half credit for ties, average within each family, then weight the five families equally.
 - Pooled win rate: use the same per-task wins, but weight the 21 tasks equally without balancing families.
 - Avg normalized score: min–max normalize each saved native family mean over all checkpoints from both runs, separately for zero-shot and probes, then equally average the five normalized families.
@@ -31,7 +32,7 @@ Reference membership, tie handling and source task values are frozen in `frozen-
 `native-task-scores.json` stores the 9 × 2 × 21 task observations, checkpoint identities, source hashes and receipts.
 `marin_summaries.py` and `marin-summaries.json` record the family min/max bounds, each normalized value and each final-model task win.
 The old checkpoint-rank snapshots in `all-category-scores.csv`, `task-percentiles.csv`, `trajectory-ranks.json` and the legacy section of `frozen-references.json` are retained only for audit; current Marin plots do not use those rank values.
-`benchmark-ranks.json` records the 20-task breakdown for every model in the overview.
+The current 20-task rank breakdown is in `../exp586-dashboard-ranks/benchmark-ranks.json`; the file here is a historical snapshot.
 `normalized-category-scores.csv` contains the same 100 native family observations and 20 new average normalized scores.
 The original `all-category-scores.csv` supplies native family means; its old rank rows are ignored.
 `prepare_scores.py` reproduces the original source snapshots and verifies exact hashes of both saved trajectory result files, the historical archive and the original family-score CSV before extraction.
@@ -41,7 +42,7 @@ The original `all-category-scores.csv` supplies native family means; its old ran
 The primary grouped bars show all five readouts together on a single `Metric score (×100) or percentile rank` axis, with a labeled value on every bar.
 For display only, the four task-family scores are multiplied by 100; Avg Rank already uses a 0–100 percentile scale.
 The shared vertical axis has a marked break omitting 5–45.
-Underlying scores, definitions and family aggregation are unchanged; the horizontal rankings and other figures retain their native units.
+Underlying native family scores and family aggregation are unchanged; the Avg Rank summary follows the dashboard calculation above.
 Avg Rank is also retained in the third sorted horizontal panel.
 The second figure is titled `Linear probe PlantCAD2 benchmark`.
 Its shared model key uses large regular-weight labels and solid color swatches in a white bordered box between the score and loss rows.

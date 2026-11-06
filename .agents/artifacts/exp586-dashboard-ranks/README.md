@@ -2,6 +2,7 @@
 
 This revision updates only the Avg Rank results and definition in [the existing results comment](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065).
 The current author-edited comment was fetched into `live-source.json`; the earlier draft was not used as publication source.
+The update is published. `post.md` is the published text with its immutable figure URL; `publication.json` and `published-readback.json` record verification of the exact comment body and rendered figure/footnotes.
 
 ## Calculation and reference
 
