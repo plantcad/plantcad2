@@ -41,12 +41,17 @@ Underlying scores, definitions and family aggregation are unchanged; the horizon
 Avg Rank is also retained in the third sorted horizontal panel.
 The second figure is titled `Linear probe PlantCAD2 benchmark`.
 Its top left compares the final 216B and 1T MoE models on native family-average scores for Conservation, Motifs, Core/non-core, SV and AF.
-A separate top-right panel shows stacked task wins by family, annotated with win counts, followed by the explicitly labeled family-balanced overall task win rate.
-The grouped score bars display native metrics ×100 with two-decimal annotations; task-win shares use their own percentage axis.
+A separate top-right map shows one colored tile per task: gold for a higher 216B score, plum for a higher 1T score, gray for an exact tie.
+Motifs and core/non-core share explicit Maize/Tomato row labels and start codon, stop codon, splice donor and splice acceptor columns.
+Conservation separates the sequence species (sorghum or Pharus) from the conservation clade (Andropogoneae or Poaceae); the SV and AF tiles identify Arabidopsis and maize, respectively.
+The two eight-task grids take more room than the three-task conservation strip and the single SV/AF tiles.
+The unchanged family-balanced task win rate remains as a stacked summary beneath the map.
+The grouped score bars display native metrics ×100 with two-decimal annotations; tile colors indicate winners without encoding the margin.
 This row keeps the full score range because AF correlations lie below the first figure's 45-point axis break.
 A collapsed scorecard displays all 21 per-task scores in native units, grouped by family, with both model scores and Δ = 1T − 216B.
 Only the difference column is colored by winning model; five decimal places avoid false visible ties.
 `plot_probe_scorecard.py`, `probe-scorecard-data.json` and `probe-scorecard.csv` preserve the task identities, source scores, differences and checks against the family means and exact win counts.
+The map reuses the scorecard's validated native rows and records all 21 task/species/winner assignments in `loss-figure-data.json` and its provenance.
 The training/validation loss curves and final-loss scatter occupy the second row.
 The scatter uses probe Win Rate on the left axis and native probe Conservation AUROC on the right; matched losses, W&B histories and dense rugs remain unchanged.
 Checkpoint plots and the change heatmap use Avg normalized score on a 0–1 scale; the five native family panels are unchanged.

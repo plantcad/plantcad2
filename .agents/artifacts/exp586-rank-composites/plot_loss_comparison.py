@@ -14,7 +14,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
+from matplotlib.patches import Rectangle
 from matplotlib.ticker import FuncFormatter, MultipleLocator
+from plot_probe_scorecard import load_rows as load_probe_rows
 
 HERE = Path(__file__).resolve().parent
 PALETTE_PATH = HERE / "figure-palette.json"
@@ -85,6 +87,87 @@ def token_axis(ax: plt.Axes) -> None:
     ax.set_ylabel("Next-token cross-entropy loss")
 
 
+def task_winner_map(ax: plt.Axes, rows: list[dict], models: dict) -> dict:
+    """Use species headers and one categorical tile for each measured task."""
+    ax.set_xlim(0, 10)
+    ax.set_ylim(16.2, 0)
+    ax.axis("off")
+    ax.set_title("Higher-scoring model by task", weight="bold", pad=12)
+    texts = []
+    cells = []
+    tile_texts = []
+    source = {row["task_id"]: row for row in rows}
+
+    def label(x: float, y: float, text: str, **kwargs) -> None:
+        style = {"ha": "center", "va": "center", "fontsize": 10.5} | kwargs
+        texts.append(ax.text(x, y, text, **style))
+
+    def tile(task: str, x: float, y: float, species: str, text: str = "", height: float = 1.0) -> None:
+        row = source[task]
+        winner = row["winner"]
+        color = "#e4e7eb" if winner == "tie" else models[winner]["color"]
+        patch = Rectangle((x, y), 1.65, height, facecolor=color, edgecolor="white", linewidth=1)
+        patch.set_gid(f"task-winner-{task}")
+        ax.add_patch(patch)
+        if text:
+            label(x + .825, y + height / 2, text,
+                  color="white" if winner == "1t" else "#1f2328", linespacing=1.15)
+            tile_texts.append((patch, texts[-1]))
+        cells.append({"task_id": task, "family": row["family"], "species": species,
+                      "task": row["task"], "winner": winner,
+                      "216b": row["216b"], "1t": row["1t"],
+                      "delta_1t_minus_216b": row["delta_1t_minus_216b"],
+                      "xy": [x, y], "width": 1.65, "height": height,
+                      "tile_text": text})
+
+    # Conservation clades are distinct from the species supplying the sequence.
+    label(.02, 1.85, "Conservation", weight="bold", ha="left")
+    label(3.625, .55, "Sorghum", weight="bold")
+    label(6.325, .55, "Pharus", weight="bold")
+    ax.plot([2.8, 4.45], [.91, .91], color="#cbd2d9", linewidth=.8)
+    ax.plot([4.6, 8.05], [.91, .91], color="#cbd2d9", linewidth=.8)
+    tile("conservation_andropogoneae", 2.8, 1.1, "sorghum", "Andropogoneae\ngenome-wide", height=1.5)
+    tile("conservation_poaceae_non_tis", 4.6, 1.1, "pharus", "Poaceae\nnon-TIS CDS", height=1.5)
+    tile("conservation_poaceae_tis", 6.4, 1.1, "pharus", "Poaceae\nTIS CDS", height=1.5)
+
+    # Shared species rows and target-type columns name all sixteen tasks exactly.
+    for family, prefix, header_y in [("Motifs", "motif", 3.7), ("Core/non-core", "core", 7.6)]:
+        label(.02, header_y, family, weight="bold", ha="left")
+        for column, (suffix, target) in enumerate([
+            ("tis", "Start\ncodon"), ("tts", "Stop\ncodon"),
+            ("donor", "Splice\ndonor"), ("acceptor", "Splice\nacceptor"),
+        ]):
+            x = 2.8 + column * 1.8
+            label(x + .825, header_y, target)
+            for row_index, species in enumerate(["maize", "tomato"]):
+                y = header_y + .55 + row_index * 1.25
+                tile(f"{prefix}_{species}_{suffix}", x, y, species)
+        for row_index, species in enumerate(["Maize", "Tomato"]):
+            label(2.55, header_y + 1.05 + row_index * 1.25, species, ha="right")
+
+    label(.02, 11.7, "SV impact", weight="bold", ha="left")
+    tile("sv_impact", 2.8, 11.2, "arabidopsis", "Arabidopsis")
+    label(5.6, 11.7, "Allele\nfrequency", weight="bold", ha="left")
+    tile("af", 8.2, 11.2, "maize", "Maize")
+
+    label(.02, 13.3, "Family-balanced task win rate", weight="bold", ha="left")
+    left = 0.0
+    for key, model in models.items():
+        value = model["probe_scores"]["Win Rate"]
+        ax.add_patch(Rectangle((left / 10, 13.85), value / 10, 1.05,
+                               facecolor=model["color"], edgecolor="white", linewidth=.6))
+        label((left + value / 2) / 10, 14.375, f"{value:.2f}%",
+              color="white" if key == "1t" else "#1f2328")
+        left += value
+    np.testing.assert_allclose(left, 100, rtol=0, atol=1e-12)
+    label(5, 15.55, "One tile per task; summary weights the five families equally.", color="#505050")
+    assert len(cells) == len({cell["task_id"] for cell in cells}) == len(source) == 21
+    return {"cells": cells, "texts": texts, "tile_texts": tile_texts,
+            "color": "Higher unrounded native task score; no margin encoding; gray for exact ties",
+            "species_source": "zero-shot-leaderboard/marindna_exp586/src/exp586_evals/classification_data.py:task_species; maize AF protocol",
+            "summary": "Unchanged family-balanced task win rate; five families equally weighted"}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--history-dir", type=Path, required=True)
@@ -106,6 +189,8 @@ def main() -> None:
         model["probe_scores"] = {row["metric"]: float(row["score"]) for row in selected}
     summaries_path = HERE / "marin-summaries.json"
     summaries = json.loads(summaries_path.read_text())
+    probe_rows, _, checked_summaries = load_probe_rows()
+    assert checked_summaries == summaries
     for key, model in models.items():
         identity = "short-216b" if key == "216b" else "long-1000b"
         model["probe_scores"]["Win Rate"] = summaries["probe_win_rates"][identity]["score"]
@@ -146,7 +231,7 @@ def main() -> None:
     assert common_hashes == {reference["D216"]["validation"]["samples"]["common-65536"]["input_sha256"]}
     provenance = {
         "figure_title": "Linear probe PlantCAD2 benchmark",
-        "layout": "Family-average score bars and task-win panel above three unchanged loss panels",
+        "layout": "Family-average score bars and species-labeled task-winner map above three unchanged loss panels",
         "probe_bar_annotations": 10,
         "benchmark_source_sha256": digest(benchmark_path),
         "probe_source_sha256": digest(score_path),
@@ -188,8 +273,8 @@ def main() -> None:
     fig = plt.figure(figsize=(20.8, 12.1))
     title = fig.text(.5225, .989, "Linear probe PlantCAD2 benchmark", weight="bold",
                      fontsize="large", ha="center", va="top")
-    probe_ax = fig.add_axes((.055, .603, .600, .322))
-    win_ax = fig.add_axes((.790, .603, .200, .322))
+    probe_ax = fig.add_axes((.055, .603, .485, .322))
+    win_ax = fig.add_axes((.605, .568, .382, .357))
     bar_labels = []
     family_metrics = PROBE_METRICS[:-1]
     for index, (key, model) in enumerate(models.items()):
@@ -209,37 +294,12 @@ def main() -> None:
     probe_ax.set_ylabel("Metric score (×100)")
     probe_ax.spines[["top", "right"]].set_visible(False)
     probe_ax.grid(axis="y", color="#e4e4e4", linewidth=.7)
-    # Keep task consistency separate from the magnitude of family-average scores.
-    positions = [0, 1, 2, 3, 4, 5.6]
-    win_labels = []
-    for row_index, y in enumerate(positions):
-        left = 0.0
-        for key, model in models.items():
-            if row_index < len(family_metrics):
-                record = task_wins[family_metrics[row_index]][key]
-                value = record["percent"]
-                numerator = f"{record['points']:g}"
-                text = f"{numerator}/{record['tasks']}"
-            else:
-                value = model["probe_scores"]["Win Rate"]
-                text = f"{value:.2f}%"
-            win_ax.barh(y, value, left=left, height=.62, color=model["color"],
-                        edgecolor="white", linewidth=.6)
-            if value:
-                win_labels.append(win_ax.text(left + value / 2, y, text, ha="center", va="center",
-                                               color="#1f2328" if key == "216b" else "white", fontsize=11))
-            left += value
-        np.testing.assert_allclose(left, 100, rtol=0, atol=1e-12)
-    win_ax.axhline(4.8, color="#cbd2d9", linewidth=.8)
-    win_ax.set_yticks(positions, [*family_metrics, "Family-balanced\ntask win rate"])
-    win_ax.get_yticklabels()[-1].set_weight("bold")
-    win_ax.set_ylim(6.35, -.7)
-    win_ax.set_xlim(0, 100)
-    win_ax.set_xticks([0, 25, 50, 75, 100])
-    win_ax.set_title("Task wins by family", weight="bold", pad=12)
-    win_ax.set_xlabel("Task wins (%)")
-    win_ax.tick_params(axis="y", length=0, pad=9)
-    win_ax.spines[["top", "right", "left"]].set_visible(False)
+    # Identify every measured task without mixing wins with native-score bars.
+    winner_map = task_winner_map(win_ax, probe_rows, models)
+    win_labels = winner_map.pop("texts")
+    tile_texts = winner_map.pop("tile_texts")
+    provenance["task_winner_map"] = winner_map
+    plot_data["task_winner_map"] = winner_map
     training_ax = fig.add_axes((.054, .075, .247, .345))
     validation_ax = fig.add_axes((.382, .075, .247, .345))
     scatter_ax = fig.add_axes((.710, .075, .237, .345))
@@ -379,9 +439,13 @@ def main() -> None:
     assert not any(a.overlaps(b) for i, a in enumerate(boxes) for b in boxes[i + 1:])
     assert all(probe_ax.bbox.contains(box.x0, box.y0) and probe_ax.bbox.contains(box.x1, box.y1) for box in boxes)
     win_boxes = [label.get_window_extent(renderer).padded(1) for label in win_labels]
-    assert len(win_ax.patches) == 12
+    assert len(win_ax.patches) == 23
     assert not any(a.overlaps(b) for i, a in enumerate(win_boxes) for b in win_boxes[i + 1:])
     assert all(win_ax.bbox.contains(box.x0, box.y0) and win_ax.bbox.contains(box.x1, box.y1) for box in win_boxes)
+    for tile, text in tile_texts:
+        tile_box = tile.get_window_extent(renderer)
+        text_box = text.get_window_extent(renderer).padded(1)
+        assert tile_box.contains(text_box.x0, text_box.y0) and tile_box.contains(text_box.x1, text_box.y1)
     top_boxes = [probe_ax.get_tightbbox(renderer), win_ax.get_tightbbox(renderer)]
     assert not top_boxes[0].overlaps(top_boxes[1])
     assert title.get_window_extent(renderer).y0 > max(box.y1 for box in top_boxes)

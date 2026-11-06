@@ -1,6 +1,6 @@
 {
   "figure_title": "Linear probe PlantCAD2 benchmark",
-  "layout": "Family-average score bars and task-win panel above three unchanged loss panels",
+  "layout": "Family-average score bars and species-labeled task-winner map above three unchanged loss panels",
   "probe_bar_annotations": 10,
   "benchmark_source_sha256": "4cb7e31103e17f974c7b2c9524a11ea2d9a10231f9164a2dc289ecef46740641",
   "probe_source_sha256": "f2c0433f7de85e3f06dabf887a092b8a25aa3f420336ee1f0a7dbfdd5fd83c00",
@@ -357,9 +357,373 @@
       "Conservation": 0.889637543718755
     }
   ],
-  "plot_data_sha256": "4b1f426c342bba4b0d9ee1d1de38ddaff50844b7a6ec8c3c088cdae407e67327",
+  "task_winner_map": {
+    "cells": [
+      {
+        "task_id": "conservation_andropogoneae",
+        "family": "Conservation",
+        "species": "sorghum",
+        "task": "Andropogoneae, genome-wide",
+        "winner": "216b",
+        "216b": 0.9149659483366833,
+        "1t": 0.9096167320509779,
+        "delta_1t_minus_216b": -0.005349216285705394,
+        "xy": [
+          2.8,
+          1.1
+        ],
+        "width": 1.65,
+        "height": 1.5,
+        "tile_text": "Andropogoneae\ngenome-wide"
+      },
+      {
+        "task_id": "conservation_poaceae_non_tis",
+        "family": "Conservation",
+        "species": "pharus",
+        "task": "Poaceae, non-TIS CDS",
+        "winner": "1t",
+        "216b": 0.9114049188054206,
+        "1t": 0.9130128016066168,
+        "delta_1t_minus_216b": 0.0016078828011961699,
+        "xy": [
+          4.6,
+          1.1
+        ],
+        "width": 1.65,
+        "height": 1.5,
+        "tile_text": "Poaceae\nnon-TIS CDS"
+      },
+      {
+        "task_id": "conservation_poaceae_tis",
+        "family": "Conservation",
+        "species": "pharus",
+        "task": "Poaceae, TIS CDS",
+        "winner": "1t",
+        "216b": 0.844837111701061,
+        "1t": 0.8462830974986704,
+        "delta_1t_minus_216b": 0.0014459857976093504,
+        "xy": [
+          6.4,
+          1.1
+        ],
+        "width": 1.65,
+        "height": 1.5,
+        "tile_text": "Poaceae\nTIS CDS"
+      },
+      {
+        "task_id": "motif_maize_tis",
+        "family": "Motifs",
+        "species": "maize",
+        "task": "Maize TIS (start)",
+        "winner": "1t",
+        "216b": 0.9739645858343338,
+        "1t": 0.9744897959183674,
+        "delta_1t_minus_216b": 0.0005252100840336116,
+        "xy": [
+          2.8,
+          4.25
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "motif_tomato_tis",
+        "family": "Motifs",
+        "species": "tomato",
+        "task": "Tomato TIS (start)",
+        "winner": "1t",
+        "216b": 0.967189085578983,
+        "1t": 0.9673018378622167,
+        "delta_1t_minus_216b": 0.000112752283233708,
+        "xy": [
+          2.8,
+          5.5
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "motif_maize_tts",
+        "family": "Motifs",
+        "species": "maize",
+        "task": "Maize TTS (stop)",
+        "winner": "1t",
+        "216b": 0.5651489010576851,
+        "1t": 0.5833770909909234,
+        "delta_1t_minus_216b": 0.01822818993323827,
+        "xy": [
+          4.6,
+          4.25
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "motif_tomato_tts",
+        "family": "Motifs",
+        "species": "tomato",
+        "task": "Tomato TTS (stop)",
+        "winner": "1t",
+        "216b": 0.46465100595706416,
+        "1t": 0.47173204450938516,
+        "delta_1t_minus_216b": 0.007081038552321006,
+        "xy": [
+          4.6,
+          5.5
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "motif_maize_donor",
+        "family": "Motifs",
+        "species": "maize",
+        "task": "Maize splice donor",
+        "winner": "1t",
+        "216b": 0.9852723768175609,
+        "1t": 0.986956603102719,
+        "delta_1t_minus_216b": 0.0016842262851581857,
+        "xy": [
+          6.4,
+          4.25
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "motif_tomato_donor",
+        "family": "Motifs",
+        "species": "tomato",
+        "task": "Tomato splice donor",
+        "winner": "216b",
+        "216b": 0.963210323749151,
+        "1t": 0.9625028299750962,
+        "delta_1t_minus_216b": -0.0007074937740548792,
+        "xy": [
+          6.4,
+          5.5
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "motif_maize_acceptor",
+        "family": "Motifs",
+        "species": "maize",
+        "task": "Maize splice acceptor",
+        "winner": "216b",
+        "216b": 0.9987274020286708,
+        "1t": 0.998708687352622,
+        "delta_1t_minus_216b": -1.871467604885879e-05,
+        "xy": [
+          8.2,
+          4.25
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "motif_tomato_acceptor",
+        "family": "Motifs",
+        "species": "tomato",
+        "task": "Tomato splice acceptor",
+        "winner": "216b",
+        "216b": 0.9743930733970912,
+        "1t": 0.9741950087714334,
+        "delta_1t_minus_216b": -0.00019806462565785665,
+        "xy": [
+          8.2,
+          5.5
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "core_maize_tis",
+        "family": "Core/non-core",
+        "species": "maize",
+        "task": "Maize TIS (start)",
+        "winner": "216b",
+        "216b": 0.9608224731570942,
+        "1t": 0.9564751654517096,
+        "delta_1t_minus_216b": -0.0043473077053846065,
+        "xy": [
+          2.8,
+          8.15
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "core_tomato_tis",
+        "family": "Core/non-core",
+        "species": "tomato",
+        "task": "Tomato TIS (start)",
+        "winner": "216b",
+        "216b": 0.8416600915839896,
+        "1t": 0.829696590749829,
+        "delta_1t_minus_216b": -0.011963500834160534,
+        "xy": [
+          2.8,
+          9.4
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "core_maize_tts",
+        "family": "Core/non-core",
+        "species": "maize",
+        "task": "Maize TTS (stop)",
+        "winner": "216b",
+        "216b": 0.9565782417133537,
+        "1t": 0.9495383903634083,
+        "delta_1t_minus_216b": -0.007039851349945447,
+        "xy": [
+          4.6,
+          8.15
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "core_tomato_tts",
+        "family": "Core/non-core",
+        "species": "tomato",
+        "task": "Tomato TTS (stop)",
+        "winner": "216b",
+        "216b": 0.8552823121032592,
+        "1t": 0.8488988399169594,
+        "delta_1t_minus_216b": -0.006383472186299866,
+        "xy": [
+          4.6,
+          9.4
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "core_maize_donor",
+        "family": "Core/non-core",
+        "species": "maize",
+        "task": "Maize splice donor",
+        "winner": "216b",
+        "216b": 0.9738153061756758,
+        "1t": 0.9708911336979441,
+        "delta_1t_minus_216b": -0.00292417247773169,
+        "xy": [
+          6.4,
+          8.15
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "core_tomato_donor",
+        "family": "Core/non-core",
+        "species": "tomato",
+        "task": "Tomato splice donor",
+        "winner": "216b",
+        "216b": 0.8709337682759238,
+        "1t": 0.8658086843982731,
+        "delta_1t_minus_216b": -0.00512508387765076,
+        "xy": [
+          6.4,
+          9.4
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "core_maize_acceptor",
+        "family": "Core/non-core",
+        "species": "maize",
+        "task": "Maize splice acceptor",
+        "winner": "216b",
+        "216b": 0.9744876636855229,
+        "1t": 0.9693341707220116,
+        "delta_1t_minus_216b": -0.005153492963511308,
+        "xy": [
+          8.2,
+          8.15
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "core_tomato_acceptor",
+        "family": "Core/non-core",
+        "species": "tomato",
+        "task": "Tomato splice acceptor",
+        "winner": "216b",
+        "216b": 0.8705762136084872,
+        "1t": 0.8705489766816166,
+        "delta_1t_minus_216b": -2.7236926870677358e-05,
+        "xy": [
+          8.2,
+          9.4
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": ""
+      },
+      {
+        "task_id": "sv_impact",
+        "family": "SV impact",
+        "species": "arabidopsis",
+        "task": "Impact prediction",
+        "winner": "1t",
+        "216b": 0.9367569338854964,
+        "1t": 0.9411080566331625,
+        "delta_1t_minus_216b": 0.004351122747666136,
+        "xy": [
+          2.8,
+          11.2
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": "Arabidopsis"
+      },
+      {
+        "task_id": "af",
+        "family": "Allele frequency",
+        "species": "maize",
+        "task": "Alternate-allele frequency",
+        "winner": "1t",
+        "216b": 0.18852680714157333,
+        "1t": 0.19271995089663327,
+        "delta_1t_minus_216b": 0.0041931437550599415,
+        "xy": [
+          8.2,
+          11.2
+        ],
+        "width": 1.65,
+        "height": 1.0,
+        "tile_text": "Maize"
+      }
+    ],
+    "color": "Higher unrounded native task score; no margin encoding; gray for exact ties",
+    "species_source": "zero-shot-leaderboard/marindna_exp586/src/exp586_evals/classification_data.py:task_species; maize AF protocol",
+    "summary": "Unchanged family-balanced task win rate; five families equally weighted"
+  },
+  "plot_data_sha256": "88e14cc95882399df165c374b20ebe0ea47419ff111925acc148bb3df6b941d8",
   "figure_sha256": {
-    "png": "fd222b9285c877477b11358578d530848eca30c875a91aaad761a7c761de8e84",
-    "svg": "ab4914ad116899d1039279f3372d254b976443d0378e53f77221e9f35493c575"
+    "png": "20956512d02e141d8de66953a18f5f556c8e010c1bdda59fd84c07a24ae09e43",
+    "svg": "9464f373e753bdfae05ce20cbc065fcf1fb87dedad304faccfdca39cbfdac844"
   }
 }
