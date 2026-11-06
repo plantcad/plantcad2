@@ -403,7 +403,7 @@ def main() -> None:
     ]:
         xs = [row["final_validation_loss"] for row in rows]
         ys = [row[metric] for row in rows]
-        line, = axis.plot(xs, ys, color="#626262", linestyle=style, linewidth=1.5, zorder=2)
+        axis.plot(xs, ys, color="#626262", linestyle=style, linewidth=1.5, zorder=2)
         for row, x, y in zip(rows, xs, ys, strict=True):
             axis.scatter(x, y, marker=marker, color=models[row["model"]]["color"], s=78,
                          edgecolor="white", linewidth=.8, zorder=4)
