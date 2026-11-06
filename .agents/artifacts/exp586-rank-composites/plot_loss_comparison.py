@@ -14,7 +14,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.lines import Line2D
-from matplotlib.patches import Rectangle
+from matplotlib.patches import Patch, Rectangle
 from matplotlib.ticker import FuncFormatter, MultipleLocator
 from plot_probe_scorecard import load_rows as load_probe_rows
 
@@ -335,7 +335,6 @@ def main() -> None:
     conservation_ax = scatter_ax.twinx()
     training_ranges = []
     validation_ranges = []
-    smooth_lines = []
     for key, model in models.items():
         metadata_path = args.history_dir / f"{key}-metadata.json"
         metadata = json.loads(metadata_path.read_text())
@@ -356,8 +355,7 @@ def main() -> None:
                 axis.plot(values[:, 0] / 1e9, values[:, 1], color=model["color"], alpha=.19,
                           linewidth=.45, rasterized=True, zorder=1)
                 smoothed = smooth(values)
-                line, = axis.plot(values[:, 0] / 1e9, smoothed, color=model["color"], linewidth=2.4, zorder=3)
-                smooth_lines.append(line)
+                axis.plot(values[:, 0] / 1e9, smoothed, color=model["color"], linewidth=2.4, zorder=3)
                 training_ranges.append(counts["raw_loss_range"])
                 # Store a compact, log-spaced view of the exact full-resolution smoother.
                 indices = np.unique(np.r_[0, np.searchsorted(values[:, 0], np.geomspace(
@@ -456,9 +454,20 @@ def main() -> None:
     scatter_ax.set_xlabel("Matched validation loss")
     metric_legend = scatter_ax.legend(handles=metric_handles, loc="upper right", ncols=1,
                                       frameon=False, fontsize=9, columnspacing=1.0, handlelength=3.6)
-    model_legend = fig.legend(smooth_lines, ["216B-token run", "1T-token run"],
-                              title="DNA training horizon", loc="center", bbox_to_anchor=(.51, .523),
-                              ncols=2, frameon=False, columnspacing=2.2)
+    model_legend = fig.legend(
+        handles=[Patch(facecolor=models[key]["color"], edgecolor="none", label=label)
+                 for key, label in [("216b", "216B-token model"), ("1t", "1T-token model")]],
+        title="DNA training tokens", title_fontsize=14, prop={"size": 18, "weight": "bold"},
+        loc="center", bbox_to_anchor=(.51, .510), ncols=2,
+        frameon=True, facecolor="white", edgecolor="#b8c0c9", framealpha=1,
+        borderpad=.65, labelspacing=.45, columnspacing=2.0,
+        handlelength=1.8, handleheight=.9, handletextpad=.65,
+    )
+    provenance["model_legend"] = {
+        "title": "DNA training tokens", "labels": ["216B-token model", "1T-token model"],
+        "handles": "Filled color swatches", "label_fontsize": 18, "label_weight": "bold",
+        "frame": "White with a thin gray border", "anchor": [.51, .510],
+    }
     assert dot_count == 4 and len(rugs) == 3 and len(scatter_ax.lines) == len(conservation_ax.lines) == 1
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()

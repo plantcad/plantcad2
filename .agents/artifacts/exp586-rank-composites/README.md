@@ -5,6 +5,8 @@ The reviewed draft was published to that existing comment; no new comment or PR-
 `post.md` contains the exact published text with commit-pinned figure URLs; `publication.json` records remote image hashes and verification of the re-fetched comment and rendered HTML.
 The original post, including the author's manual introduction edits, is archived in `live-post-source.json` and `live-post-source.md`.
 The opening in `draft.md` is identical in wording, with CRLF normalized to LF.
+The author subsequently edited the live comment; the historical draft is not a replacement for that newer text.
+Figure-only updates must fetch the current comment and replace only the intended image URL, preserving all other content exactly.
 Existing figures and draft files under `../exp586-checkpoint-trajectories/` remain unchanged.
 
 ## Scoring contract
@@ -42,6 +44,7 @@ The shared vertical axis has a marked break omitting 5–45.
 Underlying scores, definitions and family aggregation are unchanged; the horizontal rankings and other figures retain their native units.
 Avg Rank is also retained in the third sorted horizontal panel.
 The second figure is titled `Linear probe PlantCAD2 benchmark`.
+Its shared model key uses large bold labels and solid color swatches in a white bordered box between the score and loss rows.
 Its first row has three facets: family-average scores, task win-rate bars and a task-winner map.
 The first compares the final 216B and 1T MoE models on native family-average scores for Conservation, Motifs, Core/non-core, SV and AF.
 The second has paired bars for family-balanced and pooled win rates, explicitly labeled with equal family and equal task weighting.
