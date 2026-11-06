@@ -1,0 +1,97 @@
+{
+  "repo": "marin-dna/marin-dna-exp586",
+  "previous_revision": "4b8537591261ad14204b28a9c830fa7c6e3f7fbd",
+  "revision": "104c0545590cf9d70e24d960c569c1802d1fc1c6",
+  "added_prefix": "pretrained-lrm1-seed0-1t/",
+  "files": [
+    {
+      "source_path": "README.md",
+      "destination_path": "pretrained-lrm1-seed0-1t/README.md",
+      "bytes": 617,
+      "blob_id": "d692e43826d876be45548fb5bc2738f146ccea33",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "config.json",
+      "destination_path": "pretrained-lrm1-seed0-1t/config.json",
+      "bytes": 1737,
+      "blob_id": "b2e72da39ede792d75050abe3c96238e6999892a",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "export-receipt.json",
+      "destination_path": "pretrained-lrm1-seed0-1t/export-receipt.json",
+      "bytes": 1002,
+      "blob_id": "8ceb8f5e343c6218b91d92ea14f91cfac1c08baf",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "model-00001-of-00004.safetensors",
+      "destination_path": "pretrained-lrm1-seed0-1t/model-00001-of-00004.safetensors",
+      "bytes": 970295296,
+      "blob_id": "97a24dda906fbcf5e3668495887fe12109bcd2d0",
+      "lfs_sha256": "bd68011e1faeadb69b3b0f2648b51ff741e5d2f27dceb67fc4f7126e70e88324"
+    },
+    {
+      "source_path": "model-00002-of-00004.safetensors",
+      "destination_path": "pretrained-lrm1-seed0-1t/model-00002-of-00004.safetensors",
+      "bytes": 932602784,
+      "blob_id": "51c6e930665d8636237c610812edefd8a2c3089d",
+      "lfs_sha256": "43d2a0a7e8fd5ec6be24d6a8b9e2c8d50b0f958c17f47ef3572f7ef0cfd263c3"
+    },
+    {
+      "source_path": "model-00003-of-00004.safetensors",
+      "destination_path": "pretrained-lrm1-seed0-1t/model-00003-of-00004.safetensors",
+      "bytes": 932602784,
+      "blob_id": "4c41b764cb8d5e17269768b49d937494ee547ee8",
+      "lfs_sha256": "ab0403419d7581fdc2f515cdd58ab54bb5921fbd0e937ed6848189e0a41efa26"
+    },
+    {
+      "source_path": "model-00004-of-00004.safetensors",
+      "destination_path": "pretrained-lrm1-seed0-1t/model-00004-of-00004.safetensors",
+      "bytes": 348222920,
+      "blob_id": "e711533a820235c35bda2fbd51a8639c0dff877f",
+      "lfs_sha256": "ee8eb635b8e03037e94cc8b841a5e141ffe0cd40c49b841aeac572d10fe35aa8"
+    },
+    {
+      "source_path": "model.safetensors.index.json",
+      "destination_path": "pretrained-lrm1-seed0-1t/model.safetensors.index.json",
+      "bytes": 18783,
+      "blob_id": "0c52dbd219a2a5de84cb7a6ea4a029948aa5d4bf",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "provenance.json",
+      "destination_path": "pretrained-lrm1-seed0-1t/provenance.json",
+      "bytes": 695,
+      "blob_id": "38162a0370908429e38ac393456bebb0a99eb450",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "tokenizer.json",
+      "destination_path": "pretrained-lrm1-seed0-1t/tokenizer.json",
+      "bytes": 17208623,
+      "blob_id": "b16a7679646e08db45468f845d37b3df1591223a",
+      "lfs_sha256": "551bf24c41f7f0e9181f2b6b8be7781d35b3ec0792affc1bebd4588f6092d67f"
+    },
+    {
+      "source_path": "tokenizer_config.json",
+      "destination_path": "pretrained-lrm1-seed0-1t/tokenizer_config.json",
+      "bytes": 174,
+      "blob_id": "1722b1cf15d534750aea8d25cd36be1083de16bd",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "upload-manifest.json",
+      "destination_path": "pretrained-lrm1-seed0-1t/upload-manifest.json",
+      "bytes": 1408,
+      "blob_id": "32559eb3bc939f3e9d368a70a8e47e692b9b25e5",
+      "lfs_sha256": null
+    }
+  ],
+  "hub_added_lfs_rule": "pretrained-lrm1-seed0-1t/tokenizer.json filter=lfs diff=lfs merge=lfs -text",
+  "existing_exports_unchanged": true,
+  "original_manifest_entries_unchanged": true,
+  "source_1t_unchanged": true,
+  "verified": true
+}

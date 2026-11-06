@@ -1,0 +1,29 @@
+{
+  "pr": "https://github.com/plantcad/plantcad2/pull/22",
+  "updated_at": "2026-11-06T16:59:52Z",
+  "body_sha256_LF": "e0e60f37adad83a596ff4b5774fc2519bcd74beb9adb1e7fed9c2c01fdee7b0f",
+  "op_body_exactly_verified": true,
+  "changes": "Only model-name links and the Model (Hugging Face) column header; existing W&B links and all other text preserved",
+  "hf_links": [
+    "https://huggingface.co/plantcad/marin-dna-exp586-1.5B-60M-216B",
+    "https://huggingface.co/plantcad/marin-dna-exp586-1.5B-60M",
+    "https://huggingface.co/marin-dna/marin-dna-exp586/tree/main/scratch-lrm1-seed0"
+  ],
+  "public_export_receipts": [
+    {
+      "model": "216b",
+      "url": "https://huggingface.co/plantcad/marin-dna-exp586-1.5B-60M-216B/raw/main/export-receipt.json",
+      "sha256": "6fe1e178984b3f45c96eb08427e5bc940b683ed7e3db99d5e00d751daa113d32",
+      "input_tokens": 216158699520,
+      "public": true
+    },
+    {
+      "model": "1t_archive",
+      "url": "https://huggingface.co/marin-dna/marin-dna-exp586/raw/main/pretrained-lrm1-seed0-1t/export-receipt.json",
+      "sha256": "bbd8cc5319c7e6060ea31147b5367720b20c273835423ccec4d5fb18079c2617",
+      "input_tokens": 1000000192512,
+      "public": true
+    }
+  ],
+  "standalone_1t_unchanged": true
+}

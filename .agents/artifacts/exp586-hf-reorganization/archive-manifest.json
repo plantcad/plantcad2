@@ -1,0 +1,50 @@
+{
+  "models": [
+    {
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm0p5-seed0-v1/2026.10.08/checkpoints/step-412290",
+      "checkpoint_metadata_digest": "f3004afe7b8ad1234806ef25489013878f7521a46dc2acb0628636a0b7a73493",
+      "checkpoint_step": 412290,
+      "input_tokens": 216158699520,
+      "path": "pretrained-lrm0p5-seed0/",
+      "run_id": "exp586-plantcad2-d768-pretrained-lrm0p5-seed0-v1",
+      "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e"
+    },
+    {
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+      "checkpoint_metadata_digest": "275e68e8a521333a4dd5c7bf2aa8f9c79c11517677a8af47ce7abc1aa5004a89",
+      "checkpoint_step": 412290,
+      "input_tokens": 216158699520,
+      "path": "pretrained-lrm1-seed0/",
+      "run_id": "exp586-plantcad2-d768-pretrained-lrm1-seed0-v1",
+      "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e"
+    },
+    {
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm2-seed0-v1/2026.10.08/checkpoints/step-412290",
+      "checkpoint_metadata_digest": "c6a0fabf7756df2e368eba681ebe87168d8bb3b36c0a76fae7ee6571fdafb52c",
+      "checkpoint_step": 412290,
+      "input_tokens": 216158699520,
+      "path": "pretrained-lrm2-seed0/",
+      "run_id": "exp586-plantcad2-d768-pretrained-lrm2-seed0-v1",
+      "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e"
+    },
+    {
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-scratch-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+      "checkpoint_metadata_digest": "737fa99f7998a31ca2a27aacf82ac3f292d9ff62a49742847e4037ad3cd372d9",
+      "checkpoint_step": 412290,
+      "input_tokens": 216158699520,
+      "path": "scratch-lrm1-seed0/",
+      "run_id": "exp586-plantcad2-d768-scratch-lrm1-seed0-v1",
+      "tokenizer_sha256": "0753679acf1dcd1dbf781254637cf003b144d1582392649c493dec03ee5ce78c"
+    },
+    {
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1/2026.10.20/checkpoints/step-1907349",
+      "checkpoint_metadata_digest": "6efe6918ab8cf65da43836f5132708a6c129ba293979e48e8fdf6fed2a432e77",
+      "checkpoint_step": 1907349,
+      "input_tokens": 1000000192512,
+      "run_id": "exp586-plantcad2-d768-pretrained-lrm1-seed0-1t-v1",
+      "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e",
+      "path": "pretrained-lrm1-seed0-1t/"
+    }
+  ],
+  "schema": 1
+}
