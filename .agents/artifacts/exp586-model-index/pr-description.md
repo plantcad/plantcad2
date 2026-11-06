@@ -2,6 +2,16 @@ Evaluates the MarinMoE checkpoints from [MarinDNA #586](https://github.com/Open-
 
 The workflow covers the original 20 tasks, centered 2K context, maize allele frequency, frozen probes, and inference-time bidirectional readouts. It preserves the existing dataset splits and historical comparisons.
 
+## Results
+
+<!-- results-toc-start -->
+
+- [Result 1 — Scratch versus language-pretrained at 216B DNA tokens](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6366361125)
+- [Result 2 — Validation loss versus downstream evaluations](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302)
+- [Result 3 — 216B versus 1T: benchmarks and checkpoint probes](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065)
+
+<!-- results-toc-end -->
+
 Models evaluated in the results posts below:
 
 | Model | Training run | Initialization and tokenizer | Total parameters | Active parameters | DNA training | Approx. training FLOPs |
