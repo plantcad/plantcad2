@@ -1,7 +1,8 @@
-# Unpublished draft: two average-rank summaries
+# Two average-rank summaries
 
-Draft destination: [the existing results comment on PlantCAD2 PR #22](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065).
-Do not publish until the user approves. No GitHub post or PR metadata has been changed for this draft.
+Published to [the existing results comment on PlantCAD2 PR #22](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065) after user approval.
+`post.md` contains the published text with an immutable figure URL; `publication.json` and `published-readback.json` record exact verification of the comment and rendered figure/footnotes. No new comment or PR-description edit was made.
+Draft and review files retain their prepublication state for audit. For future edits, fetch the current comment again rather than replacing newer author edits with a saved draft.
 
 ## Scope
 

@@ -1,0 +1,20 @@
+{
+  "source_body_sha256": "faddd61ed1a89a4a5ed03a4c3d56e14b445013835f9019eb9d0aceddc337bfb1",
+  "source_updated_at": "2026-11-06T19:12:40Z",
+  "figure_url": "https://raw.githubusercontent.com/plantcad/plantcad2/a2ed518ed687e9f287055465c741960b18d1dede/.agents/artifacts/exp586-two-ranks-draft/figures/benchmark-comparison.png",
+  "figure_commit": "a2ed518ed687e9f287055465c741960b18d1dede",
+  "figure_sha256": "ed96b05634fb67e7f61fe4c0ba0d9bde6f440e259c29c5661495bdf8ca44c7d7",
+  "manual_edits_preserved_by_reversible_patch": true,
+  "reviewed_draft_matches_exactly_except_figure_URL": true,
+  "other_five_figures_and_alt_text_unchanged": true,
+  "Unweighted_Avg_Rank": "Equal average of four within-family task-rank means",
+  "Weighted_Avg_Rank": "PlantCAD2 leaderboard calculation; twenty tasks weighted equally",
+  "vertical_label_rotation_degrees": 90,
+  "horizontal_label_rotation_degrees": 0,
+  "destination": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
+  "updated_at": "2026-11-06T19:33:57Z",
+  "published_body_sha256": "2093cb4cf1271cc3bd22c6a1b0d9d0eab8c95ece5dbe41d328a54f482aaa8e95",
+  "exact_readback_verified": true,
+  "rendered_figure_and_footnotes_verified": true,
+  "status": "Published after user approval"
+}

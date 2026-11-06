@@ -1,15 +1,15 @@
 {
   "url": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
-  "body_sha256": "faddd61ed1a89a4a5ed03a4c3d56e14b445013835f9019eb9d0aceddc337bfb1",
+  "body_sha256": "2093cb4cf1271cc3bd22c6a1b0d9d0eab8c95ece5dbe41d328a54f482aaa8e95",
   "before_body_sha256_LF": "fa0716464447ad0fdb5d1515c623f3e5f00995728e807319511481bcfe679b1c",
   "before_updated_at": "2026-11-06T12:40:02Z",
   "preserved_opening": true,
   "closed_details": 6,
   "verified_images": [
     {
-      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/834a7094a9709fe25c3af105dca84330602b8c55/.agents/artifacts/exp586-dashboard-ranks/figures/benchmark-comparison.png",
-      "sha256": "5947ad0111c4a802cb808051454532608974d7c479aa8a3016ff48f4fec44e85",
-      "bytes": 367994
+      "url": "https://raw.githubusercontent.com/plantcad/plantcad2/a2ed518ed687e9f287055465c741960b18d1dede/.agents/artifacts/exp586-two-ranks-draft/figures/benchmark-comparison.png",
+      "sha256": "ed96b05634fb67e7f61fe4c0ba0d9bde6f440e259c29c5661495bdf8ca44c7d7",
+      "bytes": 426628
     },
     {
       "url": "https://raw.githubusercontent.com/plantcad/plantcad2/0fad866b0dbf715eb49502a8720e7b6a09b7cda7/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png",
@@ -37,10 +37,10 @@
       "bytes": 333157
     }
   ],
-  "status": "Published; Avg Rank matches the dashboard; other scores and manual wording preserved",
+  "status": "Published; default Avg Rank is family-unweighted, Weighted Avg Rank matches the PlantCAD2 leaderboard",
   "published_comment_id": 6647191065,
-  "updated_at": "2026-11-06T19:12:40Z",
-  "published_body_sha256": "faddd61ed1a89a4a5ed03a4c3d56e14b445013835f9019eb9d0aceddc337bfb1",
+  "updated_at": "2026-11-06T19:33:57Z",
+  "published_body_sha256": "2093cb4cf1271cc3bd22c6a1b0d9d0eab8c95ece5dbe41d328a54f482aaa8e95",
   "verified_rendered_images": 6,
   "verified_closed_details": 6,
   "verified_tables": 2,
@@ -84,7 +84,7 @@
     "author_text_preserved_exactly": true
   },
   "figure_commits": {
-    "benchmark-comparison.png": "834a7094a9709fe25c3af105dca84330602b8c55",
+    "benchmark-comparison.png": "a2ed518ed687e9f287055465c741960b18d1dede",
     "loss-comparison.png": "0fad866b0dbf715eb49502a8720e7b6a09b7cda7",
     "probe-scorecard.png": "95aaac105a279baa79ad2b399261960887c10695",
     "checkpoint-tokens.png": "0fad866b0dbf715eb49502a8720e7b6a09b7cda7",
@@ -92,23 +92,27 @@
     "checkpoint-changes-primary.png": "95aaac105a279baa79ad2b399261960887c10695"
   },
   "post_md_line_endings": "LF; published GitHub body retains original line endings",
-  "post_md_sha256_LF": "7b1773821423ac86ddab0bfcc222d379d378d37a6d331d8074dea1dc31e729c1",
+  "post_md_sha256_LF": "c25d87e7607cc26a7da672e6d6df61868fc4995ea82d560446df69da0d9a7971",
   "latest_update": {
-    "source_body_sha256": "e67786fd7f1644013ddf05398fa959f6c4aca77c90d1cf21694a74b6215e6a04",
-    "source_updated_at": "2026-11-06T17:23:38Z",
-    "figure_url": "https://raw.githubusercontent.com/plantcad/plantcad2/834a7094a9709fe25c3af105dca84330602b8c55/.agents/artifacts/exp586-dashboard-ranks/figures/benchmark-comparison.png",
-    "figure_commit": "834a7094a9709fe25c3af105dca84330602b8c55",
-    "figure_sha256": "5947ad0111c4a802cb808051454532608974d7c479aa8a3016ff48f4fec44e85",
+    "source_body_sha256": "faddd61ed1a89a4a5ed03a4c3d56e14b445013835f9019eb9d0aceddc337bfb1",
+    "source_updated_at": "2026-11-06T19:12:40Z",
+    "figure_url": "https://raw.githubusercontent.com/plantcad/plantcad2/a2ed518ed687e9f287055465c741960b18d1dede/.agents/artifacts/exp586-two-ranks-draft/figures/benchmark-comparison.png",
+    "figure_commit": "a2ed518ed687e9f287055465c741960b18d1dede",
+    "figure_sha256": "ed96b05634fb67e7f61fe4c0ba0d9bde6f440e259c29c5661495bdf8ca44c7d7",
     "manual_edits_preserved_by_reversible_patch": true,
-    "source_unchanged_since_initial_fetch": true,
+    "reviewed_draft_matches_exactly_except_figure_URL": true,
+    "other_five_figures_and_alt_text_unchanged": true,
+    "Unweighted_Avg_Rank": "Equal average of four within-family task-rank means",
+    "Weighted_Avg_Rank": "PlantCAD2 leaderboard calculation; twenty tasks weighted equally",
+    "vertical_label_rotation_degrees": 90,
+    "horizontal_label_rotation_degrees": 0,
     "destination": "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6647191065",
-    "updated_at": "2026-11-06T19:12:40Z",
-    "published_body_sha256": "faddd61ed1a89a4a5ed03a4c3d56e14b445013835f9019eb9d0aceddc337bfb1",
+    "updated_at": "2026-11-06T19:33:57Z",
+    "published_body_sha256": "2093cb4cf1271cc3bd22c6a1b0d9d0eab8c95ece5dbe41d328a54f482aaa8e95",
     "exact_readback_verified": true,
     "rendered_figure_and_footnotes_verified": true,
-    "baseline_task_scores_and_ranks_verified": 220,
-    "baseline_averages_verified": 11
+    "status": "Published after user approval"
   },
-  "current_Avg_Rank_artifacts": ".agents/artifacts/exp586-dashboard-ranks",
-  "current_post_sha256_LF": "7b1773821423ac86ddab0bfcc222d379d378d37a6d331d8074dea1dc31e729c1"
+  "current_Avg_Rank_artifacts": ".agents/artifacts/exp586-two-ranks-draft",
+  "current_post_sha256_LF": "c25d87e7607cc26a7da672e6d6df61868fc4995ea82d560446df69da0d9a7971"
 }
