@@ -1,4 +1,41 @@
 {
+  "probe_benchmark": {
+    "metrics": [
+      "Conservation",
+      "Motifs",
+      "Core/non-core",
+      "SV impact",
+      "Allele frequency",
+      "Marin Avg Rank"
+    ],
+    "models": {
+      "216b": {
+        "Conservation": 0.8904026596143884,
+        "Core/non-core": 0.9130195087879133,
+        "SV impact": 0.9367569338854964,
+        "Allele frequency": 0.18852680714157333,
+        "Motifs": 0.8615695943025675,
+        "Marin Avg Rank": 79.44444444444444
+      },
+      "1t": {
+        "Conservation": 0.889637543718755,
+        "Core/non-core": 0.9076489939977189,
+        "SV impact": 0.9411080566331625,
+        "Allele frequency": 0.19271995089663327,
+        "Motifs": 0.8649079873103453,
+        "Marin Avg Rank": 82.45370370370371
+      }
+    },
+    "display_multipliers": {
+      "Conservation": 100,
+      "Motifs": 100,
+      "Core/non-core": 100,
+      "SV impact": 100,
+      "Allele frequency": 100,
+      "Marin Avg Rank": 1
+    },
+    "aggregation": "Native family means; only Marin Avg Rank aggregates across families and includes AF"
+  },
   "training": {
     "216b": [
       {
@@ -20802,8 +20839,8 @@
       "final_validation_loss": 0.9462159565554304,
       "logged_final_validation_loss": 0.9475062713027,
       "matched_reference_code": "M61-L",
-      "Avg Rank": 68.37121212121212,
-      "Conservation": 0.6890951690966782
+      "Marin Avg Rank": 79.44444444444444,
+      "Conservation": 0.8904026596143884
     },
     {
       "model": "1t",
@@ -20811,8 +20848,8 @@
       "final_validation_loss": 0.8873021401353057,
       "logged_final_validation_loss": 0.8898855298757553,
       "matched_reference_code": "M61-L-1T",
-      "Avg Rank": 56.81818181818182,
-      "Conservation": 0.6992670021034327
+      "Marin Avg Rank": 82.45370370370371,
+      "Conservation": 0.889637543718755
     }
   ],
   "dense_rugs": [

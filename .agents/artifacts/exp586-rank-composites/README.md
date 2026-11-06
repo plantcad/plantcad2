@@ -30,11 +30,17 @@ Reference membership, tie handling and source task values are frozen in `frozen-
 
 ## Presentation
 
-The primary grouped bars show all five readouts: four native task-family scores and Avg Rank, with a labeled value on every bar.
-The native vertical axis has a marked break omitting 0.05–0.50.
-The fifth group, Avg Rank, uses its own clearly labeled percentile axis with a marked break omitting 5–45.
+The primary grouped bars show all five readouts together on a single `Score (0–100)` axis, with a labeled value on every bar.
+For display only, the four task-family scores are multiplied by 100; Avg Rank already uses a 0–100 percentile scale.
+The shared vertical axis has a marked break omitting 5–45.
+Underlying scores, definitions and family aggregation are unchanged; the horizontal rankings and other figures retain their native units.
 Avg Rank is also retained in the third sorted horizontal panel.
-The loss scatter replaces Composite with Avg Rank and retains Conservation AUROC on the explicitly labeled secondary axis.
+The second figure is titled `Linear probe PlantCAD2 benchmark`.
+Its top row compares only the final 216B and 1T MoE models on all five probe task families, including AF, plus Marin Avg Rank.
+These grouped bars use the same 0–100 display convention, with two-decimal annotations so close probe scores remain distinguishable.
+This row keeps the full score range because AF correlations lie below the first figure's 45-point axis break.
+The training/validation loss curves and final-loss scatter occupy the second row.
+The scatter now uses probe Marin Avg Rank on the left axis and native probe Conservation AUROC on the right; matched losses, W&B histories and dense rugs remain unchanged.
 Checkpoint plots and the change heatmap replace Composite with Marin Avg Rank; the five native family panels are unchanged.
 The heatmap reports rank changes in percentile points and native changes in their original units; colors encode sign only.
 All five PNGs and SVGs were inspected, with programmatic overlap/boundary checks on labels and paired-card layouts.

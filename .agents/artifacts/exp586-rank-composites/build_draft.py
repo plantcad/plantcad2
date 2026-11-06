@@ -15,8 +15,8 @@ def main() -> None:
     body = re.sub(r'https://raw\.githubusercontent\.com/plantcad/plantcad2/[^"\s]+/figures/([a-z-]+\.png)', r'figures/\1', source)
     original_images = re.findall(r'<img src="([^"]+)" alt="([^"]+)" />', body)
     alts = {
-        "benchmark-comparison": "Zero-shot comparison of eight models. Top: Conservation AUROC, motif accuracy, core/non-core AUROC, SV average precision and Avg Rank. The four task families retain native mean scores; Avg Rank has its own labeled percentile axis. Both vertical scales have marked breaks and every bar is annotated. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank, with marked broken horizontal scales. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models.",
-        "loss-comparison": "Unchanged W&B training and validation loss curves versus DNA tokens. Right: matched-sample final loss versus Avg Rank on the left percentile axis (solid circles) and native Conservation AUROC on the right axis (dashed diamonds). Colors identify 216B and 1T MoE models. Dense MarinDNA 1B checkpoint rugs retain the matched losses, with direct training-token labels and darker rugs for later checkpoints.",
+        "benchmark-comparison": "Zero-shot comparison of eight models. Top: Conservation, Motifs, Core/non-core, SV impact and Avg Rank are grouped together on one Score (0–100) axis with a marked break and a value on every bar. Task-family AUROC, accuracy and average precision are multiplied by 100 for display; Avg Rank is already a percentile. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank retain their existing native scales and marked horizontal breaks. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models.",
+        "loss-comparison": "Linear probe PlantCAD2 benchmark. Top: paired bars for only the final 216B and 1T MoE models, comparing Conservation, Motifs, Core/non-core, SV impact, Allele frequency and Marin Avg Rank. Native probe metrics are multiplied by 100 for display; Marin Avg Rank is already a percentile. Bottom: unchanged W&B training and validation loss curves versus DNA tokens, followed by matched final loss versus probe Marin Avg Rank (left, solid circles) and probe Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses, directly labeled with training tokens.",
         "checkpoint-tokens": "Six paired zero-shot and linear-probe metrics across DNA training. Top: Marin Avg Rank, Conservation, Motifs; bottom: Core/non-core, SV impact, Allele frequency. Only Marin Avg Rank is percentile-scaled; the other families keep their native scores. References are the same nine unique checkpoints, separately for each readout, with five equally weighted families including AF.",
         "checkpoint-progress": "The same six paired metrics versus actual W&B run progress. Marin Avg Rank includes all five task families; individual families retain native units.",
         "checkpoint-changes-primary": "Changes between successive checkpoints for zero-shot and linear probes. Family-score changes retain native units; Marin Avg Rank changes are in percentile points. Blue means increase, orange decrease, gray no change; color encodes sign only.",
@@ -27,10 +27,10 @@ def main() -> None:
         body = body.replace(f'alt="{old_alt}"', f'alt="{alts[name]}"')
     body = body.replace(
         f'  <img src="figures/benchmark-comparison.png" alt="{alts["benchmark-comparison"]}" />\n</p>',
-        f'  <img src="figures/benchmark-comparison.png" alt="{alts["benchmark-comparison"]}" />\n</p>\n\n_Task families retain native scores; Avg Rank has its own percentile axis and averages task percentiles within four equally weighted families. Higher is better; rank definitions are below._')
+        f'  <img src="figures/benchmark-comparison.png" alt="{alts["benchmark-comparison"]}" />\n</p>\n\n_Top: AUROC, accuracy and average precision ×100; Avg Rank is a percentile. Higher is better; rank definitions are below._')
     body = body.replace(
-        'with darker coral rugs for later dense checkpoints.',
-        'with darker coral rugs for later dense checkpoints. The scatter now uses Avg Rank (left axis) and Conservation AUROC (right axis).')
+        'Curves use W&B losses; the scatter uses the [matched 65,536-window sample](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302), with darker coral rugs for later dense checkpoints.',
+        'Top: probe AUROC, accuracy, average precision and Spearman correlation ×100; Marin Avg Rank is a percentile. Below: W&B loss curves and [matched final loss](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302) versus probe scores; darker coral rugs mark later dense checkpoints.')
     body = body.replace(
         f'  <img src="figures/checkpoint-tokens.png" alt="{alts["checkpoint-tokens"]}" />\n</p>',
         f'  <img src="figures/checkpoint-tokens.png" alt="{alts["checkpoint-tokens"]}" />\n</p>\n\n_Marin Avg Rank includes AF and uses nine fixed checkpoint references, separately for zero-shot and probes. All other panels retain native scores._')
@@ -40,7 +40,7 @@ The motif score averages eight recovery tasks: start/stop codons and splice dono
 
 ### Rank definitions
 
-Only summaries **across task families** change. Conservation/core AUROC, motif accuracy, SV average precision and AF Spearman correlation retain their native values, including the existing mean across tasks within each family.
+Only summaries **across task families** change. Conservation/core AUROC, motif accuracy, SV average precision and AF Spearman correlation retain their definitions and existing means across tasks within each family. The primary bar chart displays task-family scores ×100; other panels retain native units.
 
 For each task, the percentile is `100 × (reference scores below the model + half the ties) / reference count`, using exact stored values. Average these task percentiles within each family, then average the families equally. Both rank summaries run from **0 to 100, higher is better**; they measure relative standing, not accuracy or effect size.
 

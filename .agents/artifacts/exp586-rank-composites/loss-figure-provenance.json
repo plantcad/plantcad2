@@ -1,5 +1,10 @@
 {
+  "figure_title": "Linear probe PlantCAD2 benchmark",
+  "layout": "Two rows: six paired probe metrics above three loss panels",
+  "probe_bar_annotations": 12,
   "benchmark_source_sha256": "4cb7e31103e17f974c7b2c9524a11ea2d9a10231f9164a2dc289ecef46740641",
+  "probe_source_sha256": "f2c0433f7de85e3f06dabf887a092b8a25aa3f420336ee1f0a7dbfdd5fd83c00",
+  "frozen_reference_sha256": "cc0905125229d2d29b741ffd8431c427845d61e703a485481164ff8c8581913f",
   "palette_sha256": "fc45caa09074fb8c14f03143d8f4aeb067578c263e72e7ad8f24ea8142a40648",
   "run_colors": {
     "216b": "#c8a229",
@@ -224,6 +229,44 @@
     "labels": "Direct DNA-token labels; shared annotation identifies the dense model as 1B parameters",
     "total_parameters_each": 973178880
   },
+  "scatter_readout": "Linear probe: Marin Avg Rank (left), Conservation AUROC (right)",
+  "probe_benchmark": {
+    "metrics": [
+      "Conservation",
+      "Motifs",
+      "Core/non-core",
+      "SV impact",
+      "Allele frequency",
+      "Marin Avg Rank"
+    ],
+    "models": {
+      "216b": {
+        "Conservation": 0.8904026596143884,
+        "Core/non-core": 0.9130195087879133,
+        "SV impact": 0.9367569338854964,
+        "Allele frequency": 0.18852680714157333,
+        "Motifs": 0.8615695943025675,
+        "Marin Avg Rank": 79.44444444444444
+      },
+      "1t": {
+        "Conservation": 0.889637543718755,
+        "Core/non-core": 0.9076489939977189,
+        "SV impact": 0.9411080566331625,
+        "Allele frequency": 0.19271995089663327,
+        "Motifs": 0.8649079873103453,
+        "Marin Avg Rank": 82.45370370370371
+      }
+    },
+    "display_multipliers": {
+      "Conservation": 100,
+      "Motifs": 100,
+      "Core/non-core": 100,
+      "SV impact": 100,
+      "Allele frequency": 100,
+      "Marin Avg Rank": 1
+    },
+    "aggregation": "Native family means; only Marin Avg Rank aggregates across families and includes AF"
+  },
   "scatter": [
     {
       "model": "216b",
@@ -231,8 +274,8 @@
       "final_validation_loss": 0.9462159565554304,
       "logged_final_validation_loss": 0.9475062713027,
       "matched_reference_code": "M61-L",
-      "Avg Rank": 68.37121212121212,
-      "Conservation": 0.6890951690966782
+      "Marin Avg Rank": 79.44444444444444,
+      "Conservation": 0.8904026596143884
     },
     {
       "model": "1t",
@@ -240,13 +283,13 @@
       "final_validation_loss": 0.8873021401353057,
       "logged_final_validation_loss": 0.8898855298757553,
       "matched_reference_code": "M61-L-1T",
-      "Avg Rank": 56.81818181818182,
-      "Conservation": 0.6992670021034327
+      "Marin Avg Rank": 82.45370370370371,
+      "Conservation": 0.889637543718755
     }
   ],
-  "plot_data_sha256": "20b9e7384fd00ddd59679c2c9cce57e0b2fbb4f870fe7756cb0f41eac4fe1df8",
+  "plot_data_sha256": "2273d7d4aa0783c20191456324bf6829f7ee92012ef0928563caf535089e2f9f",
   "figure_sha256": {
-    "png": "f22f9ced11f46f52c62aca4195bdae8bea176941909b568cb16849a83f583123",
-    "svg": "eab6debb43875d6b0d68d5b6955065309b4011dfe72a8747b581216ac037cb04"
+    "png": "5c0a4523542d4f05af8e4d2936d6214492f3ea12689d622e7ffd5a3a27318ab6",
+    "svg": "9e67e6299399777a91df0fad17eabb50f93a0bac6d319d32592f21d56a165138"
   }
 }

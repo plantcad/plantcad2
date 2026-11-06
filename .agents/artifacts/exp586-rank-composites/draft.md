@@ -8,16 +8,16 @@ Overall, the 1T model greatly outperforms all other MarinDNA models (dense or sp
 However, monotonicity with scale is nearly perfect when using linear probes rather than zero-shot likelihoods.
 
 <p align="center">
-  <img src="figures/benchmark-comparison.png" alt="Zero-shot comparison of eight models. Top: Conservation AUROC, motif accuracy, core/non-core AUROC, SV average precision and Avg Rank. The four task families retain native mean scores; Avg Rank has its own labeled percentile axis. Both vertical scales have marked breaks and every bar is annotated. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank, with marked broken horizontal scales. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models." />
+  <img src="figures/benchmark-comparison.png" alt="Zero-shot comparison of eight models. Top: Conservation, Motifs, Core/non-core, SV impact and Avg Rank are grouped together on one Score (0–100) axis with a marked break and a value on every bar. Task-family AUROC, accuracy and average precision are multiplied by 100 for display; Avg Rank is already a percentile. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank retain their existing native scales and marked horizontal breaks. Avg Rank averages per-task percentiles within four equally weighted families against 11 fixed published baseline models." />
 </p>
 
-_Task families retain native scores; Avg Rank has its own percentile axis and averages task percentiles within four equally weighted families. Higher is better; rank definitions are below._
+_Top: AUROC, accuracy and average precision ×100; Avg Rank is a percentile. Higher is better; rank definitions are below._
 
 <p align="center">
-  <img src="figures/loss-comparison.png" alt="Unchanged W&B training and validation loss curves versus DNA tokens. Right: matched-sample final loss versus Avg Rank on the left percentile axis (solid circles) and native Conservation AUROC on the right axis (dashed diamonds). Colors identify 216B and 1T MoE models. Dense MarinDNA 1B checkpoint rugs retain the matched losses, with direct training-token labels and darker rugs for later checkpoints." />
+  <img src="figures/loss-comparison.png" alt="Linear probe PlantCAD2 benchmark. Top: paired bars for only the final 216B and 1T MoE models, comparing Conservation, Motifs, Core/non-core, SV impact, Allele frequency and Marin Avg Rank. Native probe metrics are multiplied by 100 for display; Marin Avg Rank is already a percentile. Bottom: unchanged W&B training and validation loss curves versus DNA tokens, followed by matched final loss versus probe Marin Avg Rank (left, solid circles) and probe Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses, directly labeled with training tokens." />
 </p>
 
-Curves use W&B losses; the scatter uses the [matched 65,536-window sample](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302), with darker coral rugs for later dense checkpoints. The scatter now uses Avg Rank (left axis) and Conservation AUROC (right axis).
+Top: probe AUROC, accuracy, average precision and Spearman correlation ×100; Marin Avg Rank is a percentile. Below: W&B loss curves and [matched final loss](https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302) versus probe scores; darker coral rugs mark later dense checkpoints.
 
 These evaluations follow five checkpoints from each text-pretrained MarinMoE 1.5B–60M run (216B and 1T DNA tokens), including their shared starting model before DNA training.
 Alongside the existing allele-frequency (AF) regression probe, frozen linear classifiers were added for conservation, motif recovery, core/non-core and structural-variant (SV) impact, with task-specific inputs described below.
@@ -42,7 +42,7 @@ The motif score averages eight recovery tasks: start/stop codons and splice dono
 
 ### Rank definitions
 
-Only summaries **across task families** change. Conservation/core AUROC, motif accuracy, SV average precision and AF Spearman correlation retain their native values, including the existing mean across tasks within each family.
+Only summaries **across task families** change. Conservation/core AUROC, motif accuracy, SV average precision and AF Spearman correlation retain their definitions and existing means across tasks within each family. The primary bar chart displays task-family scores ×100; other panels retain native units.
 
 For each task, the percentile is `100 × (reference scores below the model + half the ties) / reference count`, using exact stored values. Average these task percentiles within each family, then average the families equally. Both rank summaries run from **0 to 100, higher is better**; they measure relative standing, not accuracy or effect size.
 

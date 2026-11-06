@@ -6,17 +6,6 @@
   "top_axis_intervals": [
     [
       0,
-      0.05
-    ],
-    [
-      0.5,
-      0.95
-    ]
-  ],
-  "breaks_marked": true,
-  "rank_top_axis_intervals": [
-    [
-      0,
       5
     ],
     [
@@ -24,6 +13,15 @@
       95
     ]
   ],
-  "native_values_unchanged": true,
-  "Avg_Rank_axis": "Fifth group in primary vertical chart with its own percentile axis; also retained in sorted horizontal chart"
+  "breaks_marked": true,
+  "underlying_native_values_unchanged": true,
+  "primary_display_multipliers": {
+    "Conservation": 100,
+    "Motifs": 100,
+    "Core/non-core": 100,
+    "SV impact": 100,
+    "Avg Rank": 1
+  },
+  "primary_y_label": "Score (0\u2013100)",
+  "Avg_Rank_axis": "Fifth group on the same primary vertical axis; also retained in sorted horizontal chart"
 }

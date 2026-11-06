@@ -1,6 +1,7 @@
-"""Render complete W&B loss histories and two final benchmark readouts."""
+"""Compare final linear probes above the unchanged W&B loss histories."""
 
 import argparse
+import csv
 import gzip
 import hashlib
 import json
@@ -24,6 +25,8 @@ REFERENCE_CODES = {"216b": "M61-L", "1t": "M61-L-1T"}
 MATCHED_PATH = HERE.parents[2] / "zero-shot-leaderboard/marindna_exp586/runs/loss-correlation/analysis.json"
 MATCHED_SHA256 = "0f3fea347f311b7af85bfa50ae9a0443ac69be3a9c0d9f41b9bb5a856625cf38"
 REFERENCE_COMMENT = "https://github.com/plantcad/plantcad2/pull/22#issuecomment-6604041302"
+PROBE_METRICS = ["Conservation", "Motifs", "Core/non-core", "SV impact", "Allele frequency", "Marin Avg Rank"]
+FINAL_CHECKPOINTS = {"216b": ("216B-token run", "dna-216b"), "1t": ("1T-token run", "dna-1000b")}
 
 
 def digest(path: Path) -> str:
@@ -90,6 +93,17 @@ def main() -> None:
     benchmark = json.loads(benchmark_path.read_text())
     models = {key: next(model for model in benchmark["models"] if model["label"] == label)
               for key, label in MODELS.items()}
+    score_path = HERE / "all-category-scores.csv"
+    with score_path.open() as stream:
+        saved_scores = list(csv.DictReader(stream))
+    for key, model in models.items():
+        run, checkpoint = FINAL_CHECKPOINTS[key]
+        selected = [row for row in saved_scores if row["run"] == run and row["checkpoint"] == checkpoint
+                    and row["readout"] == "Linear probe"]
+        assert len(selected) == len(PROBE_METRICS)
+        assert {row["metric"] for row in selected} == set(PROBE_METRICS)
+        assert all(float(row["DNA_tokens_B"]) == model["DNA_tokens"] / 1e9 for row in selected)
+        model["probe_scores"] = {row["metric"]: float(row["score"]) for row in selected}
     palette = json.loads(PALETTE_PATH.read_text())
     assert all(model["color"] == palette["marin"][key] for key, model in models.items())
     assert digest(MATCHED_PATH) == MATCHED_SHA256, "Matched-loss reference changed; review before plotting"
@@ -115,7 +129,12 @@ def main() -> None:
         common_hashes.add(common["input_sha256"])
     assert common_hashes == {reference["D216"]["validation"]["samples"]["common-65536"]["input_sha256"]}
     provenance = {
+        "figure_title": "Linear probe PlantCAD2 benchmark",
+        "layout": "Two rows: six paired probe metrics above three loss panels",
+        "probe_bar_annotations": 12,
         "benchmark_source_sha256": digest(benchmark_path),
+        "probe_source_sha256": digest(score_path),
+        "frozen_reference_sha256": digest(HERE / "frozen-references.json"),
         "palette_sha256": digest(PALETTE_PATH),
         "run_colors": {key: model["color"] for key, model in models.items()},
         "sources": {}, "normalization": "Latest W&B step at each identical input-token count",
@@ -136,14 +155,42 @@ def main() -> None:
                        "opacity": "Linear in DNA training tokens: 0.35 at 216B, 0.95 at 562B; equal rug heights",
                        "labels": "Direct DNA-token labels; shared annotation identifies the dense model as 1B parameters",
                        "total_parameters_each": dense[0]["total_parameters_approx"]},
+        "scatter_readout": "Linear probe: Marin Avg Rank (left), Conservation AUROC (right)",
+        "probe_benchmark": {
+            "metrics": PROBE_METRICS, "models": {key: model["probe_scores"] for key, model in models.items()},
+            "display_multipliers": {metric: 1 if metric == "Marin Avg Rank" else 100 for metric in PROBE_METRICS},
+            "aggregation": "Native family means; only Marin Avg Rank aggregates across families and includes AF",
+        },
         "scatter": [],
     }
-    plot_data = {"training": {}, "validation": {}, "scatter": [], "dense_rugs": rugs}
+    plot_data = {"probe_benchmark": provenance["probe_benchmark"],
+                 "training": {}, "validation": {}, "scatter": [], "dense_rugs": rugs}
     plt.rcParams.update({"font.size": 12, "svg.fonttype": "none", "axes.axisbelow": True})
-    fig = plt.figure(figsize=(19.2, 5.8))
-    training_ax = fig.add_axes((.054, .18, .247, .66))
-    validation_ax = fig.add_axes((.382, .18, .247, .66))
-    scatter_ax = fig.add_axes((.710, .18, .237, .66))
+    fig = plt.figure(figsize=(20.8, 12.1))
+    title = fig.text(.5225, .989, "Linear probe PlantCAD2 benchmark", weight="bold",
+                     fontsize="large", ha="center", va="top")
+    probe_ax = fig.add_axes((.055, .603, .935, .343))
+    bar_labels = []
+    for index, (key, model) in enumerate(models.items()):
+        x = np.arange(len(PROBE_METRICS)) + (index - .5) * .30
+        scores = [model["probe_scores"][metric] * (1 if metric == "Marin Avg Rank" else 100)
+                  for metric in PROBE_METRICS]
+        assert all(0 <= score <= 100 for score in scores)
+        bars = probe_ax.bar(x, scores, width=.30, color=model["color"], edgecolor="white", linewidth=.4)
+        np.testing.assert_array_equal([bar.get_height() for bar in bars], scores)
+        for xpos, score in zip(x, scores, strict=True):
+            bar_labels.append(probe_ax.annotate(f"{score:.2f}", (xpos, score), xytext=(0, 5),
+                                                textcoords="offset points", ha="center", va="bottom", fontsize=11))
+    probe_ax.set_xticks(np.arange(len(PROBE_METRICS)), PROBE_METRICS)
+    probe_ax.set_xlim(-.5, len(PROBE_METRICS) - .5)
+    probe_ax.set_ylim(0, 104)
+    probe_ax.set_yticks([0, 20, 40, 60, 80, 100])
+    probe_ax.set_ylabel("Score (0–100)")
+    probe_ax.spines[["top", "right"]].set_visible(False)
+    probe_ax.grid(axis="y", color="#e4e4e4", linewidth=.7)
+    training_ax = fig.add_axes((.054, .075, .247, .345))
+    validation_ax = fig.add_axes((.382, .075, .247, .345))
+    scatter_ax = fig.add_axes((.710, .075, .237, .345))
     conservation_ax = scatter_ax.twinx()
     training_ranges = []
     validation_ranges = []
@@ -189,8 +236,7 @@ def main() -> None:
                "final_validation_loss": matched["loss"],
                "logged_final_validation_loss": metadata["summary"]["eval/loss"],
                "matched_reference_code": REFERENCE_CODES[key],
-               **{name: model["scores"][benchmark["categories"].index(name)]
-                  for name in ["Avg Rank", "Conservation"]}}
+               **{name: model["probe_scores"][name] for name in ["Marin Avg Rank", "Conservation"]}}
         provenance["scatter"].append(row)
         plot_data["scatter"].append(row)
     for axis in [training_ax, validation_ax, scatter_ax]:
@@ -204,7 +250,7 @@ def main() -> None:
         axis.set_ylim(low, high)
     training_ax.set_title("Training loss", weight="bold", pad=12)
     validation_ax.set_title("Validation loss", weight="bold", pad=12)
-    scatter_ax.set_title("Final loss vs zero-shot scores", weight="bold", pad=12)
+    scatter_ax.set_title("Final loss vs probe scores", weight="bold", pad=12)
     smoothing_legend = training_ax.legend(
         [Line2D([], [], color="#666666", alpha=.25, linewidth=.8),
          Line2D([], [], color="#666666", linewidth=2.4)],
@@ -214,7 +260,7 @@ def main() -> None:
     metric_handles = []
     dot_count = 0
     for metric, axis, marker, style in [
-        ("Avg Rank", scatter_ax, "o", "-"), ("Conservation", conservation_ax, "D", "--"),
+        ("Marin Avg Rank", scatter_ax, "o", "-"), ("Conservation", conservation_ax, "D", "--"),
     ]:
         xs = [row["final_validation_loss"] for row in rows]
         ys = [row[metric] for row in rows]
@@ -224,7 +270,7 @@ def main() -> None:
                          edgecolor="white", linewidth=.8, zorder=4)
             dot_count += 1
         metric_handles.append(Line2D([], [], color="#626262", marker=marker, linestyle=style,
-                                     label=f"{metric} ({'left' if metric == 'Avg Rank' else 'right'})", markersize=7, linewidth=1.8))
+                                     label=f"{metric} ({'left' if metric == 'Marin Avg Rank' else 'right'})", markersize=7, linewidth=1.8))
     rug_labels = []
     offsets = {"D216": (0, 12, "center"), "D389": (0, 32, "center"), "D562": (-4, 12, "right")}
     for row in rugs:
@@ -259,23 +305,30 @@ def main() -> None:
     scatter_ax.set_xlim(.875, .99)
     scatter_ax.set_xticks([.89, .91, .93, .95, .97, .99])
     # Rank percentiles and AUROC have different units; label both scales.
-    scatter_ax.set_ylim(45, 80)
-    scatter_ax.yaxis.set_major_locator(MultipleLocator(10))
-    conservation_ax.set_ylim(.68, .715)
-    conservation_ax.yaxis.set_major_locator(MultipleLocator(.01))
-    scatter_ax.set_ylabel("Avg Rank (percentile ↑)")
+    scatter_ax.set_ylim(70, 90)
+    scatter_ax.yaxis.set_major_locator(MultipleLocator(5))
+    conservation_ax.set_ylim(.88, .90)
+    conservation_ax.yaxis.set_major_locator(MultipleLocator(.005))
+    scatter_ax.set_ylabel("Marin Avg Rank (percentile ↑)")
     conservation_ax.set_ylabel("Conservation (AUROC)", labelpad=10)
     scatter_ax.set_xlabel("Matched validation loss")
     metric_legend = scatter_ax.legend(handles=metric_handles, loc="upper right", ncols=1,
                                       frameon=False, fontsize=9, columnspacing=1.0, handlelength=3.6)
     model_legend = fig.legend(smooth_lines, ["216B-token run", "1T-token run"],
-                              title="DNA training horizon", loc="upper center", bbox_to_anchor=(.5, 1.01),
+                              title="DNA training horizon", loc="center", bbox_to_anchor=(.51, .523),
                               ncols=2, frameon=False, columnspacing=2.2)
     assert dot_count == 4 and len(rugs) == 3 and len(scatter_ax.lines) == len(conservation_ax.lines) == 1
     fig.canvas.draw()
     renderer = fig.canvas.get_renderer()
     title_boxes = [axis.title.get_window_extent(renderer) for axis in [training_ax, validation_ax, scatter_ax]]
     model_box = model_legend.get_window_extent(renderer)
+    boxes = [label.get_window_extent(renderer).padded(1) for label in bar_labels]
+    assert len(bar_labels) == len(probe_ax.patches) == 12
+    assert not any(a.overlaps(b) for i, a in enumerate(boxes) for b in boxes[i + 1:])
+    assert all(probe_ax.bbox.contains(box.x0, box.y0) and probe_ax.bbox.contains(box.x1, box.y1) for box in boxes)
+    assert title.get_window_extent(renderer).y0 > probe_ax.get_tightbbox(renderer).y1
+    assert probe_ax.get_tightbbox(renderer).y0 > model_box.y1
+    assert model_box.y0 > max(box.y1 for box in title_boxes)
     assert not any(box.overlaps(model_box) for box in title_boxes)
     for label in [*title_boxes, model_box, smoothing_legend.get_window_extent(renderer),
                   metric_legend.get_window_extent(renderer), dense_note.get_window_extent(renderer)]:
@@ -285,7 +338,7 @@ def main() -> None:
         assert scatter_ax.bbox.contains(box.x0, box.y0) and scatter_ax.bbox.contains(box.x1, box.y1)
         assert not any(box.overlaps(other) for other in note_boxes[index + 1:])
         for row in rows:
-            for metric, axis in [("Avg Rank", scatter_ax), ("Conservation", conservation_ax)]:
+            for metric, axis in [("Marin Avg Rank", scatter_ax), ("Conservation", conservation_ax)]:
                 dot = axis.transData.transform((row["final_validation_loss"], row[metric]))
                 assert not box.expanded(1.05, 1.1).contains(*dot)
     assert all(scatter_ax.get_xlim()[0] < row["validation_loss"] < scatter_ax.get_xlim()[1] for row in rugs)
