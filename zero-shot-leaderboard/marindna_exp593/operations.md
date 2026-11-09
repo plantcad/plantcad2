@@ -19,6 +19,7 @@ Read live public text before updating it and preserve manual user edits.
 Use only H100s in whole eight-GPU nodes, Iris user eczech, and batch priority on every root, inherited by all children.
 Begin with one node for validation; use up to eight independent nodes for finite productive extraction when validated and supported by fresh available capacity.
 No GPUs are retained while waiting for checkpoints.
+For a fresh final checkpoint, prefer the full approved fleet once earlier GPU work drains. Choose its source-bound execution layout explicitly; never repartition a running checkpoint. Verify identical job coverage against the original manifest before using a new layout, preserving inference code, microbatches and scientific definitions. The agent chooses the layout; the finite preparation, dispatch and receipt-verification helpers in `scratch/exp593-evals/` materialize and verify it. Their immutable source archive and real-job audit are recorded in SQLite.
 Finite CPU-only reductions and probe fits may use batch/eczech Iris tasks without reserving GPUs; keep their environments separate from GPU providers.
 The current CoreWeave peer does not admit CPU-only tasks on its GPU-tainted nodes, so finite CPU phases use already-owned H100 containers with separate CPU environments.
 Check their W&B identities before releasing an extraction allocation: a completed GPU controller may still host a necessary active probe fit for another checkpoint.
