@@ -166,3 +166,46 @@ print('probe-cv-ready')
         timeout=60,
     )
     assert "probe-cv-ready" in completed.stdout
+
+
+def test_finite_cpu_parts_cover_each_probe_once_and_keep_af_separate():
+    from exp593_evals.analysis_bootstrap import jobs
+
+    catalog = {"probe_tasks": {f"task-{i:02}": {} for i in range(20)}}
+    parts = [jobs(f"probes-p{i}", catalog) for i in range(4)]
+    assert [len(part) for part in parts] == [5] * 4
+    selected = [job["task"] for part in parts for job in part]
+    assert sorted(selected) == sorted(catalog["probe_tasks"])
+    assert len(set(selected)) == 20
+    for length in (8192, 2048):
+        assert jobs(f"af-probe{length}", catalog) == [
+            {
+                "kind": "af-probe",
+                "profile": f"context-{length}",
+                "variant": "ar-lower-features",
+            }
+        ]
+
+
+def test_reused_af_predictions_reject_a_different_checkpoint(tmp_path, monkeypatch):
+    from exp593_evals import analysis_bootstrap as module
+
+    job = {"kind": "af", "profile": "context-8192", "variant": "ar-lower-control"}
+    values = iter(
+        [
+            (
+                {
+                    "error": None,
+                    "finished": [{"job": job, "receipt": "s3://wrong/receipt"}],
+                },
+                b"phase",
+            ),
+            ({"binding": {"checkpoint": "other"}, **job, "artifacts": []}, b"receipt"),
+        ]
+    )
+    monkeypatch.setattr(module, "client", lambda: object())
+    monkeypatch.setattr(module, "read_json", lambda *args: next(values))
+    with pytest.raises(ValueError, match="different checkpoint"):
+        module.prior_af_predictions(
+            "s3://owner/model", "context-8192", {"checkpoint": "current"}, tmp_path
+        )

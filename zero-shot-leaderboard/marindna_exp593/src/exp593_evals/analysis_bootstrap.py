@@ -13,7 +13,22 @@ from pathlib import Path
 from uuid import uuid4
 
 from exp593_evals import VARIANTS
-from exp593_evals.storage import client, upload_verified
+from exp593_evals.artifacts import fetch
+from exp593_evals.storage import client, read_json, upload_verified
+
+PHASES = (
+    "tasks8192",
+    "tasks2048",
+    "af8192",
+    "af2048",
+    "probes-p0",
+    "probes-p1",
+    "probes-p2",
+    "probes-p3",
+    "af-probe8192",
+    "af-probe2048",
+    "all",
+)
 
 
 def environment(source: Path, root: Path) -> Path:
@@ -101,7 +116,10 @@ def jobs(phase: str, catalog: dict) -> list[dict]:
             result.extend(
                 {"kind": "af", "profile": profile, "variant": v} for v in VARIANTS
             )
-    if phase == "all":
+    if phase == "all" or phase.startswith("probes-p"):
+        tasks = sorted(catalog["probe_tasks"])
+        if phase.startswith("probes-p"):
+            tasks = tasks[int(phase.removeprefix("probes-p")) :: 4]
         result.extend(
             {
                 "kind": "probe",
@@ -109,13 +127,61 @@ def jobs(phase: str, catalog: dict) -> list[dict]:
                 "variant": "ar-lower-features",
                 "task": t,
             }
-            for t in sorted(catalog["probe_tasks"])
+            for t in tasks
         )
+    if phase == "all" or phase.startswith("af-probe"):
         result.extend(
             {"kind": "af-probe", "profile": p, "variant": "ar-lower-features"}
             for p in ("context-8192", "context-2048")
+            if phase == "all" or phase == "af-probe" + p.removeprefix("context-")
         )
     return result
+
+
+def prior_af_predictions(
+    artifact_root: str, profile: str, binding: dict, root: Path
+) -> Path:
+    """Reuse only the verified lowercase AF predictions from this checkpoint."""
+    storage = client()
+    parent_uri = (
+        artifact_root.rstrip("/")
+        + "/analysis/af"
+        + profile.removeprefix("context-")
+        + "/analysis-receipt.json"
+    )
+    parent, payload = read_json(storage, parent_uri)
+    if parent["error"] is not None:
+        raise ValueError("AF reduction has not completed successfully")
+    expected = {"kind": "af", "profile": profile, "variant": "ar-lower-control"}
+    selected = [r for r in parent["finished"] if r["job"] == expected]
+    if len(selected) != 1:
+        raise ValueError("No unique matching lowercase AF reduction")
+    receipt, _ = read_json(storage, selected[0]["receipt"])
+    if receipt["binding"] != binding or any(
+        receipt[k] != v for k, v in expected.items()
+    ):
+        raise ValueError("AF predictions belong to a different checkpoint or readout")
+    records = [
+        r for r in receipt["artifacts"] if r["uri"].endswith("/predictions.parquet")
+    ]
+    if len(records) != 1:
+        raise ValueError("No unique AF prediction artifact")
+    destination = root / "prior-af" / profile
+    path = fetch(records[0], destination)
+    (destination / "provenance.json").write_text(
+        json.dumps(
+            {
+                "phase_receipt": parent_uri,
+                "phase_receipt_sha256": hashlib.sha256(payload).hexdigest(),
+                "analysis_receipt": selected[0]["receipt"],
+                "predictions": records[0],
+                "checkpoint_binding": binding,
+            },
+            indent=2,
+        )
+        + "\n"
+    )
+    return path
 
 
 def run(args: argparse.Namespace) -> None:
@@ -216,14 +282,22 @@ def run(args: argparse.Namespace) -> None:
             if job.get("task"):
                 cmd += ["--task", job["task"]]
             if job["kind"] == "af-probe":
+                local_af = (
+                    root
+                    / "results"
+                    / job["profile"]
+                    / "ar-lower-control/af/predictions.parquet"
+                )
+                if args.phase != "all":
+                    local_af = prior_af_predictions(
+                        args.artifact_root,
+                        job["profile"],
+                        json.loads((source / "binding.json").read_text()),
+                        root,
+                    )
                 cmd += [
                     "--af-zero-shot",
-                    str(
-                        root
-                        / "results"
-                        / job["profile"]
-                        / "ar-lower-control/af/predictions.parquet"
-                    ),
+                    str(local_af),
                 ]
             run.log(
                 {
@@ -304,7 +378,7 @@ def main() -> None:
     parser.add_argument("--run-id", required=True)
     parser.add_argument(
         "--phase",
-        choices=("tasks8192", "tasks2048", "af8192", "af2048", "all"),
+        choices=PHASES,
         required=True,
     )
     run(parser.parse_args())
