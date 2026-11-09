@@ -126,6 +126,31 @@ def fitting_code(inputs: Path, source: Path) -> None:
         exp586_evals.__path__.insert(0, location)
 
 
+def audit_source_frame(preparation: dict, spec: dict):
+    """Read audit-only source rows in manifest order across original shard schemas."""
+    import pandas as pd
+    import pyarrow.parquet as pq
+
+    if preparation["input_format"] == "tsv":
+        from exp586_evals.protocol import original
+
+        return original().inputs.read_frame(preparation, spec)
+    record = preparation["inputs"][spec["file"]]
+    # The retained train/test shards differ in column order and Arrow string
+    # offset width. Pandas aligns column names without changing string values;
+    # the untouched fitting code still consumes the original membership labels.
+    frames = [
+        pq.ParquetFile(Path(preparation["samples"]) / source["path"]).read().to_pandas()
+        for source in record["files"]
+    ]
+    if any(set(frame.columns) != set(frames[0].columns) for frame in frames):
+        raise ValueError("Audit source shards have different columns")
+    result = pd.concat(frames, ignore_index=True, sort=False)
+    if len(result) != record["rows"]:
+        raise ValueError("Audit source rows differ from the original manifest")
+    return result
+
+
 def audit_visible_inputs(spec: dict, source_frame, membership) -> dict:
     """Apply the existing no-duplicate split rule to the actual normalized DNA."""
     from exp586_evals.probe_protocol import visible_sequences
@@ -213,9 +238,7 @@ def fit_task(args: argparse.Namespace, binding: dict, catalog: dict) -> dict:
     membership = args.inputs / "memberships" / (args.task + ".parquet")
     frame = pd.read_parquet(membership).sort_values("row_id").reset_index(drop=True)
     arrays = aligned_features(arrays, frame.row_id.to_numpy())
-    from exp586_evals.protocol import original
-
-    source_frame = original().inputs.read_frame(preparation, entry["spec"])
+    source_frame = audit_source_frame(preparation, entry["spec"])
     visibility_audit = audit_visible_inputs(entry["spec"], source_frame, frame)
     del source_frame
     args.output.mkdir(parents=True, exist_ok=True)

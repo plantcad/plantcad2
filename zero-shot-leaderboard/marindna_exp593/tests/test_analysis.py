@@ -184,6 +184,41 @@ print('probe-cv-ready')
     assert "probe-cv-ready" in completed.stdout
 
 
+def test_audit_loader_keeps_rows_across_original_arrow_string_schemas(tmp_path):
+    pytest.importorskip("pandas")
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    from exp593_evals.analysis import audit_source_frame
+
+    pq.write_table(
+        pa.table({"label": [0], "sequence": ["aRgt"]}), tmp_path / "train.parquet"
+    )
+    test = pa.table(
+        {"sequence": pa.array(["NNac"], type=pa.large_string()), "label": [1]}
+    )
+    pq.write_table(test, tmp_path / "test.parquet")
+    preparation = {
+        "input_format": "parquet",
+        "samples": str(tmp_path),
+        "inputs": {
+            "conservation": {
+                "rows": 2,
+                "files": [
+                    {"path": "train.parquet"},
+                    {"path": "test.parquet"},
+                ],
+            }
+        },
+    }
+    frame = audit_source_frame(preparation, {"file": "conservation"})
+    assert frame["sequence"].tolist() == ["aRgt", "NNac"]
+    assert frame["label"].tolist() == [0, 1]
+    preparation["inputs"]["conservation"]["rows"] = 3
+    with pytest.raises(ValueError, match="original manifest"):
+        audit_source_frame(preparation, {"file": "conservation"})
+
+
 def test_finite_cpu_parts_cover_each_probe_once_and_keep_af_separate():
     from exp593_evals.analysis_bootstrap import jobs
 
