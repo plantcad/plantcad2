@@ -13,6 +13,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from exp593_evals import VARIANTS
+from exp593_evals.analysis_resume import recovered_jobs
 from exp593_evals.artifacts import fetch
 from exp593_evals.storage import client, read_json, upload_verified
 
@@ -247,10 +248,28 @@ def run(args: argparse.Namespace) -> None:
             check=True,
         )
         work = jobs(args.phase, json.loads((inputs / "catalog.json").read_text()))
+        recovered = recovered_jobs(
+            source, args.phase, work, args.artifact_root, client()
+        )
         for index, job in enumerate(work):
             name = job["profile"] + "/" + job["variant"] + "/" + job["kind"]
             if job.get("task"):
                 name += "/" + job["task"]
+            if name in recovered:
+                result["finished"].append(recovered[name])
+                run.log(
+                    {
+                        "eval/phase": "reused-verified-result",
+                        "eval/current_task": name,
+                        "eval/completed_jobs": index + 1,
+                        "eval/reused_jobs": sum(
+                            bool(r.get("reused")) for r in result["finished"]
+                        ),
+                        "eval/assigned_jobs": len(work),
+                        "run_progress": (index + 1) / len(work),
+                    }
+                )
+                continue
             output = root / "results" / name
             cmd = [
                 str(python),

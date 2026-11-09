@@ -24,6 +24,9 @@ Finite CPU-only reductions and probe fits may use batch/eczech Iris tasks withou
 The current CoreWeave peer does not admit CPU-only tasks on its GPU-tainted nodes, so finite CPU phases use already-owned H100 containers with separate CPU environments.
 Check their W&B identities before releasing an extraction allocation: a completed GPU controller may still host a necessary active probe fit for another checkpoint.
 New launchers keep the foreground process alive for registered finite CPU controllers; asynchronous side processes alone do not survive successful parent completion.
+After preemption, a replacement container can reuse the completed GPU receipt and exit while the former CPU W&B runs remain stale.
+Reconcile the exact terminal root and recover unfinished CPU work using explicitly pinned, hash-verified per-job receipts with identical checkpoint and computational sources.
+Loss of CPU sidecars does not require repeating verified GPU extraction.
 Launch CPU phases only on allocations with that foreground lifetime guard, and retain them only until their finite CPU work finishes, without reserving extra GPUs or waiting for future checkpoints.
 Prefer younger extraction allocations for the largest fits.
 Use the documented v3 utilization helper immediately before placement.
