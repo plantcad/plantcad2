@@ -45,6 +45,6 @@ No hosted scheduling tool is exposed in this session, so maintain 30-minute agen
 Stop and release owned resources after all eight checkpoint evaluations have verified complete results.
 There is no authorization to continue beyond those finite evaluations or to hold resources pending unrelated work.
 
-## Numerical validation hold
+## Practical validation before full evaluation
 
-The first completed native/Torch gate (validation/text-q1/a7) failed. No additional GPU dispatch or full evaluation is permitted until the numerical findings and proposed validation correction are reviewed with the user. Do not loosen thresholds or reuse the failed receipt as an accepted gate. The untracked plan and research log record the aggregation mismatch and insufficient FIM target sample. Read-only checkpoint discovery can continue without retaining compute.
+The initial per-window gate and tiny FIM panel do not establish scientific significance. The user has reviewed this and explicitly authorized a larger real-task validation, including ordinary vllm-fa3 and torch-fa3 controls. Finite validation GPU dispatch is authorized; full evaluation remains blocked until the agent reviews evidence that input/target contracts and scientific readouts agree. Preserve the original failed artifacts. Use per-target differences with uncertainty, motif-answer disagreements and task-score differences; do not confuse a tiny rounded-loss difference with meaningful degradation. Keep the backend compiler/provider profiles fixed. Do not silently accept a failed or incomplete comparison as clearance.

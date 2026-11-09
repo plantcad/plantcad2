@@ -10,10 +10,10 @@ from typing import Any
 import numpy as np
 
 from exp593_evals.legacy_readout import (
-    _configure_environment,
     _pool_hidden,
     _readout_model_class,
 )
+from exp593_evals.profiles import configure
 from exp593_evals.readouts import canonical_ids, normalize_dna
 
 
@@ -21,9 +21,14 @@ class FastScorer:
     """Original-ID full embedding with a selected BF16 eight-row DNA head."""
 
     def __init__(
-        self, model_dir: Path, *, batch_size: int = 64, sequence_length: int = 8192
+        self,
+        model_dir: Path,
+        *,
+        batch_size: int = 64,
+        sequence_length: int = 8192,
+        configuration: str = "fast-fa3",
     ) -> None:
-        _configure_environment("fast-fa3")
+        self.profile = configure(configuration)
         import torch
         from tokenizers import Tokenizer
 
@@ -46,15 +51,22 @@ class FastScorer:
         ):
             raise ValueError("Scorer tokenizer differs from its training checkpoint")
         self.dna_ids = canonical_ids(self.tokenizer)
-        self.model = _readout_model_class("fast-fa3")(
+        self.model = _readout_model_class(
+            "fast-fa3" if configuration == "fast-fa3" else "vllm-fa3"
+        )(
             model_dir,
             self.device,
             dtype=torch.bfloat16,
             input_vocab=None,
             output_vocab=None,
-            attention_provider="vllm",
+            attention_provider=self.profile["attention_provider"],
             flash_attention_version=3,
-            moe_backend="vllm",
+            moe_backend=self.profile["moe_backend"],
+            **(
+                {}
+                if configuration == "fast-fa3"
+                else {"sconv_backend": "direct", "cache_rope": True}
+            ),
         )
         self.full_head = self.model._weight("lm_head.weight")
         buffer = self.model._weight_names["lm_head.weight"]
@@ -63,9 +75,7 @@ class FastScorer:
             self.full_head[list(self.dna_ids[:8])].contiguous(),
             persistent=False,
         )
-        self._forward = torch.compile(
-            self.model, fullgraph=True, dynamic=False, mode="reduce-overhead"
-        )
+        self._forward = torch.compile(self.model, **self.profile["compile"])
 
     def dna_tokens(self, sequence: str, *, case: str) -> list[int]:
         text = normalize_dna(sequence, case=case)

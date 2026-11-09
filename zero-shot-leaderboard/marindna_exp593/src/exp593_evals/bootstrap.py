@@ -16,12 +16,14 @@ from pathlib import Path
 from exp593_evals.storage import client, upload_verified
 
 
-def restore_provider(source: Path, root: Path) -> Path:
+def restore_provider(source: Path, root: Path, kind: str = "vllm") -> Path:
     """Restore the exact previously audited provider versions and binary archive."""
     manifest = json.loads(
         (source / "provenance/provider-environments.json").read_text()
     )
-    protected = manifest["vllm"]["packages"]
+    if kind not in {"vllm", "no-vllm"}:
+        raise ValueError("Unknown provider environment")
+    protected = manifest[kind]["packages"]
     excluded = {"exp586-torch-deployment", "vllm", "flash-attn", "flash-attn-3"}
     environment = root / "provider"
     subprocess.run(["uv", "venv", "--python", "3.12.13", str(environment)], check=True)
@@ -56,16 +58,23 @@ def restore_provider(source: Path, root: Path) -> Path:
         ],
         check=True,
     )
-    archive = root / "vllm-providers.tar.gz"
+    archive = root / (kind + "-providers.tar.gz")
     client().download_file(
         "marin-us-east-02a",
-        "MarinDNA/exp586_plantcad2_moe/inference-deployment/2026-11-07-r1/binaries/vllm-providers.tar.gz",
+        "MarinDNA/exp586_plantcad2_moe/inference-deployment/2026-11-07-r1/binaries/"
+        + kind
+        + "-providers.tar.gz",
         str(archive),
     )
     with archive.open("rb") as stream:
         if (
             hashlib.file_digest(stream, "sha256").hexdigest()
-            != "80882098871615638f5a2706d978310d6eb02c0c7054e820cd93341adf6bbc53"
+            != (
+                {
+                    "vllm": "80882098871615638f5a2706d978310d6eb02c0c7054e820cd93341adf6bbc53",
+                    "no-vllm": "bcde930fd29a3e32d4988ffdd7487e9cb06716c239c42b8e770ee83fa191ef85",
+                }[kind]
+            )
         ):
             raise ValueError("Audited provider archive differs")
     site = subprocess.check_output(
@@ -113,6 +122,8 @@ def restore_provider(source: Path, root: Path) -> Path:
         )
     )
     versions = {v["name"].lower().replace("_", "-"): v["version"] for v in current}
+    if kind == "no-vllm" and "vllm" in versions:
+        raise ValueError("The torch-fa3 control must work with vLLM absent")
     for name, expected in protected.items():
         if (
             name != "exp586-torch-deployment"
