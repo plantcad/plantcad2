@@ -68,6 +68,7 @@ class FastScorer:
                 else {"sconv_backend": "direct", "cache_rope": True}
             ),
         )
+        self.model.eval()
         self.full_head = self.model._weight("lm_head.weight")
         buffer = self.model._weight_names["lm_head.weight"]
         self.model.register_buffer(
