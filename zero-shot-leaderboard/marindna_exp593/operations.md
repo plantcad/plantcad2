@@ -19,6 +19,7 @@ Read live public text before updating it and preserve manual user edits.
 Use only H100s in whole eight-GPU nodes, Iris user eczech, and batch priority on every root, inherited by all children.
 Begin with one node for validation; use up to eight independent nodes for finite productive extraction when validated and supported by fresh available capacity.
 No GPUs are retained while waiting for checkpoints.
+Finite CPU-only reductions and probe fits may use batch/eczech Iris tasks without reserving GPUs; keep their environments separate from GPU providers.
 Use the documented v3 utilization helper immediately before placement.
 For each independently placed single eight-H100 validation or finite extraction task, accept its documented `--max-age-seconds 300` bound when the federation cache repeatedly exceeds the default 90 seconds, only with peer contact within 30 seconds and at least four times the requested GPU headroom; preserve both actual ages in the dispatch receipt.
 This bounded admission exception does not change batch priority, count occupied GPUs as free, or assert that aggregate headroom guarantees a whole-node fit.
@@ -43,6 +44,7 @@ Recover the newest integrity-checked backup if the local working copy is lost.
 An observation helper may list and validate checkpoints but may not autonomously dispatch or recover jobs.
 No hosted scheduling tool is exposed in this session, so maintain 30-minute agent decision passes with bounded active-session waits and report any interruption honestly.
 Stop and release owned resources after all eight checkpoint evaluations have verified complete results.
+The active user-requested goal includes continued monitoring through all eight evaluations; a progress reply does not end this assignment.
 There is no authorization to continue beyond those finite evaluations or to hold resources pending unrelated work.
 
 ## Practical validation before full evaluation
@@ -52,3 +54,5 @@ The initial per-window gate and tiny FIM panel do not establish scientific signi
 ## Reviewed text-Q1 validation
 
 The expanded practical review accepts the text25% checkpoint for fixed Fast scoring. It uses completed four-backend real-task predictions,1024 AF rows, suffix-length diagnostics and80 exact-input full-FIM-adapter replay checks. Preserve the earlier failed tiny gate; the new acceptance has its own immutable review receipt, source/panel hashes and caveats in the durable validation owner. AR suffix AF has genuine per-variant numerical sensitivity across Torch backends. Keep its historical definition, report that limitation and do not claim exact native equivalence or interpret small AF improvements as established. Other checkpoints need their own native/export and practical sanity checks before full evaluation.
+
+The user prioritizes practical zero-shot agreement and has directed continued evaluation. Separate the historical zero-shot AF suffix sensitivity from frozen-activation probes; do not treat it as proof that probe activations are invalid. Do not repeat expanded AF follow-up suites at later milestones. Use native export parity and the existing real-task spot checks for each checkpoint, with an explicit agent review of meaningful differences and no new arbitrary acceptance threshold.
