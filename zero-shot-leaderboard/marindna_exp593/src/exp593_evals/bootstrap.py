@@ -233,7 +233,7 @@ def run(args: argparse.Namespace) -> None:
             [
                 str(native_python),
                 "-c",
-                "import sys,jax; print('Native interpreter:',sys.executable,'JAX:',jax.__version__); assert jax.__version__=='0.11.1'",
+                "import sys,jax; from exp593_evals.native import model_config; c=model_config(); print('Native interpreter:',sys.executable,'JAX:',jax.__version__); assert jax.__version__=='0.11.1'; assert c.vocab_size==128256 and c.max_seq_len==8192 and not c.compact_input_lookup_ids and not c.compact_input_lookup_one_hot",
             ],
             "native-imports",
             env=native_environment,

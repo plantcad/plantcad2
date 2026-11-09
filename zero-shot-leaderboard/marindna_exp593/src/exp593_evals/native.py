@@ -11,12 +11,24 @@ from pathlib import Path
 import numpy as np
 
 
+def model_config():
+    """Use the actual training runtime configuration with local inference kernels."""
+    from exp586_moe.config import d768_config
+    from exp586_moe.data_parallel import local_model
+
+    return replace(
+        local_model(d768_config("pretrained"), implementation="sonic"),
+        expert_chunks=1,
+        compact_input_lookup_ids=(),
+        compact_input_lookup_one_hot=False,
+    )
+
+
 def export_and_reference(record: dict, output: Path, fixtures: Path) -> None:
     import equinox as eqx
     import jax
     import jax.numpy as jnp
     import jmp
-    from exp586_moe.config import d768_config
     from exp586_moe.data import pretrained_dna_tokenizer
     from experiments.grug import checkpointing
     from experiments.grug.moe_hero_ep.model import Transformer, apply_qb_betas
@@ -47,24 +59,37 @@ def export_and_reference(record: dict, output: Path, fixtures: Path) -> None:
         or metadata["exp593_clock"] != record["clock"]
     ):
         raise ValueError("Native checkpoint bindings or data clock changed")
-    config = replace(
-        d768_config("pretrained"),
-        moe_implementation="sonic",
-        expert_chunks=1,
-        compact_input_lookup_ids=(),
-        compact_input_lookup_one_hot=False,
-    )
+    config = model_config()
     mesh = compact_grug_mesh(expert_axis_size=1, replica_axis_size=1)
     policy = jmp.get_policy("params=bfloat16,compute=bfloat16,output=bfloat16")
     output.mkdir(parents=True, exist_ok=True)
     original = load_encoder().tokenizer
+    tokenizer_digest = hashlib.sha256(original.to_str().encode()).hexdigest()
+    fixture_data = json.loads(fixtures.read_text())
+    if (
+        tokenizer_digest != record["bindings"]["tokenizer"]
+        or tokenizer_digest != fixture_data["tokenizer_sha256"]
+    ):
+        raise ValueError("Original tokenizer differs from training or gate fixtures")
     dna_ids = canonical_ids(original)
     original.save(str(output / "original-tokenizer.json"))
+    print(
+        json.dumps(
+            {
+                "phase": "native_contracts_verified",
+                "tokenizer_sha256": tokenizer_digest,
+                "checkpoint": record["checkpoint"],
+            }
+        ),
+        flush=True,
+    )
     with jax.set_mesh(mesh):
+        print(json.dumps({"phase": "restore_master_and_pending"}), flush=True)
         model = eqx.filter_jit(policy.cast_to_param)(
             restore_weights(record["checkpoint"], canonical, config, mesh)
         )
         jax.block_until_ready(model)
+        print(json.dumps({"phase": "restore_saved_compute"}), flush=True)
         # Independently read the saved compute weights, rather than comparing
         # Torch to a reference derived only from the exported FP32 masters.
         template = eqx.filter_eval_shape(
@@ -95,6 +120,15 @@ def export_and_reference(record: dict, output: Path, fixtures: Path) -> None:
                 f"FP32-master export differs from saved BF16 compute weights: {weight_difference}"
             )
         del compute
+        print(
+            json.dumps(
+                {
+                    "phase": "effective_weights_equal",
+                    "maximum_abs_difference": weight_difference,
+                }
+            ),
+            flush=True,
+        )
         converter = (
             config.hf_checkpoint_converter()
             .replaced(
@@ -139,7 +173,7 @@ def export_and_reference(record: dict, output: Path, fixtures: Path) -> None:
             return logits, hidden, routing
 
         arrays = {}
-        cases = json.loads(fixtures.read_text())["cases"]
+        cases = fixture_data["cases"]
         for index, case in enumerate(cases):
             ids = np.asarray(case["ids"], dtype=np.int32)
             tokens = np.zeros((1, 8192), dtype=np.int32)
