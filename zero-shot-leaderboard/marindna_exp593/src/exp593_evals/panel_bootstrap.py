@@ -153,78 +153,92 @@ def run(a):
         for stale in output.glob("*"):
             if stale.is_file():
                 stale.unlink()
-        configurations = [
-            ("native", i, 5, i, root / "native-runtime/bin/python", native_env)
-            for i in range(5)
+        native_wave = [
+            ("native", i, 2, i, root / "native-runtime/bin/python", native_env)
+            for i in range(2)
         ]
-        configurations += [
-            ("fast-fa3", 0, 1, 5, provider, os.environ.copy()),
-            ("vllm-fa3", 0, 1, 6, provider, os.environ.copy()),
-            ("torch-fa3", 0, 1, 7, torch_provider, os.environ.copy()),
+        torch_wave = [
+            ("fast-fa3", 0, 1, 2, provider, os.environ.copy()),
+            ("vllm-fa3", 0, 1, 3, provider, os.environ.copy()),
+            ("torch-fa3", 0, 1, 4, torch_provider, os.environ.copy()),
         ]
-        for backend, worker, workers, gpu, python, env in configurations:
-            env = env.copy()
-            env["CUDA_VISIBLE_DEVICES"] = str(gpu)
-            if backend == "fast-fa3":
-                env["TORCHINDUCTOR_FREEZING"] = "1"
-            else:
-                env.pop("TORCHINDUCTOR_FREEZING", None)
-            log = (root / f"{backend}-{worker}.log").open("w")
-            argv = [
-                str(python),
-                "-m",
-                "exp593_evals.panel_runtime",
-                "--panel",
-                str(root / "panel.json"),
-                "--record",
-                str(source / "checkpoint-record.json"),
-                "--case-stream",
-                str(root / "panel.cases.jsonl"),
-                "--model",
-                str(model),
-                "--output",
-                str(output),
-                "--backend",
-                backend,
-                "--worker",
-                str(worker),
-                "--workers",
-                str(workers),
-            ]
-            p = subprocess.Popen(argv, env=env, stdout=log, stderr=subprocess.STDOUT)
-            processes.append((backend, worker, p, log))
-        while any(p.poll() is None for _, _, p, _ in processes):
-            progress = []
-            for path in output.glob("*-progress.json"):
-                try:
-                    progress.append(json.loads(path.read_text()))
-                except json.JSONDecodeError:
-                    pass
-            fraction = sum(x["completed"] for x in progress) / (4 * streamed["cases"])
-            wb.log(
-                {
-                    "run_progress": fraction,
-                    "validation/phase": "task-panel",
-                    "validation/finished_processes": sum(
-                        p.poll() is not None for _, _, p, _ in processes
-                    ),
-                }
-            )
-            print(
-                json.dumps(
+        for phase, configurations in [
+            ("native-reference", native_wave),
+            ("torch-controls", torch_wave),
+        ]:
+            wave_start = len(processes)
+            for backend, worker, workers, gpu, python, env in configurations:
+                env = env.copy()
+                env["CUDA_VISIBLE_DEVICES"] = str(gpu)
+                if backend == "fast-fa3":
+                    env["TORCHINDUCTOR_FREEZING"] = "1"
+                else:
+                    env.pop("TORCHINDUCTOR_FREEZING", None)
+                log = (root / f"{backend}-{worker}.log").open("w")
+                argv = [
+                    str(python),
+                    "-m",
+                    "exp593_evals.panel_runtime",
+                    "--panel",
+                    str(root / "panel.json"),
+                    "--record",
+                    str(source / "checkpoint-record.json"),
+                    "--case-stream",
+                    str(root / "panel.cases.jsonl"),
+                    "--model",
+                    str(model),
+                    "--output",
+                    str(output),
+                    "--backend",
+                    backend,
+                    "--worker",
+                    str(worker),
+                    "--workers",
+                    str(workers),
+                ]
+                p = subprocess.Popen(
+                    argv, env=env, stdout=log, stderr=subprocess.STDOUT
+                )
+                processes.append((backend, worker, p, log))
+            while any(p.poll() is None for _, _, p, _ in processes[wave_start:]):
+                progress = []
+                for path in output.glob("*-progress.json"):
+                    try:
+                        progress.append(json.loads(path.read_text()))
+                    except json.JSONDecodeError:
+                        pass
+                fraction = sum(x["completed"] for x in progress) / (
+                    4 * streamed["cases"]
+                )
+                wb.log(
                     {
-                        "progress": progress,
-                        "processes": {f"{b}-{w}": p.poll() for b, w, p, _ in processes},
+                        "run_progress": fraction,
+                        "validation/phase": phase,
+                        "validation/host_memory_current_bytes": int(
+                            Path("/sys/fs/cgroup/memory.current").read_text()
+                        ),
+                        "validation/finished_processes": sum(
+                            p.poll() is not None for _, _, p, _ in processes
+                        ),
                     }
-                ),
-                flush=True,
-            )
-            time.sleep(30)
-        failures = {
-            f"{b}-{w}": p.returncode for b, w, p, _ in processes if p.returncode
-        }
-        if failures:
-            raise RuntimeError(f"Finite comparison processes failed: {failures}")
+                )
+                print(
+                    json.dumps(
+                        {
+                            "progress": progress,
+                            "processes": {
+                                f"{b}-{w}": p.poll() for b, w, p, _ in processes
+                            },
+                        }
+                    ),
+                    flush=True,
+                )
+                time.sleep(30)
+            failures = {
+                f"{b}-{w}": p.returncode for b, w, p, _ in processes if p.returncode
+            }
+            if failures:
+                raise RuntimeError(f"Finite comparison processes failed: {failures}")
         wb.log(
             {
                 "run_progress": 1.0,

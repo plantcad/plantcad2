@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import resource
 import time
 from itertools import batched
 from pathlib import Path
@@ -221,6 +222,10 @@ def run(args):
         "array_sha256": panel_stream.digest(target),
         "cases": seen,
         "elapsed_seconds": time.time() - start,
+        "host_process_peak_rss_bytes": resource.getrusage(
+            resource.RUSAGE_SELF
+        ).ru_maxrss
+        * 1024,
         "fullgraph": args.backend != "native",
         "head": "BF16 canonical eight rows; separate FP32 full-vocabulary normalization for AR AF",
     }
