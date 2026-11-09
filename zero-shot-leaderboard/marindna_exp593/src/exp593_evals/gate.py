@@ -66,7 +66,9 @@ def check(model: Path, fixtures: Path, output: Path) -> None:
         )
         with torch.inference_mode():
             full = (
-                streamed_full_log_probs(selected_hidden, scorer.full_head, labels)
+                streamed_full_log_probs(
+                    hidden=selected_hidden, targets=labels, head=scorer.full_head
+                )
                 .reshape(len(queries), 8)
                 .cpu()
                 .numpy()
