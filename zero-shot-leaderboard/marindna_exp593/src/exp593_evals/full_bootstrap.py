@@ -10,6 +10,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from uuid import uuid4
 
 from exp593_evals.artifacts import fetch
 from exp593_evals.bootstrap import restore_provider
@@ -70,7 +71,8 @@ def run(args: argparse.Namespace) -> None:
     processes = []
     error = None
     artifact_root = args.artifact_root.rstrip("/")
-    owner = artifact_root + f"/execution/{args.run_id}"
+    execution_owner = artifact_root + f"/execution/{args.run_id}"
+    owner = execution_owner + "/attempts/" + uuid4().hex
     try:
         wb.log({"run_progress": 0.0, "eval/phase": "setup"})
         provider = restore_provider(source, root)
@@ -204,6 +206,10 @@ def run(args: argparse.Namespace) -> None:
             + "\n"
         )
         upload_verified(storage, receipt, owner + "/extraction-receipt.json")
+        if error is None:
+            upload_verified(
+                storage, receipt, execution_owner + "/extraction-receipt.json"
+            )
         wb.finish(exit_code=1 if error else 0)
 
 
