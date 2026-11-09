@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -90,7 +91,13 @@ def observe(storage: Any) -> dict[str, Any]:
                     raise ValueError(
                         "Checkpoint bindings differ from authoritative training.json"
                     )
-                if relative.split("/", 1)[0] != "step-" + str(metadata.get("step")):
+                # The training saver isolates interrupted writes in a fresh UUID
+                # directory. Its metadata remains the same commit marker.
+                directory = relative.split("/", 1)[0]
+                expected = "step-" + str(metadata.get("step"))
+                if not re.fullmatch(
+                    re.escape(expected) + r"(?:-retry-[0-9a-f]{32})?", directory
+                ):
                     raise ValueError("Checkpoint directory and metadata step differ")
                 records.append(
                     {
