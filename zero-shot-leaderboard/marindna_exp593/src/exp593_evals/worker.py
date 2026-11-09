@@ -164,7 +164,16 @@ def run(args: argparse.Namespace) -> None:
                 **binding_base,
                 "job_profile": {k: v for k, v in job.items() if k != "chunk"},
             }
-            if existing(root, chunk, binding):
+            ready = existing(root, chunk, binding)
+            embedding_root = (
+                args.artifact_root.rstrip("/")
+                + f"/{job['profile']}/ar-lower-features/embeddings"
+            )
+            needs_embeddings = kind == "af" and variant == "ar-lower-control"
+            embeddings_ready = (
+                existing(embedding_root, chunk, binding) if needs_embeddings else True
+            )
+            if ready and embeddings_ready:
                 completed += 1
                 status("inference", task=chunk["task"], variant=variant)
                 continue
@@ -223,11 +232,7 @@ def run(args: argparse.Namespace) -> None:
                     arrays, embeddings = adapters[(variant, length)].allele_frequency(
                         frame, include_strand_average=False
                     )
-                    if variant == "ar-lower-control":
-                        embedding_root = (
-                            args.artifact_root.rstrip("/")
-                            + f"/{job['profile']}/ar-lower-features/embeddings"
-                        )
+                    if needs_embeddings and not embeddings_ready:
                         commit(
                             embedding_root,
                             chunk,
@@ -297,13 +302,14 @@ def run(args: argparse.Namespace) -> None:
                 raise ValueError(
                     "Prediction/features contain incorrect rows or nonfinite values"
                 )
-            commit(
-                root,
-                chunk,
-                arrays,
-                binding,
-                args.output / job["profile"] / variant / kind,
-            )
+            if not ready:
+                commit(
+                    root,
+                    chunk,
+                    arrays,
+                    binding,
+                    args.output / job["profile"] / variant / kind,
+                )
             completed += 1
             status("inference", task=chunk["task"], variant=variant)
         status("complete")

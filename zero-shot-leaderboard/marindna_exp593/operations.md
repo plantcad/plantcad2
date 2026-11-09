@@ -44,3 +44,7 @@ An observation helper may list and validate checkpoints but may not autonomously
 No hosted scheduling tool is exposed in this session, so maintain 30-minute agent decision passes with bounded active-session waits and report any interruption honestly.
 Stop and release owned resources after all eight checkpoint evaluations have verified complete results.
 There is no authorization to continue beyond those finite evaluations or to hold resources pending unrelated work.
+
+## Numerical validation hold
+
+The first completed native/Torch gate (validation/text-q1/a7) failed. No additional GPU dispatch or full evaluation is permitted until the numerical findings and proposed validation correction are reviewed with the user. Do not loosen thresholds or reuse the failed receipt as an accepted gate. The untracked plan and research log record the aggregation mismatch and insufficient FIM target sample. Read-only checkpoint discovery can continue without retaining compute.
