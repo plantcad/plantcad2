@@ -6,12 +6,13 @@ import argparse
 import hashlib
 import json
 import time
+from itertools import batched
 from pathlib import Path
 
 import numpy as np
 
 
-def native_predictions(record: dict, cases: list[dict], dna_ids: tuple, callback):
+def native_predictions(record: dict, cases, dna_ids: tuple, callback, total: int):
     import equinox as eqx
     import jax
     import jax.numpy as jnp
@@ -102,10 +103,10 @@ def native_predictions(record: dict, cases: list[dict], dna_ids: tuple, callback
                         )
                     )
                 values["full_log_probs"] = np.concatenate(pieces)
-            callback(case, values, offset + 1, len(cases))
+            callback(case, values, offset + 1, total)
 
 
-def torch_predictions(model: Path, profile: str, cases: list[dict], callback):
+def torch_predictions(model: Path, profile: str, cases, callback, total: int):
     from exp593_evals.profiles import configure
 
     configure(profile)
@@ -115,8 +116,8 @@ def torch_predictions(model: Path, profile: str, cases: list[dict], callback):
     from exp593_evals.torch_scorer import FastScorer
 
     scorer = FastScorer(model, configuration=profile)
-    for begin in range(0, len(cases), scorer.batch_size):
-        group = cases[begin : begin + scorer.batch_size]
+    begin = 0
+    for group in batched(cases, scorer.batch_size):
         logits, hidden, _ = scorer.forward([c["ids"] for c in group])
         for row, case in enumerate(group):
             positions = np.asarray(case["target_positions"]) - 1
@@ -150,7 +151,8 @@ def torch_predictions(model: Path, profile: str, cases: list[dict], callback):
                         )
                         pieces.append(selected.cpu().numpy().copy())
                 values["full_log_probs"] = np.concatenate(pieces)
-            callback(case, values, begin + row + 1, len(cases))
+            callback(case, values, begin + row + 1, total)
+        begin += len(group)
 
 
 def run(args):
@@ -158,7 +160,11 @@ def run(args):
     from exp593_evals.readouts import canonical_ids
 
     tokenizer = load_encoder().tokenizer
-    panel = json.loads(args.panel.read_text())
+    from exp593_evals import panel_stream
+
+    panel = panel_stream.header(args.case_stream)
+    if panel_stream.digest(args.panel) != panel["source_sha256"]:
+        raise ValueError("Fixture stream differs from its immutable source")
     record = json.loads(args.record.read_text())
     if (
         hashlib.sha256(tokenizer.to_str().encode()).hexdigest()
@@ -166,13 +172,15 @@ def run(args):
         or panel["tokenizer_sha256"] != record["bindings"]["tokenizer"]
     ):
         raise ValueError("Panel/tokenizer/training identity differs")
-    all_cases = panel["cases"]
-    cases = [c for c in all_cases if c["index"] % args.workers == args.worker]
+    expected = list(range(args.worker, panel["cases"], args.workers))
+    cases = panel_stream.cases(args.case_stream, args.worker, args.workers)
+    seen = []
     arrays = {}
     args.output.mkdir(parents=True, exist_ok=True)
     start = time.time()
 
     def callback(case, values, completed, total):
+        seen.append(case["index"])
         for name, value in values.items():
             if not np.isfinite(value).all():
                 raise ValueError("Nonfinite predictions")
@@ -186,17 +194,22 @@ def run(args):
                 "seconds": time.time() - start,
             }
             print(json.dumps(status), flush=True)
-            (args.output / f"{args.backend}-{args.worker}-progress.json").write_text(
-                json.dumps(status) + "\n"
-            )
+            status_path = args.output / f"{args.backend}-{args.worker}-progress.json"
+            temporary = status_path.with_suffix(".tmp")
+            temporary.write_text(json.dumps(status) + "\n")
+            temporary.replace(status_path)
 
     if args.backend == "native":
-        native_predictions(record, cases, canonical_ids(tokenizer), callback)
+        native_predictions(
+            record, cases, canonical_ids(tokenizer), callback, len(expected)
+        )
     else:
         receipt = json.loads((args.model / "native-receipt.json").read_text())
         if receipt["checkpoint"] != record:
             raise ValueError("Model snapshot differs from panel checkpoint")
-        torch_predictions(args.model, args.backend, cases, callback)
+        torch_predictions(args.model, args.backend, cases, callback, len(expected))
+    if seen != expected:
+        raise ValueError("Prediction stream did not cover its exact assigned cases")
     target = args.output / f"{args.backend}-{args.worker}.npz"
     np.savez_compressed(target, **arrays)
     receipt = {
@@ -204,9 +217,9 @@ def run(args):
         "worker": args.worker,
         "workers": args.workers,
         "checkpoint": record,
-        "panel_sha256": hashlib.sha256(args.panel.read_bytes()).hexdigest(),
-        "array_sha256": hashlib.sha256(target.read_bytes()).hexdigest(),
-        "cases": [c["index"] for c in cases],
+        "panel_sha256": panel["source_sha256"],
+        "array_sha256": panel_stream.digest(target),
+        "cases": seen,
         "elapsed_seconds": time.time() - start,
         "fullgraph": args.backend != "native",
         "head": "BF16 canonical eight rows; separate FP32 full-vocabulary normalization for AR AF",
@@ -217,6 +230,7 @@ def run(args):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--panel", type=Path, required=True)
+    p.add_argument("--case-stream", type=Path, required=True)
     p.add_argument("--record", type=Path, required=True)
     p.add_argument("--model", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)

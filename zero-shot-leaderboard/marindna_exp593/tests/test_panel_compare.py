@@ -63,6 +63,7 @@ def test_af_matches_original_subtract_then_sum_reduction():
                     "index": i,
                     "readout": "ar-lower",
                     "kind": "af",
+                    "full_vocab": True,
                     "task": "maize-af",
                     "context": strand,
                     "row": 0,

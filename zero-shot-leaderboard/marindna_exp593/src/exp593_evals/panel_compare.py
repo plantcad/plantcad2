@@ -64,13 +64,18 @@ def science(panel, owners, protocol):
     af_parts = {}
     for c in panel["cases"]:
         data = owners[c["index"]]
-        logits = data[f"{c['index']}__logits"]
-        for variant, p in variants(c, logits).items():
+        views = (
+            {name: None for name in VARIANTS[c["readout"]]}
+            if c["kind"] == "af" and c["full_vocab"]
+            else variants(c, data[f"{c['index']}__logits"])
+        )
+        for variant, p in views.items():
             key = (variant, c["task"], c["context"])
             truth = np.asarray(c["target_bases"])
             valid = truth >= 0
-            chosen = np.zeros(len(truth))
-            chosen[valid] = p[np.flatnonzero(valid), truth[valid]]
+            if p is not None:
+                chosen = np.zeros(len(truth))
+                chosen[valid] = p[np.flatnonzero(valid), truth[valid]]
             if c["kind"] == "sv":
                 arrays = sv_probs.setdefault(
                     variant,
@@ -185,7 +190,15 @@ def bootstrap_metric(kind, truth, value):
     return metric(kind, truth, value)
 
 
-def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
+def compare(
+    panel_path: Path,
+    root: Path,
+    scientific: Path,
+    output: Path,
+    *,
+    task_scores_only: bool = False,
+):
+    analysis_source_sha = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
     sys.path.insert(0, str(scientific))
     from exp586_evals.protocol import original
     from scipy.stats import binomtest
@@ -270,7 +283,7 @@ def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
                 )
             rows.append(row)
     distributions = []
-    for backend in BACKENDS[1:]:
+    for backend in [] if task_scores_only else BACKENDS[1:]:
         groups = defaultdict(list)
         for c in panel["cases"]:
             index = c["index"]
@@ -361,9 +374,7 @@ def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
             {
                 "checkpoint": checkpoint,
                 "panel_sha256": panel_hash,
-                "analysis_source_sha256": hashlib.sha256(
-                    Path(__file__).read_bytes()
-                ).hexdigest(),
+                "analysis_source_sha256": analysis_source_sha,
                 "status": "complete-requires-agent-interpretation",
                 "notes": [
                     "These are fixed validation subsets, not final benchmark scores.",
@@ -397,8 +408,15 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     for key in ["panel", "predictions", "scientific-code", "output"]:
         p.add_argument("--" + key, type=Path, required=True)
+    p.add_argument("--task-scores-only", action="store_true")
     a = p.parse_args()
-    compare(a.panel, a.predictions, a.scientific_code, a.output)
+    compare(
+        a.panel,
+        a.predictions,
+        a.scientific_code,
+        a.output,
+        task_scores_only=a.task_scores_only,
+    )
 
 
 if __name__ == "__main__":

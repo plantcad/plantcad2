@@ -9,6 +9,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from uuid import uuid4
 
 from exp593_evals.bootstrap import restore_provider
 from exp593_evals.storage import client, upload_verified
@@ -47,6 +48,7 @@ def run(a):
         id=a.run_id,
         name=a.run_id,
         resume="allow",
+        allow_val_change=True,
         group="dna-exp593-plantcad2-evals",
         config={
             "scope": "finite practical backend validation, not final evaluation",
@@ -59,8 +61,37 @@ def run(a):
     )
     processes = []
     error = None
+    attempt_owner = a.artifact_root.rstrip("/") + "/attempts/" + uuid4().hex
+    from botocore.exceptions import ClientError
+
+    final_bucket, final_key = (
+        (a.artifact_root.rstrip("/") + "/comparison-receipt.json")
+        .removeprefix("s3://")
+        .split("/", 1)
+    )
+    try:
+        previous = json.loads(
+            s.get_object(Bucket=final_bucket, Key=final_key)["Body"].read()
+        )
+    except ClientError as e:
+        if e.response["Error"]["Code"] not in {"404", "NoSuchKey"}:
+            raise
+    else:
+        if previous["error"] is not None or previous["source"] != source_manifest:
+            raise ValueError(
+                "A completed comparison belongs to different source semantics"
+            )
+        wb.log(
+            {
+                "run_progress": 1.0,
+                "validation/phase": "complete-reused-verified-receipt",
+            }
+        )
+        wb.finish()
+        return
     try:
         wb.log({"run_progress": 0.0, "validation/phase": "setup"})
+        wb.log({"validation/attempt_owner": attempt_owner})
         panel_record = json.loads((source / "panel-record.json").read_text())
         uri = panel_record["uri"]
         bucket, key = uri.removeprefix("s3://").split("/", 1)
@@ -73,6 +104,11 @@ def run(a):
             import shutil
 
             shutil.copyfileobj(f, out)
+        from exp593_evals import panel_stream
+
+        streamed = panel_stream.prepare(root / "panel.json", root / "panel.cases.jsonl")
+        if streamed["source_sha256"] != panel_record["uncompressed_sha256"]:
+            raise ValueError("Uncompressed panel differs from its source receipt")
         # Reuse the fully verified first export, without reusing its failed decision.
         old = a.previous_export.rstrip("/")
         bucket, key = (
@@ -114,6 +150,9 @@ def run(a):
         torch_provider = restore_provider(source, root / "torch-runtime", "no-vllm")
         output = root / "predictions"
         output.mkdir(exist_ok=True)
+        for stale in output.glob("*"):
+            if stale.is_file():
+                stale.unlink()
         configurations = [
             ("native", i, 5, i, root / "native-runtime/bin/python", native_env)
             for i in range(5)
@@ -139,6 +178,8 @@ def run(a):
                 str(root / "panel.json"),
                 "--record",
                 str(source / "checkpoint-record.json"),
+                "--case-stream",
+                str(root / "panel.cases.jsonl"),
                 "--model",
                 str(model),
                 "--output",
@@ -159,7 +200,7 @@ def run(a):
                     progress.append(json.loads(path.read_text()))
                 except json.JSONDecodeError:
                     pass
-            fraction = sum(x["completed"] / x["total"] for x in progress) / 8
+            fraction = sum(x["completed"] for x in progress) / (4 * streamed["cases"])
             wb.log(
                 {
                     "run_progress": fraction,
@@ -212,9 +253,7 @@ def run(a):
                         upload_verified(
                             s,
                             path,
-                            a.artifact_root.rstrip("/")
-                            + "/"
-                            + str(path.relative_to(root)),
+                            attempt_owner + "/" + str(path.relative_to(root)),
                         )
                     )
         receipt = root / "comparison-receipt.json"
@@ -228,14 +267,22 @@ def run(a):
                     "status": "failed"
                     if error
                     else "predictions-complete-needs-scientific-review",
+                    "attempt_owner": attempt_owner,
+                    "host_memory_peak_bytes": int(
+                        Path("/sys/fs/cgroup/memory.peak").read_text()
+                    )
+                    if Path("/sys/fs/cgroup/memory.peak").exists()
+                    else None,
                 },
                 indent=2,
             )
             + "\n"
         )
-        upload_verified(
-            s, receipt, a.artifact_root.rstrip("/") + "/comparison-receipt.json"
-        )
+        upload_verified(s, receipt, attempt_owner + "/comparison-receipt.json")
+        if error is None:
+            upload_verified(
+                s, receipt, a.artifact_root.rstrip("/") + "/comparison-receipt.json"
+            )
         wb.finish(exit_code=1 if error else 0)
 
 
