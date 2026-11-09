@@ -296,7 +296,7 @@ def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
                         "prob": np.abs(pt - qt).reshape(-1),
                         "flips": flips,
                         "margin": (ordered[:, -1] - ordered[:, -2])[flips],
-                        "case_mean_loss": float(loss.mean()),
+                        "example": (c["task"], c["row"]),
                     }
                 )
         for (variant, kind), parts in groups.items():
@@ -304,10 +304,14 @@ def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
             errors = np.concatenate([p["prob"] for p in parts])
             flips = np.concatenate([p["flips"] for p in parts])
             margins = np.concatenate([p["margin"] for p in parts])
-            case_means = np.asarray([p["case_mean_loss"] for p in parts])
-            boot = np.mean(
-                case_means[rng.integers(len(parts), size=(1000, len(parts)))], axis=1
-            )
+            clusters = defaultdict(lambda: [0.0, 0])
+            for part in parts:
+                cluster = clusters[part["example"]]
+                cluster[0] += float(part["loss"].sum(dtype=np.float64))
+                cluster[1] += len(part["loss"])
+            totals = np.asarray(list(clusters.values()))
+            take = rng.integers(len(totals), size=(1000, len(totals)))
+            boot = totals[take, 0].sum(1) / totals[take, 1].sum(1)
             distributions.append(
                 {
                     "backend": backend,
@@ -315,7 +319,7 @@ def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
                     "kind": kind,
                     "targets": len(losses),
                     "mean_nll_difference": float(losses.mean()),
-                    "mean_case_nll_difference_95ci": interval(boot),
+                    "mean_nll_difference_95ci": interval(boot),
                     "mean_abs_target_nll_difference": float(np.abs(losses).mean()),
                     "mean_abs_probability_difference": float(errors.mean()),
                     "pooled_probability_p99": float(np.quantile(errors, 0.99)),
@@ -357,11 +361,15 @@ def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
             {
                 "checkpoint": checkpoint,
                 "panel_sha256": panel_hash,
+                "analysis_source_sha256": hashlib.sha256(
+                    Path(__file__).read_bytes()
+                ).hexdigest(),
                 "status": "complete-requires-agent-interpretation",
                 "notes": [
                     "These are fixed validation subsets, not final benchmark scores.",
                     "Classification subsets are label-balanced for runtime validation; SV AUPRC is not a population estimate.",
                     "Confidence intervals are finite-subset diagnostics; related genomic rows may be correlated.",
+                    "NLL intervals resample original task examples, keeping orientations and targets of an example together.",
                     "NLL/bootstrap values do not automatically accept/reject a backend.",
                     "No thresholds or task definitions were adjusted to select a winning backend.",
                 ],
