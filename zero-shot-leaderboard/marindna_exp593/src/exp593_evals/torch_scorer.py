@@ -94,6 +94,9 @@ class FastScorer:
             return logits[: len(ids)].clone(), hidden[: len(ids)].clone(), lengths
 
     def probabilities(self, logits: Any, *, collapse_case: bool) -> Any:
+        return self.log_probabilities(logits, collapse_case=collapse_case).exp()
+
+    def log_probabilities(self, logits: Any, *, collapse_case: bool) -> Any:
         import torch
 
         values = logits.float()
@@ -101,7 +104,7 @@ class FastScorer:
             values = torch.logaddexp(values[..., :4], values[..., 4:])
         else:
             values = values[..., 4:]
-        return torch.softmax(values, dim=-1)
+        return torch.log_softmax(values, dim=-1)
 
     def features(self, ids: list[list[int]], *, pooling: str) -> np.ndarray:
         import torch

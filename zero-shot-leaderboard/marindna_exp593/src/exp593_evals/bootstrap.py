@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import subprocess
+import sys
 import tarfile
 import threading
 import time
@@ -129,6 +130,19 @@ def run(args: argparse.Namespace) -> None:
 
     source, root = args.source, args.root
     root.mkdir(parents=True, exist_ok=True)
+    # The base task image currently carries uv 0.10.3. The coherent native
+    # dependency lock requires 0.13.5; keep that installer in tools, not providers.
+    subprocess.run(
+        ["uv", "pip", "install", "--python", sys.executable, "--no-deps", "uv==0.13.5"],
+        check=True,
+    )
+    os.environ["PATH"] = (
+        str(Path(sys.executable).parent) + os.pathsep + os.environ["PATH"]
+    )
+    if not subprocess.check_output(["uv", "--version"], text=True).startswith(
+        "uv 0.13.5 "
+    ):
+        raise RuntimeError("Pinned native installer is not selected")
     manifest = json.loads((source / "source-manifest.json").read_text())
     for relative, expected in manifest["files"].items():
         with (source / relative).open("rb") as stream:
