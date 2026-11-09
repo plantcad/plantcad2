@@ -145,9 +145,9 @@ def torch_predictions(model: Path, profile: str, cases: list[dict], callback):
                             hidden[row, positions[start : start + 256]],
                             scorer.full_head,
                         )
-                        selected = projected[
-                            :, list(scorer.dna_ids[:8])
-                        ] - torch.logsumexp(projected, dim=-1, keepdim=True)
+                        selected = projected[:, list(scorer.dna_ids)] - torch.logsumexp(
+                            projected, dim=-1, keepdim=True
+                        )
                         pieces.append(selected.cpu().numpy().copy())
                 values["full_log_probs"] = np.concatenate(pieces)
             callback(case, values, begin + row + 1, len(cases))

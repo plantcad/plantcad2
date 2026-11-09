@@ -91,11 +91,15 @@ def science(panel, owners, protocol):
                     else:
                         canonical = np.logaddexp(full[:, :4], full[:, 4:8])
                     original_n = 9 if c["readout"] == "ar-lower" else 8
-                    logs = full[:, original_n].copy()
+                    logs = np.zeros(len(truth), dtype=np.float32)
+                    if not valid.all():
+                        if full.shape[-1] != 10:
+                            raise ValueError(
+                                "N targets require explicit original N/n full-head rows"
+                            )
+                        logs[~valid] = full[~valid, original_n]
                     logs[valid] = canonical[np.flatnonzero(valid), truth[valid]]
-                    af_parts[(variant, c["context"], c["row"], c["allele"])] = float(
-                        logs.sum(dtype=np.float32)
-                    )
+                    af_parts[(variant, c["context"], c["row"], c["allele"])] = logs
                 else:
                     row = panel["tasks"]["maize-af"]["rows"][c["row"]]
                     ref, alt = row["ref"].upper(), row["alt"].upper()
@@ -130,9 +134,17 @@ def science(panel, owners, protocol):
             strands = []
             for strand in ["fwd", "rc"]:
                 if variant.startswith("ar-"):
-                    strands.append(
+                    # Match the original suffix reducer: subtract at each
+                    # position BEFORE summing, avoiding cancellation of two
+                    # long, nearly equal log-likelihood totals.
+                    import torch
+
+                    difference = (
                         af_parts[(variant, strand, i, "alt")]
                         - af_parts[(variant, strand, i, "ref")]
+                    )
+                    strands.append(
+                        float(torch.from_numpy(difference).sum(dtype=torch.float32))
                     )
                 else:
                     strands.append(af_parts[(variant, strand, i, "site")])
@@ -162,6 +174,15 @@ def metric(kind, truth, value):
 
 def interval(values):
     return [float(x) for x in np.quantile(values, [0.025, 0.975])]
+
+
+def bootstrap_metric(kind, truth, value):
+    """Exact pairwise binary AUROC for small bootstrap subsets, including ties."""
+    if kind in {"conservation", "core"}:
+        positive = value[truth == 1][:, None]
+        negative = value[truth == 0][None, :]
+        return float(np.mean((positive > negative) + 0.5 * (positive == negative)))
+    return metric(kind, truth, value)
 
 
 def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
@@ -206,8 +227,8 @@ def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
                 if kind in ["core", "conservation", "sv"] and len(set(truth[take])) < 2:
                     continue
                 a, b = (
-                    metric(kind, truth[take], prediction[take]),
-                    metric(kind, truth[take], native[take]),
+                    bootstrap_metric(kind, truth[take], prediction[take]),
+                    bootstrap_metric(kind, truth[take], native[take]),
                 )
                 if np.isfinite(a) and np.isfinite(b):
                     bs.append(b)
@@ -227,6 +248,13 @@ def compare(panel_path: Path, root: Path, scientific: Path, output: Path):
                 "prediction_mean_abs_difference": float(
                     np.abs(prediction - native).mean()
                 ),
+                "prediction_rmse": float(np.sqrt(np.mean((prediction - native) ** 2))),
+                "native_prediction_std": float(np.std(native)),
+                "prediction_correlation_with_native": float(
+                    np.corrcoef(prediction, native)[0, 1]
+                )
+                if np.std(native) > 0 and np.std(prediction) > 0
+                else None,
             }
             if kind == "motif":
                 worse = int(np.sum((native == 1) & (prediction == 0)))

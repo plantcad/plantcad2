@@ -38,7 +38,9 @@ def selected(frame, count: int, *, balanced: bool, seed: int):
     return result.reset_index(drop=True)
 
 
-def prepare(root: Path, output: Path) -> None:
+def prepare(
+    root: Path, output: Path, *, af_only: bool = False, af_count: int = 32
+) -> None:
     sys.path.insert(0, str(root / "scientific-code"))
     from exp586_evals.protocol import original
 
@@ -94,7 +96,7 @@ def prepare(root: Path, output: Path) -> None:
                     }
                 )
 
-    for number, spec in enumerate(protocol.tasks.LEADERBOARD_TASKS):
+    for number, spec in enumerate(() if af_only else protocol.tasks.LEADERBOARD_TASKS):
         source = manifest["inputs"][spec["file"]]
         import pyarrow.parquet as pq
 
@@ -241,8 +243,36 @@ def prepare(root: Path, output: Path) -> None:
         if hashlib.file_digest(stream, "sha256").hexdigest() != record["sha256"]:
             raise ValueError("AF source digest changed")
     sources[record["path"]] = record
-    frame = protocol.inputs.read_frame(manifest, spec, 0, min(4000, source["rows"]))
-    frame = selected(frame, 32, balanced=False, seed=593021)
+    if af_only:
+        import pyarrow.parquet as pq
+
+        if len(source["files"]) != 1:
+            raise ValueError(
+                "Expanded AF sampler expects the retained single Parquet source"
+            )
+        parquet = pq.ParquetFile(root / "samples" / record["path"])
+        chosen = np.sort(
+            np.random.default_rng(593021).choice(
+                source["rows"], af_count, replace=False
+            )
+        )
+        pieces, offset = [], 0
+        for group in range(parquet.num_row_groups):
+            size = parquet.metadata.row_group(group).num_rows
+            points = chosen[(chosen >= offset) & (chosen < offset + size)]
+            if len(points):
+                part = parquet.read_row_group(group).take(points - offset).to_pandas()
+                part["panel_source_row"] = points
+                pieces.append(part)
+            offset += size
+        frame = (
+            pd.concat(pieces, ignore_index=True)
+            .sort_values("panel_source_row")
+            .reset_index(drop=True)
+        )
+    else:
+        frame = protocol.inputs.read_frame(manifest, spec, 0, min(4000, source["rows"]))
+        frame = selected(frame, af_count, balanced=False, seed=593021)
     tasks[spec["key"]] = {"spec": spec, "rows": frame.to_dict("records")}
     for i, row in enumerate(frame.to_dict("records")):
         sequence = row["sequence"]
@@ -323,8 +353,10 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--inputs", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
+    p.add_argument("--af-only", action="store_true")
+    p.add_argument("--af-count", type=int, default=32)
     a = p.parse_args()
-    prepare(a.inputs, a.output)
+    prepare(a.inputs, a.output, af_only=a.af_only, af_count=a.af_count)
 
 
 if __name__ == "__main__":
