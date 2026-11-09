@@ -10,6 +10,7 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
+from functools import cache
 from importlib.resources import files
 from typing import Any
 
@@ -19,7 +20,8 @@ from exp593_dna.pipeline import Span
 from exp593_dna.templates import KEYS, phrase_catalog, render_metadata
 
 
-def _render_closure(context: dict[str, Any]) -> Any:
+@cache
+def _training_render_code() -> Any:
     path = files("exp593_dna").joinpath("pipeline.py")
     source = path.read_bytes()
     manifest = json.loads(files("exp593_evals").joinpath("sources.json").read_text())
@@ -33,16 +35,34 @@ def _render_closure(context: dict[str, Any]) -> Any:
     ]
     if len(functions) != 1:
         raise ValueError("Expected exactly one training render closure")
+    return compile(
+        ast.fix_missing_locations(ast.Module(body=functions, type_ignores=[])),
+        str(path),
+        "exec",
+    )
+
+
+def _render_closure(context: dict[str, Any]) -> Any:
     namespace = {"Span": Span, **context}
     exec(  # noqa: S102 -- exact hash-verified training source
-        compile(
-            ast.fix_missing_locations(ast.Module(body=functions, type_ignores=[])),
-            str(path),
-            "exec",
-        ),
+        _training_render_code(),
         namespace,
     )
     return namespace["render"]
+
+
+@cache
+def _catalog() -> Any:
+    return phrase_catalog()
+
+
+@cache
+def _line_seed() -> int:
+    return next(
+        seed
+        for seed in range(100)
+        if render_metadata({}, np.random.default_rng(seed))[1] == "lines"
+    )
 
 
 def fim_spans(
@@ -63,7 +83,7 @@ def fim_spans(
         raise ValueError("Metadata contains a field not rendered during training")
     if any(not isinstance(v, str) or not v or "\n" in v for v in fields.values()):
         raise ValueError("Metadata values must be nonempty single-line strings")
-    catalog = phrase_catalog()
+    catalog = _catalog()
     if metadata is None:
         header, instruction = "", ""
         layout, labels, hint = (
@@ -74,11 +94,7 @@ def fim_spans(
     else:
         # A fixed seed chooses the existing line-oriented metadata format. There is
         # no per-task prompt selection or test-score-dependent prompt tuning.
-        seed = next(
-            seed
-            for seed in range(100)
-            if render_metadata({}, np.random.default_rng(seed))[1] == "lines"
-        )
+        seed = _line_seed()
         header, structure = render_metadata(fields, np.random.default_rng(seed))
         assert structure == "lines"
         case_description = "all nucleotides are represented in lowercase; repeat-mask information is not encoded by case."

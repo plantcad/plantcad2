@@ -208,6 +208,12 @@ def run(args: argparse.Namespace) -> None:
     try:
         wb.log({"run_progress": 0.0, "validation/phase": "setup"})
         # Preserve a separate native environment; never install JAX over providers.
+        native_environment = os.environ.copy()
+        native_environment.pop("VIRTUAL_ENV", None)
+        native_environment["UV_PROJECT_ENVIRONMENT"] = str(root / "native-runtime")
+        native_environment["CUDA_VISIBLE_DEVICES"] = "0"
+        native_environment["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.8"
+        native_python = root / "native-runtime/bin/python"
         command(
             [
                 "uv",
@@ -221,16 +227,23 @@ def run(args: argparse.Namespace) -> None:
                 "gpu",
             ],
             "native-environment",
+            env=native_environment,
+        )
+        command(
+            [
+                str(native_python),
+                "-c",
+                "import sys,jax; print('Native interpreter:',sys.executable,'JAX:',jax.__version__); assert jax.__version__=='0.11.1'",
+            ],
+            "native-imports",
+            env=native_environment,
         )
         state["progress"] = 0.1
         provider = restore_provider(source, root)
         state["progress"] = 0.25
-        native_environment = os.environ.copy()
-        native_environment["CUDA_VISIBLE_DEVICES"] = "0"
-        native_environment["XLA_PYTHON_CLIENT_MEM_FRACTION"] = "0.8"
         command(
             [
-                str(source / "native/.venv/bin/python"),
+                str(native_python),
                 "-m",
                 "exp593_evals.native",
                 "--checkpoint-record",

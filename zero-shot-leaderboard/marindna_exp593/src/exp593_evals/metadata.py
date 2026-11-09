@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from functools import cache
+
 from exp593_dna.pipeline import load_registry
 
 SPECIES = {
@@ -11,6 +13,11 @@ SPECIES = {
     "tomato": ("Solanum lycopersicum", None),
     "pharus": ("Pharus latifolius", None),
 }
+
+
+@cache
+def _registry():
+    return load_registry()
 
 
 def metadata_for(
@@ -41,7 +48,7 @@ def metadata_for(
     name, assembly = SPECIES[species]
     fields = {"species": name}
     if assembly:
-        registry = load_registry()[assembly]
+        registry = _registry()[assembly]
         if registry["scientific_name"] != name:
             raise ValueError("Training registry and benchmark species disagree")
         fields.update(assembly=assembly, taxonomy=registry["taxonomy_path"])
