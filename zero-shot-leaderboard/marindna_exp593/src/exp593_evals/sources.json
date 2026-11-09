@@ -39,5 +39,19 @@
     "repository": "https://github.com/plantcad/plantcad2",
     "commit": "cc13e527b9b180177802a342fbda5c6feedcf3a3",
     "source_directory": "zero-shot-leaderboard/marindna_exp586"
+  },
+  "probe_fitting": {
+    "repository": "https://github.com/plantcad/plantcad2",
+    "commit": "cc13e527b9b180177802a342fbda5c6feedcf3a3",
+    "files": {
+      "provenance/probe-fit-code/exp586_evals/classification_probe.py": "e8f8439a8281462214aa38fae4f61c29e3c4c6f19538e161712fb00a74f75f72",
+      "provenance/probe-fit-code/exp586_evals/motif_probe.py": "a8d74b89b1cff124aef10f72fad0367e79e96eea915480e59ad78ac9036e7316",
+      "provenance/probe-fit-code/exp586_evals/probe_protocol.py": "fe301ce392157a386e447293ff01ca0e8c2a8f7c097e4e9bcdecaa9d79b8603c"
+    },
+    "AF_fitting": "full_probe.py and bidirectional.py in the pinned scientific wheel match this commit byte-for-byte.",
+    "scientific_wheel_files": {
+      "full_probe.py": "65eecf47307bada5c6dc39d03eb49b9abd5720a7896ddaa5dcd8dd86664e1d10",
+      "bidirectional.py": "093d1e3f4219b96b27dd227aa30cd192257a8e78d2d9defc30f08249556d8d10"
+    }
   }
 }

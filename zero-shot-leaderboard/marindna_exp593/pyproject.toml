@@ -25,6 +25,7 @@ testpaths = ["tests"]
 "src/exp586_deployment/**" = ["ALL"]
 "src/exp593_dna/**" = ["ALL"]
 "src/exp593_evals/legacy_readout.py" = ["I001"]
+"provenance/probe-fit-code/**" = ["ALL"]
 
 [tool.ruff.format]
-exclude = ["src/exp586_deployment", "src/exp593_dna", "src/exp593_evals/legacy_readout.py"]
+exclude = ["src/exp586_deployment", "src/exp593_dna", "src/exp593_evals/legacy_readout.py", "provenance/probe-fit-code"]
