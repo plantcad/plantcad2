@@ -10,7 +10,7 @@ from pathlib import Path
 
 import numpy as np
 
-from exp593_evals.artifacts import digest, fetch, read
+from exp593_evals.artifacts import digest, fetch
 from exp593_evals.storage import client, upload_verified
 
 
@@ -54,7 +54,9 @@ def chunks(
             key = value["Key"].rsplit("/", 1)[-1].removesuffix(".json")
             if key not in expected:
                 continue  # Other tasks share the same immutable kind owner.
-            record = json.loads(read("s3://" + bucket + "/" + value["Key"]))
+            record = json.loads(
+                storage.get_object(Bucket=bucket, Key=value["Key"])["Body"].read()
+            )
             if any(record[k] != v for k, v in expected[key].items()):
                 raise ValueError("A completed chunk differs from the original plan")
             actual_binding = dict(record["binding"])
@@ -221,8 +223,20 @@ def run(args: argparse.Namespace) -> None:
                 raise ValueError(
                     "AF probes require the matching new lowercase-control predictions"
                 )
+            # The unchanged fitter resolves samples from the manifest's parent.
+            # Put its copy beside the original sample links, preserving all
+            # original membership fields and the actual source-file locations.
+            probe_preparation = (
+                args.inputs
+                / "samples"
+                / ("af-probe-preparation-" + digest(preparation_path) + ".json")
+            )
+            probe_preparation.write_bytes(preparation_path.read_bytes())
             full_probe.fit_probes(
-                preparation_path, profile / "embeddings", args.af_zero_shot, args.output
+                probe_preparation,
+                profile / "embeddings",
+                args.af_zero_shot,
+                args.output,
             )
             result = json.loads((args.output / "result.json").read_text())
     result_path = args.output / "result.json"

@@ -1,4 +1,5 @@
 import hashlib
+import io
 import json
 from pathlib import Path
 
@@ -62,8 +63,11 @@ def test_af_embedding_receipts_keep_the_paired_lowercase_scorer_binding(
             assert kwargs["Prefix"].endswith("/ar-lower-features/embeddings/chunks/")
             return [{"Contents": [{"Key": piece["key"] + ".json"}]}]
 
+        def get_object(self, **kwargs):
+            assert kwargs["Key"] == piece["key"] + ".json"
+            return {"Body": io.BytesIO(json.dumps(record).encode())}
+
     monkeypatch.setattr(analysis, "client", Storage)
-    monkeypatch.setattr(analysis, "read", lambda uri: json.dumps(record).encode())
     monkeypatch.setattr(analysis, "fetch", lambda *args: archive)
     directory = chunks(
         "s3://owner/evaluation",
