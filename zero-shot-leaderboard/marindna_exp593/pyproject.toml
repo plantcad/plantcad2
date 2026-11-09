@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "marindna-exp593-evals"
+version = "0.1.0"
+description = "Augmented MarinMoE checkpoint evaluations using the PlantCAD2 protocol"
+requires-python = ">=3.12,<3.13"
+dependencies = ["numpy>=2", "boto3>=1.43.106", "tokenizers>=0.22", "huggingface-hub>=0.36", "pyarrow>=25", "requests>=2.32"]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.16"]
+
+[project.scripts]
+exp593-observe = "exp593_evals.checkpoints:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/exp593_evals", "src/exp586_deployment", "src/exp593_dna"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/exp586_deployment/**" = ["ALL"]
+"src/exp593_dna/**" = ["ALL"]
+"src/exp593_evals/legacy_readout.py" = ["I001"]
+
+[tool.ruff.format]
+exclude = ["src/exp586_deployment", "src/exp593_dna", "src/exp593_evals/legacy_readout.py"]

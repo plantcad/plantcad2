@@ -1,0 +1,43 @@
+{
+  "deployment": {
+    "repository": "https://github.com/Open-Athena/marin-dna",
+    "commit": "6c07df025a185c6e39278327ba5b678dcfd93c86",
+    "source_directory": "experiments/exp586_torch_deployment/src/exp586_deployment",
+    "files": {
+      "exp586_deployment/__init__.py": "ea9077331dbe8fcfc78465be71c4abd3dd028630cd74d64bed43a9afb84683c7",
+      "exp586_deployment/benchmark.py": "323325b444d17f92e1c566be0913938a400c2863e2ba2564af9bfbda5a6fca7f",
+      "exp586_deployment/contract.py": "dd762f0d6198a5e071e5474155bdadbebe861e50927b81b60d5eaf89c63490e2",
+      "exp586_deployment/correctness.py": "114d90d88f0e8b98034357ef2a5febe68fd1fde5c602fdfa4587ec0a406d9a81",
+      "exp586_deployment/fast.py": "518d9c28dc9acf8ebfc83edf90bda18e2d7940281ec48ef41f3cc85ccc947205",
+      "exp586_deployment/fixtures.py": "9f4b93ca54cc48f909b9907ae7de06ac66b18e59ff198c3049d94af9589b38f1",
+      "exp586_deployment/model.py": "37e691d45890e33eeb4c59d0244912ebaf34ef88f70740cced472f59f8203e5d",
+      "exp586_deployment/providers.py": "ff2a5bb2e83cc6f0e879e45b65c80fcf0a69d87ad649f624395a1d3618197104",
+      "exp586_deployment/router_topk.py": "7e19f74f334f315b4e758fe034e9f48920f152df55e7b6b759562a858306e2ea",
+      "exp586_deployment/tokenizer.py": "575b3987352afc712f30b7795beaaef519b5c6da5f8bf183b78503afba4e4efc"
+    }
+  },
+  "training": {
+    "repository": "https://github.com/Open-Athena/marin-dna",
+    "commit": "8e2e86d8d51171759a04724a97088a7fb4144da8",
+    "source_directory": "experiments/exp593_augmented_dna/src/exp593_dna",
+    "files": {
+      "exp593_dna/__init__.py": "7928ecbd31a92897a0a3448033bb1590be6fb6b0baa2b41d154831b5c6457ae6",
+      "exp593_dna/annotations.py": "0ebde87a7b83ad7b89e591c5ac4a09efacf7e880c5735f36d6a7c0ff8df40055",
+      "exp593_dna/assets/source_urls.json": "bf1b7275b4219e8f9198ecfa371aef7649af20369e717e0d50ddd8f49eb26733",
+      "exp593_dna/assets/species_registry.json": "e9aa29beda8051b1e89f954611092c50892fdb0959dca77a6ae98bde8685a344",
+      "exp593_dna/pipeline.py": "839a9da26864dde83c2f61ea4680d0afc55a4e56c59ce832fc41650d7d21fdea",
+      "exp593_dna/templates.py": "067359a78348002a1a8ce4c2fda533501aa541bc412a2aae2e2ea4906394fb73"
+    }
+  },
+  "legacy_readout": {
+    "repository": "https://github.com/Open-Athena/marin-dna",
+    "commit": "44110dc20cccab787b5c608026c6b38a9f1ebc75",
+    "source_path": "experiments/exp586_backend_quality/src/exp586_backend_quality/torch_readout.py",
+    "sha256": "64facd4be78e84a9f319493d323111eaa1b8d25c385b8e58c30c7b78ce76ac25"
+  },
+  "scientific_protocol": {
+    "repository": "https://github.com/plantcad/plantcad2",
+    "commit": "cc13e527b9b180177802a342fbda5c6feedcf3a3",
+    "source_directory": "zero-shot-leaderboard/marindna_exp586"
+  }
+}
