@@ -250,7 +250,7 @@ def run(args: argparse.Namespace) -> None:
             env=native_environment,
         )
         state["progress"] = 0.1
-        provider = restore_provider(source, root)
+        provider = None if args.export_only else restore_provider(source, root)
         state["progress"] = 0.25
         command(
             [
@@ -281,21 +281,25 @@ def run(args: argparse.Namespace) -> None:
         )
         provider_environment = os.environ.copy()
         provider_environment["CUDA_VISIBLE_DEVICES"] = "1"
-        command(
-            [
-                str(provider),
-                "-m",
-                "exp593_evals.gate",
-                "--model-dir",
-                str(root / "model"),
-                "--fixtures",
-                str(source / "fixtures.json"),
-                "--output",
-                str(root / "gate.json"),
-            ],
-            "torch-native-gate",
-            env=provider_environment,
-        )
+        if args.export_only:
+            state["phase"] = "export-complete-needs-practical-review"
+        else:
+            assert provider is not None
+            command(
+                [
+                    str(provider),
+                    "-m",
+                    "exp593_evals.gate",
+                    "--model-dir",
+                    str(root / "model"),
+                    "--fixtures",
+                    str(source / "fixtures.json"),
+                    "--output",
+                    str(root / "gate.json"),
+                ],
+                "torch-native-gate",
+                env=provider_environment,
+            )
         state["progress"] = 1.0
     except BaseException as error:
         state["error"] = repr(error)
@@ -350,7 +354,7 @@ def run(args: argparse.Namespace) -> None:
             {
                 "run_progress": state["progress"],
                 "validation/phase": state["phase"],
-                "validation/accepted": state["error"] is None,
+                "validation/accepted": state["error"] is None and not args.export_only,
             }
         )
         wb.finish(exit_code=0 if state["error"] is None else 1)
@@ -362,6 +366,11 @@ def main() -> None:
     parser.add_argument("--root", type=Path, required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument("--artifact-root", required=True)
+    parser.add_argument(
+        "--export-only",
+        action="store_true",
+        help="Export without accepting for scoring; requires separate real-task review.",
+    )
     run(parser.parse_args())
 
 
