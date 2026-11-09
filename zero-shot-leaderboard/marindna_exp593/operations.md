@@ -20,6 +20,9 @@ Use only H100s in whole eight-GPU nodes, Iris user eczech, and batch priority on
 Begin with one node for validation; use up to eight independent nodes for finite productive extraction when validated and supported by fresh available capacity.
 No GPUs are retained while waiting for checkpoints.
 Finite CPU-only reductions and probe fits may use batch/eczech Iris tasks without reserving GPUs; keep their environments separate from GPU providers.
+The current CoreWeave peer does not admit CPU-only tasks on its GPU-tainted nodes, so finite CPU phases use already-owned H100 containers with separate CPU environments.
+Check their W&B identities before releasing an extraction allocation: a completed GPU controller may still host a necessary active probe fit for another checkpoint.
+Retain that allocation only until its finite CPU work finishes, without reserving extra GPUs or waiting for future checkpoints; prefer younger extraction allocations for the largest fits.
 Use the documented v3 utilization helper immediately before placement.
 For each independently placed single eight-H100 validation or finite extraction task, accept its documented `--max-age-seconds 300` bound when the federation cache repeatedly exceeds the default 90 seconds, only with peer contact within 30 seconds and at least four times the requested GPU headroom; preserve both actual ages in the dispatch receipt.
 This bounded admission exception does not change batch priority, count occupied GPUs as free, or assert that aggregate headroom guarantees a whole-node fit.
