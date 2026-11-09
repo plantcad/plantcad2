@@ -165,6 +165,7 @@ def run(args: argparse.Namespace) -> None:
         id=args.run_id,
         name=args.run_id,
         resume="allow",
+        allow_val_change=True,
         group="dna-exp593-plantcad2-evals",
         config={
             "checkpoint": record,
@@ -213,6 +214,8 @@ def run(args: argparse.Namespace) -> None:
                 "sync",
                 "--project",
                 str(source / "native"),
+                "--python",
+                "3.12.13",
                 "--locked",
                 "--extra",
                 "gpu",
