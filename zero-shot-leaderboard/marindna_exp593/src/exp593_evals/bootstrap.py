@@ -292,6 +292,21 @@ def run(args: argparse.Namespace) -> None:
     finally:
         done.set()
         observer.join()
+        if (root / "model/export-receipt.json").exists() and not (
+            root / "export-manifest.json"
+        ).exists():
+            # Preserve a completed export for diagnosis even if a later native
+            # reference check failed. This does not mark it accepted for scoring.
+            model_records = [
+                upload_verified(
+                    storage, path, args.artifact_root + "/model/" + path.name
+                )
+                for path in sorted((root / "model").iterdir())
+                if path.is_file()
+            ]
+            (root / "export-manifest.json").write_text(
+                json.dumps(model_records, indent=2) + "\n"
+            )
         for name in (
             "validation.log",
             "provider-environment.json",

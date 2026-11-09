@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -21,6 +22,14 @@ def check(model: Path, fixtures: Path, output: Path) -> None:
     _configure_environment("fast-fa3")
     import torch
 
+    native_receipt = json.loads((model / "native-receipt.json").read_text())
+    if (
+        hashlib.sha256(fixtures.read_bytes()).hexdigest()
+        != native_receipt["fixtures_sha256"]
+        or hashlib.sha256((model / "native-reference.npz").read_bytes()).hexdigest()
+        != native_receipt["reference_sha256"]
+    ):
+        raise ValueError("Native reference or fixtures differ from their receipt")
     scorer = FastScorer(model)
     references = np.load(model / "native-reference.npz", allow_pickle=False)
     cases = json.loads(fixtures.read_text())["cases"]
@@ -100,6 +109,9 @@ def check(model: Path, fixtures: Path, output: Path) -> None:
         rows.append(row)
         print(json.dumps(row), flush=True)
     result = {
+        "checkpoint": native_receipt["checkpoint"],
+        "fixtures_sha256": native_receipt["fixtures_sha256"],
+        "native_reference_sha256": native_receipt["reference_sha256"],
         "accepted": all(r["accepted"] for r in rows),
         "fullgraph": True,
         "configuration": "fast-fa3",

@@ -33,6 +33,7 @@ def export_and_reference(record: dict, output: Path, fixtures: Path) -> None:
     from experiments.grug import checkpointing
     from experiments.grug.moe_hero_ep.model import Transformer, apply_qb_betas
     from experiments.grug.moe_hero_ep.weights import restore_weights
+    from jax.sharding import PartitionSpec as P
     from levanter.grug.sharding import compact_grug_mesh
     from rigging.filesystem.s3_compat import configure_coreweave_s3
     from rigging.filesystem.storage_path import StoragePath
@@ -164,11 +165,29 @@ def export_and_reference(record: dict, output: Path, fixtures: Path) -> None:
             ),
             flush=True,
         )
+        (output / "export-receipt.json").write_text(
+            json.dumps(
+                {
+                    "checkpoint": record,
+                    "master_vs_saved_compute_max_abs": weight_difference,
+                    "tokenizer_sha256": tokenizer_digest,
+                    "reference_complete": False,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
+        # All mesh axes have size one. Replicate only the readout operands to
+        # disambiguate vocabulary gathers under JAX's explicit sharding rules.
+        full_head = jax.sharding.reshard(model.output_proj, P())
 
         @eqx.filter_jit
         def reference(model, tokens):
             hidden, routing = model(tokens)
-            head = model.output_proj[:, jnp.asarray(dna_ids[:8])]
+            hidden = jax.sharding.reshard(hidden, P())
+            head = jax.sharding.reshard(model.output_proj, P())[
+                :, jnp.asarray(dna_ids[:8])
+            ]
             logits = jnp.einsum("bsh,hv->bsv", hidden, head)
             return logits, hidden, routing
 
@@ -197,7 +216,7 @@ def export_and_reference(record: dict, output: Path, fixtures: Path) -> None:
             projected = jnp.einsum(
                 "qh,hv->qv",
                 hidden[0, query].astype(jnp.float32),
-                model.output_proj.astype(jnp.float32),
+                full_head.astype(jnp.float32),
                 precision=jax.lax.Precision.HIGHEST,
             )
             full_lse = jax.scipy.special.logsumexp(projected, axis=-1)

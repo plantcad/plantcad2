@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 from pathlib import Path
 from typing import Any
 
@@ -36,6 +38,13 @@ class FastScorer:
         self.batch_size, self.sequence_length = batch_size, sequence_length
         self.device = torch.device("cuda:0")
         self.tokenizer = Tokenizer.from_file(str(model_dir / "original-tokenizer.json"))
+        receipt = json.loads((model_dir / "native-receipt.json").read_text())
+        self.checkpoint = receipt["checkpoint"]
+        if (
+            hashlib.sha256(self.tokenizer.to_str().encode()).hexdigest()
+            != self.checkpoint["bindings"]["tokenizer"]
+        ):
+            raise ValueError("Scorer tokenizer differs from its training checkpoint")
         self.dna_ids = canonical_ids(self.tokenizer)
         self.model = _readout_model_class("fast-fa3")(
             model_dir,
