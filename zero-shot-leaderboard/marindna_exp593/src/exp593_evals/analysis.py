@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -99,7 +100,16 @@ def chunks(
 
 def fitting_code(inputs: Path, source: Path) -> None:
     """Keep the original scientific wheel and append only the pinned fitting files."""
-    sys.path.insert(0, str(inputs / "scientific-code"))
+    scientific = str((inputs / "scientific-code").resolve())
+    fitter = str((source / "provenance/probe-fit-code").resolve())
+    for path in (scientific, fitter):
+        if path not in sys.path:
+            sys.path.insert(0, path)
+    # Joblib's fresh CV interpreters must resolve the same module names rather
+    # than relying on an in-process change to a package's __path__.
+    os.environ["PYTHONPATH"] = os.pathsep.join(
+        [fitter, scientific, os.environ.get("PYTHONPATH", "")]
+    )
     import exp586_evals
 
     manifest = json.loads((source / "src/exp593_evals/sources.json").read_text())

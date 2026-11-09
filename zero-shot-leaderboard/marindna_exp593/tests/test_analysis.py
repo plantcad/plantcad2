@@ -2,6 +2,8 @@ import hashlib
 import importlib.util
 import io
 import json
+import os
+import subprocess
 import sys
 import types
 from pathlib import Path
@@ -127,3 +129,40 @@ def test_normalizing_ambiguity_cannot_hide_a_probe_split_overlap(monkeypatch):
     report = audit_visible_inputs(task, source, membership)
     assert report["normalized_train_test_duplicates"] == 0
     assert report["rows_with_ambiguous_visible_bases"] == 1
+
+
+def test_cv_children_can_import_the_pinned_fitter_namespace(tmp_path):
+    pytest.importorskip("sklearn")
+    pytest.importorskip("pandas")
+    project = Path(__file__).resolve().parents[1]
+    scientific = tmp_path / "scientific-code" / "exp586_evals"
+    scientific.mkdir(parents=True)
+    (scientific / "__init__.py").write_text('"""Original scientific wheel."""\n')
+    (scientific / "original_marker.py").write_text("ORIGINAL = True\n")
+    environment = os.environ.copy()
+    environment["PYTHONPATH"] = os.pathsep.join(
+        [str(project / "provenance/probe-fit-code"), str(scientific.parent)]
+    )
+    environment["OPENBLAS_NUM_THREADS"] = "1"
+    environment["OMP_NUM_THREADS"] = "1"
+    code = """
+import numpy as np
+from exp586_evals.original_marker import ORIGINAL
+from exp586_evals.classification_probe import fit_head
+assert ORIGINAL
+x=np.random.default_rng(593).normal(size=(120,4)).astype(np.float32)
+y=np.arange(120)%2
+x[:,0]+=y*2
+model,metadata=fit_head(x,y,np.repeat(np.arange(6),20),kind='conservation',jobs=2)
+assert np.isfinite(model.decision_function(x)).all()
+print('probe-cv-ready')
+"""
+    completed = subprocess.run(
+        [sys.executable, "-c", code],
+        env=environment,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    assert "probe-cv-ready" in completed.stdout
