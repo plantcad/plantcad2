@@ -129,6 +129,22 @@ def test_normalizing_ambiguity_cannot_hide_a_probe_split_overlap(monkeypatch):
     report = audit_visible_inputs(task, source, membership)
     assert report["normalized_train_test_duplicates"] == 0
     assert report["rows_with_ambiguous_visible_bases"] == 1
+    # Exclusions belong to the immutable original protocol, not new split rows.
+    excluded_source = pd.concat(
+        [source, source.iloc[[0]], source.iloc[[0]]], ignore_index=True
+    )
+    excluded_membership = pd.DataFrame(
+        {
+            "row_id": [0, 1, 2, 3],
+            "split": ["train", "test", "unmapped", "invalid_target"],
+        }
+    )
+    report = audit_visible_inputs(task, excluded_source, excluded_membership)
+    assert report["audited_rows"] == 2
+    assert report["original_excluded_rows"] == {"unmapped": 1, "invalid_target": 1}
+    excluded_membership.loc[2, "split"] = "trani"
+    with pytest.raises(ValueError, match="Unexpected membership"):
+        audit_visible_inputs(task, excluded_source, excluded_membership)
 
 
 def test_cv_children_can_import_the_pinned_fitter_namespace(tmp_path):

@@ -139,8 +139,14 @@ def audit_visible_inputs(spec: dict, source_frame, membership) -> dict:
     )
     fingerprints = {"train": set(), "test": set()}
     visibility = {**spec, "kind": "sv" if spec["kind"] == "sv" else "core"}
+    split_counts = membership["split"].value_counts().to_dict()
+    if set(split_counts) - {"train", "test", "unmapped", "invalid_target"}:
+        raise ValueError("Unexpected membership category in the original probe split")
+    # The pinned fitters select train/test explicitly; excluded original rows
+    # must not be reassigned or incorporated into the feature leakage audit.
+    included = membership[membership["split"].isin(fingerprints)]
     changed = 0
-    for row_id, split in membership[["row_id", "split"]].itertuples(
+    for row_id, split in included[["row_id", "split"]].itertuples(
         index=False, name=None
     ):
         row = source_frame.iloc[int(row_id)].to_dict()
@@ -163,6 +169,12 @@ def audit_visible_inputs(spec: dict, source_frame, membership) -> dict:
     return {
         "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
         "rows": len(membership),
+        "audited_rows": len(included),
+        "original_excluded_rows": {
+            key: int(count)
+            for key, count in split_counts.items()
+            if key not in fingerprints
+        },
         "rows_with_ambiguous_visible_bases": changed,
         "normalized_train_test_duplicates": 0,
         "train_unique": len(fingerprints["train"]),
