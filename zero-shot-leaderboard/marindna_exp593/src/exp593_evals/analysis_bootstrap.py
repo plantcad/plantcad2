@@ -96,12 +96,12 @@ def jobs(phase: str, catalog: dict) -> list[dict]:
         result.extend(
             {"kind": "tasks", "profile": "context-2048", "variant": v} for v in VARIANTS
         )
+    for profile, selected in (("context-8192", "af8192"), ("context-2048", "af2048")):
+        if phase in {selected, "all"}:
+            result.extend(
+                {"kind": "af", "profile": profile, "variant": v} for v in VARIANTS
+            )
     if phase == "all":
-        result.extend(
-            {"kind": "af", "profile": p, "variant": v}
-            for p in ("context-8192", "context-2048")
-            for v in VARIANTS
-        )
         result.extend(
             {
                 "kind": "probe",
@@ -303,7 +303,9 @@ def main() -> None:
     parser.add_argument("--artifact-root", required=True)
     parser.add_argument("--run-id", required=True)
     parser.add_argument(
-        "--phase", choices=("tasks8192", "tasks2048", "all"), required=True
+        "--phase",
+        choices=("tasks8192", "tasks2048", "af8192", "af2048", "all"),
+        required=True,
     )
     run(parser.parse_args())
 
