@@ -1,6 +1,9 @@
 import hashlib
+import importlib.util
 import io
 import json
+import sys
+import types
 from pathlib import Path
 
 import numpy as np
@@ -100,3 +103,27 @@ def test_probe_fitting_files_remain_identical_to_the_original_pin():
     )
     for relative, expected in manifest["probe_fitting"]["files"].items():
         assert hashlib.sha256((project / relative).read_bytes()).hexdigest() == expected
+
+
+def test_normalizing_ambiguity_cannot_hide_a_probe_split_overlap(monkeypatch):
+    pd = pytest.importorskip("pandas")
+    from exp593_evals.analysis import audit_visible_inputs
+
+    project = Path(__file__).resolve().parents[1]
+    path = project / "provenance/probe-fit-code/exp586_evals/probe_protocol.py"
+    spec = importlib.util.spec_from_file_location("saved_probe_protocol", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    package = types.ModuleType("exp586_evals")
+    package.__path__ = [str(path.parent)]
+    monkeypatch.setitem(sys.modules, "exp586_evals", package)
+    monkeypatch.setitem(sys.modules, "exp586_evals.probe_protocol", module)
+    task = {"kind": "motif", "positions": [4096]}
+    source = pd.DataFrame({"sequence": ["R" + "A" * 8191, "N" + "A" * 8191]})
+    membership = pd.DataFrame({"row_id": [0, 1], "split": ["train", "test"]})
+    with pytest.raises(ValueError, match="normalized visible inputs cross"):
+        audit_visible_inputs(task, source, membership)
+    source.loc[1, "sequence"] = "C" + "A" * 8191
+    report = audit_visible_inputs(task, source, membership)
+    assert report["normalized_train_test_duplicates"] == 0
+    assert report["rows_with_ambiguous_visible_bases"] == 1

@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 
 from exp593_evals.artifacts import digest, fetch
+from exp593_evals.readouts import normalize_dna
 from exp593_evals.storage import client, upload_verified
 
 
@@ -115,6 +116,50 @@ def fitting_code(inputs: Path, source: Path) -> None:
         exp586_evals.__path__.insert(0, location)
 
 
+def audit_visible_inputs(spec: dict, source_frame, membership) -> dict:
+    """Apply the existing no-duplicate split rule to the actual normalized DNA."""
+    from exp586_evals.probe_protocol import visible_sequences
+
+    alphabet = "ACGTNRYSWKMBDHV"
+    translation = str.maketrans(
+        {
+            base: normalize_dna(base, case="lower")
+            for base in alphabet + alphabet.lower()
+        }
+    )
+    fingerprints = {"train": set(), "test": set()}
+    visibility = {**spec, "kind": "sv" if spec["kind"] == "sv" else "core"}
+    changed = 0
+    for row_id, split in membership[["row_id", "split"]].itertuples(
+        index=False, name=None
+    ):
+        row = source_frame.iloc[int(row_id)].to_dict()
+        inputs = visible_sequences(visibility, row)
+        normalized = {
+            name: text.translate(translation) for name, text in inputs.items()
+        }
+        changed += int(
+            any(normalized[name] != text.lower() for name, text in inputs.items())
+        )
+        key = hashlib.sha256(
+            json.dumps(normalized, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest()
+        fingerprints[split].add(key)
+    overlap = fingerprints["train"] & fingerprints["test"]
+    if overlap:
+        raise ValueError(
+            f"Actual normalized visible inputs cross the original train/test split: {len(overlap)} duplicates; do not change memberships silently"
+        )
+    return {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": len(membership),
+        "rows_with_ambiguous_visible_bases": changed,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": len(fingerprints["train"]),
+        "test_unique": len(fingerprints["test"]),
+    }
+
+
 def fit_task(args: argparse.Namespace, binding: dict, catalog: dict) -> dict:
     import pandas as pd
     from exp586_evals import classification_probe, full_metrics, motif_probe
@@ -146,10 +191,16 @@ def fit_task(args: argparse.Namespace, binding: dict, catalog: dict) -> dict:
     membership = args.inputs / "memberships" / (args.task + ".parquet")
     frame = pd.read_parquet(membership).sort_values("row_id").reset_index(drop=True)
     arrays = aligned_features(arrays, frame.row_id.to_numpy())
+    from exp586_evals.protocol import original
+
+    source_frame = original().inputs.read_frame(preparation, entry["spec"])
+    visibility_audit = audit_visible_inputs(entry["spec"], source_frame, frame)
+    del source_frame
     args.output.mkdir(parents=True, exist_ok=True)
     fit_binding = {
         "checkpoint_binding": binding,
         "membership_sha256": digest(membership),
+        "normalized_visibility": visibility_audit,
         "fitting_source": json.loads(
             (args.source / "src/exp593_evals/sources.json").read_text()
         )["probe_fitting"],
