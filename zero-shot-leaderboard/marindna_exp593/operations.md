@@ -20,7 +20,7 @@ Use only H100s in whole eight-GPU nodes, Iris user eczech, and batch priority on
 Begin with one node for validation; use up to eight independent nodes for finite productive extraction when validated and supported by fresh available capacity.
 No GPUs are retained while waiting for checkpoints.
 Use the documented v3 utilization helper immediately before placement.
-For a single eight-H100 validation task, accept its documented `--max-age-seconds 300` bound when the federation cache repeatedly exceeds the default 90 seconds, only with peer contact within 30 seconds and at least four times the requested GPU headroom; preserve both actual ages in the dispatch receipt.
+For each independently placed single eight-H100 validation or finite extraction task, accept its documented `--max-age-seconds 300` bound when the federation cache repeatedly exceeds the default 90 seconds, only with peer contact within 30 seconds and at least four times the requested GPU headroom; preserve both actual ages in the dispatch receipt.
 This bounded admission exception does not change batch priority, count occupied GPUs as free, or assert that aggregate headroom guarantees a whole-node fit.
 W&B is authoritative for execution progress; Iris is used for exact dispatch reconciliation, capacity, liveness and concrete startup failures.
 Keep one writer per output identity and persist intent before submitting an exact unique Iris name.
