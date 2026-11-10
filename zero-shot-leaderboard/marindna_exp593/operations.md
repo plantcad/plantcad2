@@ -47,6 +47,8 @@ Iris preemption alone does not justify a duplicate dispatch.
 
 Local state and the untracked approved plan are in `scratch/exp593-evals/` at the evaluation checkout root.
 Use the sweep helper's SQLite transactions; backup a consistent copy before external dispatch and after every mutation.
+Pin I/O-only compatibility changes in fresh source bindings with their commit and before/after file hashes; never rewrite an active source bundle or prediction values.
+Recover an interrupted chunk commit only after fencing its previous writer and verifying the retained bytes, original row identities and readout contract; record the recovery evidence with the new, previously missing receipt.
 Immutable backup owner is `s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/operations/`.
 Upload new UTC/UUID-named backups and verify size and SHA-256 by direct readback.
 Recover the newest integrity-checked backup if the local working copy is lost.
