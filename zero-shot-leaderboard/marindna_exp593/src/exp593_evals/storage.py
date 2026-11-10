@@ -66,7 +66,11 @@ def upload_verified(storage: Any, path: Path, uri: str) -> dict[str, Any]:
     else:
         if (
             previous["ContentLength"] != path.stat().st_size
-            or previous.get("Metadata", {}).get("sha256") != digest
+            or {
+                key.lower(): value
+                for key, value in previous.get("Metadata", {}).items()
+            }.get("sha256")
+            != digest
         ):
             raise ValueError("Refusing to replace an immutable artifact")
     remote = storage.get_object(Bucket=bucket, Key=key)["Body"]
