@@ -17,6 +17,8 @@ Keep exact target spans absent from FIM flanks; never include labels, AF values,
 FIM examples share DNA context across presentations and fit within 8192 total tokens.
 Existing probe definitions and chromosome-held-out splits are reused, with heads refitted per checkpoint.
 
+Zero-shot motif accuracy retains the historical teacher-forced AR convention: later answer positions receive earlier true motif bases, including in FIM and the combined forward/RC readout. It is not whole-motif generation from flanks alone. Frozen motif probes withhold the entire motif; they predict its full sequence using a fitted classifier.
+
 ## Execution
 
 Read [operations.md](operations.md) before dispatch or recovery.
