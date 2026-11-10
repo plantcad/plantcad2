@@ -238,7 +238,7 @@ def run(args: argparse.Namespace) -> None:
                             chunk,
                             embeddings,
                             binding,
-                            args.output / "embeddings",
+                            args.output / job["profile"] / "embeddings",
                         )
             elif variant.startswith("ar-"):
                 fn = (
