@@ -17,7 +17,7 @@ Keep exact target spans absent from FIM flanks; never include labels, AF values,
 FIM examples share DNA context across presentations and fit within 8192 total tokens.
 Existing probe definitions and chromosome-held-out splits are reused, with heads refitted per checkpoint.
 
-Zero-shot motif accuracy retains the historical teacher-forced AR convention: later answer positions receive earlier true motif bases, including in FIM and the combined forward/RC readout. It is not whole-motif generation from flanks alone. Frozen motif probes withhold the entire motif; they predict its full sequence using a fitted classifier.
+Zero-shot motif accuracy uses whole-motif exact match with the historical teacher-forced AR convention. For a single direction, its accuracy equals deterministic greedy generation: success requires every preceding prediction to match the true prefix. The combined forward/RC readout instead fuses per-position probabilities conditioned on true motif prefixes in both directions, so it receives answer information absent from PlantCAD's fully masked motif evaluation; its accuracy is not a flanks-only complete-gap decoding score. This possible advantage has not been quantified. Frozen motif probes withhold the entire motif and predict its full sequence using a fitted classifier.
 
 ## Execution
 
