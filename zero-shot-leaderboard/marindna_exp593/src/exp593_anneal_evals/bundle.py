@@ -68,7 +68,9 @@ def build(project: Path, destination: Path, attachments: dict[str, Path]) -> Pat
     archive = destination.with_suffix(".tar.gz")
     if archive.exists():
         raise ValueError("Refusing to replace an existing source archive")
-    with tarfile.open(archive, "w:gz") as tar:
+    # Input JSON repeats long real prefixes. Fast compression avoids spending
+    # minutes on maximum compression; file hashes remain the source identity.
+    with tarfile.open(archive, "w:gz", compresslevel=1) as tar:
         for path in sorted(destination.rglob("*")):
             if path.is_file():
                 tar.add(path, arcname=str(path.relative_to(destination)))

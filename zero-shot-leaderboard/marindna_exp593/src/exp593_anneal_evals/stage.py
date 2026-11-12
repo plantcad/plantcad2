@@ -15,7 +15,7 @@ from exp593_evals.stage import materialize
 
 
 def jobs(full: dict, classification: dict, catalog: dict) -> list[dict]:
-    """One8K context; no uppercase/metadata variants or redundant single-base exact passes."""
+    """One8K context; four centered readouts and one-base SV/AF readouts."""
     result = []
     for chunk in full["plan"]:
         variants = (

@@ -53,7 +53,7 @@ def prepare(panel: Path, manifest: Path, samples: Path, output: Path):
         spec = item["spec"]
         if spec["kind"] not in ["conservation", "core", "motif"]:
             continue
-        selected = item["rows"][: 128 if spec["kind"] == "motif" else 8]
+        selected = item["rows"][: 128 if spec["kind"] == "motif" else 64]
         positions = spec["positions"]
         length = len(positions)
         for i, row in enumerate(selected):
@@ -67,6 +67,20 @@ def prepare(panel: Path, manifest: Path, samples: Path, output: Path):
                     ("rc", r[0], rc_dna(answer)),
                 ]:
                     name = f"{task}-{i:03d}-{presentation}-{strand}"
+                    if presentation == "ar":
+                        ids = adapter.ids(
+                            row["sequence"]
+                            if strand == "fwd"
+                            else rc_dna(row["sequence"])
+                        )
+                        query_positions = (
+                            positions
+                            if strand == "fwd"
+                            else sorted(8191 - p for p in positions)
+                        )
+                    else:
+                        ids = prompt + adapter.ids(target)
+                        query_positions = list(range(len(prompt), len(prompt) + length))
                     cases.append(
                         {
                             "name": name,
@@ -76,13 +90,13 @@ def prepare(panel: Path, manifest: Path, samples: Path, output: Path):
                             "strand": strand,
                             "example": i,
                             "answer": target,
-                            "ids": prompt + adapter.ids(target),
-                            "target_positions": list(
-                                range(len(prompt), len(prompt) + length)
-                            ),
+                            "task_kind": spec["kind"],
+                            "label": row.get("label"),
+                            "ids": ids,
+                            "target_positions": query_positions,
                         }
                     )
-                    if spec["kind"] in ["motif", "core"] and i < 4:
+                    if spec["kind"] == "core" or spec["kind"] == "motif" and i < 16:
                         for depth in range(length):
                             prefixes = [""] if depth == 0 else candidates(depth)
                             for prefix in prefixes:
@@ -116,12 +130,34 @@ def prepare(panel: Path, manifest: Path, samples: Path, output: Path):
                         ("RefSeq", "MutSeq"), sv_positions(row), strict=True
                     )
                 ]
+                for allele_index, (allele, sequence, points) in enumerate(pieces):
+                    valid = [j for j, point in enumerate(points) if 0 < point < 8192]
+                    cases.append(
+                        {
+                            "name": f"{task}-{i}-{allele}-AR",
+                            "kind": "sv-ar",
+                            "task": task,
+                            "ids": adapter.ids(sequence),
+                            "target_positions": [points[j] for j in valid],
+                            "sv_query": {
+                                "presentation": "ar",
+                                "row": i,
+                                "allele": allele_index,
+                                "boundaries": valid,
+                                "strand": "fwd",
+                            },
+                        }
+                    )
             else:
                 pieces = [("REF", normalize_dna(row["sequence"], case="lower"), [4096])]
             for allele, sequence, points in pieces:
-                for point in points:
-                    if point <= 0 or point >= 8191 or sequence[point] not in "acgt":
+                for boundary_index, point in enumerate(points):
+                    if point <= 0:
                         continue
+                    if point >= 8191:
+                        raise ValueError(
+                            "A FIM boundary lacks its required right flank"
+                        )
                     left, right = matched_flanks(
                         tokenizer, sequence[:point], sequence[point + 1 :], 1
                     )
@@ -138,6 +174,19 @@ def prepare(panel: Path, manifest: Path, samples: Path, output: Path):
                                 "task": task,
                                 "ids": ids,
                                 "target_positions": [len(ids) - 1],
+                                **(
+                                    {
+                                        "sv_query": {
+                                            "presentation": "fim",
+                                            "row": i,
+                                            "allele": 0 if allele == "RefSeq" else 1,
+                                            "boundaries": [boundary_index],
+                                            "strand": strand,
+                                        }
+                                    }
+                                    if item["spec"]["kind"] == "sv"
+                                    else {}
+                                ),
                             }
                         )
     if any(len(c["ids"]) > 8192 or min(c["target_positions"]) <= 0 for c in cases):
@@ -147,6 +196,7 @@ def prepare(panel: Path, manifest: Path, samples: Path, output: Path):
         "tokenizer_sha256": hashlib.sha256(tokenizer.to_str().encode()).hexdigest(),
         "source_panel_sha256": hashlib.sha256(panel.read_bytes()).hexdigest(),
         "cases": cases,
+        "sv_rows": panel_data["tasks"]["sv_impact"]["rows"],
     }
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(value, separators=(",", ":")) + "\n")

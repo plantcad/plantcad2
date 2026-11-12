@@ -216,10 +216,16 @@ def sv_fim(adapter: LowercaseScorer, rows: list[dict]) -> dict[str, np.ndarray]:
         output[strand][row, allele, position] = (
             probability if strand == "forward" else probability[[3, 2, 1, 0]]
         )
-    fwd, rev = output.values()
-    combined = np.sqrt(fwd * rev)
-    combined /= np.maximum(combined.sum(-1, keepdims=True), np.finfo(float).tiny)
-    output["forward_rc_product"] = combined
+    return sv_reduce(rows, output)
+
+
+def sv_reduce(rows: list[dict], output: dict[str, np.ndarray]) -> dict[str, np.ndarray]:
+    """The historical ALT-base boundary reducer, shared with native diagnostics."""
+    output = dict(output)
+    if "reverse_complement" in output:
+        combined = np.sqrt(output["forward"] * output["reverse_complement"])
+        combined /= np.maximum(combined.sum(-1, keepdims=True), np.finfo(float).tiny)
+        output["forward_rc_product"] = combined
     scores = {}
     for name, values in output.items():
         selected = []

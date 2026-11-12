@@ -19,10 +19,167 @@ from exp593_anneal_evals.exhaustive import combine, expand, predictions
 from exp593_evals.readouts import nucleotide_probabilities
 
 
-def check(model: Path, fixtures: Path, output: Path):
+def binary_auroc(labels, scores):
+    labels, scores = np.asarray(labels, dtype=int), np.asarray(scores)
+    positives = labels.sum()
+    if positives == 0 or positives == len(labels):
+        return None
+    _, inverse, counts = np.unique(scores, return_inverse=True, return_counts=True)
+    ranks = np.cumsum(counts) - (counts - 1) / 2
+    return float(
+        (ranks[inverse][labels == 1].sum() - positives * (positives + 1) / 2)
+        / (positives * (len(labels) - positives))
+    )
+
+
+def binary_average_precision(labels, scores):
+    labels, scores = np.asarray(labels, dtype=int), np.asarray(scores)
+    if not labels.sum():
+        return None
+    order = np.argsort(-scores, kind="stable")
+    y, s = labels[order], scores[order]
+    ends = np.r_[np.flatnonzero(np.diff(s)), len(s) - 1]
+    positives = np.cumsum(y)[ends]
+    precision = positives / (ends + 1)
+    recall = positives / y.sum()
+    return float(np.sum(precision * np.diff(np.r_[0, recall])))
+
+
+def sv_endpoint_diagnostics(rows, values):
+    from exp593_anneal_evals.scoring import sv_reduce
+
+    result = {}
+    for presentation, models in values.items():
+        native, actual = (
+            sv_reduce(rows, models[key]) for key in ("native", "deployed")
+        )
+        for orientation in native:
+            a = binary_average_precision(
+                [row["label"] for row in rows], native[orientation]
+            )
+            b = binary_average_precision(
+                [row["label"] for row in rows], actual[orientation]
+            )
+            result[presentation + "/" + orientation.removesuffix("__scores")] = {
+                "examples": len(rows),
+                "metric": "average_precision",
+                "native": a,
+                "deployed": b,
+                "delta": None if a is None else b - a,
+                "score_max_abs": float(
+                    np.abs(native[orientation] - actual[orientation]).max()
+                ),
+            }
+    return result
+
+
+def endpoint_diagnostics(cases):
+    """Actual TF task metrics on paired native/deployed predictions, including fusion."""
+    grouped = defaultdict(dict)
+    for case, native, actual, indexes in cases:
+        grouped[(case["task"], case["presentation"], case["example"])][
+            case["strand"]
+        ] = (case, native, actual, indexes)
+    values = defaultdict(list)
+    for (task, presentation, _), views in grouped.items():
+        if set(views) != {"fwd", "rc"}:
+            raise ValueError("A paired task endpoint lacks a strand")
+        f, q, p, indexes = views["fwd"]
+        _, qr, pr, _ = views["rc"]
+        aligned_q, aligned_p = qr[::-1, [3, 2, 1, 0]], pr[::-1, [3, 2, 1, 0]]
+        # Advanced indexing above preserves the target-position axis.
+        fused_q, fused_p = np.sqrt(q * aligned_q), np.sqrt(p * aligned_p)
+        fused_q /= fused_q.sum(-1, keepdims=True)
+        fused_p /= fused_p.sum(-1, keepdims=True)
+        for orientation, a, b in [
+            ("forward", q, p),
+            ("reverse_complement", aligned_q, aligned_p),
+            ("forward_rc_product", fused_q, fused_p),
+        ]:
+            if f["task_kind"] == "motif":
+                native_score = float(np.array_equal(a.argmax(-1), indexes))
+                torch_score = float(np.array_equal(b.argmax(-1), indexes))
+            else:
+                valid = indexes >= 0
+                columns = indexes.clip(min=0)
+                native_score = float(
+                    (a[np.arange(len(indexes)), columns] * valid).mean()
+                )
+                torch_score = float(
+                    (b[np.arange(len(indexes)), columns] * valid).mean()
+                )
+            values[(task, presentation, orientation, f["task_kind"])].append(
+                (f.get("label"), native_score, torch_score)
+            )
+    result = {}
+    for key, rows in values.items():
+        task, presentation, orientation, kind = key
+        label, native, actual = zip(*rows, strict=True)
+        a = float(np.mean(native)) if kind == "motif" else binary_auroc(label, native)
+        b = float(np.mean(actual)) if kind == "motif" else binary_auroc(label, actual)
+        result["/".join(key[:3])] = {
+            "task_kind": kind,
+            "examples": len(rows),
+            "metric": "accuracy" if kind == "motif" else "auroc",
+            "native": a,
+            "deployed": b,
+            "delta": None if a is None else b - a,
+        }
+    return result
+
+
+def adapter_diagnostics(scorer, adapter_cases, prefix_cases):
+    """Compare integration using identical physical batches, not regrouped rows."""
     import torch
 
     from exp593_anneal_evals.scoring import LowercaseScorer
+
+    adapter = LowercaseScorer(scorer)
+    integration, batching = [], []
+    for selected in adapter_cases.values():
+        prompts = [c["ids"][: c["target_positions"][0]] for c, _ in selected]
+        answers = [c["answer"] for c, _ in selected]
+        requests = [p + adapter.ids(a) for p, a in zip(prompts, answers, strict=True)]
+        with torch.inference_mode():
+            logits, _, _ = scorer.forward(requests)
+            queries = torch.tensor(
+                [
+                    [len(p) - 1 + j for j in range(len(a))]
+                    for p, a in zip(prompts, answers, strict=True)
+                ],
+                device=scorer.device,
+            )
+            rows = torch.arange(len(requests), device=scorer.device)[:, None]
+            canonical = (
+                torch.softmax(logits[rows, queries, 4:8].float(), -1).cpu().numpy()
+            )
+        actual = adapter.teacher(prompts, answers)
+        integration.append(float(np.abs(actual - canonical).max()))
+        batching.append(
+            float(np.abs(canonical - np.asarray([p for _, p in selected])).max())
+        )
+    requests = [c["ids"][:-1] for c, _ in prefix_cases]
+    with torch.inference_mode():
+        logits, _, lengths = scorer.forward(requests)
+        rows = torch.arange(len(requests), device=scorer.device)
+        canonical = (
+            torch.softmax(logits[rows, lengths - 1, 4:8].float(), -1).cpu().numpy()
+        )
+    actual = np.exp(adapter.next_log_probs(requests))
+    integration.append(float(np.abs(actual - canonical).max()))
+    batching.append(
+        float(np.abs(canonical - np.asarray([p for _, p in prefix_cases])).max())
+    )
+    return {
+        "canonical_adapter_max_abs": max(integration),
+        "regrouping_max_abs": max(batching),
+    }
+
+
+def check(model: Path, fixtures: Path, output: Path):
+    import torch
+
+    from exp593_anneal_evals.scoring import exact_task_scores
     from exp593_evals.torch_scorer import FastScorer
 
     receipt = json.loads((model / "native-receipt.json").read_text())
@@ -45,6 +202,8 @@ def check(model: Path, fixtures: Path, output: Path):
     hidden_errors = []
     adapter_cases = defaultdict(list)
     prefix_adapter_cases = []
+    endpoint_cases = []
+    sv_values = {}
     for start in range(0, len(cases), scorer.batch_size):
         group = cases[start : start + scorer.batch_size]
         with torch.inference_mode():
@@ -67,6 +226,34 @@ def check(model: Path, fixtures: Path, output: Path):
             if not np.array_equal(positions[where], target_positions):
                 raise ValueError("Native query positions shifted")
             targets = np.asarray(case["ids"])[np.asarray(case["target_positions"])]
+            if case.get("sv_query"):
+                request = case["sv_query"]
+                presentation = request["presentation"]
+                if presentation not in sv_values:
+                    sv_values[presentation] = {
+                        name: {} for name in ("native", "deployed")
+                    }
+                strand = (
+                    "forward" if request["strand"] == "fwd" else "reverse_complement"
+                )
+                for name, probabilities in [
+                    ("native", q[where]),
+                    ("deployed", p[where]),
+                ]:
+                    if strand not in sv_values[presentation][name]:
+                        sv_values[presentation][name][strand] = np.zeros(
+                            (len(fixture["sv_rows"]), 2, 10, 4)
+                        )
+                    for boundary, probability in zip(
+                        request["boundaries"], probabilities, strict=True
+                    ):
+                        sv_values[presentation][name][strand][
+                            request["row"], request["allele"], boundary
+                        ] = (
+                            probability
+                            if strand == "forward"
+                            else probability[[3, 2, 1, 0]]
+                        )
             indexes = np.full(len(targets), -1)
             for b, token in enumerate(scorer.dna_ids[4:8]):
                 indexes[targets == token] = b
@@ -86,8 +273,15 @@ def check(model: Path, fixtures: Path, output: Path):
                 tf[(case["task"], case["presentation"], case["strand"])].append(
                     (native_match, actual_match)
                 )
-                if len(adapter_cases[len(targets)]) < 16:
+                if (
+                    case["presentation"] == "fim"
+                    and len(adapter_cases[len(targets)]) < 16
+                ):
                     adapter_cases[len(targets)].append((case, p[where].copy()))
+                if case.get("task_kind"):
+                    endpoint_cases.append(
+                        (case, q[where].copy(), p[where].copy(), indexes.copy())
+                    )
             elif case["kind"] == "candidate-prefix":
                 key = (
                     case["task"],
@@ -123,21 +317,10 @@ def check(model: Path, fixtures: Path, output: Path):
     # Exercise the actual evaluation adapter against the direct canonical
     # readout too. This catches query shifts or accidental normalization changes
     # separately from the native-vs-Torch numerical differences above.
-    adapter = LowercaseScorer(scorer)
-    adapter_errors = []
-    for length, selected in adapter_cases.items():
-        prompts = [c["ids"][: c["target_positions"][0]] for c, _ in selected]
-        answers = [c["answer"] for c, _ in selected]
-        actual = adapter.teacher(prompts, answers)
-        expected = np.asarray([p for _, p in selected])
-        adapter_errors.append(float(np.abs(actual - expected).max()))
-    actual = np.exp(
-        adapter.next_log_probs([c["ids"][:-1] for c, _ in prefix_adapter_cases])
+    adapter_report = adapter_diagnostics(scorer, adapter_cases, prefix_adapter_cases)
+    adapter_report["canonical_adapter_passed"] = (
+        adapter_report["canonical_adapter_max_abs"] <= 1e-6
     )
-    expected = np.asarray([p for _, p in prefix_adapter_cases])
-    adapter_errors.append(float(np.abs(actual - expected).max()))
-    if max(adapter_errors) > 1e-6:
-        raise ValueError("The evaluation adapter differs from its canonical readout")
     stats = {}
     for kind, parts in errors.items():
         e = np.concatenate(parts)
@@ -211,6 +394,12 @@ def check(model: Path, fixtures: Path, output: Path):
             ),
         }
     paired = []
+    exact_endpoint_values = defaultdict(list)
+    metadata = {
+        (c["task"], c["presentation"], c["example"]): c
+        for c in cases
+        if c["kind"] == "tf" and c["strand"] == "fwd" and c.get("task_kind")
+    }
     for key, views in joint.items():
         if set(views) != {"fwd", "rc"}:
             raise ValueError("Exact native fixture lacks a strand")
@@ -227,6 +416,54 @@ def check(model: Path, fixtures: Path, output: Path):
                 "joint_probability_max_abs": float(np.abs(np.exp(a) - np.exp(b)).max()),
             }
         )
+        case = metadata.get((task, presentation, example))
+        if case:
+            native_values, actual_values = (
+                exact_task_scores(
+                    {
+                        "forward__candidate_log_probs": views["fwd"][i],
+                        "rc__candidate_log_probs": views["rc"][i],
+                    },
+                    [case["answer"]],
+                )
+                for i in (0, 1)
+            )
+            for orientation in native_values:
+                for mode in (
+                    ["exact_match"]
+                    if case["task_kind"] == "motif"
+                    else ["joint", "mean_marginal"]
+                ):
+                    exact_endpoint_values[
+                        (task, presentation, orientation, mode, case["task_kind"])
+                    ].append(
+                        (
+                            case.get("label"),
+                            float(native_values[orientation][mode][0]),
+                            float(actual_values[orientation][mode][0]),
+                        )
+                    )
+    exact_endpoints = {}
+    for key, rows in exact_endpoint_values.items():
+        label, native, actual = zip(*rows, strict=True)
+        a = (
+            float(np.mean(native))
+            if key[-1] == "motif"
+            else binary_auroc(label, native)
+        )
+        b = (
+            float(np.mean(actual))
+            if key[-1] == "motif"
+            else binary_auroc(label, actual)
+        )
+        exact_endpoints["/".join(key[:-1])] = {
+            "examples": len(rows),
+            "task_kind": key[-1],
+            "metric": "accuracy" if key[-1] == "motif" else "auroc",
+            "native": a,
+            "deployed": b,
+            "delta": None if a is None else b - a,
+        }
     result = {
         "checkpoint": receipt["checkpoint"],
         "fixtures_sha256": receipt["fixtures_sha256"],
@@ -237,10 +474,19 @@ def check(model: Path, fixtures: Path, output: Path):
         "published_ar_gate": published,
         "probability_errors": stats,
         "hidden_relative_rmse_max": max(hidden_errors),
-        "canonical_adapter_max_abs": max(adapter_errors),
+        **adapter_report,
         "teacher_forced_task_diagnostics": tf_stats,
+        "paired_task_endpoints": endpoint_diagnostics(endpoint_cases)
+        if endpoint_cases
+        else {},
+        "sv_task_endpoints": sv_endpoint_diagnostics(
+            fixture.get("sv_rows", []), sv_values
+        )
+        if sv_values
+        else {},
         "exact_candidate_diagnostics": exact,
         "paired_exact_candidate_diagnostics": paired,
+        "exact_task_endpoints": exact_endpoints,
         "native_base_gate_passed": published["passed"],
         "requires_agent_practical_review": True,
     }
@@ -259,6 +505,10 @@ def check(model: Path, fixtures: Path, output: Path):
         ),
         flush=True,
     )
+    if not adapter_report["canonical_adapter_passed"]:
+        raise ValueError(
+            f"The evaluation adapter differs from its canonical readout: {adapter_report}"
+        )
     if not published["passed"]:
         raise ValueError(
             "Published aggregate lower-only native gate failed; do not weaken it"
