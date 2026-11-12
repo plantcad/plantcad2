@@ -10,6 +10,11 @@
       "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/annealing-final-v1/checkpoints/control/full/v1/final/scientific-results-085f1c99e579e98b356be5a9a67fb288ff9383876ec0162e1e46dd0bcc8ee60b.json",
       "sha256": "085f1c99e579e98b356be5a9a67fb288ff9383876ec0162e1e46dd0bcc8ee60b",
       "bytes": 306319
+    },
+    "364b": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/annealing-final-v1/checkpoints/364b/full/v1/final/scientific-results-9bb3327840bbd97af27bcd58f61822ee2c7f209703fa0ac9224739af32e11924.json",
+      "sha256": "9bb3327840bbd97af27bcd58f61822ee2c7f209703fa0ac9224739af32e11924",
+      "bytes": 305952
     }
   },
   "motif_memberships": {
