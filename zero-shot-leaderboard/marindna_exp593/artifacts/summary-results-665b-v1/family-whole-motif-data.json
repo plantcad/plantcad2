@@ -1,0 +1,651 @@
+{
+  "categories": [
+    "Conservation",
+    "Motifs",
+    "Core/non-core",
+    "SV impact",
+    "Unweighted Avg Rank",
+    "Weighted Avg Rank"
+  ],
+  "models": [
+    {
+      "label": "MarinDNA 1B 562B",
+      "color": "#d88470",
+      "scores": [
+        0.6693395658903151,
+        0.5695589982938924,
+        0.695095664785359,
+        0.8525691047089042,
+        59.791666666666664,
+        53.666666666666664
+      ],
+      "DNA_tokens": 562022055936,
+      "source": "historical/056t",
+      "task_scores": {
+        "conservation_andropogoneae": 0.7255664480316916,
+        "conservation_poaceae_non_tis": 0.6976768188054101,
+        "conservation_poaceae_tis": 0.5847754308338436,
+        "core_maize_acceptor": 0.7927693875856238,
+        "core_maize_donor": 0.76279760353792,
+        "core_maize_tis": 0.6099221906869086,
+        "core_maize_tts": 0.6430580283820261,
+        "core_tomato_acceptor": 0.7598210584184925,
+        "core_tomato_donor": 0.7584362857213909,
+        "core_tomato_tis": 0.6100627011317028,
+        "core_tomato_tts": 0.6238980628188069,
+        "motif_maize_acceptor": 0.8161617999727041,
+        "motif_maize_donor": 0.8205616465954806,
+        "motif_maize_tis": 0.4804662482387601,
+        "motif_maize_tts": 0.3856539003458434,
+        "motif_tomato_acceptor": 0.7109240945240689,
+        "motif_tomato_donor": 0.7184000113918734,
+        "motif_tomato_tis": 0.4027398032528116,
+        "motif_tomato_tts": 0.2215644820295983,
+        "sv_impact": 0.8525691047089042
+      },
+      "task_percentiles": {
+        "conservation_andropogoneae": 73.33333333333333,
+        "conservation_poaceae_non_tis": 40.0,
+        "conservation_poaceae_tis": 26.666666666666668,
+        "core_maize_acceptor": 73.33333333333333,
+        "core_maize_donor": 66.66666666666666,
+        "core_maize_tis": 26.666666666666668,
+        "core_maize_tts": 80.0,
+        "core_tomato_acceptor": 60.0,
+        "core_tomato_donor": 60.0,
+        "core_tomato_tis": 46.666666666666664,
+        "core_tomato_tts": 80.0,
+        "motif_maize_acceptor": 40.0,
+        "motif_maize_donor": 40.0,
+        "motif_maize_tis": 40.0,
+        "motif_maize_tts": 60.0,
+        "motif_tomato_acceptor": 40.0,
+        "motif_tomato_donor": 40.0,
+        "motif_tomato_tis": 40.0,
+        "motif_tomato_tts": 53.333333333333336,
+        "sv_impact": 86.66666666666667
+      },
+      "family_percentiles": {
+        "Conservation": 46.666666666666664,
+        "Motifs": 44.166666666666664,
+        "Core/non-core": 61.666666666666664,
+        "SV impact": 86.66666666666667
+      },
+      "ranking_identity": "MarinDNA 1B 562B"
+    },
+    {
+      "label": "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR",
+      "color": "#bd862f",
+      "scores": [
+        0.6890951690966783,
+        0.5834242332292299,
+        0.689379989633113,
+        0.8540951287449496,
+        65.76388888888889,
+        57.0
+      ],
+      "DNA_tokens": 216158699520,
+      "source": "dna-216b",
+      "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/checkpoints/exp586-plantcad2-d768-pretrained-lrm1-seed0-v1/2026.10.08/checkpoints/step-412290",
+      "initialization": "language-pretrained",
+      "task_scores": {
+        "conservation_andropogoneae": 0.7368613984225476,
+        "conservation_poaceae_non_tis": 0.7165985663103005,
+        "conservation_poaceae_tis": 0.6138255425571866,
+        "core_maize_acceptor": 0.7758067216764104,
+        "core_maize_donor": 0.7407745397924657,
+        "core_maize_tis": 0.6143774887898461,
+        "core_maize_tts": 0.6362736384119122,
+        "core_tomato_acceptor": 0.7534091603943986,
+        "core_tomato_donor": 0.7554781092023782,
+        "core_tomato_tis": 0.6173517759665389,
+        "core_tomato_tts": 0.6215684828309531,
+        "motif_maize_acceptor": 0.8270671805236922,
+        "motif_maize_donor": 0.8285944537236221,
+        "motif_maize_tis": 0.5454592032791085,
+        "motif_maize_tts": 0.4396311002946074,
+        "motif_tomato_acceptor": 0.6987775095940933,
+        "motif_tomato_donor": 0.7068301400488427,
+        "motif_tomato_tis": 0.4044874143811483,
+        "motif_tomato_tts": 0.2165468639887244,
+        "sv_impact": 0.8540951287449496
+      },
+      "task_percentiles": {
+        "conservation_andropogoneae": 86.66666666666667,
+        "conservation_poaceae_non_tis": 60.0,
+        "conservation_poaceae_tis": 40.0,
+        "core_maize_acceptor": 66.66666666666666,
+        "core_maize_donor": 53.333333333333336,
+        "core_maize_tis": 33.33333333333333,
+        "core_maize_tts": 73.33333333333333,
+        "core_tomato_acceptor": 53.333333333333336,
+        "core_tomato_donor": 53.333333333333336,
+        "core_tomato_tis": 53.333333333333336,
+        "core_tomato_tts": 73.33333333333333,
+        "motif_maize_acceptor": 53.333333333333336,
+        "motif_maize_donor": 53.333333333333336,
+        "motif_maize_tis": 60.0,
+        "motif_maize_tts": 73.33333333333333,
+        "motif_tomato_acceptor": 33.33333333333333,
+        "motif_tomato_donor": 33.33333333333333,
+        "motif_tomato_tis": 46.666666666666664,
+        "motif_tomato_tts": 46.666666666666664,
+        "sv_impact": 93.33333333333333
+      },
+      "family_percentiles": {
+        "Conservation": 62.22222222222223,
+        "Motifs": 50.0,
+        "Core/non-core": 57.5,
+        "SV impact": 93.33333333333333
+      },
+      "ranking_identity": "MarinMoE 1.5B\u201360M 216B"
+    },
+    {
+      "label": "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM",
+      "color": "#b64d61",
+      "scores": [
+        0.7245247997101929,
+        0.7914796905128507,
+        0.7248226277293525,
+        0.8455626859700207,
+        81.38888888888889,
+        83.66666666666666
+      ],
+      "task_scores": {
+        "conservation_andropogoneae": 0.7559745833734881,
+        "conservation_poaceae_non_tis": 0.7777007228112147,
+        "conservation_poaceae_tis": 0.6398990929458759,
+        "core_maize_acceptor": 0.7176399801751422,
+        "core_maize_donor": 0.6958360157042556,
+        "core_maize_tis": 0.7636926923091358,
+        "core_maize_tts": 0.6820145623604622,
+        "core_tomato_acceptor": 0.774809973683354,
+        "core_tomato_donor": 0.7632709687458743,
+        "core_tomato_tis": 0.6988206196964444,
+        "core_tomato_tts": 0.7024962091601514,
+        "motif_maize_acceptor": 0.9717356972489584,
+        "motif_maize_donor": 0.9566839324360332,
+        "motif_maize_tis": 0.9054182144229538,
+        "motif_maize_tts": 0.4666581273216344,
+        "motif_tomato_acceptor": 0.9065083196274858,
+        "motif_tomato_donor": 0.8921260795579953,
+        "motif_tomato_tis": 0.8568650111339742,
+        "motif_tomato_tts": 0.3758421423537703,
+        "sv_impact": 0.8455626859700207
+      },
+      "task_percentiles": {
+        "conservation_andropogoneae": 96.66666666666667,
+        "conservation_poaceae_non_tis": 83.33333333333334,
+        "conservation_poaceae_tis": 56.666666666666664,
+        "core_maize_acceptor": 40.0,
+        "core_maize_donor": 40.0,
+        "core_maize_tis": 93.33333333333333,
+        "core_maize_tts": 86.66666666666667,
+        "core_tomato_acceptor": 80.0,
+        "core_tomato_donor": 66.66666666666666,
+        "core_tomato_tis": 93.33333333333333,
+        "core_tomato_tts": 93.33333333333333,
+        "motif_maize_acceptor": 100.0,
+        "motif_maize_donor": 93.33333333333333,
+        "motif_maize_tis": 100.0,
+        "motif_maize_tts": 93.33333333333333,
+        "motif_tomato_acceptor": 100.0,
+        "motif_tomato_donor": 93.33333333333333,
+        "motif_tomato_tis": 100.0,
+        "motif_tomato_tts": 86.66666666666667,
+        "sv_impact": 76.66666666666667
+      },
+      "family_percentiles": {
+        "Conservation": 78.8888888888889,
+        "Motifs": 95.83333333333333,
+        "Core/non-core": 74.16666666666666,
+        "SV impact": 76.66666666666667
+      },
+      "readout_selection": {
+        "conservation_andropogoneae": {
+          "readout": "ar_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.7559745833734881
+        },
+        "conservation_poaceae_non_tis": {
+          "readout": "ar_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.7777007228112147
+        },
+        "conservation_poaceae_tis": {
+          "readout": "ar_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.6398990929458759
+        },
+        "motif_maize_tis": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "accuracy",
+          "score": 0.9039323683873447
+        },
+        "motif_maize_tts": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "accuracy",
+          "score": 0.530933777379275
+        },
+        "motif_maize_donor": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "accuracy",
+          "score": 0.9573013407508985
+        },
+        "motif_maize_acceptor": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "accuracy",
+          "score": 0.96966250511799
+        },
+        "motif_tomato_tis": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "accuracy",
+          "score": 0.8563576401612312
+        },
+        "motif_tomato_tts": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "accuracy",
+          "score": 0.3859619450317125
+        },
+        "motif_tomato_donor": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "accuracy",
+          "score": 0.8923823967077487
+        },
+        "motif_tomato_acceptor": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "accuracy",
+          "score": 0.9024570846772184
+        },
+        "core_maize_tis": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.7805449834794684
+        },
+        "core_maize_tts": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.695284556677174
+        },
+        "core_maize_donor": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.6943557093721705
+        },
+        "core_maize_acceptor": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.7188901777582127
+        },
+        "core_tomato_tis": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.7043044840650998
+        },
+        "core_tomato_tts": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.7106020981172874
+        },
+        "core_tomato_donor": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.764768283870156
+        },
+        "core_tomato_acceptor": {
+          "readout": "fim_teacher_forced",
+          "strand_strategy": "forward_rc_fusion",
+          "metric": "auroc",
+          "score": 0.7753199565277973
+        },
+        "sv_impact": {
+          "readout": "ar_teacher_forced",
+          "strand_strategy": "forward",
+          "metric": "average_precision",
+          "score": 0.8455626859700207
+        }
+      },
+      "ranking_identity": "MarinMoE 1.5B\u201360M 665B (FIM, All 4^k)"
+    },
+    {
+      "label": "PlantCAD2.5-Large",
+      "color": "#174a7e",
+      "scores": [
+        0.7096666666666667,
+        0.695375,
+        0.7413749999999999,
+        0.745,
+        68.68055555555556,
+        81.66666666666666
+      ],
+      "source": "historical/published_groups/PlantCAD2.5-Large",
+      "task_scores": {
+        "conservation_andropogoneae": 0.717,
+        "conservation_poaceae_non_tis": 0.729,
+        "conservation_poaceae_tis": 0.683,
+        "core_maize_acceptor": 0.873,
+        "core_maize_donor": 0.842,
+        "core_maize_tis": 0.743,
+        "core_maize_tts": 0.626,
+        "core_tomato_acceptor": 0.79,
+        "core_tomato_donor": 0.783,
+        "core_tomato_tis": 0.668,
+        "core_tomato_tts": 0.606,
+        "motif_maize_acceptor": 0.913,
+        "motif_maize_donor": 0.921,
+        "motif_maize_tis": 0.696,
+        "motif_maize_tts": 0.446,
+        "motif_tomato_acceptor": 0.835,
+        "motif_tomato_donor": 0.846,
+        "motif_tomato_tis": 0.612,
+        "motif_tomato_tts": 0.294,
+        "sv_impact": 0.745
+      },
+      "task_percentiles": {
+        "conservation_andropogoneae": 60.0,
+        "conservation_poaceae_non_tis": 73.33333333333333,
+        "conservation_poaceae_tis": 93.33333333333333,
+        "core_maize_acceptor": 100.0,
+        "core_maize_donor": 100.0,
+        "core_maize_tis": 86.66666666666667,
+        "core_maize_tts": 60.0,
+        "core_tomato_acceptor": 100.0,
+        "core_tomato_donor": 100.0,
+        "core_tomato_tis": 86.66666666666667,
+        "core_tomato_tts": 66.66666666666666,
+        "motif_maize_acceptor": 86.66666666666667,
+        "motif_maize_donor": 86.66666666666667,
+        "motif_maize_tis": 86.66666666666667,
+        "motif_maize_tts": 80.0,
+        "motif_tomato_acceptor": 86.66666666666667,
+        "motif_tomato_donor": 86.66666666666667,
+        "motif_tomato_tis": 86.66666666666667,
+        "motif_tomato_tts": 80.0,
+        "sv_impact": 26.666666666666668
+      },
+      "family_percentiles": {
+        "Conservation": 75.55555555555556,
+        "Motifs": 85.0,
+        "Core/non-core": 87.5,
+        "SV impact": 26.666666666666668
+      },
+      "ranking_identity": "PlantCAD2.5-L"
+    },
+    {
+      "label": "PlantCAD2-Large",
+      "color": "#2f78a8",
+      "scores": [
+        0.7024333333333334,
+        0.6777375000000001,
+        0.7166250000000001,
+        0.841,
+        72.01388888888889,
+        74.66666666666666
+      ],
+      "source": "historical/published_groups/PlantCAD2-Large",
+      "task_scores": {
+        "conservation_andropogoneae": 0.7245,
+        "conservation_poaceae_non_tis": 0.7125,
+        "conservation_poaceae_tis": 0.6703,
+        "core_maize_acceptor": 0.836,
+        "core_maize_donor": 0.808,
+        "core_maize_tis": 0.696,
+        "core_maize_tts": 0.608,
+        "core_tomato_acceptor": 0.774,
+        "core_tomato_donor": 0.767,
+        "core_tomato_tis": 0.646,
+        "core_tomato_tts": 0.598,
+        "motif_maize_acceptor": 0.8996,
+        "motif_maize_donor": 0.9104,
+        "motif_maize_tis": 0.6571,
+        "motif_maize_tts": 0.4096,
+        "motif_tomato_acceptor": 0.8257,
+        "motif_tomato_donor": 0.8387,
+        "motif_tomato_tis": 0.596,
+        "motif_tomato_tts": 0.2848,
+        "sv_impact": 0.841
+      },
+      "task_percentiles": {
+        "conservation_andropogoneae": 66.66666666666666,
+        "conservation_poaceae_non_tis": 53.333333333333336,
+        "conservation_poaceae_tis": 86.66666666666667,
+        "core_maize_acceptor": 93.33333333333333,
+        "core_maize_donor": 93.33333333333333,
+        "core_maize_tis": 66.66666666666666,
+        "core_maize_tts": 43.333333333333336,
+        "core_tomato_acceptor": 73.33333333333333,
+        "core_tomato_donor": 93.33333333333333,
+        "core_tomato_tis": 80.0,
+        "core_tomato_tts": 56.666666666666664,
+        "motif_maize_acceptor": 80.0,
+        "motif_maize_donor": 80.0,
+        "motif_maize_tis": 80.0,
+        "motif_maize_tts": 66.66666666666666,
+        "motif_tomato_acceptor": 80.0,
+        "motif_tomato_donor": 80.0,
+        "motif_tomato_tis": 80.0,
+        "motif_tomato_tts": 73.33333333333333,
+        "sv_impact": 66.66666666666666
+      },
+      "family_percentiles": {
+        "Conservation": 68.88888888888889,
+        "Motifs": 77.5,
+        "Core/non-core": 75.0,
+        "SV impact": 66.66666666666666
+      },
+      "ranking_identity": "PlantCAD2-L"
+    },
+    {
+      "label": "PlantCAD2-Medium",
+      "color": "#4e90b6",
+      "scores": [
+        0.6864333333333333,
+        0.6627,
+        0.7164999999999999,
+        0.8334,
+        64.09722222222221,
+        67.66666666666666
+      ],
+      "source": "historical/published_groups/PlantCAD2-Medium",
+      "task_scores": {
+        "conservation_andropogoneae": 0.7077,
+        "conservation_poaceae_non_tis": 0.6869,
+        "conservation_poaceae_tis": 0.6647,
+        "core_maize_acceptor": 0.829,
+        "core_maize_donor": 0.804,
+        "core_maize_tis": 0.71,
+        "core_maize_tts": 0.618,
+        "core_tomato_acceptor": 0.766,
+        "core_tomato_donor": 0.765,
+        "core_tomato_tis": 0.645,
+        "core_tomato_tts": 0.595,
+        "motif_maize_acceptor": 0.8898,
+        "motif_maize_donor": 0.9031,
+        "motif_maize_tis": 0.6325,
+        "motif_maize_tts": 0.3601,
+        "motif_tomato_acceptor": 0.8214,
+        "motif_tomato_donor": 0.8354,
+        "motif_tomato_tis": 0.5846,
+        "motif_tomato_tts": 0.2747,
+        "sv_impact": 0.8334
+      },
+      "task_percentiles": {
+        "conservation_andropogoneae": 53.333333333333336,
+        "conservation_poaceae_non_tis": 33.33333333333333,
+        "conservation_poaceae_tis": 80.0,
+        "core_maize_acceptor": 86.66666666666667,
+        "core_maize_donor": 86.66666666666667,
+        "core_maize_tis": 80.0,
+        "core_maize_tts": 53.333333333333336,
+        "core_tomato_acceptor": 66.66666666666666,
+        "core_tomato_donor": 80.0,
+        "core_tomato_tis": 73.33333333333333,
+        "core_tomato_tts": 46.666666666666664,
+        "motif_maize_acceptor": 73.33333333333333,
+        "motif_maize_donor": 73.33333333333333,
+        "motif_maize_tis": 73.33333333333333,
+        "motif_maize_tts": 53.333333333333336,
+        "motif_tomato_acceptor": 73.33333333333333,
+        "motif_tomato_donor": 73.33333333333333,
+        "motif_tomato_tis": 66.66666666666666,
+        "motif_tomato_tts": 66.66666666666666,
+        "sv_impact": 60.0
+      },
+      "family_percentiles": {
+        "Conservation": 55.55555555555555,
+        "Motifs": 69.16666666666666,
+        "Core/non-core": 71.66666666666667,
+        "SV impact": 60.0
+      },
+      "ranking_identity": "PlantCAD2-M"
+    },
+    {
+      "label": "PlantCAD2-Small",
+      "color": "#66a6c9",
+      "scores": [
+        0.6445333333333333,
+        0.6059,
+        0.68225,
+        0.7946,
+        45.06944444444444,
+        50.33333333333333
+      ],
+      "source": "historical/published_groups/PlantCAD2-Small",
+      "task_scores": {
+        "conservation_andropogoneae": 0.6555,
+        "conservation_poaceae_non_tis": 0.6462,
+        "conservation_poaceae_tis": 0.6319,
+        "core_maize_acceptor": 0.763,
+        "core_maize_donor": 0.764,
+        "core_maize_tis": 0.707,
+        "core_maize_tts": 0.598,
+        "core_tomato_acceptor": 0.734,
+        "core_tomato_donor": 0.735,
+        "core_tomato_tis": 0.622,
+        "core_tomato_tts": 0.535,
+        "motif_maize_acceptor": 0.8537,
+        "motif_maize_donor": 0.8754,
+        "motif_maize_tis": 0.5449,
+        "motif_maize_tts": 0.2302,
+        "motif_tomato_acceptor": 0.794,
+        "motif_tomato_donor": 0.8165,
+        "motif_tomato_tis": 0.5274,
+        "motif_tomato_tts": 0.2051,
+        "sv_impact": 0.7946
+      },
+      "task_percentiles": {
+        "conservation_andropogoneae": 26.666666666666668,
+        "conservation_poaceae_non_tis": 20.0,
+        "conservation_poaceae_tis": 46.666666666666664,
+        "core_maize_acceptor": 60.0,
+        "core_maize_donor": 73.33333333333333,
+        "core_maize_tis": 73.33333333333333,
+        "core_maize_tts": 33.33333333333333,
+        "core_tomato_acceptor": 40.0,
+        "core_tomato_donor": 40.0,
+        "core_tomato_tis": 60.0,
+        "core_tomato_tts": 40.0,
+        "motif_maize_acceptor": 66.66666666666666,
+        "motif_maize_donor": 66.66666666666666,
+        "motif_maize_tis": 53.333333333333336,
+        "motif_maize_tts": 33.33333333333333,
+        "motif_tomato_acceptor": 66.66666666666666,
+        "motif_tomato_donor": 66.66666666666666,
+        "motif_tomato_tis": 60.0,
+        "motif_tomato_tts": 40.0,
+        "sv_impact": 40.0
+      },
+      "family_percentiles": {
+        "Conservation": 31.11111111111111,
+        "Motifs": 56.66666666666666,
+        "Core/non-core": 52.5,
+        "SV impact": 40.0
+      },
+      "ranking_identity": "PlantCAD2-S"
+    },
+    {
+      "label": "Evo 2 20B",
+      "color": "#318564",
+      "scores": [
+        0.7886666666666665,
+        0.65525,
+        0.722375,
+        0.86,
+        85.20833333333333,
+        78.0
+      ],
+      "source": "historical/published_groups/evo2_20b",
+      "task_scores": {
+        "conservation_andropogoneae": 0.732,
+        "conservation_poaceae_non_tis": 0.862,
+        "conservation_poaceae_tis": 0.772,
+        "core_maize_acceptor": 0.804,
+        "core_maize_donor": 0.776,
+        "core_maize_tis": 0.686,
+        "core_maize_tts": 0.686,
+        "core_tomato_acceptor": 0.778,
+        "core_tomato_donor": 0.766,
+        "core_tomato_tis": 0.644,
+        "core_tomato_tts": 0.639,
+        "motif_maize_acceptor": 0.826,
+        "motif_maize_donor": 0.822,
+        "motif_maize_tis": 0.602,
+        "motif_maize_tts": 0.453,
+        "motif_tomato_acceptor": 0.785,
+        "motif_tomato_donor": 0.789,
+        "motif_tomato_tis": 0.586,
+        "motif_tomato_tts": 0.379,
+        "sv_impact": 0.86
+      },
+      "task_percentiles": {
+        "conservation_andropogoneae": 80.0,
+        "conservation_poaceae_non_tis": 100.0,
+        "conservation_poaceae_tis": 100.0,
+        "core_maize_acceptor": 80.0,
+        "core_maize_donor": 80.0,
+        "core_maize_tis": 60.0,
+        "core_maize_tts": 93.33333333333333,
+        "core_tomato_acceptor": 93.33333333333333,
+        "core_tomato_donor": 86.66666666666667,
+        "core_tomato_tis": 66.66666666666666,
+        "core_tomato_tts": 86.66666666666667,
+        "motif_maize_acceptor": 46.666666666666664,
+        "motif_maize_donor": 46.666666666666664,
+        "motif_maize_tis": 66.66666666666666,
+        "motif_maize_tts": 86.66666666666667,
+        "motif_tomato_acceptor": 60.0,
+        "motif_tomato_donor": 60.0,
+        "motif_tomato_tis": 73.33333333333333,
+        "motif_tomato_tts": 93.33333333333333,
+        "sv_impact": 100.0
+      },
+      "family_percentiles": {
+        "Conservation": 93.33333333333333,
+        "Motifs": 66.66666666666666,
+        "Core/non-core": 80.83333333333333,
+        "SV impact": 100.0
+      },
+      "ranking_identity": "evo2_20b"
+    }
+  ],
+  "readout_variant": "whole-motif",
+  "title": "Zero-shot PlantCAD2 benchmark \u2014 whole-motif prediction (PlantCAD-style)"
+}

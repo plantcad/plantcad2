@@ -1,0 +1,425 @@
+{
+  "variant": "teacher-forced",
+  "models": [
+    "PlantCAD2.5-Large",
+    "PlantCAD2-Large",
+    "PlantCAD2-Medium",
+    "PlantCAD2-Small",
+    "Evo 2 20B",
+    "MarinDNA 1B 562B",
+    "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR",
+    "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+  ],
+  "raw_color_limits": [
+    0,
+    1
+  ],
+  "row_count": 20,
+  "raw_score_cells": 160,
+  "secondary_rank_model": "MarinMoE 1.5B\u201360M 665B (FIM)",
+  "text_collisions": 0,
+  "rows": [
+    {
+      "task": "conservation_andropogoneae",
+      "family": "Conservation",
+      "species": "Sorghum",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.717,
+        "PlantCAD2-Large": 0.7245,
+        "PlantCAD2-Medium": 0.7077,
+        "PlantCAD2-Small": 0.6555,
+        "Evo 2 20B": 0.732,
+        "MarinDNA 1B 562B": 0.7255664480316916,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.7368613984225476,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.7559745833734881
+      },
+      "focus_percentile": 96.66666666666667,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "motif_maize_tis",
+      "family": "Motifs",
+      "species": "Maize",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.696,
+        "PlantCAD2-Large": 0.6571,
+        "PlantCAD2-Medium": 0.6325,
+        "PlantCAD2-Small": 0.5449,
+        "Evo 2 20B": 0.602,
+        "MarinDNA 1B 562B": 0.4804662482387601,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.5454592032791085,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.9039323683873448
+      },
+      "focus_percentile": 93.33333333333333,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "motif_maize_tts",
+      "family": "Motifs",
+      "species": "Maize",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.446,
+        "PlantCAD2-Large": 0.4096,
+        "PlantCAD2-Medium": 0.3601,
+        "PlantCAD2-Small": 0.2302,
+        "Evo 2 20B": 0.453,
+        "MarinDNA 1B 562B": 0.3856539003458434,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.4396311002946074,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.530933777379275
+      },
+      "focus_percentile": 100.0,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "motif_maize_donor",
+      "family": "Motifs",
+      "species": "Maize",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.921,
+        "PlantCAD2-Large": 0.9104,
+        "PlantCAD2-Medium": 0.9031,
+        "PlantCAD2-Small": 0.8754,
+        "Evo 2 20B": 0.822,
+        "MarinDNA 1B 562B": 0.8205616465954806,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.8285944537236221,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.9573013407508985
+      },
+      "focus_percentile": 100.0,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "motif_maize_acceptor",
+      "family": "Motifs",
+      "species": "Maize",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.913,
+        "PlantCAD2-Large": 0.8996,
+        "PlantCAD2-Medium": 0.8898,
+        "PlantCAD2-Small": 0.8537,
+        "Evo 2 20B": 0.826,
+        "MarinDNA 1B 562B": 0.8161617999727041,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.8270671805236922,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.96966250511799
+      },
+      "focus_percentile": 93.33333333333333,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "core_maize_tis",
+      "family": "Core/non-core",
+      "species": "Maize",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.743,
+        "PlantCAD2-Large": 0.696,
+        "PlantCAD2-Medium": 0.71,
+        "PlantCAD2-Small": 0.707,
+        "Evo 2 20B": 0.686,
+        "MarinDNA 1B 562B": 0.6099221906869086,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.6143774887898461,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.7805449834794684
+      },
+      "focus_percentile": 100.0,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "core_maize_tts",
+      "family": "Core/non-core",
+      "species": "Maize",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.626,
+        "PlantCAD2-Large": 0.608,
+        "PlantCAD2-Medium": 0.618,
+        "PlantCAD2-Small": 0.598,
+        "Evo 2 20B": 0.686,
+        "MarinDNA 1B 562B": 0.6430580283820261,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.6362736384119122,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.695284556677174
+      },
+      "focus_percentile": 100.0,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "core_maize_donor",
+      "family": "Core/non-core",
+      "species": "Maize",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.842,
+        "PlantCAD2-Large": 0.808,
+        "PlantCAD2-Medium": 0.804,
+        "PlantCAD2-Small": 0.764,
+        "Evo 2 20B": 0.776,
+        "MarinDNA 1B 562B": 0.76279760353792,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.7407745397924657,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.6943557093721705
+      },
+      "focus_percentile": 33.33333333333333,
+      "displayed_winners": [
+        "PlantCAD2.5-Large"
+      ]
+    },
+    {
+      "task": "core_maize_acceptor",
+      "family": "Core/non-core",
+      "species": "Maize",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.873,
+        "PlantCAD2-Large": 0.836,
+        "PlantCAD2-Medium": 0.829,
+        "PlantCAD2-Small": 0.763,
+        "Evo 2 20B": 0.804,
+        "MarinDNA 1B 562B": 0.7927693875856238,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.7758067216764104,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.7188901777582127
+      },
+      "focus_percentile": 46.666666666666664,
+      "displayed_winners": [
+        "PlantCAD2.5-Large"
+      ]
+    },
+    {
+      "task": "sv_impact",
+      "family": "SV impact",
+      "species": "Arabidopsis",
+      "in_training": true,
+      "scores": {
+        "PlantCAD2.5-Large": 0.745,
+        "PlantCAD2-Large": 0.841,
+        "PlantCAD2-Medium": 0.8334,
+        "PlantCAD2-Small": 0.7946,
+        "Evo 2 20B": 0.86,
+        "MarinDNA 1B 562B": 0.8525691047089042,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.8540951287449496,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.8455626859700207
+      },
+      "focus_percentile": 76.66666666666667,
+      "displayed_winners": [
+        "Evo 2 20B"
+      ]
+    },
+    {
+      "task": "conservation_poaceae_non_tis",
+      "family": "Conservation",
+      "species": "Pharus",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.729,
+        "PlantCAD2-Large": 0.7125,
+        "PlantCAD2-Medium": 0.6869,
+        "PlantCAD2-Small": 0.6462,
+        "Evo 2 20B": 0.862,
+        "MarinDNA 1B 562B": 0.6976768188054101,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.7165985663103005,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.7777007228112147
+      },
+      "focus_percentile": 83.33333333333334,
+      "displayed_winners": [
+        "Evo 2 20B"
+      ]
+    },
+    {
+      "task": "conservation_poaceae_tis",
+      "family": "Conservation",
+      "species": "Pharus",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.683,
+        "PlantCAD2-Large": 0.6703,
+        "PlantCAD2-Medium": 0.6647,
+        "PlantCAD2-Small": 0.6319,
+        "Evo 2 20B": 0.772,
+        "MarinDNA 1B 562B": 0.5847754308338436,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.6138255425571866,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.6398990929458759
+      },
+      "focus_percentile": 56.666666666666664,
+      "displayed_winners": [
+        "Evo 2 20B"
+      ]
+    },
+    {
+      "task": "motif_tomato_tis",
+      "family": "Motifs",
+      "species": "Tomato",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.612,
+        "PlantCAD2-Large": 0.596,
+        "PlantCAD2-Medium": 0.5846,
+        "PlantCAD2-Small": 0.5274,
+        "Evo 2 20B": 0.586,
+        "MarinDNA 1B 562B": 0.4027398032528116,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.4044874143811483,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.8563576401612312
+      },
+      "focus_percentile": 93.33333333333333,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "motif_tomato_tts",
+      "family": "Motifs",
+      "species": "Tomato",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.294,
+        "PlantCAD2-Large": 0.2848,
+        "PlantCAD2-Medium": 0.2747,
+        "PlantCAD2-Small": 0.2051,
+        "Evo 2 20B": 0.379,
+        "MarinDNA 1B 562B": 0.2215644820295983,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.2165468639887244,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.3859619450317125
+      },
+      "focus_percentile": 100.0,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "motif_tomato_donor",
+      "family": "Motifs",
+      "species": "Tomato",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.846,
+        "PlantCAD2-Large": 0.8387,
+        "PlantCAD2-Medium": 0.8354,
+        "PlantCAD2-Small": 0.8165,
+        "Evo 2 20B": 0.789,
+        "MarinDNA 1B 562B": 0.7184000113918734,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.7068301400488427,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.8923823967077487
+      },
+      "focus_percentile": 100.0,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "motif_tomato_acceptor",
+      "family": "Motifs",
+      "species": "Tomato",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.835,
+        "PlantCAD2-Large": 0.8257,
+        "PlantCAD2-Medium": 0.8214,
+        "PlantCAD2-Small": 0.794,
+        "Evo 2 20B": 0.785,
+        "MarinDNA 1B 562B": 0.7109240945240689,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.6987775095940933,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.9024570846772184
+      },
+      "focus_percentile": 93.33333333333333,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "core_tomato_tis",
+      "family": "Core/non-core",
+      "species": "Tomato",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.668,
+        "PlantCAD2-Large": 0.646,
+        "PlantCAD2-Medium": 0.645,
+        "PlantCAD2-Small": 0.622,
+        "Evo 2 20B": 0.644,
+        "MarinDNA 1B 562B": 0.6100627011317028,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.6173517759665389,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.7043044840650998
+      },
+      "focus_percentile": 100.0,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "core_tomato_tts",
+      "family": "Core/non-core",
+      "species": "Tomato",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.606,
+        "PlantCAD2-Large": 0.598,
+        "PlantCAD2-Medium": 0.595,
+        "PlantCAD2-Small": 0.535,
+        "Evo 2 20B": 0.639,
+        "MarinDNA 1B 562B": 0.6238980628188069,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.6215684828309531,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.7106020981172874
+      },
+      "focus_percentile": 100.0,
+      "displayed_winners": [
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM"
+      ]
+    },
+    {
+      "task": "core_tomato_donor",
+      "family": "Core/non-core",
+      "species": "Tomato",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.783,
+        "PlantCAD2-Large": 0.767,
+        "PlantCAD2-Medium": 0.765,
+        "PlantCAD2-Small": 0.735,
+        "Evo 2 20B": 0.766,
+        "MarinDNA 1B 562B": 0.7584362857213909,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.7554781092023782,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.764768283870156
+      },
+      "focus_percentile": 73.33333333333333,
+      "displayed_winners": [
+        "PlantCAD2.5-Large"
+      ]
+    },
+    {
+      "task": "core_tomato_acceptor",
+      "family": "Core/non-core",
+      "species": "Tomato",
+      "in_training": false,
+      "scores": {
+        "PlantCAD2.5-Large": 0.79,
+        "PlantCAD2-Large": 0.774,
+        "PlantCAD2-Medium": 0.766,
+        "PlantCAD2-Small": 0.734,
+        "Evo 2 20B": 0.778,
+        "MarinDNA 1B 562B": 0.7598210584184925,
+        "MarinMoE 1.5B-60M \u00b7 216B \u00b7 AR": 0.7534091603943986,
+        "MarinMoE 1.5B-60M \u00b7 665B \u00b7 FIM": 0.7753199565277973
+      },
+      "focus_percentile": 86.66666666666667,
+      "displayed_winners": [
+        "PlantCAD2.5-Large"
+      ]
+    }
+  ],
+  "source_sha256": "09829fb13828b728edc8f964cfadee4e07712b8a71d646232961596873df6782",
+  "posted": false
+}

@@ -1,0 +1,52 @@
+{
+  "posted": false,
+  "readouts_share_ranking_population": true,
+  "ranking_population": [
+    "Carbon-3B",
+    "GPN",
+    "MarinDNA 1B 562B",
+    "MarinMoE 1.5B\u201360M 216B",
+    "MarinMoE 1.5B\u201360M 665B (FIM)",
+    "NTv3-100M",
+    "NTv3-650M",
+    "PlantCAD",
+    "PlantCAD2-L",
+    "PlantCAD2-M",
+    "PlantCAD2-S",
+    "PlantCAD2.5-L",
+    "evo2_20b",
+    "evo2_7b",
+    "MarinMoE 1.5B\u201360M 665B (FIM, All 4^k)"
+  ],
+  "population_size": 15,
+  "physical_models": 14,
+  "extra_entry": "665B FIM: teacher-forced and whole-motif readouts both ranked",
+  "tasks": 20,
+  "weighted_family_weights": {
+    "Conservation": 0.15,
+    "Motifs": 0.4,
+    "Core/non-core": 0.4,
+    "SV impact": 0.05
+  },
+  "unweighted_family_weights": {
+    "Conservation": 0.25,
+    "Motifs": 0.25,
+    "Core/non-core": 0.25,
+    "SV impact": 0.25
+  },
+  "leaderboard_function": "rank_within_task",
+  "source_revision": "f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29",
+  "primary": {
+    "Conservation": "AR teacher-forced forward/RC fusion",
+    "Motifs": "FIM all candidates forward/RC fusion: whole-motif MAP exact-match accuracy",
+    "Core/non-core": "FIM all candidates forward/RC fusion: observed whole-motif probability AUROC",
+    "SV impact": "Historical forward-only AR"
+  },
+  "unchanged_native_scores": "All baseline/dense/216B scores, and both 665B conservation/SV scores",
+  "sources": {
+    "/home/exedev/repos/plantcad2-br/codex-exp593-evals/scratch/exp593-anneal-evals/665b-fim-benchmark-readouts/source-scores.csv": "247bac70d8f8294ad9b2dede43be0ab2c3ec2fa6c2e1be3e254adec092e3717b",
+    "/home/exedev/repos/plantcad2-br/codex-exp593-evals/scratch/exp593-anneal-evals/665b-fim-benchmark-joint-ranks/all-task-scores-and-percentiles.csv": "b76d911abccba99461d5a4627178ba753d5c9d151ee1c301ebbc0533eb735a56",
+    "/home/exedev/repos/plantcad2-br/codex-exp593-evals/.agents/artifacts/exp586-dashboard-ranks/dashboard-source/app.py.txt": "6c7a8372265cf3d63830b1127cb54cbf383df0cc12980b7602bbbf0f120b4ee4",
+    "/home/exedev/repos/plantcad2-br/codex-exp593-evals/.agents/artifacts/exp586-dashboard-ranks/dashboard-source/data/tasks.csv": "9313b7177c510f2fcb13e69e66e07c87d5676aec08aabd7ec9955d86edb314c7"
+  }
+}

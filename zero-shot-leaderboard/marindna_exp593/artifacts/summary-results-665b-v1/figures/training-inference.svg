@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="2590" viewBox="0 0 1920 2590" role="img" aria-labelledby="title desc">
+<title id="title">665B FIM: training examples and zero-shot readouts</title>
+<desc id="desc">An AR-only checkpoint is annealed with annotation-guided FIM. Evaluation fixes one template, then compares teacher-forced and all-candidate scores in forward and reverse-complement orientations.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#536775"/></marker></defs>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#1c3040}.mono{font-family:"DejaVu Sans Mono",monospace}svg{background:white}</style>
+<rect width="1920" height="2590" fill="white"/>
+<text x="48" y="55" font-size="40" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">665B FIM · from AR-only training to two-sided inference</text>
+<text x="48" y="94" font-size="25" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">Autoregressive (AR) training → fill-in-the-middle (FIM) annealing of the same causal MoE model.</text>
+<rect x="48" y="122" width="1824" height="632" rx="6" fill="#ffffff" stroke="#cad6df"/>
+<rect x="48" y="122" width="1824" height="64" rx="6" fill="#f7f9fb" stroke="none"/>
+<text x="78" y="165" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">1</text>
+<text x="122" y="165" font-size="29" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Anneal an existing checkpoint</text>
+<text x="1828" y="164" font-size="21" font-weight="400" text-anchor="end" xml:space="preserve" style="fill:#536775" class="normal">No optimizer reset · no biological metadata</text>
+<rect x="80" y="207" width="360" height="82" rx="4" fill="#edf5fb" stroke="none"/>
+<text x="100" y="241" font-size="28" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">545B-token checkpoint</text>
+<text x="100" y="272" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">DNA training so far: AR only</text>
+<line x1="458" y1="247" x2="565" y2="247" stroke="#cad6df" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="934" y="232" font-size="30" font-weight="700" text-anchor="middle" xml:space="preserve" style="fill:#1c3040" class="normal">+120B input tokens</text>
+<text x="934" y="268" font-size="24" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">Resume weights + optimizer; anneal</text>
+<line x1="1270" y1="247" x2="1370" y2="247" stroke="#cad6df" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1390" y="207" width="448" height="82" rx="4" fill="#eaf5f3" stroke="none"/>
+<text x="1410" y="241" font-size="30" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#247b78" class="normal">665B FIM</text>
+<text x="1410" y="272" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Final checkpoint evaluated</text>
+<text x="80" y="335" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">FIM sampling probability</text>
+<line x1="144" y1="500" x2="594" y2="500" stroke="#cad6df" stroke-width="1.5"/>
+<line x1="144" y1="500" x2="144" y2="372" stroke="#cad6df" stroke-width="1.5"/>
+<path d="M 144 500 L 234 380 L 594 380 L 594 500 Z" fill="#eaf5f3"/>
+<path d="M 144 500 L 234 380 L 594 380" fill="none" stroke="#247b78" stroke-width="4"/>
+<text x="131" y="507" font-size="20" font-weight="400" text-anchor="end" xml:space="preserve" style="fill:#536775" class="normal">0</text>
+<text x="131" y="387" font-size="22" font-weight="400" text-anchor="end" xml:space="preserve" style="fill:#247b78" class="normal">30%</text>
+<line x1="234" y1="500" x2="234" y2="380" stroke="#cad6df" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text x="144" y="529" font-size="21" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">0</text>
+<text x="234" y="529" font-size="21" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">24B</text>
+<text x="594" y="529" font-size="21" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">120B</text>
+<text x="380" y="560" font-size="22" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">Annealing input tokens</text>
+<text x="394" y="424" font-size="23" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="normal">30% after the first 20%</text>
+<text x="710" y="335" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">What the model sees → what receives loss</text>
+<rect x="710" y="353" width="76" height="36" rx="4" fill="#edf5fb" stroke="none"/>
+<text x="748.0" y="378" font-size="22" font-weight="600" text-anchor="middle" xml:space="preserve" style="fill:#28638b" class="normal">AR</text>
+<rect x="808" y="353" width="1008" height="48" rx="0" fill="#edf5fb" stroke="none"/>
+<text x="826" y="386" font-size="28" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">… left flank   atg   right flank …</text>
+<text x="808" y="431" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">Next-base loss across the DNA sequence</text>
+<rect x="710" y="456" width="76" height="36" rx="4" fill="#eaf5f3" stroke="none"/>
+<text x="748.0" y="481" font-size="22" font-weight="600" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="normal">FIM</text>
+<rect x="808" y="456" width="804" height="48" rx="0" fill="#f7f9fb" stroke="none"/>
+<rect x="1612" y="456" width="204" height="48" rx="0" fill="#fff1cf" stroke="none"/>
+<text x="826" y="488" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">[left] L  [right] R  [gap:3]  [fill]</text>
+<text x="1714" y="489" font-size="28" font-weight="700" text-anchor="middle" xml:space="preserve" style="fill:#956016" class="mono">atg</text>
+<text x="808" y="539" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">Context + syntax: no loss</text>
+<text x="1612" y="539" font-size="24" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#956016" class="normal">Gap only</text>
+<line x1="80" y1="585" x2="1838" y2="585" stroke="#cad6df" stroke-width="1.5"/>
+<text x="80" y="623" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">At the 30% plateau</text>
+<rect x="80" y="641" width="350" height="20" rx="0" fill="#9bb5c8" stroke="none"/>
+<rect x="430" y="641" width="112.5" height="20" rx="0" fill="#247b78" stroke="none"/>
+<rect x="542.5" y="641" width="37.5" height="20" rx="0" fill="#956016" stroke="none"/>
+<text x="80" y="693" font-size="23" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">70% AR</text>
+<text x="260" y="693" font-size="23" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#247b78" class="normal">22.5% short FIM</text>
+<text x="80" y="726" font-size="23" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#956016" class="normal">7.5% long FIM</text>
+<text x="650" y="623" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">All FIM is annotation-guided</text>
+<text x="650" y="662" font-size="22" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="580">75%: gaps of 1, 2 or 3 bases</text>
+<text x="650" y="694" font-size="22" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="580">25%: gaps of 16, 32, 64, 128, 256 or 512</text>
+<text x="1280" y="623" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Over the completed 120B stage</text>
+<text x="1280" y="666" font-size="33" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#247b78" class="normal">27.00%</text>
+<text x="1440" y="666" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">of examples are FIM</text>
+<text x="1280" y="710" font-size="36" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#956016" class="normal">0.30%</text>
+<text x="1440" y="710" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">of supervised bases are FIM</text>
+<rect x="48" y="786" width="1824" height="584" rx="6" fill="#ffffff" stroke="#cad6df"/>
+<rect x="48" y="786" width="1824" height="64" rx="6" fill="#f7f9fb" stroke="none"/>
+<text x="78" y="829" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">2</text>
+<text x="122" y="829" font-size="29" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">One fixed evaluation template; many training presentations</text>
+<text x="1828" y="828" font-size="21" font-weight="400" text-anchor="end" xml:space="preserve" style="fill:#536775" class="normal">Training-supported syntax, fixed throughout evaluation</text>
+<text x="80" y="894" font-size="26" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Training: where is the gap?</text>
+<text x="80" y="936" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Start / stop codons: ≈22% each</text>
+<text x="80" y="969" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Splice donor / acceptor: ≈28% each</text>
+<text x="80" y="1003" font-size="24" font-weight="600" text-anchor="start" xml:space="preserve" style="fill:#247b78" class="normal">62.5% overlap a landmark</text>
+<line x1="90" y1="1035" x2="548" y2="1035" stroke="#9bb5c8" stroke-width="4"/>
+<rect x="314" y="1018" width="74" height="34" rx="3" fill="#eaf5f3" stroke="#247b78"/>
+<rect x="316" y="1022" width="34" height="26" rx="2" fill="#fff1cf" stroke="#956016"/>
+<text x="80" y="1090" font-size="24" font-weight="600" text-anchor="start" xml:space="preserve" style="fill:#247b78" class="normal">37.5% nearby, within 32 bp</text>
+<line x1="90" y1="1122" x2="548" y2="1122" stroke="#9bb5c8" stroke-width="4"/>
+<rect x="314" y="1105" width="74" height="34" rx="3" fill="#eaf5f3" stroke="#247b78"/>
+<rect x="236" y="1109" width="34" height="26" rx="2" fill="#fff1cf" stroke="#956016"/>
+<rect x="80" y="1154" width="22" height="20" rx="0" fill="#eaf5f3" stroke="#247b78"/>
+<text x="112" y="1172" font-size="22" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">landmark</text>
+<rect x="286" y="1154" width="22" height="20" rx="0" fill="#fff1cf" stroke="#956016"/>
+<text x="318" y="1172" font-size="22" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">hidden gap</text>
+<text x="80" y="1210" font-size="21" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal" data-max-width="495">Shares are within FIM; distances not to scale.</text>
+<text x="80" y="1240" font-size="21" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal" data-max-width="495">Nearby gaps never overlap the landmark.</text>
+<text x="80" y="1289" font-size="23" font-weight="600" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">≈50% reverse-complement orientation</text>
+<text x="80" y="1325" font-size="22" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">2–8K input lengths during annealing</text>
+<rect x="610" y="881" width="692" height="382" rx="6" fill="#edf5fb" stroke="#cad6df"/>
+<text x="644" y="924" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">FIXED EVAL INPUT · no metadata</text>
+<line x1="644" y1="943" x2="1268" y2="943" stroke="#cad6df" stroke-width="1.5"/>
+<text x="648" y="995" font-size="32" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">[left]  … L …</text>
+<text x="648" y="1046" font-size="32" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">[right] … R …</text>
+<text x="648" y="1097" font-size="32" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">[gap:3]</text>
+<text x="648" y="1148" font-size="32" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">[fill] </text>
+<line x1="822" y1="1138" x2="895" y2="1138" stroke="#cad6df" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="927" y="1113" width="330" height="49" rx="4" fill="#fff1cf" stroke="none"/>
+<text x="1092" y="1147" font-size="24" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#956016" class="normal">answer scored here</text>
+<text x="648" y="1218" font-size="24" font-weight="600" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">The entire target is absent from L and R.</text>
+<text x="956" y="1302" font-size="23" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">Literal labels use text BPE; DNA uses one token per base.</text>
+<text x="956" y="1337" font-size="22" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">8K eval budget: trim distant context ends to fit syntax + answer.</text>
+<text x="1345" y="894" font-size="26" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Training varies this template</text>
+<text x="1345" y="940" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="485">+ Prose instruction in 75%</text>
+<text x="1345" y="980" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="485">↔ Right flank first in 25%</text>
+<text x="1345" y="1020" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="485">− [gap:k] omitted in 20%</text>
+<text x="1345" y="1060" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="485">~ Labels vary; bracket form in 62.5%</text>
+<text x="1345" y="1123" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">One actual training-template variant:</text>
+<rect x="1345" y="1142" width="480" height="121" rx="4" fill="#f7f9fb" stroke="#cad6df"/>
+<text x="1364" y="1176" font-size="27" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">[suffix] … R …</text>
+<text x="1364" y="1211" font-size="27" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">[prefix] … L …</text>
+<text x="1364" y="1246" font-size="27" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">[answer] y</text>
+<text x="1345" y="1289" font-size="23" font-weight="600" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">Eval keeps the form shown at left.</text>
+<text x="1345" y="1325" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">No template ensemble or selection.</text>
+<rect x="48" y="1402" width="1824" height="800" rx="6" fill="#ffffff" stroke="#cad6df"/>
+<rect x="48" y="1402" width="1824" height="64" rx="6" fill="#f7f9fb" stroke="none"/>
+<text x="78" y="1445" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">3</text>
+<text x="122" y="1445" font-size="29" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Two context presentations × two answer readouts</text>
+<text x="1828" y="1444" font-size="21" font-weight="400" text-anchor="end" xml:space="preserve" style="fill:#536775" class="normal">Base readouts normalize over lowercase a / c / g / t</text>
+<text x="80" y="1511" font-size="28" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">AR · one flank per model pass</text>
+<text x="1000" y="1511" font-size="28" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#247b78" class="normal">FIM · both flanks in each model pass</text>
+<rect x="80" y="1532" width="820" height="130" rx="4" fill="#edf5fb" stroke="none"/>
+<rect x="1000" y="1532" width="820" height="130" rx="4" fill="#eaf5f3" stroke="none"/>
+<text x="103" y="1575" font-size="27" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">Forward:   L             → y</text>
+<text x="103" y="1619" font-size="27" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">RC:        RC(R)         → RC(y)</text>
+<text x="1023" y="1575" font-size="26" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">Forward:   T(L, R, k)         → y</text>
+<text x="1023" y="1619" font-size="26" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">RC:        T(RC(R), RC(L), k) → RC(y)</text>
+<text x="960" y="1704" font-size="24" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">Choose either readout below for either context presentation above</text>
+<rect x="80" y="1730" width="820" height="348" rx="4" fill="#ffffff" stroke="#cad6df"/>
+<rect x="1000" y="1730" width="820" height="348" rx="4" fill="#ffffff" stroke="#cad6df"/>
+<text x="104" y="1774" font-size="27" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">TF · teacher-forced answer prefixes</text>
+<text x="1024" y="1774" font-size="27" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">All 4ᵏ · every possible motif</text>
+<text x="104" y="1817" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Target atg · same per-strand TF rule as Evo2–20B</text>
+<rect x="104" y="1840" width="228" height="56" rx="4" fill="#fff1cf" stroke="none"/>
+<text x="218" y="1877" font-size="26" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#956016" class="mono">p(a | ∅)</text>
+<rect x="374" y="1840" width="228" height="56" rx="4" fill="#fff1cf" stroke="none"/>
+<text x="488" y="1877" font-size="26" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#956016" class="mono">p(t | a)</text>
+<rect x="644" y="1840" width="228" height="56" rx="4" fill="#fff1cf" stroke="none"/>
+<text x="758" y="1877" font-size="26" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#956016" class="mono">p(g | at)</text>
+<line x1="339" y1="1868" x2="365" y2="1868" stroke="#cad6df" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="609" y1="1868" x2="635" y2="1868" stroke="#cad6df" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text x="104" y="1931" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="775">Each prediction receives earlier true answer bases.</text>
+<text x="104" y="1962" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="775">RC example: cat. Align positions + complements;</text>
+<text x="104" y="1993" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="775">combine forward / RC at each answer position.</text>
+<rect x="104" y="2024" width="350" height="36" rx="4" fill="#edf5fb" stroke="none"/>
+<text x="279.0" y="2049" font-size="23" font-weight="600" text-anchor="middle" xml:space="preserve" style="fill:#28638b" class="normal">AR · TF × RC</text>
+<rect x="478" y="2024" width="398" height="36" rx="4" fill="#eaf5f3" stroke="none"/>
+<text x="677.0" y="2049" font-size="23" font-weight="600" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="normal">FIM · TF × RC</text>
+<text x="1024" y="1817" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="770">Example k = 2: all 16 motifs, no selected path</text>
+<text x="1410" y="1851" font-size="22" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">∅</text>
+<line x1="1410" y1="1857" x2="1114" y2="1875" stroke="#cad6df" stroke-width="1.2"/>
+<rect x="1084" y="1876" width="60" height="32" rx="3" fill="#eaf5f3" stroke="none"/>
+<text x="1114" y="1900" font-size="25" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="mono">a</text>
+<line x1="1114" y1="1910" x2="1114" y2="1920" stroke="#cad6df" stroke-width="1.2"/>
+<text x="1114" y="1944" font-size="20" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#1c3040" class="mono">aa ac ag at</text>
+<line x1="1410" y1="1857" x2="1310" y2="1875" stroke="#cad6df" stroke-width="1.2"/>
+<rect x="1280" y="1876" width="60" height="32" rx="3" fill="#eaf5f3" stroke="none"/>
+<text x="1310" y="1900" font-size="25" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="mono">c</text>
+<line x1="1310" y1="1910" x2="1310" y2="1920" stroke="#cad6df" stroke-width="1.2"/>
+<text x="1310" y="1944" font-size="20" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#1c3040" class="mono">ca cc cg ct</text>
+<line x1="1410" y1="1857" x2="1506" y2="1875" stroke="#cad6df" stroke-width="1.2"/>
+<rect x="1476" y="1876" width="60" height="32" rx="3" fill="#eaf5f3" stroke="none"/>
+<text x="1506" y="1900" font-size="25" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="mono">g</text>
+<line x1="1506" y1="1910" x2="1506" y2="1920" stroke="#cad6df" stroke-width="1.2"/>
+<text x="1506" y="1944" font-size="20" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#1c3040" class="mono">ga gc gg gt</text>
+<line x1="1410" y1="1857" x2="1702" y2="1875" stroke="#cad6df" stroke-width="1.2"/>
+<rect x="1672" y="1876" width="60" height="32" rx="3" fill="#eaf5f3" stroke="none"/>
+<text x="1702" y="1900" font-size="25" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="mono">t</text>
+<line x1="1702" y1="1910" x2="1702" y2="1920" stroke="#cad6df" stroke-width="1.2"/>
+<text x="1702" y="1944" font-size="20" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#1c3040" class="mono">ta tc tg tt</text>
+<text x="1024" y="1973" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="770">Candidate prefixes only; no true answer supplied.</text>
+<text x="1024" y="2004" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="770">Fuse whole-motif probabilities; select the maximum.</text>
+<rect x="1024" y="2024" width="350" height="36" rx="4" fill="#edf5fb" stroke="none"/>
+<text x="1199.0" y="2049" font-size="23" font-weight="600" text-anchor="middle" xml:space="preserve" style="fill:#28638b" class="normal">AR · All 4ᵏ × RC</text>
+<rect x="1398" y="2024" width="398" height="36" rx="4" fill="#eaf5f3" stroke="none"/>
+<text x="1597.0" y="2049" font-size="23" font-weight="600" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="normal">FIM · All 4ᵏ × RC</text>
+<text x="80" y="2111" font-size="27" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">× RC = equal-weight geometric combination, normalized again</text>
+<text x="80" y="2150" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Motifs: exact whole-answer accuracy.   Conservation: observed-base probability → AUROC.</text>
+<text x="80" y="2184" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">Core/non-core AUROC: TF uses mean true-base probability; All 4ᵏ uses whole-motif probability Q(y).</text>
+<rect x="48" y="2234" width="1824" height="310" rx="6" fill="#ffffff" stroke="#cad6df"/>
+<rect x="48" y="2234" width="1824" height="64" rx="6" fill="#f7f9fb" stroke="none"/>
+<text x="78" y="2277" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">4</text>
+<text x="122" y="2277" font-size="29" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">SV impact · standard forward-only AR scoring</text>
+<text x="1828" y="2276" font-size="21" font-weight="400" text-anchor="end" xml:space="preserve" style="fill:#536775" class="normal">Same boundary-scoring protocol as Evo2–20B</text>
+<text x="80" y="2340" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="550">1  Supply the known REF and ALT</text>
+<text x="80" y="2391" font-size="24" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">REF</text>
+<text x="80" y="2447" font-size="24" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="normal">ALT</text>
+<rect x="160" y="2365" width="104" height="39" rx="3" fill="#edf5fb" stroke="none"/>
+<text x="212" y="2391" font-size="21" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#28638b" class="normal">5 bases</text>
+<rect x="368" y="2365" width="104" height="39" rx="3" fill="#edf5fb" stroke="none"/>
+<text x="420" y="2391" font-size="21" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#28638b" class="normal">5 bases</text>
+<rect x="264" y="2365" width="104" height="39" rx="0" fill="#f7f9fb" stroke="#cad6df"/>
+<text x="316" y="2391" font-size="20" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">deleted</text>
+<rect x="160" y="2421" width="104" height="39" rx="3" fill="#edf5fb" stroke="none"/>
+<text x="212" y="2447" font-size="21" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#28638b" class="normal">5 bases</text>
+<rect x="264" y="2421" width="104" height="39" rx="3" fill="#edf5fb" stroke="none"/>
+<text x="316" y="2447" font-size="21" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#28638b" class="normal">5 bases</text>
+<line x1="264" y1="2414" x2="264" y2="2467" stroke="#28638b" stroke-width="2"/>
+<text x="80" y="2501" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal" data-max-width="550">Known sequences; no masking or generation.</text>
+<line x1="590" y1="2410" x2="668" y2="2410" stroke="#cad6df" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="710" y="2340" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="550">2  Compare boundary support</text>
+<text x="710" y="2391" font-size="29" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#28638b" class="mono" data-max-width="550">mean log(pREF / pALT)</text>
+<text x="710" y="2434" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="560">The same ten observed boundary bases.</text>
+<text x="710" y="2469" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="560">Each probability uses the actual prefix.</text>
+<text x="710" y="2504" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="560">Higher score = lower support after deletion.</text>
+<line x1="1253" y1="2410" x2="1308" y2="2410" stroke="#cad6df" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="1344" y="2340" font-size="25" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="485">3  Evaluate impact prediction</text>
+<text x="1344" y="2391" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="485">Average precision vs impact labels</text>
+<text x="1344" y="2434" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="485">Same forward-only rule as Evo2–20B.</text>
+<text x="1344" y="2469" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="485">Marin uses lowercase probabilities only.</text>
+<text x="1344" y="2504" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="485">AR × RC rows reuse this SV score.</text>
+<text x="48" y="2578" font-size="21" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">Draft · sequences and spans are schematic; k is the known target length. Equations, Evo2 comparison and AF notes are in the caption.</text>
+</svg>

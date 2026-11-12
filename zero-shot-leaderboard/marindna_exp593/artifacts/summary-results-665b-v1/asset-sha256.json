@@ -1,0 +1,22 @@
+{
+  "figures/quality-throughput.png": "f3129471c207b825f7d1cb9bdb93e98e4b2e7aab315e12bbf8787038f1910a55",
+  "figures/quality-throughput.svg": "03c12de661188d9f40f0657c5f47d3b7c071499491566a4b0936c22f15daa8b0",
+  "figures/benchmark-whole-motif.png": "24a7fbfd40749466e539819d15cdef1bc01eeda4d2ec0b8aeeae10fc524f0b2d",
+  "figures/benchmark-whole-motif.svg": "9174eb04a2b000c3b8aa4a9010f363e607245f9b35c0d4c7298e6ef659cf5f2d",
+  "figures/benchmark-teacher-forced.png": "42c5b9c58c40c260c11abefef634d0251c300aea2861262f643c8f1b4e373132",
+  "figures/benchmark-teacher-forced.svg": "2ca5de3599a10cfce90fc296d016306667c4eaf0428c4cafe52590c91d906369",
+  "figures/task-results-whole-motif.png": "fa1c7cd893f5099324b889967e9cd27dd63749d930b72f97604aaa8a0541c692",
+  "figures/task-results-whole-motif.svg": "9855af6bb1113c6e934e85ef53ffb6848350a5e23b87b7223780b4abe208004f",
+  "figures/task-results-teacher-forced.png": "fb6966a74ff11ba643e452dbc3e3b5be87e40742fe31327f2dc0f21911cd1d40",
+  "figures/task-results-teacher-forced.svg": "dc3282aab094ac98acb04a7b64bfa6f8ed7c43bd2d93ac2e6e8e75b40f8d213c",
+  "figures/training-inference.png": "7c912be7d4bffb9cc09d5f939593ed898fde672b0d34a6e6dfc68cf16f700246",
+  "figures/training-inference.svg": "c72500ea0bc85786eeb36c89414a9ef902a8864e2f67be89a667c9c9bb5c08e7",
+  "species-coverage-audit.json": "6714ea77be7d5541843b3f14e3e52455fdf79d5458a758cd1a23c6c0fc91ff73",
+  "task-whole-motif-data.json": "05b8b8006457bab6c3f0d4f2a2177d91308e857c60612797afc98bcc12fc185b",
+  "task-teacher-forced-data.json": "4717b5073ce22881804387ca955eaeed8e8ad300ea2e29165bac1f4bb23b5eab",
+  "family-whole-motif-data.json": "a0421bf23eba1f3340d23fa407def59e96829bb97e4d498f5fd8b48fe9e499fb",
+  "family-teacher-forced-data.json": "09829fb13828b728edc8f964cfadee4e07712b8a71d646232961596873df6782",
+  "all-task-scores-and-percentiles.csv": "1283452fc06f8d92f2c534bc0205627a73f8885127e8eb5fc6e2d50b13340555",
+  "ranking-provenance.json": "6b578dfb2722d3784f88137f8aa2291dbe4db0f18e13148a50c4c3291e91243c",
+  "quality-throughput-data.json": "b43dc4f9b09543b9f6a21f5d57306ef311280dcb9f9c7d0813ce78610e2e6a75"
+}
