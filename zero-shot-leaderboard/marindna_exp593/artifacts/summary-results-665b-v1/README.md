@@ -10,3 +10,5 @@ Figure assets and score data for the Summary Results comment on [PlantCAD2 PR #2
 - Species membership was checked against all 44 original training metadata shards (2,638,656 windows), retaining the original 65 species. It describes MarinDNA's DNA corpus, not baseline training data or benchmark-locus overlap.
 
 PNG and editable SVG versions are in `figures/`. The JSON/CSV files preserve plotted values, reference ranks and source checksums. Local `posted: false` fields in generation records refer to the unpublished generation step.
+
+The compact treatment/control chart additionally includes the 665B AR continuation control, using AR exhaustive forward/RC motif/core readouts versus FIM exhaustive forward/RC for the FIM-trained model. Its ranks are recomputed across 16 entries with the control added; main figures retain their 15-entry reference.

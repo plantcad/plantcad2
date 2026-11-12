@@ -18,5 +18,9 @@
   "family-teacher-forced-data.json": "09829fb13828b728edc8f964cfadee4e07712b8a71d646232961596873df6782",
   "all-task-scores-and-percentiles.csv": "1283452fc06f8d92f2c534bc0205627a73f8885127e8eb5fc6e2d50b13340555",
   "ranking-provenance.json": "6b578dfb2722d3784f88137f8aa2291dbe4db0f18e13148a50c4c3291e91243c",
-  "quality-throughput-data.json": "b43dc4f9b09543b9f6a21f5d57306ef311280dcb9f9c7d0813ce78610e2e6a75"
+  "quality-throughput-data.json": "b43dc4f9b09543b9f6a21f5d57306ef311280dcb9f9c7d0813ce78610e2e6a75",
+  "figures/benchmark-treatment-control.png": "9ab1fd713a4107f141a805f5086b9713e51028008d2f45292b938d740528f847",
+  "figures/benchmark-treatment-control.svg": "6c0ebac810cf25a1855d14d07262b6bc5541359f2fa8ef9987d5b95b1fa78e7b",
+  "control-comparison-data.json": "d37854e443b51f86db652a569bd3d56dfa96aa2d9017ae7c67f30df65c696853",
+  "control-comparison-task-ranks.csv": "17aca9a37de6167352085b14905bec011f258ad06e402da19194f261814458df"
 }
