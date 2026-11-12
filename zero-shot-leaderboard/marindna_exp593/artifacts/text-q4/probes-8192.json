@@ -1,0 +1,3599 @@
+{
+  "experiment": 593,
+  "condition": "text",
+  "quarter": 4,
+  "checkpoint": {
+    "quarter": 4,
+    "run_id": "dna-exp593-augmented-d768-pretrained-seed0-v1",
+    "step": 626011,
+    "input_tokens": 216158719114,
+    "target_tokens": 216158699520,
+    "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/training/dna-exp593-augmented-d768-pretrained-seed0-v1/checkpoints/step-626011",
+    "clock": {
+      "input_tokens": 216158719114,
+      "dna_tokens": 214510513106,
+      "text_tokens": 1648206008,
+      "loss_targets": 108722713297,
+      "examples": 40064704,
+      "fim_examples": 20028652,
+      "rc_examples": 20033707,
+      "updates": 626011
+    },
+    "metadata_sha256": "9a10fe1715400ef9495cf003fe0fa20d6ab740b9ed655d0d0a9bc60595b6ca6e",
+    "metadata_canonical_sha256": "f6ae7c885aaa034b2c2f7cc423da72b8c6157152ac6b54841ef654709a35fec2",
+    "bindings": {
+      "augmentation": {
+        "assembly_probability": 0.15,
+        "bucket_probabilities": [
+          0.15,
+          0.25,
+          0.25,
+          0.35
+        ],
+        "case_probabilities": [
+          0.5,
+          0.25,
+          0.25
+        ],
+        "center_gap_probability": 0.2,
+        "chrom_probability": 0.25,
+        "description_probability": 0.8,
+        "gap_length_probability": 0.8,
+        "global_batch_size": 64,
+        "guided_probability": 0.75,
+        "kind_probabilities": [
+          0.4,
+          0.1,
+          0.375,
+          0.125
+        ],
+        "length_buckets": [
+          2048,
+          4096,
+          6144,
+          8192
+        ],
+        "mask_description_probability": 0.85,
+        "minimal_fim_probability": 0.25,
+        "minimum_fill_fraction": 0.875,
+        "orientation_probability": 0.2,
+        "seed": 472,
+        "source_strand_probability": 0.15,
+        "species_probability": 0.7,
+        "taxonomy_probability": 0.35
+      },
+      "inputs_manifest": "33d8d87b7ee9edbba457504632936cfd7eccb00523a74726ed6a08098047f0e3",
+      "model": {
+        "attention_implementation": "gpu_fa4_cute",
+        "capacity_factor": 1.15,
+        "expert_chunks": 1,
+        "global_every": 4,
+        "global_kv_heads": 1,
+        "head_dim": 128,
+        "hidden_dim": 768,
+        "initializer_std": 0.018042195912175808,
+        "intermediate_dim": 384,
+        "latent_dim": 384,
+        "layer_norm_eps": 1e-05,
+        "local_kv_heads": 1,
+        "max_seq_len": 8192,
+        "moe_implementation": "fixed_pooled_wave_all_to_all",
+        "num_expert_waves": 3,
+        "num_experts": 384,
+        "num_experts_per_token": 8,
+        "num_heads": 6,
+        "num_kv_heads": 1,
+        "num_layers": 8,
+        "num_shared_experts": 2,
+        "pooled_transport_capacity_factor": 1.15,
+        "qb_estimator": "hist",
+        "qb_hist_bins": 10000,
+        "qk_mult": 1.3,
+        "remat_mode": "recompute_all",
+        "report_capacity_overflow": true,
+        "rope": {
+          "scaling_factor": null,
+          "theta": 10000.0
+        },
+        "rope_fused": true,
+        "sconv": true,
+        "sconv_kernel": 4,
+        "sconv_sites": [
+          "k",
+          "attn",
+          "mlp"
+        ],
+        "shared_expert_intermediate_dim": 384,
+        "sliding_window": 2048,
+        "vocab_size": 128256
+      },
+      "norm_policy": {
+        "every_updates": 1000,
+        "num_layers": 8
+      },
+      "objective_source_sha256": {
+        "annotations.py": "0ebde87a7b83ad7b89e591c5ac4a09efacf7e880c5735f36d6a7c0ff8df40055",
+        "evaluate.py": "99e45a19ba58e9e667fbffdf04bd8e872f6556d98e47ba1e573a2c1dcc931233",
+        "fim_validation.py": "5ad18953bdee8208ec0964c54213225cd6f6a42fdf03385b741c7464c31ed6c9",
+        "pipeline.py": "839a9da26864dde83c2f61ea4680d0afc55a4e56c59ce832fc41650d7d21fdea",
+        "schedule.py": "746aef1a26ee43ff510a8cc39971ecfbd49489e2e2fef2367abbdafdca50911b",
+        "templates.py": "067359a78348002a1a8ce4c2fda533501aa541bc412a2aae2e2ea4906394fb73",
+        "train_step.py": "237f9367351f16b100e40fd12f751625afcec6a5c2c8470711c6c15ca12c77ba"
+      },
+      "optimized_source_commit": "de5f428fc7b2bac8b6e40697f905c8b99ca3580d",
+      "optimizer": {
+        "adam_lr": 0.000766139548178887,
+        "backend_steps": 5,
+        "beta1": 0.9,
+        "beta2": 0.996005996001,
+        "coefficient_type": "quintic",
+        "cooldown": null,
+        "cycle_length": null,
+        "cycles": null,
+        "decay": null,
+        "default_weight_decay_mask": null,
+        "epsilon": 6.212941441462329e-15,
+        "gate_router_weight_decay": 0.0,
+        "haps": null,
+        "learning_rate": 0.0033199380421085104,
+        "lr_schedule": "linear",
+        "max_grad_norm": null,
+        "min_lr_ratio": 0.05,
+        "momentum": 0.95,
+        "muon_epsilon": 1e-08,
+        "nesterov": true,
+        "rewarmup": 0.0,
+        "use_syrk": true,
+        "warmup": 0.01,
+        "weight_decay": 0.0,
+        "weight_decay_modules": null
+      },
+      "protocol": "exp593-augmented-d768-v1",
+      "reference_tokens_per_update": 524288,
+      "run_id": "dna-exp593-augmented-d768-pretrained-seed0-v1",
+      "schedule": {
+        "min_lr_ratio": 0.05,
+        "training_tokens": 216158699520,
+        "warmup_tokens": 2161115136
+      },
+      "source_checkpoint": "s3://marin-us-east-02a/marin/grug/rav-ladder-d768-v2/2026.08.18/checkpoints/step-11420",
+      "source_metadata": "01cbe71d30793c7a66dd7fe1f54a50e1198490a58cc364a28b5cf27a26e76cf4",
+      "stop_policy": "first_complete_global_batch_at_or_above_nominal_input_budget",
+      "tokenizer": "a43c95c64d7293d06f0c6c4713f95e0036738248f881315910c703307bdd2a2b",
+      "validation_manifests": {
+        "audit/fim_validation_pairs.jsonl": "e19d6352643032252c0855206be2e02aa878498f25490e4ef39f111f03dd7848",
+        "audit/validation_disjoint_512.json": "6fad190f8a5b4552d5bdb17eee3df3e133eb4538a92b1e9ba200dffc991f051e",
+        "validation/primary_validation_512.jsonl": "01348a2df1d2c17efc10e5d925d828e43f7adb50034175ce05481970387a9ca3"
+      },
+      "validation_updates": null
+    }
+  },
+  "inference_configuration": "fast-fa3",
+  "inference_source_commit": "6c07df025a185c6e39278327ba5b678dcfd93c86",
+  "analysis_sources": {
+    "probes-p0": {
+      "source_commit": "74f98583a72e89bb238a94849b9dfc365ac7aabd",
+      "receipt_sha256": "4b503baf0d587473a603cb65ef24596d332d4a56fe261d6c3e41f4852414a2fe"
+    },
+    "probes-p1": {
+      "source_commit": "74f98583a72e89bb238a94849b9dfc365ac7aabd",
+      "receipt_sha256": "3a82c4b65aa31e3f6fe8a024030143a4bf6968969b072f58aa55ff1b58a43179"
+    },
+    "probes-p2": {
+      "source_commit": "74f98583a72e89bb238a94849b9dfc365ac7aabd",
+      "receipt_sha256": "ba2deffa45797d84bae7e19e769395e115387d9e423675589d17ed5190219ca0"
+    },
+    "probes-p3": {
+      "source_commit": "74f98583a72e89bb238a94849b9dfc365ac7aabd",
+      "receipt_sha256": "729db9ea2e620d3c30ef39a4e923e4578c3abee9eb5f3e52e77b728363ab6483"
+    }
+  },
+  "fitting_source": {
+    "repository": "https://github.com/plantcad/plantcad2",
+    "commit": "cc13e527b9b180177802a342fbda5c6feedcf3a3",
+    "files": {
+      "provenance/probe-fit-code/exp586_evals/classification_probe.py": "e8f8439a8281462214aa38fae4f61c29e3c4c6f19538e161712fb00a74f75f72",
+      "provenance/probe-fit-code/exp586_evals/motif_probe.py": "a8d74b89b1cff124aef10f72fad0367e79e96eea915480e59ad78ac9036e7316",
+      "provenance/probe-fit-code/exp586_evals/probe_protocol.py": "fe301ce392157a386e447293ff01ca0e8c2a8f7c097e4e9bcdecaa9d79b8603c"
+    },
+    "AF_fitting": "full_probe.py and bidirectional.py in the pinned scientific wheel match this commit byte-for-byte.",
+    "scientific_wheel_files": {
+      "full_probe.py": "65eecf47307bada5c6dc39d03eb49b9abd5720a7896ddaa5dcd8dd86664e1d10",
+      "bidirectional.py": "093d1e3f4219b96b27dd227aa30cd192257a8e78d2d9defc30f08249556d8d10"
+    }
+  },
+  "source_metric_records": {
+    "conservation_andropogoneae": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/conservation_andropogoneae/result.json",
+        "sha256": "b69570c3b89b6c1f0cc53479fc7274beb7f90367ff329bfcbede8400f6c4dab7",
+        "bytes": 2101
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/conservation_andropogoneae/evaluation-binding.json",
+        "sha256": "ee9d93e0aaf94513c256b3a0d524523eb4c4bcd3511518a8e2f12ff0549aa861",
+        "bytes": 24141
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/conservation_andropogoneae/analysis-receipt.json"
+    },
+    "core_maize_donor": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/core_maize_donor/result.json",
+        "sha256": "b89f19670fe655907684df9e348b28db4008f954c8ac5d1e65013d6a9f8ce3cd",
+        "bytes": 1971
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/core_maize_donor/evaluation-binding.json",
+        "sha256": "5f5e789c2bcd094d8afa8811f1d2715aab044b97239676c4d70e9ea531685064",
+        "bytes": 24167
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/core_maize_donor/analysis-receipt.json"
+    },
+    "core_tomato_donor": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/core_tomato_donor/result.json",
+        "sha256": "fcfc9cc0a187331bb52cb009d531e5e903a947cafe3109b41909e25810281e3f",
+        "bytes": 2221
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/core_tomato_donor/evaluation-binding.json",
+        "sha256": "fe418ce946df3939373a0c5e36f8951fa68d2b1e1a7f9b8bb4eeff90e0e150a3",
+        "bytes": 24169
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/core_tomato_donor/analysis-receipt.json"
+    },
+    "motif_maize_donor": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/motif_maize_donor/result.json",
+        "sha256": "d29e65549d6b4917e189d58a36614133f709b7a2d8b0afc82fc5a3b51bb02691",
+        "bytes": 2287
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/motif_maize_donor/evaluation-binding.json",
+        "sha256": "294e6ac053afc0ebd0e179d9c27ee8a0b50cab3184f33ed67883382fe9a8acf3",
+        "bytes": 24168
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/motif_maize_donor/analysis-receipt.json"
+    },
+    "motif_tomato_donor": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/motif_tomato_donor/result.json",
+        "sha256": "290c67dacbf4d766258b7b0fc1cfa5b48386747443fb7d60a035f08582549fd5",
+        "bytes": 2408
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/motif_tomato_donor/evaluation-binding.json",
+        "sha256": "37a554115cf2a9c3a97a156f6a559401eb0f4d44b24f953203c06f7bc3487857",
+        "bytes": 24196
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p0/attempts/03e84d26fbd242c5ab5c6b09c36834eb/results/frozen-probes/ar-lower-features/probe/motif_tomato_donor/analysis-receipt.json"
+    },
+    "conservation_poaceae_non_tis": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/conservation_poaceae_non_tis/result.json",
+        "sha256": "4e87218ca53b57364909bed8dd26a83ab764e829ec34161144ee5ff570778e95",
+        "bytes": 2846
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/conservation_poaceae_non_tis/evaluation-binding.json",
+        "sha256": "fdef7bc28bb87278134cea50a7292f6ebae265c8dbb50814141c8905d8a08ae0",
+        "bytes": 24167
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/conservation_poaceae_non_tis/analysis-receipt.json"
+    },
+    "core_maize_tis": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/core_maize_tis/result.json",
+        "sha256": "540c0a59a3025b81d739167304b2a6ffef5ee346d186351656f755d6e76f25d2",
+        "bytes": 1965
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/core_maize_tis/evaluation-binding.json",
+        "sha256": "83ad2e4eaa6d49b18e69433a0fcc7a48fbd4c2b28026341adeddf9769555b82c",
+        "bytes": 24165
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/core_maize_tis/analysis-receipt.json"
+    },
+    "core_tomato_tis": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/core_tomato_tis/result.json",
+        "sha256": "6e71228961eb8bc43838a8473f36c3cc48236fbc766a7c18471b17de521d473d",
+        "bytes": 2212
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/core_tomato_tis/evaluation-binding.json",
+        "sha256": "d1736cb5c6d19580658deecfabab8608d1e10ab494f759fecc83d041aa9407c3",
+        "bytes": 24165
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/core_tomato_tis/analysis-receipt.json"
+    },
+    "motif_maize_tis": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/motif_maize_tis/result.json",
+        "sha256": "cb63447b8f17004f9cde827a09f49787766cf91af74395c47b085bbe1b63c582",
+        "bytes": 3770
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/motif_maize_tis/evaluation-binding.json",
+        "sha256": "3988348e088d7920d0ac894ca2d730ed9ff84564814633e74d2fc9a99781471a",
+        "bytes": 24165
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/motif_maize_tis/analysis-receipt.json"
+    },
+    "motif_tomato_tis": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/motif_tomato_tis/result.json",
+        "sha256": "b6f21ff878d2b55466ef3d57f0cce60c5d39e8a6ac5feb1b6ad884d118f5c6e6",
+        "bytes": 4064
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/motif_tomato_tis/evaluation-binding.json",
+        "sha256": "102be6b4fceae7a6e6568abdfec0f40b28bfdaea84d9da2f9da30fc6c9ef81a9",
+        "bytes": 24192
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p1/attempts/c00179d750d3481f96f749d7d3b6b8cb/results/frozen-probes/ar-lower-features/probe/motif_tomato_tis/analysis-receipt.json"
+    },
+    "conservation_poaceae_tis": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/conservation_poaceae_tis/result.json",
+        "sha256": "3d0763a46594f1a53b7489e5672732a3c8870651d8094a98a7869a75d0fdb838",
+        "bytes": 2829
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/conservation_poaceae_tis/evaluation-binding.json",
+        "sha256": "e70012f6b087b621f6c8bdcdefc344c7bfd4f3d1cb128979f1124116d30f20b7",
+        "bytes": 24162
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/conservation_poaceae_tis/analysis-receipt.json"
+    },
+    "core_maize_tts": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/core_maize_tts/result.json",
+        "sha256": "ed14a5795bfa04dc5cf83a5c429b57b84cfe05dcd840025fc80c530d0f7a3adf",
+        "bytes": 1964
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/core_maize_tts/evaluation-binding.json",
+        "sha256": "1eae847f5eca4aa8291744232b2329038b28dd644700c054f4c8332cf706ed9e",
+        "bytes": 24165
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/core_maize_tts/analysis-receipt.json"
+    },
+    "core_tomato_tts": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/core_tomato_tts/result.json",
+        "sha256": "86adc454fc374f4da9bc474328229d7ab2c9840fa61440a45c55c049f1ea4c9b",
+        "bytes": 2213
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/core_tomato_tts/evaluation-binding.json",
+        "sha256": "ff561ef07c43b4a7f99d18e62bc8ae93661addac9818053a612f8edf1e6f174e",
+        "bytes": 24165
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/core_tomato_tts/analysis-receipt.json"
+    },
+    "motif_maize_tts": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/motif_maize_tts/result.json",
+        "sha256": "0b51f1b7c257b97d194f2d068333b24fe1e8ce1828216b744f30e631645ed21a",
+        "bytes": 4121
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/motif_maize_tts/evaluation-binding.json",
+        "sha256": "8a0bb3029b7342aba487247d0b83db5ffe8d12a6f9af3d5ece544c3a95ce19b2",
+        "bytes": 24165
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/motif_maize_tts/analysis-receipt.json"
+    },
+    "motif_tomato_tts": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/motif_tomato_tts/result.json",
+        "sha256": "d8fccdbc8048bae7511bd47132ec408df811fe44485116e9253cf37847477e78",
+        "bytes": 4041
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/motif_tomato_tts/evaluation-binding.json",
+        "sha256": "19055b089238d26376c3f8cbbb2a971ffee3bbebe0fd3198f895c5d8f378201a",
+        "bytes": 24192
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p2/attempts/523f697703c8474bbb83bc847087d5c4/results/frozen-probes/ar-lower-features/probe/motif_tomato_tts/analysis-receipt.json"
+    },
+    "core_maize_acceptor": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/core_maize_acceptor/result.json",
+        "sha256": "b2a4d232a3affe42fe7f8a7c88a1b24747b8f2842a5083c8c935669754e4ac87",
+        "bytes": 1973
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/core_maize_acceptor/evaluation-binding.json",
+        "sha256": "c31b6050ded6abd29f2dfc79e4eab58aac97c394f29b1fbad645c38c054541f2",
+        "bytes": 24167
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/core_maize_acceptor/analysis-receipt.json"
+    },
+    "core_tomato_acceptor": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/core_tomato_acceptor/result.json",
+        "sha256": "cf3aaea93d7a1dd294daa1bc502fb397cedde51b5dc6393b4a043b302b3a248d",
+        "bytes": 2226
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/core_tomato_acceptor/evaluation-binding.json",
+        "sha256": "513fa443495656744f13b36fa78ccbb2dcd98f9d4388b74ec3690cb9399c6c38",
+        "bytes": 24169
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/core_tomato_acceptor/analysis-receipt.json"
+    },
+    "motif_maize_acceptor": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/motif_maize_acceptor/result.json",
+        "sha256": "96c5bce35aea12617dd0e7ed3359cb57403dc8ac9677e050e3f264fce09dc297",
+        "bytes": 2278
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/motif_maize_acceptor/evaluation-binding.json",
+        "sha256": "b5debc8085ffd18be6d2ac75798b1e67d21c1c635710b8a33b37544b59bf7874",
+        "bytes": 24168
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/motif_maize_acceptor/analysis-receipt.json"
+    },
+    "motif_tomato_acceptor": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/motif_tomato_acceptor/result.json",
+        "sha256": "5201bf94d327485ed33b7ab4deb9b6f13f52e13ed9b9b07aae7e26026b4dcb91",
+        "bytes": 2414
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/motif_tomato_acceptor/evaluation-binding.json",
+        "sha256": "5783e6c536f39245d5ba11a1620ff8a431d34de157f752c6e33dc9e380156fdd",
+        "bytes": 24196
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/motif_tomato_acceptor/analysis-receipt.json"
+    },
+    "sv_impact": {
+      "result": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/sv_impact/result.json",
+        "sha256": "49fcb41306a9aa6cab5c16ee74f50f021fe36518450e43e74743ffbe562cdb00",
+        "bytes": 2561
+      },
+      "evaluation_binding": {
+        "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/sv_impact/evaluation-binding.json",
+        "sha256": "8e2732654bfb3189d7d993bd4c7d5ce2b14289615bfda98d25356fa4f64493e8",
+        "bytes": 24311
+      },
+      "receipt": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q4/v1/analysis/probes-p3/attempts/53e1e0786a88449babde39a808ac6085/results/frozen-probes/ar-lower-features/probe/sv_impact/analysis-receipt.json"
+    }
+  },
+  "families": {
+    "directional": {
+      "Conservation": 0.8421051456162919,
+      "Core/non-core": 0.8733165870801187,
+      "Masked motif": 0.8486431324394128,
+      "Structural variant": 0.8714011885619364
+    },
+    "strand_average": {
+      "Conservation": 0.8360790152840237,
+      "Core/non-core": 0.8671962384704742,
+      "Masked motif": null,
+      "Structural variant": 0.8825503793977021
+    }
+  },
+  "controls": {
+    "motif_training_majority_accuracy": 0.8371200241453594,
+    "motif_shuffled_accuracy": 0.835106216350778,
+    "sv_deletion_length_only": 0.43635006751077793
+  },
+  "tasks": {
+    "conservation_andropogoneae": {
+      "species": "Sorghum",
+      "family": "Conservation",
+      "scores": {
+        "task": "conservation_andropogoneae",
+        "kind": "conservation",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p0-a1/inputs/memberships/conservation_andropogoneae.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8583509534283738,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8555435799343623,
+                0.858230115801796,
+                0.8583509534283738,
+                0.8583466054349937,
+                0.8583456932306784,
+                0.8583429635970715
+              ],
+              "development_chromosomes": [
+                "Chr01",
+                "Chr02",
+                "Chr03",
+                "Chr04",
+                "Chr05",
+                "Chr06",
+                "Chr07",
+                "Chr08",
+                "Chr09"
+              ],
+              "features": 768,
+              "training_rows": 858086,
+              "iterations": [
+                189
+              ]
+            },
+            "test_score": 0.8796328307573101,
+            "test_rows": 38060,
+            "test_positive_fraction": 0.5
+          },
+          "shuffled_labels": {
+            "test_score": 0.5140367437094235
+          },
+          "directional": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8571997497265521,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8551261654507227,
+                0.8571997497265521,
+                0.8571791324597068,
+                0.8571618887941915,
+                0.8571589910567529,
+                0.8571571794237659
+              ],
+              "development_chromosomes": [
+                "Chr01",
+                "Chr02",
+                "Chr03",
+                "Chr04",
+                "Chr05",
+                "Chr06",
+                "Chr07",
+                "Chr08",
+                "Chr09"
+              ],
+              "features": 1536,
+              "training_rows": 858086,
+              "iterations": [
+                161
+              ]
+            },
+            "test_score": 0.8790429609027867,
+            "test_rows": 38060,
+            "test_positive_fraction": 0.5
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 896146,
+        "audited_rows": 896146,
+        "original_excluded_rows": {},
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 858077,
+        "test_unique": 38060
+      }
+    },
+    "core_maize_donor": {
+      "species": "Maize",
+      "family": "Core/non-core",
+      "scores": {
+        "task": "core_maize_donor",
+        "kind": "core",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p0-a1/inputs/memberships/core_maize_donor.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8577118861355735,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8322193950979878,
+                0.8544350784839501,
+                0.8577118861355735,
+                0.8569128650497432,
+                0.8567242564119303,
+                0.8567023661408432
+              ],
+              "development_chromosomes": [
+                "10",
+                "2",
+                "3",
+                "4",
+                "6",
+                "7",
+                "8"
+              ],
+              "features": 768,
+              "training_rows": 93293,
+              "iterations": [
+                141
+              ]
+            },
+            "test_score": 0.8771036337331546,
+            "test_rows": 50878,
+            "test_positive_fraction": 0.8628287275443217
+          },
+          "shuffled_labels": {
+            "test_score": 0.49875929232899213
+          },
+          "directional": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8699999953760419,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8477917773304134,
+                0.8684038775909406,
+                0.8699999953760419,
+                0.8682407947906419,
+                0.8678645739593188,
+                0.867822542613543
+              ],
+              "development_chromosomes": [
+                "10",
+                "2",
+                "3",
+                "4",
+                "6",
+                "7",
+                "8"
+              ],
+              "features": 1536,
+              "training_rows": 93293,
+              "iterations": [
+                166
+              ]
+            },
+            "test_score": 0.8898828457137773,
+            "test_rows": 50878,
+            "test_positive_fraction": 0.8628287275443217
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 144550,
+        "audited_rows": 144171,
+        "original_excluded_rows": {
+          "unmapped": 379
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 93292,
+        "test_unique": 50877
+      }
+    },
+    "core_tomato_donor": {
+      "species": "Tomato",
+      "family": "Core/non-core",
+      "scores": {
+        "task": "core_tomato_donor",
+        "kind": "core",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p0-a1/inputs/memberships/core_tomato_donor.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8695938528570956,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8643779297687875,
+                0.8695938528570956,
+                0.8659822385301155,
+                0.8630817774296179,
+                0.8625647685964456,
+                0.8625028461246043
+              ],
+              "development_chromosomes": [
+                "SL4.0ch00",
+                "SL4.0ch01",
+                "SL4.0ch03",
+                "SL4.0ch04",
+                "SL4.0ch05",
+                "SL4.0ch07",
+                "SL4.0ch08",
+                "SL4.0ch09",
+                "SL4.0ch11",
+                "SL4.0ch12"
+              ],
+              "features": 768,
+              "training_rows": 102952,
+              "iterations": [
+                61
+              ]
+            },
+            "test_score": 0.8459707817379014,
+            "test_rows": 35336,
+            "test_positive_fraction": 0.9460323749151007
+          },
+          "shuffled_labels": {
+            "test_score": 0.47996525535425966
+          },
+          "directional": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.868820231970251,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8661396763890205,
+                0.868820231970251,
+                0.8594662374868473,
+                0.8526578367505623,
+                0.8513217360041517,
+                0.851171703925648
+              ],
+              "development_chromosomes": [
+                "SL4.0ch00",
+                "SL4.0ch01",
+                "SL4.0ch03",
+                "SL4.0ch04",
+                "SL4.0ch05",
+                "SL4.0ch07",
+                "SL4.0ch08",
+                "SL4.0ch09",
+                "SL4.0ch11",
+                "SL4.0ch12"
+              ],
+              "features": 1536,
+              "training_rows": 102952,
+              "iterations": [
+                80
+              ]
+            },
+            "test_score": 0.8434603385713522,
+            "test_rows": 35336,
+            "test_positive_fraction": 0.9460323749151007
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 140451,
+        "audited_rows": 138288,
+        "original_excluded_rows": {
+          "unmapped": 2163
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 101080,
+        "test_unique": 34671
+      }
+    },
+    "motif_maize_donor": {
+      "species": "Maize",
+      "family": "Masked motif",
+      "scores": {
+        "metric": "whole_motif_exact_match_accuracy",
+        "readout": "directional",
+        "feature_contract": "[last(forward left flank), last(RC right flank)]",
+        "development": {
+          "C_grid": [
+            0.0001,
+            0.001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "fold_scores": [
+            [
+              0.9821096654275093,
+              0.9821901204640463,
+              0.9818440967862354
+            ],
+            [
+              0.9827071163037706,
+              0.9823880080144458,
+              0.9824210133369532
+            ],
+            [
+              0.9816781731279872,
+              0.981918025082247,
+              0.9820137781246818
+            ],
+            [
+              0.9800185873605948,
+              0.9795681104212531,
+              0.9804187735432857
+            ],
+            [
+              0.9792219861922464,
+              0.9777623865238578,
+              0.9797061119218108
+            ],
+            [
+              0.9792219861922464,
+              0.9774902911420585,
+              0.9796721756541216
+            ]
+          ],
+          "development_scores": [
+            0.982047960892597,
+            0.9825053792183899,
+            0.9818699921116387,
+            0.9800018237750446,
+            0.9788968282126383,
+            0.9787948176628088
+          ],
+          "C": 0.001,
+          "development_score": 0.9825053792183899,
+          "development_chromosomes": [
+            "10",
+            "2",
+            "3",
+            "4",
+            "6",
+            "7",
+            "8"
+          ],
+          "training_rows": 100022,
+          "features": 1536,
+          "classes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "iterations": [
+            448
+          ],
+          "max_iterations": 10000
+        },
+        "train_rows": 100022,
+        "test_rows": 53437,
+        "test_score": 0.983569436907012,
+        "majority_motif_label_from_training": 11,
+        "majority_baseline": 0.9830828826468552,
+        "shuffled_labels": 0.9830828826468552,
+        "train_outcome_counts": {
+          "0": 6,
+          "1": 1,
+          "2": 10,
+          "3": 108,
+          "4": 17,
+          "5": 14,
+          "6": 11,
+          "7": 10,
+          "8": 11,
+          "9": 1555,
+          "10": 22,
+          "11": 98222,
+          "12": 11,
+          "13": 6,
+          "14": 6,
+          "15": 12
+        },
+        "test_outcome_counts": {
+          "0": 5,
+          "1": 1,
+          "2": 5,
+          "3": 45,
+          "4": 2,
+          "5": 3,
+          "6": 5,
+          "7": 2,
+          "8": 6,
+          "9": 811,
+          "10": 5,
+          "11": 52533,
+          "12": 2,
+          "13": 4,
+          "14": 5,
+          "15": 3
+        },
+        "serialized_predictions_exact": true
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 153869,
+        "audited_rows": 153459,
+        "original_excluded_rows": {
+          "unmapped": 410
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 100021,
+        "test_unique": 53436
+      }
+    },
+    "motif_tomato_donor": {
+      "species": "Tomato",
+      "family": "Masked motif",
+      "scores": {
+        "metric": "whole_motif_exact_match_accuracy",
+        "readout": "directional",
+        "feature_contract": "[last(forward left flank), last(RC right flank)]",
+        "development": {
+          "C_grid": [
+            0.0001,
+            0.001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "fold_scores": [
+            [
+              0.957993399339934,
+              0.951293487957181,
+              0.9590103984481827
+            ],
+            [
+              0.9595247524752475,
+              0.9528397264347309,
+              0.9583744077336471
+            ],
+            [
+              0.9577029702970297,
+              0.952007136485281,
+              0.9576112188762044
+            ],
+            [
+              0.9563828382838284,
+              0.9501932798096937,
+              0.9562438388399529
+            ],
+            [
+              0.9556963696369637,
+              0.9497175141242938,
+              0.9559894425541388
+            ],
+            [
+              0.9553795379537954,
+              0.9499553969669937,
+              0.9557032467325977
+            ]
+          ],
+          "development_scores": [
+            0.9560990952484326,
+            0.9569129622145418,
+            0.9557737752195049,
+            0.9542733189778251,
+            0.9538011087717987,
+            0.9536793938844622
+          ],
+          "C": 0.001,
+          "development_score": 0.9569129622145418,
+          "development_chromosomes": [
+            "SL4.0ch00",
+            "SL4.0ch01",
+            "SL4.0ch03",
+            "SL4.0ch04",
+            "SL4.0ch05",
+            "SL4.0ch07",
+            "SL4.0ch08",
+            "SL4.0ch09",
+            "SL4.0ch11",
+            "SL4.0ch12"
+          ],
+          "training_rows": 102952,
+          "features": 1536,
+          "classes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "iterations": [
+            436
+          ],
+          "max_iterations": 10000
+        },
+        "train_rows": 102952,
+        "test_rows": 35336,
+        "test_score": 0.9614274394385329,
+        "majority_motif_label_from_training": 11,
+        "majority_baseline": 0.9583710663346162,
+        "shuffled_labels": 0.9583710663346162,
+        "train_outcome_counts": {
+          "0": 47,
+          "1": 13,
+          "2": 30,
+          "3": 207,
+          "4": 27,
+          "5": 16,
+          "6": 7,
+          "7": 55,
+          "8": 50,
+          "9": 4126,
+          "10": 43,
+          "11": 98121,
+          "12": 44,
+          "13": 23,
+          "14": 38,
+          "15": 105
+        },
+        "test_outcome_counts": {
+          "0": 12,
+          "1": 6,
+          "2": 8,
+          "3": 62,
+          "4": 8,
+          "5": 3,
+          "6": 1,
+          "7": 8,
+          "8": 6,
+          "9": 1296,
+          "10": 11,
+          "11": 33865,
+          "12": 12,
+          "13": 3,
+          "14": 8,
+          "15": 27
+        },
+        "serialized_predictions_exact": true
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 140456,
+        "audited_rows": 138288,
+        "original_excluded_rows": {
+          "unmapped": 2163,
+          "invalid_target": 5
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 101080,
+        "test_unique": 34671
+      }
+    },
+    "conservation_poaceae_non_tis": {
+      "species": "Pharus",
+      "family": "Conservation",
+      "scores": {
+        "task": "conservation_poaceae_non_tis",
+        "kind": "conservation",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p1-a1/inputs/memberships/conservation_poaceae_non_tis.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8354012909499834,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8285363561177386,
+                0.8348483651607731,
+                0.8354012909499834,
+                0.8352198147046977,
+                0.8351905871464534,
+                0.8351911477981128
+              ],
+              "development_chromosomes": [
+                "CM033320.1",
+                "CM033321.1",
+                "CM033322.1",
+                "CM033324.1",
+                "CM033325.1",
+                "CM033326.1",
+                "CM033328.1",
+                "CM033329.1",
+                "CM033330.1",
+                "JAEVLQ010000014.1",
+                "JAEVLQ010000018.1",
+                "JAEVLQ010000019.1",
+                "JAEVLQ010000024.1",
+                "JAEVLQ010000037.1",
+                "JAEVLQ010000050.1",
+                "JAEVLQ010000055.1",
+                "JAEVLQ010000059.1",
+                "JAEVLQ010000065.1",
+                "JAEVLQ010000066.1"
+              ],
+              "features": 768,
+              "training_rows": 136750,
+              "iterations": [
+                145
+              ]
+            },
+            "test_score": 0.8379912302387467,
+            "test_rows": 46891,
+            "test_positive_fraction": 0.5631997611481947
+          },
+          "shuffled_labels": {
+            "test_score": 0.4915417919968659
+          },
+          "directional": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8413861440274472,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8366107319091852,
+                0.8413861440274472,
+                0.8407163215433923,
+                0.8402338751661745,
+                0.8401769762186811,
+                0.8401578180563728
+              ],
+              "development_chromosomes": [
+                "CM033320.1",
+                "CM033321.1",
+                "CM033322.1",
+                "CM033324.1",
+                "CM033325.1",
+                "CM033326.1",
+                "CM033328.1",
+                "CM033329.1",
+                "CM033330.1",
+                "JAEVLQ010000014.1",
+                "JAEVLQ010000018.1",
+                "JAEVLQ010000019.1",
+                "JAEVLQ010000024.1",
+                "JAEVLQ010000037.1",
+                "JAEVLQ010000050.1",
+                "JAEVLQ010000055.1",
+                "JAEVLQ010000059.1",
+                "JAEVLQ010000065.1",
+                "JAEVLQ010000066.1"
+              ],
+              "features": 1536,
+              "training_rows": 136750,
+              "iterations": [
+                117
+              ]
+            },
+            "test_score": 0.8442826667498452,
+            "test_rows": 46891,
+            "test_positive_fraction": 0.5631997611481947
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 183685,
+        "audited_rows": 183641,
+        "original_excluded_rows": {
+          "unmapped": 44
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 136704,
+        "test_unique": 46876
+      }
+    },
+    "core_maize_tis": {
+      "species": "Maize",
+      "family": "Core/non-core",
+      "scores": {
+        "task": "core_maize_tis",
+        "kind": "core",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p1-a1/inputs/memberships/core_maize_tis.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8999584155549135,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.879780622744527,
+                0.8980444466861681,
+                0.8999584155549135,
+                0.8958021187920474,
+                0.8941631175486117,
+                0.893918282638305
+              ],
+              "development_chromosomes": [
+                "10",
+                "2",
+                "3",
+                "4",
+                "6",
+                "7",
+                "8"
+              ],
+              "features": 768,
+              "training_rows": 23693,
+              "iterations": [
+                109
+              ]
+            },
+            "test_score": 0.914980534714361,
+            "test_rows": 12581,
+            "test_positive_fraction": 0.7883316111596852
+          },
+          "shuffled_labels": {
+            "test_score": 0.48984614128758563
+          },
+          "directional": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.9071903147750744,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8937502787893509,
+                0.9071903147750744,
+                0.9046174393728369,
+                0.8951267353915927,
+                0.8905901695557787,
+                0.8898789790887828
+              ],
+              "development_chromosomes": [
+                "10",
+                "2",
+                "3",
+                "4",
+                "6",
+                "7",
+                "8"
+              ],
+              "features": 1536,
+              "training_rows": 23693,
+              "iterations": [
+                61
+              ]
+            },
+            "test_score": 0.9249687467272945,
+            "test_rows": 12581,
+            "test_positive_fraction": 0.7883316111596852
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 36409,
+        "audited_rows": 36274,
+        "original_excluded_rows": {
+          "unmapped": 135
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 23693,
+        "test_unique": 12581
+      }
+    },
+    "core_tomato_tis": {
+      "species": "Tomato",
+      "family": "Core/non-core",
+      "scores": {
+        "task": "core_tomato_tis",
+        "kind": "core",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p1-a1/inputs/memberships/core_tomato_tis.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8144011401189927,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8017028253815504,
+                0.8144011401189927,
+                0.8100978319037059,
+                0.802667542442232,
+                0.800589267704969,
+                0.8003623175642184
+              ],
+              "development_chromosomes": [
+                "SL4.0ch00",
+                "SL4.0ch01",
+                "SL4.0ch03",
+                "SL4.0ch04",
+                "SL4.0ch05",
+                "SL4.0ch07",
+                "SL4.0ch08",
+                "SL4.0ch09",
+                "SL4.0ch11",
+                "SL4.0ch12"
+              ],
+              "features": 768,
+              "training_rows": 25428,
+              "iterations": [
+                42
+              ]
+            },
+            "test_score": 0.8349396658700294,
+            "test_rows": 8869,
+            "test_positive_fraction": 0.8543240500620137
+          },
+          "shuffled_labels": {
+            "test_score": 0.5144603637944554
+          },
+          "directional": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8248969951727089,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.816713737888108,
+                0.8248969951727089,
+                0.8119133536088743,
+                0.7955452923112172,
+                0.7902405505524192,
+                0.7895613432010714
+              ],
+              "development_chromosomes": [
+                "SL4.0ch00",
+                "SL4.0ch01",
+                "SL4.0ch03",
+                "SL4.0ch04",
+                "SL4.0ch05",
+                "SL4.0ch07",
+                "SL4.0ch08",
+                "SL4.0ch09",
+                "SL4.0ch11",
+                "SL4.0ch12"
+              ],
+              "features": 1536,
+              "training_rows": 25428,
+              "iterations": [
+                62
+              ]
+            },
+            "test_score": 0.8385569147464769,
+            "test_rows": 8869,
+            "test_positive_fraction": 0.8543240500620137
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 35478,
+        "audited_rows": 34297,
+        "original_excluded_rows": {
+          "unmapped": 1181
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 25199,
+        "test_unique": 8785
+      }
+    },
+    "motif_maize_tis": {
+      "species": "Maize",
+      "family": "Masked motif",
+      "scores": {
+        "metric": "whole_motif_exact_match_accuracy",
+        "readout": "directional",
+        "feature_contract": "[last(forward left flank), last(RC right flank)]",
+        "development": {
+          "C_grid": [
+            0.0001,
+            0.001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "fold_scores": [
+            [
+              0.9745107513892245,
+              0.9764107778342653,
+              0.972896820072454
+            ],
+            [
+              0.9746315535153419,
+              0.9762074224707676,
+              0.9727626459143969
+            ],
+            [
+              0.9737859386325199,
+              0.97600406710727,
+              0.9727626459143969
+            ],
+            [
+              0.9736651365064025,
+              0.9739705134722928,
+              0.971152556017711
+            ],
+            [
+              0.9725779173713457,
+              0.9718352821555668,
+              0.9692741178049108
+            ],
+            [
+              0.9708866876057018,
+              0.9704117946110828,
+              0.9680665503823963
+            ]
+          ],
+          "development_scores": [
+            0.9746061164319814,
+            0.9745338739668354,
+            0.9741842172180623,
+            0.9729294019988021,
+            0.9712291057772745,
+            0.9697883441997269
+          ],
+          "C": 0.0001,
+          "development_score": 0.9746061164319814,
+          "development_chromosomes": [
+            "10",
+            "2",
+            "3",
+            "4",
+            "6",
+            "7",
+            "8"
+          ],
+          "training_rows": 25566,
+          "features": 1536,
+          "classes": [
+            0,
+            1,
+            2,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            49,
+            51,
+            52,
+            53,
+            54,
+            55,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "iterations": [
+            197
+          ],
+          "max_iterations": 10000
+        },
+        "train_rows": 25566,
+        "test_rows": 13328,
+        "test_score": 0.9728391356542617,
+        "majority_motif_label_from_training": 14,
+        "majority_baseline": 0.9728391356542617,
+        "shuffled_labels": 0.9728391356542617,
+        "train_outcome_counts": {
+          "0": 8,
+          "1": 2,
+          "2": 3,
+          "4": 2,
+          "5": 5,
+          "6": 1,
+          "7": 6,
+          "8": 5,
+          "9": 4,
+          "10": 4,
+          "11": 8,
+          "12": 1,
+          "13": 6,
+          "14": 24921,
+          "15": 10,
+          "16": 9,
+          "17": 4,
+          "18": 7,
+          "19": 3,
+          "20": 4,
+          "21": 7,
+          "22": 13,
+          "23": 5,
+          "24": 7,
+          "25": 10,
+          "26": 7,
+          "27": 5,
+          "29": 13,
+          "30": 227,
+          "31": 3,
+          "32": 8,
+          "33": 6,
+          "34": 11,
+          "35": 13,
+          "36": 4,
+          "37": 7,
+          "38": 4,
+          "39": 6,
+          "40": 3,
+          "41": 5,
+          "42": 4,
+          "43": 4,
+          "44": 3,
+          "45": 3,
+          "46": 5,
+          "47": 5,
+          "49": 3,
+          "51": 4,
+          "52": 7,
+          "53": 8,
+          "54": 3,
+          "55": 7,
+          "57": 5,
+          "58": 6,
+          "59": 5,
+          "60": 3,
+          "61": 7,
+          "62": 102,
+          "63": 5
+        },
+        "test_outcome_counts": {
+          "0": 4,
+          "1": 1,
+          "2": 6,
+          "4": 3,
+          "6": 2,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "12": 2,
+          "13": 2,
+          "14": 12966,
+          "15": 2,
+          "16": 5,
+          "17": 5,
+          "18": 3,
+          "19": 2,
+          "20": 6,
+          "21": 4,
+          "22": 3,
+          "23": 10,
+          "24": 8,
+          "25": 5,
+          "26": 3,
+          "27": 3,
+          "28": 2,
+          "29": 7,
+          "30": 111,
+          "31": 6,
+          "32": 3,
+          "33": 7,
+          "34": 7,
+          "37": 5,
+          "38": 5,
+          "39": 3,
+          "40": 1,
+          "41": 6,
+          "42": 7,
+          "43": 3,
+          "44": 2,
+          "45": 4,
+          "46": 2,
+          "47": 4,
+          "49": 1,
+          "51": 3,
+          "52": 3,
+          "53": 3,
+          "55": 3,
+          "57": 1,
+          "58": 3,
+          "59": 1,
+          "60": 4,
+          "62": 64,
+          "63": 3
+        },
+        "serialized_predictions_exact": true
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 39035,
+        "audited_rows": 38894,
+        "original_excluded_rows": {
+          "unmapped": 141
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 25566,
+        "test_unique": 13328
+      }
+    },
+    "motif_tomato_tis": {
+      "species": "Tomato",
+      "family": "Masked motif",
+      "scores": {
+        "metric": "whole_motif_exact_match_accuracy",
+        "readout": "directional",
+        "feature_contract": "[last(forward left flank), last(RC right flank)]",
+        "development": {
+          "C_grid": [
+            0.0001,
+            0.001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "fold_scores": [
+            [
+              0.9545650611071171,
+              0.9710491685608327,
+              0.9684595610045481
+            ],
+            [
+              0.9544212796549245,
+              0.9710491685608327,
+              0.9684595610045481
+            ],
+            [
+              0.9539899352983465,
+              0.9708099054910875,
+              0.967668578208424
+            ],
+            [
+              0.9535585909417685,
+              0.9702117478167245,
+              0.9672730868103618
+            ],
+            [
+              0.9529834651329978,
+              0.9696135901423615,
+              0.9665809768637532
+            ],
+            [
+              0.9535585909417685,
+              0.9691350640028712,
+              0.9667787225627843
+            ]
+          ],
+          "development_scores": [
+            0.9646912635574992,
+            0.9646433364067685,
+            0.9641561396659526,
+            0.9636811418562848,
+            0.9630593440463708,
+            0.9631574591691413
+          ],
+          "C": 0.0001,
+          "development_score": 0.9646912635574992,
+          "development_chromosomes": [
+            "SL4.0ch00",
+            "SL4.0ch01",
+            "SL4.0ch03",
+            "SL4.0ch04",
+            "SL4.0ch05",
+            "SL4.0ch07",
+            "SL4.0ch08",
+            "SL4.0ch09",
+            "SL4.0ch11",
+            "SL4.0ch12"
+          ],
+          "training_rows": 25428,
+          "features": 1536,
+          "classes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "iterations": [
+            277
+          ],
+          "max_iterations": 10000
+        },
+        "train_rows": 25428,
+        "test_rows": 8869,
+        "test_score": 0.967189085578983,
+        "majority_motif_label_from_training": 14,
+        "majority_baseline": 0.967189085578983,
+        "shuffled_labels": 0.967189085578983,
+        "train_outcome_counts": {
+          "0": 49,
+          "1": 16,
+          "2": 17,
+          "3": 34,
+          "4": 27,
+          "5": 3,
+          "6": 7,
+          "7": 12,
+          "8": 14,
+          "9": 9,
+          "10": 11,
+          "11": 20,
+          "12": 24,
+          "13": 9,
+          "14": 24551,
+          "15": 23,
+          "16": 26,
+          "17": 7,
+          "18": 7,
+          "19": 24,
+          "20": 8,
+          "21": 4,
+          "22": 1,
+          "23": 12,
+          "24": 4,
+          "25": 6,
+          "26": 4,
+          "27": 1,
+          "28": 12,
+          "29": 6,
+          "30": 5,
+          "31": 21,
+          "32": 39,
+          "33": 10,
+          "34": 11,
+          "35": 20,
+          "36": 14,
+          "37": 3,
+          "38": 3,
+          "39": 12,
+          "40": 20,
+          "41": 3,
+          "42": 11,
+          "43": 17,
+          "44": 17,
+          "45": 10,
+          "46": 12,
+          "47": 17,
+          "48": 2,
+          "49": 11,
+          "50": 2,
+          "51": 31,
+          "52": 28,
+          "53": 13,
+          "54": 3,
+          "55": 14,
+          "56": 1,
+          "57": 10,
+          "58": 10,
+          "59": 13,
+          "60": 21,
+          "61": 15,
+          "62": 24,
+          "63": 37
+        },
+        "test_outcome_counts": {
+          "0": 9,
+          "1": 7,
+          "2": 6,
+          "3": 11,
+          "4": 5,
+          "5": 4,
+          "6": 1,
+          "7": 4,
+          "8": 6,
+          "9": 2,
+          "10": 6,
+          "11": 5,
+          "12": 6,
+          "13": 3,
+          "14": 8578,
+          "15": 12,
+          "16": 10,
+          "17": 5,
+          "18": 2,
+          "19": 4,
+          "20": 5,
+          "21": 1,
+          "23": 6,
+          "25": 2,
+          "26": 2,
+          "27": 3,
+          "28": 3,
+          "29": 4,
+          "30": 1,
+          "31": 10,
+          "32": 11,
+          "33": 2,
+          "34": 3,
+          "35": 12,
+          "36": 5,
+          "37": 3,
+          "39": 8,
+          "40": 5,
+          "41": 5,
+          "42": 2,
+          "43": 7,
+          "44": 7,
+          "45": 3,
+          "46": 3,
+          "47": 12,
+          "49": 2,
+          "51": 5,
+          "52": 4,
+          "53": 1,
+          "55": 7,
+          "57": 2,
+          "58": 2,
+          "59": 5,
+          "60": 11,
+          "61": 4,
+          "62": 6,
+          "63": 9
+        },
+        "serialized_predictions_exact": true
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 35484,
+        "audited_rows": 34297,
+        "original_excluded_rows": {
+          "unmapped": 1180,
+          "invalid_target": 7
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 25199,
+        "test_unique": 8785
+      }
+    },
+    "conservation_poaceae_tis": {
+      "species": "Pharus",
+      "family": "Conservation",
+      "scores": {
+        "task": "conservation_poaceae_tis",
+        "kind": "conservation",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p2-a1/inputs/memberships/conservation_poaceae_tis.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.7858368074973695,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.7711231199795946,
+                0.7858368074973695,
+                0.7838896419126122,
+                0.778895421011224,
+                0.7776674349488873,
+                0.7775113279530751
+              ],
+              "development_chromosomes": [
+                "CM033320.1",
+                "CM033321.1",
+                "CM033322.1",
+                "CM033324.1",
+                "CM033325.1",
+                "CM033326.1",
+                "CM033328.1",
+                "CM033329.1",
+                "CM033330.1",
+                "JAEVLQ010000014.1",
+                "JAEVLQ010000018.1",
+                "JAEVLQ010000019.1",
+                "JAEVLQ010000030.1",
+                "JAEVLQ010000037.1",
+                "JAEVLQ010000050.1",
+                "JAEVLQ010000055.1",
+                "JAEVLQ010000059.1",
+                "JAEVLQ010000065.1",
+                "JAEVLQ010000066.1"
+              ],
+              "features": 768,
+              "training_rows": 27081,
+              "iterations": [
+                57
+              ]
+            },
+            "test_score": 0.7906129848560145,
+            "test_rows": 9572,
+            "test_positive_fraction": 0.7229419139155872
+          },
+          "shuffled_labels": {
+            "test_score": 0.48319171265660554
+          },
+          "directional": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8000989888246456,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.7939252199058374,
+                0.8000989888246456,
+                0.7871163337224137,
+                0.7749528272115495,
+                0.77180800360468,
+                0.771410419270054
+              ],
+              "development_chromosomes": [
+                "CM033320.1",
+                "CM033321.1",
+                "CM033322.1",
+                "CM033324.1",
+                "CM033325.1",
+                "CM033326.1",
+                "CM033328.1",
+                "CM033329.1",
+                "CM033330.1",
+                "JAEVLQ010000014.1",
+                "JAEVLQ010000018.1",
+                "JAEVLQ010000019.1",
+                "JAEVLQ010000030.1",
+                "JAEVLQ010000037.1",
+                "JAEVLQ010000050.1",
+                "JAEVLQ010000055.1",
+                "JAEVLQ010000059.1",
+                "JAEVLQ010000065.1",
+                "JAEVLQ010000066.1"
+              ],
+              "features": 1536,
+              "training_rows": 27081,
+              "iterations": [
+                69
+              ]
+            },
+            "test_score": 0.802989809196244,
+            "test_rows": 9572,
+            "test_positive_fraction": 0.7229419139155872
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 36662,
+        "audited_rows": 36653,
+        "original_excluded_rows": {
+          "unmapped": 9
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 26826,
+        "test_unique": 9481
+      }
+    },
+    "core_maize_tts": {
+      "species": "Maize",
+      "family": "Core/non-core",
+      "scores": {
+        "task": "core_maize_tts",
+        "kind": "core",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p2-a1/inputs/memberships/core_maize_tts.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8738895385800677,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8566012634299347,
+                0.8722170723255575,
+                0.8738895385800677,
+                0.869175131378095,
+                0.8676814428929586,
+                0.8674999406278173
+              ],
+              "development_chromosomes": [
+                "10",
+                "2",
+                "3",
+                "4",
+                "6",
+                "7",
+                "8"
+              ],
+              "features": 768,
+              "training_rows": 23712,
+              "iterations": [
+                91
+              ]
+            },
+            "test_score": 0.8968647272460932,
+            "test_rows": 12584,
+            "test_positive_fraction": 0.7885410044500953
+          },
+          "shuffled_labels": {
+            "test_score": 0.5003480198505569
+          },
+          "directional": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8831488102143604,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8697241672574775,
+                0.8831488102143604,
+                0.8779906674980008,
+                0.865510625379048,
+                0.8608722139896395,
+                0.8602231479604013
+              ],
+              "development_chromosomes": [
+                "10",
+                "2",
+                "3",
+                "4",
+                "6",
+                "7",
+                "8"
+              ],
+              "features": 1536,
+              "training_rows": 23712,
+              "iterations": [
+                59
+              ]
+            },
+            "test_score": 0.9058389206056118,
+            "test_rows": 12584,
+            "test_positive_fraction": 0.7885410044500953
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 36409,
+        "audited_rows": 36296,
+        "original_excluded_rows": {
+          "unmapped": 113
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 23712,
+        "test_unique": 12584
+      }
+    },
+    "core_tomato_tts": {
+      "species": "Tomato",
+      "family": "Core/non-core",
+      "scores": {
+        "task": "core_tomato_tts",
+        "kind": "core",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p2-a1/inputs/memberships/core_tomato_tts.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8339263851602087,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8288440260341862,
+                0.8339263851602087,
+                0.8271543050026318,
+                0.8199927662140197,
+                0.818169963322283,
+                0.8179335422595546
+              ],
+              "development_chromosomes": [
+                "SL4.0ch00",
+                "SL4.0ch01",
+                "SL4.0ch03",
+                "SL4.0ch04",
+                "SL4.0ch05",
+                "SL4.0ch07",
+                "SL4.0ch08",
+                "SL4.0ch09",
+                "SL4.0ch11",
+                "SL4.0ch12"
+              ],
+              "features": 768,
+              "training_rows": 25416,
+              "iterations": [
+                46
+              ]
+            },
+            "test_score": 0.8482935211258484,
+            "test_rows": 8897,
+            "test_positive_fraction": 0.8537709340227043
+          },
+          "shuffled_labels": {
+            "test_score": 0.5235556235552593
+          },
+          "directional": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8349988632842363,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8341099877161371,
+                0.8349988632842363,
+                0.8189010256160802,
+                0.803188036768525,
+                0.7983653708387691,
+                0.7977902942032671
+              ],
+              "development_chromosomes": [
+                "SL4.0ch00",
+                "SL4.0ch01",
+                "SL4.0ch03",
+                "SL4.0ch04",
+                "SL4.0ch05",
+                "SL4.0ch07",
+                "SL4.0ch08",
+                "SL4.0ch09",
+                "SL4.0ch11",
+                "SL4.0ch12"
+              ],
+              "features": 1536,
+              "training_rows": 25416,
+              "iterations": [
+                63
+              ]
+            },
+            "test_score": 0.8501922509480495,
+            "test_rows": 8897,
+            "test_positive_fraction": 0.8537709340227043
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 35477,
+        "audited_rows": 34313,
+        "original_excluded_rows": {
+          "unmapped": 1164
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 25261,
+        "test_unique": 8844
+      }
+    },
+    "motif_maize_tts": {
+      "species": "Maize",
+      "family": "Masked motif",
+      "scores": {
+        "metric": "whole_motif_exact_match_accuracy",
+        "readout": "directional",
+        "feature_contract": "[last(forward left flank), last(RC right flank)]",
+        "development": {
+          "C_grid": [
+            0.0001,
+            0.001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "fold_scores": [
+            [
+              0.5030124343032945,
+              0.5043969024806405,
+              0.49478654337989375
+            ],
+            [
+              0.4951929239841046,
+              0.49061556634728964,
+              0.4916387959866221
+            ],
+            [
+              0.4794257146519677,
+              0.47827798923743275,
+              0.4812118827464096
+            ],
+            [
+              0.4707088834764774,
+              0.4710591941199633,
+              0.47491638795986624
+            ],
+            [
+              0.4687860530701192,
+              0.4698779367371046,
+              0.4724572103088727
+            ],
+            [
+              0.46904243045763366,
+              0.47014043837773983,
+              0.47206374188471373
+            ]
+          ],
+          "development_scores": [
+            0.5007319600546095,
+            0.49248242877267207,
+            0.47963852887860337,
+            0.47222815518543565,
+            0.47037373337203214,
+            0.47041553690669574
+          ],
+          "C": 0.0001,
+          "development_score": 0.5007319600546095,
+          "development_chromosomes": [
+            "10",
+            "2",
+            "3",
+            "4",
+            "6",
+            "7",
+            "8"
+          ],
+          "training_rows": 25586,
+          "features": 1536,
+          "classes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "iterations": [
+            262
+          ],
+          "max_iterations": 10000
+        },
+        "train_rows": 25586,
+        "test_rows": 13331,
+        "test_score": 0.5002625459455404,
+        "majority_motif_label_from_training": 56,
+        "majority_baseline": 0.4635061135698747,
+        "shuffled_labels": 0.46335608731528016,
+        "train_outcome_counts": {
+          "0": 31,
+          "1": 23,
+          "2": 38,
+          "3": 21,
+          "4": 24,
+          "5": 17,
+          "6": 12,
+          "7": 10,
+          "8": 48,
+          "9": 23,
+          "10": 28,
+          "11": 14,
+          "12": 17,
+          "13": 27,
+          "14": 43,
+          "15": 8,
+          "16": 15,
+          "17": 13,
+          "18": 30,
+          "19": 16,
+          "20": 34,
+          "21": 17,
+          "22": 18,
+          "23": 16,
+          "24": 11,
+          "25": 21,
+          "26": 17,
+          "27": 12,
+          "28": 15,
+          "29": 25,
+          "30": 31,
+          "31": 24,
+          "32": 40,
+          "33": 43,
+          "34": 59,
+          "35": 37,
+          "36": 26,
+          "37": 33,
+          "38": 29,
+          "39": 29,
+          "40": 34,
+          "41": 39,
+          "42": 33,
+          "43": 21,
+          "44": 7,
+          "45": 21,
+          "46": 35,
+          "47": 18,
+          "48": 4703,
+          "49": 16,
+          "50": 7457,
+          "51": 19,
+          "52": 17,
+          "53": 21,
+          "54": 15,
+          "55": 21,
+          "56": 11964,
+          "57": 24,
+          "58": 26,
+          "59": 21,
+          "60": 6,
+          "61": 24,
+          "62": 22,
+          "63": 27
+        },
+        "test_outcome_counts": {
+          "0": 11,
+          "1": 15,
+          "2": 32,
+          "3": 8,
+          "4": 16,
+          "5": 13,
+          "6": 5,
+          "7": 11,
+          "8": 22,
+          "9": 15,
+          "10": 15,
+          "11": 9,
+          "12": 12,
+          "13": 10,
+          "14": 16,
+          "15": 8,
+          "16": 14,
+          "17": 16,
+          "18": 21,
+          "19": 7,
+          "20": 6,
+          "21": 4,
+          "22": 8,
+          "23": 10,
+          "24": 7,
+          "25": 10,
+          "26": 9,
+          "27": 2,
+          "28": 5,
+          "29": 13,
+          "30": 8,
+          "31": 7,
+          "32": 24,
+          "33": 37,
+          "34": 29,
+          "35": 20,
+          "36": 11,
+          "37": 24,
+          "38": 19,
+          "39": 14,
+          "40": 18,
+          "41": 20,
+          "42": 14,
+          "43": 10,
+          "44": 6,
+          "45": 14,
+          "46": 24,
+          "47": 13,
+          "48": 2394,
+          "49": 8,
+          "50": 3949,
+          "51": 7,
+          "52": 13,
+          "53": 12,
+          "54": 14,
+          "55": 7,
+          "56": 6179,
+          "57": 7,
+          "58": 16,
+          "59": 6,
+          "60": 8,
+          "61": 18,
+          "62": 9,
+          "63": 22
+        },
+        "serialized_predictions_exact": true
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 39035,
+        "audited_rows": 38917,
+        "original_excluded_rows": {
+          "unmapped": 118
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 25586,
+        "test_unique": 13331
+      }
+    },
+    "motif_tomato_tts": {
+      "species": "Tomato",
+      "family": "Masked motif",
+      "scores": {
+        "metric": "whole_motif_exact_match_accuracy",
+        "readout": "directional",
+        "feature_contract": "[last(forward left flank), last(RC right flank)]",
+        "development": {
+          "C_grid": [
+            0.0001,
+            0.001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "fold_scores": [
+            [
+              0.42657569850552307,
+              0.44634730538922157,
+              0.436981228451028
+            ],
+            [
+              0.4104396794455274,
+              0.4207185628742515,
+              0.4194866555995403
+            ],
+            [
+              0.3977691141433832,
+              0.4038323353293413,
+              0.4035244540927085
+            ],
+            [
+              0.39332900151613603,
+              0.3960479041916168,
+              0.3972672711020304
+            ],
+            [
+              0.39257093350660605,
+              0.39497005988023953,
+              0.39713957348997575
+            ],
+            [
+              0.39224604721680745,
+              0.39497005988023953,
+              0.3963733878176478
+            ]
+          ],
+          "development_scores": [
+            0.43663474411525754,
+            0.41688163263977307,
+            0.401708634521811,
+            0.39554805893659445,
+            0.39489352229227376,
+            0.3945298316382316
+          ],
+          "C": 0.0001,
+          "development_score": 0.43663474411525754,
+          "development_chromosomes": [
+            "SL4.0ch00",
+            "SL4.0ch01",
+            "SL4.0ch03",
+            "SL4.0ch04",
+            "SL4.0ch05",
+            "SL4.0ch07",
+            "SL4.0ch08",
+            "SL4.0ch09",
+            "SL4.0ch11",
+            "SL4.0ch12"
+          ],
+          "training_rows": 25415,
+          "features": 1536,
+          "classes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63
+          ],
+          "iterations": [
+            502
+          ],
+          "max_iterations": 10000
+        },
+        "train_rows": 25415,
+        "test_rows": 8897,
+        "test_score": 0.431044172192874,
+        "majority_motif_label_from_training": 56,
+        "majority_baseline": 0.3839496459480724,
+        "shuffled_labels": 0.3679892098460155,
+        "train_outcome_counts": {
+          "0": 18,
+          "1": 11,
+          "2": 25,
+          "3": 15,
+          "4": 9,
+          "5": 2,
+          "6": 2,
+          "7": 10,
+          "8": 21,
+          "9": 3,
+          "10": 14,
+          "11": 3,
+          "12": 11,
+          "13": 9,
+          "14": 16,
+          "15": 12,
+          "16": 15,
+          "17": 4,
+          "18": 12,
+          "19": 9,
+          "20": 8,
+          "21": 4,
+          "22": 1,
+          "23": 4,
+          "24": 7,
+          "26": 1,
+          "27": 5,
+          "28": 4,
+          "29": 4,
+          "30": 4,
+          "31": 8,
+          "32": 27,
+          "33": 5,
+          "34": 15,
+          "35": 13,
+          "36": 3,
+          "37": 1,
+          "38": 3,
+          "39": 6,
+          "40": 14,
+          "41": 1,
+          "42": 4,
+          "43": 9,
+          "44": 5,
+          "45": 2,
+          "46": 14,
+          "47": 8,
+          "48": 9182,
+          "49": 4,
+          "50": 6074,
+          "51": 9,
+          "52": 8,
+          "53": 7,
+          "54": 3,
+          "55": 7,
+          "56": 9638,
+          "57": 5,
+          "58": 8,
+          "59": 13,
+          "60": 11,
+          "61": 5,
+          "62": 17,
+          "63": 23
+        },
+        "test_outcome_counts": {
+          "0": 4,
+          "1": 3,
+          "2": 6,
+          "3": 4,
+          "4": 3,
+          "6": 2,
+          "7": 1,
+          "8": 5,
+          "10": 6,
+          "11": 10,
+          "12": 2,
+          "13": 3,
+          "14": 5,
+          "15": 2,
+          "16": 7,
+          "17": 2,
+          "18": 2,
+          "19": 3,
+          "20": 2,
+          "22": 1,
+          "23": 9,
+          "24": 1,
+          "25": 1,
+          "26": 1,
+          "27": 1,
+          "29": 2,
+          "30": 6,
+          "31": 1,
+          "32": 4,
+          "33": 1,
+          "34": 3,
+          "35": 1,
+          "36": 4,
+          "38": 2,
+          "39": 3,
+          "40": 7,
+          "42": 4,
+          "43": 2,
+          "44": 5,
+          "45": 1,
+          "46": 3,
+          "47": 1,
+          "48": 3193,
+          "50": 2113,
+          "51": 2,
+          "52": 7,
+          "53": 1,
+          "54": 2,
+          "55": 7,
+          "56": 3416,
+          "57": 1,
+          "58": 1,
+          "59": 5,
+          "60": 4,
+          "61": 2,
+          "62": 2,
+          "63": 5
+        },
+        "serialized_predictions_exact": true
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 35483,
+        "audited_rows": 34312,
+        "original_excluded_rows": {
+          "unmapped": 1163,
+          "invalid_target": 8
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 25260,
+        "test_unique": 8844
+      }
+    },
+    "core_maize_acceptor": {
+      "species": "Maize",
+      "family": "Core/non-core",
+      "scores": {
+        "task": "core_maize_acceptor",
+        "kind": "core",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p3-a1/inputs/memberships/core_maize_acceptor.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8500811735292118,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8262277824226197,
+                0.8467674768112454,
+                0.8500811735292118,
+                0.849347078457948,
+                0.8491580801493287,
+                0.8491306368796611
+              ],
+              "development_chromosomes": [
+                "10",
+                "2",
+                "3",
+                "4",
+                "6",
+                "7",
+                "8"
+              ],
+              "features": 768,
+              "training_rows": 93305,
+              "iterations": [
+                125
+              ]
+            },
+            "test_score": 0.8679300278339152,
+            "test_rows": 50875,
+            "test_positive_fraction": 0.8627813267813268
+          },
+          "shuffled_labels": {
+            "test_score": 0.5252214175355069
+          },
+          "directional": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8621813949816698,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8403663247591191,
+                0.8607923483935055,
+                0.8621813949816698,
+                0.860234591580643,
+                0.859773870964967,
+                0.8597325431819055
+              ],
+              "development_chromosomes": [
+                "10",
+                "2",
+                "3",
+                "4",
+                "6",
+                "7",
+                "8"
+              ],
+              "features": 1536,
+              "training_rows": 93305,
+              "iterations": [
+                201
+              ]
+            },
+            "test_score": 0.883839996626374,
+            "test_rows": 50875,
+            "test_positive_fraction": 0.8627813267813268
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 144550,
+        "audited_rows": 144180,
+        "original_excluded_rows": {
+          "unmapped": 370
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 93305,
+        "test_unique": 50874
+      }
+    },
+    "core_tomato_acceptor": {
+      "species": "Tomato",
+      "family": "Core/non-core",
+      "scores": {
+        "task": "core_tomato_acceptor",
+        "kind": "core",
+        "metric": "auroc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p3-a1/inputs/memberships/core_tomato_acceptor.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8703803008763159,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.863189616130239,
+                0.8703803008763159,
+                0.8665947475406558,
+                0.8631248837186742,
+                0.8624386458422951,
+                0.862369280302704
+              ],
+              "development_chromosomes": [
+                "SL4.0ch00",
+                "SL4.0ch01",
+                "SL4.0ch03",
+                "SL4.0ch04",
+                "SL4.0ch05",
+                "SL4.0ch07",
+                "SL4.0ch08",
+                "SL4.0ch09",
+                "SL4.0ch11",
+                "SL4.0ch12"
+              ],
+              "features": 768,
+              "training_rows": 102953,
+              "iterations": [
+                65
+              ]
+            },
+            "test_score": 0.8514870155024906,
+            "test_rows": 35342,
+            "test_positive_fraction": 0.9460132420349725
+          },
+          "shuffled_labels": {
+            "test_score": 0.527932264059396
+          },
+          "directional": {
+            "development": {
+              "C": 0.001,
+              "development_score": 0.8685130328331212,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8642561998213133,
+                0.8685130328331212,
+                0.8593827271131543,
+                0.8518780646790697,
+                0.8502438553239212,
+                0.8500867112816195
+              ],
+              "development_chromosomes": [
+                "SL4.0ch00",
+                "SL4.0ch01",
+                "SL4.0ch03",
+                "SL4.0ch04",
+                "SL4.0ch05",
+                "SL4.0ch07",
+                "SL4.0ch08",
+                "SL4.0ch09",
+                "SL4.0ch11",
+                "SL4.0ch12"
+              ],
+              "features": 1536,
+              "training_rows": 102953,
+              "iterations": [
+                83
+              ]
+            },
+            "test_score": 0.8497926827020135,
+            "test_rows": 35342,
+            "test_positive_fraction": 0.9460132420349725
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 140451,
+        "audited_rows": 138295,
+        "original_excluded_rows": {
+          "unmapped": 2156
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 101063,
+        "test_unique": 34683
+      }
+    },
+    "motif_maize_acceptor": {
+      "species": "Maize",
+      "family": "Masked motif",
+      "scores": {
+        "metric": "whole_motif_exact_match_accuracy",
+        "readout": "directional",
+        "feature_contract": "[last(forward left flank), last(RC right flank)]",
+        "development": {
+          "C_grid": [
+            0.0001,
+            0.001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "fold_scores": [
+            [
+              0.9974110462028678,
+              0.9977142478550369,
+              0.9975073646045773
+            ],
+            [
+              0.9974110462028678,
+              0.9977473746977176,
+              0.997557720875192
+            ],
+            [
+              0.9973114710568242,
+              0.9977142478550369,
+              0.997557720875192
+            ],
+            [
+              0.9973114710568242,
+              0.9974823599562725,
+              0.9975325427398847
+            ],
+            [
+              0.997344662772172,
+              0.9974492331135919,
+              0.9975073646045773
+            ],
+            [
+              0.997344662772172,
+              0.9976479941696756,
+              0.9974821864692701
+            ]
+          ],
+          "development_scores": [
+            0.9975442195541607,
+            0.9975720472585925,
+            0.9975278132623511,
+            0.9974421245843271,
+            0.9974337534967804,
+            0.9974916144703726
+          ],
+          "C": 0.001,
+          "development_score": 0.9975720472585925,
+          "development_chromosomes": [
+            "10",
+            "2",
+            "3",
+            "4",
+            "6",
+            "7",
+            "8"
+          ],
+          "training_rows": 100032,
+          "features": 1536,
+          "classes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "iterations": [
+            140
+          ],
+          "max_iterations": 10000
+        },
+        "train_rows": 100032,
+        "test_rows": 53434,
+        "test_score": 0.998222105775349,
+        "majority_motif_label_from_training": 2,
+        "majority_baseline": 0.9981846764232511,
+        "shuffled_labels": 0.9981846764232511,
+        "train_outcome_counts": {
+          "0": 10,
+          "1": 94,
+          "2": 99786,
+          "3": 10,
+          "4": 12,
+          "5": 11,
+          "6": 15,
+          "7": 3,
+          "8": 4,
+          "9": 20,
+          "10": 22,
+          "11": 9,
+          "12": 6,
+          "13": 7,
+          "14": 14,
+          "15": 9
+        },
+        "test_outcome_counts": {
+          "0": 3,
+          "1": 44,
+          "2": 53337,
+          "3": 2,
+          "4": 4,
+          "5": 5,
+          "6": 4,
+          "7": 2,
+          "8": 1,
+          "9": 13,
+          "10": 9,
+          "11": 2,
+          "12": 1,
+          "13": 2,
+          "14": 3,
+          "15": 2
+        },
+        "serialized_predictions_exact": true
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 153869,
+        "audited_rows": 153466,
+        "original_excluded_rows": {
+          "unmapped": 403
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 100032,
+        "test_unique": 53433
+      }
+    },
+    "motif_tomato_acceptor": {
+      "species": "Tomato",
+      "family": "Masked motif",
+      "scores": {
+        "metric": "whole_motif_exact_match_accuracy",
+        "readout": "directional",
+        "feature_contract": "[last(forward left flank), last(RC right flank)]",
+        "development": {
+          "C_grid": [
+            0.0001,
+            0.001,
+            0.01,
+            0.1,
+            1.0,
+            10.0
+          ],
+          "fold_scores": [
+            [
+              0.9700116562466886,
+              0.9603960396039604,
+              0.9687064487520588
+            ],
+            [
+              0.9705679771113701,
+              0.9627746558439628,
+              0.9688014696566578
+            ],
+            [
+              0.9696407756702342,
+              0.9622097344869622,
+              0.9681996705941974
+            ],
+            [
+              0.9668326798770795,
+              0.9598905836529599,
+              0.9663942734068162
+            ],
+            [
+              0.9652961746317685,
+              0.9588796717509589,
+              0.9653807170910934
+            ],
+            [
+              0.9653756490410088,
+              0.959028335265959,
+              0.9652856961864944
+            ]
+          ],
+          "development_scores": [
+            0.9663713815342359,
+            0.9673813675373303,
+            0.9666833935837978,
+            0.9643725123122852,
+            0.9631855211579402,
+            0.9632298934978207
+          ],
+          "C": 0.001,
+          "development_score": 0.9673813675373303,
+          "development_chromosomes": [
+            "SL4.0ch00",
+            "SL4.0ch01",
+            "SL4.0ch03",
+            "SL4.0ch04",
+            "SL4.0ch05",
+            "SL4.0ch07",
+            "SL4.0ch08",
+            "SL4.0ch09",
+            "SL4.0ch11",
+            "SL4.0ch12"
+          ],
+          "training_rows": 102953,
+          "features": 1536,
+          "classes": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "iterations": [
+            448
+          ],
+          "max_iterations": 10000
+        },
+        "train_rows": 102953,
+        "test_rows": 35342,
+        "test_score": 0.9745911380227491,
+        "majority_motif_label_from_training": 2,
+        "majority_baseline": 0.9698375870069605,
+        "shuffled_labels": 0.9698375870069605,
+        "train_outcome_counts": {
+          "0": 126,
+          "1": 169,
+          "2": 99050,
+          "3": 3101,
+          "4": 48,
+          "5": 19,
+          "6": 23,
+          "7": 19,
+          "8": 35,
+          "9": 19,
+          "10": 49,
+          "11": 22,
+          "12": 43,
+          "13": 56,
+          "14": 101,
+          "15": 73
+        },
+        "test_outcome_counts": {
+          "0": 27,
+          "1": 47,
+          "2": 34276,
+          "3": 859,
+          "4": 16,
+          "5": 3,
+          "6": 6,
+          "7": 6,
+          "8": 10,
+          "9": 2,
+          "10": 9,
+          "11": 11,
+          "12": 10,
+          "13": 26,
+          "14": 24,
+          "15": 10
+        },
+        "serialized_predictions_exact": true
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 140455,
+        "audited_rows": 138295,
+        "original_excluded_rows": {
+          "unmapped": 2156,
+          "invalid_target": 4
+        },
+        "rows_with_ambiguous_visible_bases": 0,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 101063,
+        "test_unique": 34683
+      }
+    },
+    "sv_impact": {
+      "species": "Arabidopsis",
+      "family": "Structural variant",
+      "scores": {
+        "task": "sv_impact",
+        "kind": "sv",
+        "metric": "auprc",
+        "membership": "/app/exp593-cpu-text-q4-probes-p3-a1/inputs/memberships/sv_impact.parquet",
+        "readouts": {
+          "strand_average": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8730896733056062,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.840492175065732,
+                0.8635508220000871,
+                0.8730896733056062,
+                0.8633233035447794,
+                0.8405400894577729,
+                0.8186168094573792
+              ],
+              "development_chromosomes": [
+                "1",
+                "3",
+                "5"
+              ],
+              "features": 1536,
+              "training_rows": 10925,
+              "iterations": [
+                137
+              ]
+            },
+            "test_score": 0.8825503793977021,
+            "test_rows": 7150,
+            "test_positive_fraction": 0.42573426573426576
+          },
+          "shuffled_labels": {
+            "test_score": 0.43568216531176085
+          },
+          "directional": {
+            "development": {
+              "C": 0.01,
+              "development_score": 0.8647551477826587,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.8419615347331478,
+                0.8622825118524654,
+                0.8647551477826587,
+                0.839914367288927,
+                0.8000494133875798,
+                0.7746948074768653
+              ],
+              "development_chromosomes": [
+                "1",
+                "3",
+                "5"
+              ],
+              "features": 3072,
+              "training_rows": 10925,
+              "iterations": [
+                168
+              ]
+            },
+            "test_score": 0.8714011885619364,
+            "test_rows": 7150,
+            "test_positive_fraction": 0.42573426573426576
+          },
+          "deletion_length_only": {
+            "development": {
+              "C": 0.0001,
+              "development_score": 0.44062270772550677,
+              "C_grid": [
+                0.0001,
+                0.001,
+                0.01,
+                0.1,
+                1.0,
+                10.0
+              ],
+              "development_scores": [
+                0.44062270772550677,
+                0.44062270772550677,
+                0.44062270772550677,
+                0.44062270772550677,
+                0.44062270772550677,
+                0.44062270772550677
+              ],
+              "development_chromosomes": [
+                "1",
+                "3",
+                "5"
+              ],
+              "features": 1,
+              "training_rows": 10925,
+              "iterations": [
+                3
+              ]
+            },
+            "test_score": 0.43635006751077793
+          }
+        }
+      },
+      "normalized_visibility": {
+        "normalization": "Original character IDs after lowercase IUPAC-to-N conversion",
+        "rows": 18075,
+        "audited_rows": 18075,
+        "original_excluded_rows": {},
+        "rows_with_ambiguous_visible_bases": 21,
+        "normalized_train_test_duplicates": 0,
+        "train_unique": 10925,
+        "test_unique": 7150
+      }
+    }
+  },
+  "notes": [
+    "Native-scale equal-task means within each family; no across-family composite.",
+    "Original chromosome-held-out memberships and development-only regularization selection; new heads per checkpoint. Probe test subsets differ from the full zero-shot benchmark sets.",
+    "Directional concatenates strand-specific features; strand_average averages strand features. Motifs have only the prespecified directional boundary-feature readout.",
+    "All input ambiguity is normalized to N before nucleotide encoding; normalized visible-input overlap audits preserve original exclusions."
+  ]
+}
