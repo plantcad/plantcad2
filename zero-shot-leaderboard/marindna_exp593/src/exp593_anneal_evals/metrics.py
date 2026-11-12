@@ -7,6 +7,51 @@ import numpy as np
 from exp593_anneal_evals.scoring import exact_task_scores
 
 
+def complete_tf_arrays(protocol, spec, frame, arrays):
+    """Derive legacy score columns from saved probabilities with its own helpers.
+
+    FIM workers intentionally return probabilities. The historical reducer also
+    requires per-row score columns, even when reducing motif accuracy. Deriving
+    these here preserves the immutable inference output and original N handling.
+    """
+    result = dict(arrays)
+    for context in spec["contexts"]:
+        key = context + "__scores"
+        if key in result:
+            continue
+        evaluation = protocol.tasks.EVAL
+        sequences, positions = evaluation._transform_sequences_and_positions(
+            frame.sequence, spec["positions"], context
+        )
+        probabilities = result[context + "__probs"].reshape(-1, 4)
+        true = evaluation._compute_true_tokens_from_seq(sequences, positions)
+        if spec["kind"] == "conservation":
+            work = frame.copy()
+            work["sequence"] = sequences
+            values = evaluation._refprob_scores(
+                work, probabilities, positions[0], "sequence"
+            )
+        elif spec["kind"] == "motif":
+            predicted = np.asarray(evaluation.NUCLEOTIDES)[
+                probabilities.argmax(axis=-1)
+            ].reshape(len(frame), -1)
+            values = np.all(predicted == true.reshape(len(frame), -1), axis=-1).astype(
+                np.float32
+            )
+        else:
+            values = evaluation._avg_trueprob_scores(
+                probabilities, true, len(positions)
+            )
+        result[key] = values
+    return result
+
+
+def exact_motif_accuracy(matches, answers):
+    """Retain the historical whole-motif ambiguity mask for exhaustive MAPs."""
+    valid = np.asarray([all(base in "acgt" for base in a) for a in answers])
+    return float(np.asarray(matches)[valid].mean()) if valid.any() else 0.0
+
+
 def task_metrics(preparation, profile_root, sequence_length, variant):
     from exp586_evals.full_metrics import bidirectional_task, merge
     from exp586_evals.protocol import original
@@ -44,7 +89,7 @@ def task_metrics(preparation, profile_root, sequence_length, variant):
             for name, values in scores.items():
                 if spec["kind"] == "motif":
                     orientations[name] = {
-                        "accuracy": float(values["exact_match"].mean())
+                        "accuracy": exact_motif_accuracy(values["exact_match"], answers)
                     }
                 else:
                     orientations[name] = {
@@ -65,6 +110,8 @@ def task_metrics(preparation, profile_root, sequence_length, variant):
                     }
             primary = "accuracy" if spec["kind"] == "motif" else "auroc_mean_marginal"
         else:
+            if spec["kind"] != "sv":
+                arrays = complete_tf_arrays(protocol, spec, frame, arrays)
             saved = protocol.aggregate.recompute_task(spec, frame, arrays)
             historical = {
                 "value": saved["best_value"],

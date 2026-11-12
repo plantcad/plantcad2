@@ -15,7 +15,7 @@ from exp593_anneal_evals import VARIANTS
 
 # Reuse unchanged, already evaluated functions; only new readouts live here.
 from exp593_evals.analysis_bootstrap import environment, prior_af_predictions
-from exp593_evals.analysis_resume import recovered_jobs
+from exp593_evals.analysis_resume import job_name, recovered_jobs
 from exp593_evals.storage import client, upload_verified
 
 PHASES = (
@@ -140,6 +140,46 @@ def wait_for_inputs(job, inputs, artifact_root, run):
         time.sleep(30)
 
 
+def completed_phase(source, phase, work, recovered, owner, storage):
+    """Preserve a pinned immutable phase only after verifying every saved job."""
+    from exp593_evals.storage import read_json
+
+    path = source / "recovery-plan.json"
+    if not path.exists():
+        return None
+    record = json.loads(path.read_text()).get("phase_receipts", {}).get(phase)
+    if record is None:
+        return None
+    expected = {job_name(job): job for job in work}
+    if (
+        record["uri"]
+        != owner.rstrip("/") + "/analysis/" + phase + "/analysis-receipt.json"
+    ):
+        raise ValueError("Completed phase is outside the selected owner")
+    receipt, raw = read_json(storage, record["uri"])
+    if (
+        len(raw) != record["bytes"]
+        or hashlib.sha256(raw).hexdigest() != record["sha256"]
+    ):
+        raise ValueError("Completed phase receipt differs from its pin")
+    if (
+        receipt["phase"] != phase
+        or receipt["error"] is not None
+        or set(recovered) != set(expected)
+    ):
+        raise ValueError("Cannot preserve an incomplete or failed phase")
+    saved = {job_name(row["job"]): row for row in receipt["finished"]}
+    if len(saved) != len(receipt["finished"]) or set(saved) != set(expected):
+        raise ValueError("Completed phase job coverage differs")
+    for name, job in expected.items():
+        if (
+            saved[name]["job"] != job
+            or saved[name]["receipt"] != recovered[name]["receipt"]
+        ):
+            raise ValueError("Completed phase uses another finalized job")
+    return record
+
+
 def run(args: argparse.Namespace) -> None:
     import wandb
 
@@ -207,6 +247,16 @@ def run(args: argparse.Namespace) -> None:
         recovered = recovered_jobs(
             source, args.phase, work, args.artifact_root, client()
         )
+        previous = completed_phase(
+            source, args.phase, work, recovered, args.artifact_root, client()
+        )
+        if previous is not None:
+            result["finished"] = [recovered[job_name(job)] for job in work]
+            result["preserved_phase_receipt"] = previous
+            run.log(
+                {"run_progress": 1, "eval/phase": "reused-verified-completed-phase"}
+            )
+            return
         for index, job in enumerate(work):
             name = job["profile"] + "/" + job["variant"] + "/" + job["kind"]
             if job.get("task"):
@@ -353,7 +403,7 @@ def run(args: argparse.Namespace) -> None:
         path = root / "analysis-receipt.json"
         path.write_text(json.dumps(result, indent=2) + "\n")
         upload_verified(storage, path, owner + "/analysis-receipt.json")
-        if result["error"] is None:
+        if result["error"] is None and not result.get("preserved_phase_receipt"):
             upload_verified(
                 storage,
                 path,
