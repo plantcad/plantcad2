@@ -420,6 +420,22 @@
       ]
     }
   ],
+  "subset_means": [
+    {
+      "title": "Species in MarinDNA training",
+      "in_training": true,
+      "tasks": 10,
+      "mean_percentile_rank": 83.99999999999999,
+      "weighting": "equal per task"
+    },
+    {
+      "title": "Evaluation-only species",
+      "in_training": false,
+      "tasks": 10,
+      "mean_percentile_rank": 88.66666666666666,
+      "weighting": "equal per task"
+    }
+  ],
   "source_sha256": "09829fb13828b728edc8f964cfadee4e07712b8a71d646232961596873df6782",
   "posted": false
 }
