@@ -126,12 +126,14 @@
 <text x="103" y="1619" font-size="27" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">RC:        RC(R)         → RC(y)</text>
 <text x="1023" y="1575" font-size="26" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">Forward:   T(L, R, k)         → y</text>
 <text x="1023" y="1619" font-size="26" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="mono">RC:        T(RC(R), RC(L), k) → RC(y)</text>
-<text x="960" y="1704" font-size="24" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">Choose either readout below for either context presentation above</text>
+<text x="960" y="1704" font-size="24" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">Choose either readout for AR or FIM · styles refer to which true answer bases are provided</text>
 <rect x="80" y="1730" width="820" height="348" rx="4" fill="#ffffff" stroke="#cad6df"/>
 <rect x="1000" y="1730" width="820" height="348" rx="4" fill="#ffffff" stroke="#cad6df"/>
-<text x="104" y="1774" font-size="27" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">TF · teacher-forced answer prefixes</text>
-<text x="1024" y="1774" font-size="27" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">All 4ᵏ · every possible motif</text>
-<text x="104" y="1817" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Target atg · same per-strand TF rule as Evo2–20B</text>
+<rect x="81" y="1731" width="818" height="62" rx="4" fill="#f7f9fb" stroke="none"/>
+<rect x="1001" y="1731" width="818" height="62" rx="4" fill="#f7f9fb" stroke="none"/>
+<text x="104" y="1774" font-size="27" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="775">Evo 2–style · earlier motif bases given</text>
+<text x="1024" y="1774" font-size="27" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="770">PlantCAD-style · exact 2–3 bp motif</text>
+<text x="104" y="1817" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Base-by-base scoring (teacher forcing) · target atg</text>
 <rect x="104" y="1840" width="228" height="56" rx="4" fill="#fff1cf" stroke="none"/>
 <text x="218" y="1877" font-size="26" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#956016" class="mono">p(a | ∅)</text>
 <rect x="374" y="1840" width="228" height="56" rx="4" fill="#fff1cf" stroke="none"/>
@@ -147,7 +149,7 @@
 <text x="279.0" y="2049" font-size="23" font-weight="600" text-anchor="middle" xml:space="preserve" style="fill:#28638b" class="normal">AR · TF × RC</text>
 <rect x="478" y="2024" width="398" height="36" rx="4" fill="#eaf5f3" stroke="none"/>
 <text x="677.0" y="2049" font-size="23" font-weight="600" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="normal">FIM · TF × RC</text>
-<text x="1024" y="1817" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="770">Example k = 2: all 16 motifs, no selected path</text>
+<text x="1024" y="1817" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal" data-max-width="770">Whole-motif prediction · k = 2: all 16 candidates</text>
 <text x="1410" y="1851" font-size="22" font-weight="400" text-anchor="middle" xml:space="preserve" style="fill:#536775" class="normal">∅</text>
 <line x1="1410" y1="1857" x2="1114" y2="1875" stroke="#cad6df" stroke-width="1.2"/>
 <rect x="1084" y="1876" width="60" height="32" rx="3" fill="#eaf5f3" stroke="none"/>
@@ -176,7 +178,7 @@
 <rect x="1398" y="2024" width="398" height="36" rx="4" fill="#eaf5f3" stroke="none"/>
 <text x="1597.0" y="2049" font-size="23" font-weight="600" text-anchor="middle" xml:space="preserve" style="fill:#247b78" class="normal">FIM · All 4ᵏ × RC</text>
 <text x="80" y="2111" font-size="27" font-weight="700" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">× RC = equal-weight geometric combination, normalized again</text>
-<text x="80" y="2150" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Motifs: exact whole-answer accuracy.   Conservation: observed-base probability → AUROC.</text>
+<text x="80" y="2150" font-size="24" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#1c3040" class="normal">Both motif readouts require exact whole-answer matches.   Conservation: observed-base probability → AUROC.</text>
 <text x="80" y="2184" font-size="23" font-weight="400" text-anchor="start" xml:space="preserve" style="fill:#536775" class="normal">Core/non-core AUROC: TF uses mean true-base probability; All 4ᵏ uses whole-motif probability Q(y).</text>
 <rect x="48" y="2234" width="1824" height="310" rx="6" fill="#ffffff" stroke="#cad6df"/>
 <rect x="48" y="2234" width="1824" height="64" rx="6" fill="#f7f9fb" stroke="none"/>
