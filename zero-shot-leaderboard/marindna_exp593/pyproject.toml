@@ -16,7 +16,7 @@ dev = ["pytest>=8", "ruff>=0.16"]
 exp593-observe = "exp593_evals.checkpoints:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/exp593_evals", "src/exp586_deployment", "src/exp593_dna"]
+packages = ["src/exp593_evals", "src/exp593_anneal_evals", "src/exp586_deployment", "src/exp593_dna"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
