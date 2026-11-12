@@ -1,0 +1,526 @@
+{
+  "inputs": {
+    "all-readouts.tsv": "3ae0f9ed2c3bf32fdd9d704828629d7a62a5137d7fffbda9d87408df24495fe7",
+    "primary-families.tsv": "4c8ad8d81c45e55b6d0f61d953f2679d23e12a35a051807b878c57c8d389b534",
+    "paired-uncertainty.json": "7f5e16c9b4c07cd7d8acab6d6256fe8d66f131ea420967c8d66fc8d68ea00e56",
+    "context.json": "b25b933ee2a45fe16dd3906e94debbd1d63e8c1dd7ee6c604caea41ea22d63dc"
+  },
+  "primary_rows_per_config": 42,
+  "all_readouts_per_config": 161,
+  "maxima_scope": "All readouts, original native reference; unchanged-input subset for SV",
+  "family_average_scope": "Primary 8K readouts; equal task weights; all normalized examples",
+  "maxima": [
+    {
+      "family": "Conservation",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "task": "conservation_poaceae_tis",
+      "profile": "context-2048",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.00035892388795732977,
+      "primary": false,
+      "signed_delta": -0.00035892388795732977
+    },
+    {
+      "family": "Conservation",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "task": "conservation_poaceae_tis",
+      "profile": "context-2048",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.0003304721013956957,
+      "primary": false,
+      "signed_delta": -0.0003304721013956957
+    },
+    {
+      "family": "Conservation",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "task": "conservation_poaceae_tis",
+      "profile": "context-2048",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.0003374918203220556,
+      "primary": false,
+      "signed_delta": -0.0003374918203220556
+    },
+    {
+      "family": "Conservation",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "task": "conservation_andropogoneae",
+      "profile": "context-8192",
+      "readout": "linear-probe/directional",
+      "absolute_delta": 0.0001861374951021011,
+      "primary": true,
+      "signed_delta": 0.0001861374951021011
+    },
+    {
+      "family": "Conservation",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "task": "conservation_andropogoneae",
+      "profile": "context-8192",
+      "readout": "linear-probe/strand_average",
+      "absolute_delta": 0.00013203010209572597,
+      "primary": false,
+      "signed_delta": 0.00013203010209572597
+    },
+    {
+      "family": "Conservation",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "task": "conservation_andropogoneae",
+      "profile": "context-8192",
+      "readout": "linear-probe/directional",
+      "absolute_delta": 0.00013844335174517663,
+      "primary": true,
+      "signed_delta": 0.00013844335174517663
+    },
+    {
+      "family": "Motifs",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "task": "motif_tomato_acceptor",
+      "profile": "context-8192",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.0024492527643092676,
+      "primary": false,
+      "signed_delta": 0.0024492527643092676
+    },
+    {
+      "family": "Motifs",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "task": "motif_maize_acceptor",
+      "profile": "context-8192",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.0026061129922206328,
+      "primary": false,
+      "signed_delta": 0.0026061129922206328
+    },
+    {
+      "family": "Motifs",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "task": "motif_tomato_acceptor",
+      "profile": "context-8192",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.00242077308100333,
+      "primary": false,
+      "signed_delta": 0.00242077308100333
+    },
+    {
+      "family": "Motifs",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "task": "motif_maize_tts",
+      "profile": "context-8192",
+      "readout": "linear-probe/directional",
+      "absolute_delta": 0.0006751181456754463,
+      "primary": true,
+      "signed_delta": 0.0006751181456754463
+    },
+    {
+      "family": "Motifs",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "task": "motif_maize_tts",
+      "profile": "context-8192",
+      "readout": "linear-probe/directional",
+      "absolute_delta": 0.0007501312729727427,
+      "primary": true,
+      "signed_delta": -0.0007501312729727427
+    },
+    {
+      "family": "Motifs",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "task": "motif_maize_tts",
+      "profile": "context-8192",
+      "readout": "linear-probe/directional",
+      "absolute_delta": 0.0002250393818917784,
+      "primary": true,
+      "signed_delta": 0.0002250393818917784
+    },
+    {
+      "family": "Core/non-core",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "task": "core_tomato_acceptor",
+      "profile": "context-8192",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.0008389368053068891,
+      "primary": false,
+      "signed_delta": 0.0008389368053068891
+    },
+    {
+      "family": "Core/non-core",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "task": "core_tomato_acceptor",
+      "profile": "context-8192",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.0008273812157807425,
+      "primary": false,
+      "signed_delta": 0.0008273812157807425
+    },
+    {
+      "family": "Core/non-core",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "task": "core_tomato_acceptor",
+      "profile": "context-8192",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.0006993001366666363,
+      "primary": false,
+      "signed_delta": 0.0006993001366666363
+    },
+    {
+      "family": "Core/non-core",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "task": "core_tomato_tis",
+      "profile": "context-8192",
+      "readout": "linear-probe/directional",
+      "absolute_delta": 0.0001593546707876481,
+      "primary": true,
+      "signed_delta": -0.0001593546707876481
+    },
+    {
+      "family": "Core/non-core",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "task": "core_tomato_tis",
+      "profile": "context-8192",
+      "readout": "linear-probe/strand_average",
+      "absolute_delta": 0.00017212347453665622,
+      "primary": false,
+      "signed_delta": 0.00017212347453665622
+    },
+    {
+      "family": "Core/non-core",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "task": "core_tomato_tis",
+      "profile": "context-8192",
+      "readout": "linear-probe/strand_average",
+      "absolute_delta": 0.0001843815261357573,
+      "primary": false,
+      "signed_delta": 0.0001843815261357573
+    },
+    {
+      "family": "SV impact",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "task": "sv_impact",
+      "profile": "context-8192",
+      "readout": "zero-shot/left",
+      "absolute_delta": 1.6815894646082796e-05,
+      "primary": true,
+      "signed_delta": -1.6815894646082796e-05
+    },
+    {
+      "family": "SV impact",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "task": "sv_impact",
+      "profile": "context-8192",
+      "readout": "zero-shot/left",
+      "absolute_delta": 0.00011185073027641934,
+      "primary": true,
+      "signed_delta": 0.00011185073027641934
+    },
+    {
+      "family": "SV impact",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "task": "sv_impact",
+      "profile": "context-8192",
+      "readout": "zero-shot/left",
+      "absolute_delta": 2.6447599054124638e-06,
+      "primary": true,
+      "signed_delta": 2.6447599054124638e-06
+    },
+    {
+      "family": "SV impact",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "task": "sv_impact",
+      "profile": "context-8192",
+      "readout": "linear-probe/strand_average",
+      "absolute_delta": 0.0006479910212773277,
+      "primary": true,
+      "signed_delta": 0.0006479910212773277
+    },
+    {
+      "family": "SV impact",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "task": "sv_impact",
+      "profile": "context-8192",
+      "readout": "linear-probe/strand_average",
+      "absolute_delta": 0.0007494390894107195,
+      "primary": true,
+      "signed_delta": 0.0007494390894107195
+    },
+    {
+      "family": "SV impact",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "task": "sv_impact",
+      "profile": "context-8192",
+      "readout": "linear-probe/strand_average",
+      "absolute_delta": 0.0006268920564064251,
+      "primary": true,
+      "signed_delta": 0.0006268920564064251
+    },
+    {
+      "family": "Allele frequency",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "task": "maize-af",
+      "profile": "context-8192",
+      "readout": "zero-shot/llr_acgt_avg",
+      "absolute_delta": 0.003938284430327288,
+      "primary": true,
+      "signed_delta": 0.003938284430327288
+    },
+    {
+      "family": "Allele frequency",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "task": "maize-af",
+      "profile": "context-8192",
+      "readout": "zero-shot/llr_full_vocab_avg",
+      "absolute_delta": 0.002266957817374876,
+      "primary": false,
+      "signed_delta": 0.002266957817374876
+    },
+    {
+      "family": "Allele frequency",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "task": "maize-af",
+      "profile": "context-8192",
+      "readout": "zero-shot/llr_full_vocab_avg",
+      "absolute_delta": 0.0009183356746211291,
+      "primary": false,
+      "signed_delta": 0.0009183356746211291
+    },
+    {
+      "family": "Allele frequency",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "task": "maize-af",
+      "profile": "context-8192",
+      "readout": "linear-probe/whole_window/strand_average",
+      "absolute_delta": 0.0028756889408758646,
+      "primary": false,
+      "signed_delta": 0.0028756889408758646
+    },
+    {
+      "family": "Allele frequency",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "task": "maize-af",
+      "profile": "context-8192",
+      "readout": "linear-probe/whole_window/directional",
+      "absolute_delta": 0.0024898580191334285,
+      "primary": false,
+      "signed_delta": 0.0024898580191334285
+    },
+    {
+      "family": "Allele frequency",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "task": "maize-af",
+      "profile": "context-8192",
+      "readout": "linear-probe/whole_window/directional",
+      "absolute_delta": 0.004761468833840321,
+      "primary": false,
+      "signed_delta": 0.004761468833840321
+    }
+  ],
+  "family_means": [
+    {
+      "family": "Conservation",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "value": 0.6891039517993102
+    },
+    {
+      "family": "Conservation",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "value": 0.6891123368798319
+    },
+    {
+      "family": "Conservation",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "value": 0.6891070648189462
+    },
+    {
+      "family": "Conservation",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "value": 0.8904369419425846
+    },
+    {
+      "family": "Conservation",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "value": 0.8904507504547444
+    },
+    {
+      "family": "Conservation",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "value": 0.8904160375927505
+    },
+    {
+      "family": "Motifs",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "value": 0.58327146448132
+    },
+    {
+      "family": "Motifs",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "value": 0.583364078321705
+    },
+    {
+      "family": "Motifs",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "value": 0.5834017820329142
+    },
+    {
+      "family": "Motifs",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "value": 0.861698633843169
+    },
+    {
+      "family": "Motifs",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "value": 0.861491342040246
+    },
+    {
+      "family": "Motifs",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "value": 0.8615979069624383
+    },
+    {
+      "family": "Core/non-core",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "value": 0.6893058146979503
+    },
+    {
+      "family": "Core/non-core",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "value": 0.6893151438544622
+    },
+    {
+      "family": "Core/non-core",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "value": 0.689371139627735
+    },
+    {
+      "family": "Core/non-core",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "value": 0.9130571391155352
+    },
+    {
+      "family": "Core/non-core",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "value": 0.9130391619820306
+    },
+    {
+      "family": "Core/non-core",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "value": 0.9130270500409918
+    },
+    {
+      "family": "SV impact",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "value": 0.8540938219624878
+    },
+    {
+      "family": "SV impact",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "value": 0.8542214447120955
+    },
+    {
+      "family": "SV impact",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "value": 0.8541153108208132
+    },
+    {
+      "family": "SV impact",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "value": 0.9373515459597541
+    },
+    {
+      "family": "SV impact",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "value": 0.9374648301042782
+    },
+    {
+      "family": "SV impact",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "value": 0.9373340488050547
+    },
+    {
+      "family": "Allele frequency",
+      "method": "zero-shot",
+      "configuration": "torch-fa2",
+      "value": 0.14246478287071077
+    },
+    {
+      "family": "Allele frequency",
+      "method": "zero-shot",
+      "configuration": "vllm-fa3",
+      "value": 0.1401837868552788
+    },
+    {
+      "family": "Allele frequency",
+      "method": "zero-shot",
+      "configuration": "fast-fa3",
+      "value": 0.1391532520388472
+    },
+    {
+      "family": "Allele frequency",
+      "method": "linear-probe",
+      "configuration": "torch-fa2",
+      "value": 0.18822879476505358
+    },
+    {
+      "family": "Allele frequency",
+      "method": "linear-probe",
+      "configuration": "vllm-fa3",
+      "value": 0.18855184340464523
+    },
+    {
+      "family": "Allele frequency",
+      "method": "linear-probe",
+      "configuration": "fast-fa3",
+      "value": 0.18850459869627523
+    }
+  ]
+}

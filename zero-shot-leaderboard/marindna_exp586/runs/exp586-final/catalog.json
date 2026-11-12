@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "models": [
+    {
+      "key": "d768-scratch-lrm1-seed0",
+      "label": "MarinMoE 1.5B-60M 0.22T (scratch, 1× LR)",
+      "result": "scratch-lrm1-seed0",
+      "method": "methods/scratch-lrm1-seed0.json",
+      "color": "#0F766E",
+      "views": [
+        "overview",
+        "overview_detail",
+        "task_natural",
+        "context",
+        "af",
+        "probes",
+        "methods",
+        "loss"
+      ]
+    },
+    {
+      "key": "d768-pretrained-lrm1-seed0",
+      "label": "MarinMoE 1.5B-60M 0.22T (language-pretrained, 1× LR)",
+      "result": "pretrained-lrm1-seed0",
+      "method": "methods/pretrained-lrm1-seed0.json",
+      "color": "#2563EB",
+      "views": [
+        "overview",
+        "overview_detail",
+        "task_natural",
+        "context",
+        "af",
+        "probes",
+        "methods",
+        "loss"
+      ]
+    }
+  ]
+}

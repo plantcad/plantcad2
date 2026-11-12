@@ -1,0 +1,396 @@
+{
+  "backend_parity": {
+    "absolute_accuracy_delta": 0.00520833333333337,
+    "absolute_nll_delta": 0.0018251971547540435,
+    "acceptance": {
+      "absolute_accuracy_delta_at_most": 0.03,
+      "absolute_nll_delta_at_most": 0.01,
+      "argmax_agreement_at_least": 0.95,
+      "max_abs_at_most": 0.05,
+      "mean_abs_at_most": 0.003
+    },
+    "accepted": true,
+    "argmax_agreement": 0.9895833333333334,
+    "examples": 64,
+    "max_abs": 0.043087899684906006,
+    "mean_abs": 0.0017200139118358493,
+    "p95_abs": 0.006901619024574757,
+    "p99_abs": 0.019353806972503662,
+    "pooled_ep_metrics": {
+      "accuracy": 0.5364583333333334,
+      "examples": 192,
+      "mean_true_probability": 0.4366879948841718,
+      "nll": 1.0586144412568774
+    },
+    "pooled_ep_model": {
+      "attention_implementation": "gpu_fa4_cute",
+      "capacity_factor": 32.0,
+      "expert_chunks": 1,
+      "global_every": 4,
+      "global_kv_heads": 1,
+      "head_dim": 128,
+      "hidden_dim": 1536,
+      "initializer_std": 0.012757759076995721,
+      "intermediate_dim": 768,
+      "latent_dim": 768,
+      "layer_norm_eps": 1e-05,
+      "local_kv_heads": 3,
+      "max_seq_len": 8192,
+      "moe_implementation": "fixed_pooled_wave_all_to_all",
+      "num_expert_waves": 3,
+      "num_experts": 384,
+      "num_experts_per_token": 8,
+      "num_heads": 12,
+      "num_kv_heads": 3,
+      "num_layers": 16,
+      "num_shared_experts": 2,
+      "pooled_transport_capacity_factor": 8.0,
+      "qb_estimator": "hist",
+      "qb_hist_bins": 10000,
+      "qk_mult": 1.3,
+      "remat_mode": "recompute_all",
+      "report_capacity_overflow": true,
+      "rope": {
+        "scaling_factor": null,
+        "theta": 10000.0
+      },
+      "rope_fused": true,
+      "sconv": true,
+      "sconv_kernel": 4,
+      "sconv_sites": [
+        "k",
+        "attn",
+        "mlp"
+      ],
+      "shared_expert_intermediate_dim": 768,
+      "sliding_window": 2048,
+      "vocab_size": 128256
+    },
+    "positions_per_example": 3,
+    "sonic_metrics": {
+      "accuracy": 0.53125,
+      "examples": 192,
+      "mean_true_probability": 0.43617702518531587,
+      "nll": 1.0604396384116315
+    },
+    "sonic_model": {
+      "attention_implementation": "gpu_fa4_cute",
+      "capacity_factor": 1.15,
+      "expert_chunks": 1,
+      "global_every": 4,
+      "global_kv_heads": 1,
+      "head_dim": 128,
+      "hidden_dim": 1536,
+      "initializer_std": 0.012757759076995721,
+      "intermediate_dim": 768,
+      "latent_dim": 768,
+      "layer_norm_eps": 1e-05,
+      "local_kv_heads": 3,
+      "max_seq_len": 8192,
+      "moe_implementation": "sonic",
+      "num_expert_waves": 3,
+      "num_experts": 384,
+      "num_experts_per_token": 8,
+      "num_heads": 12,
+      "num_kv_heads": 3,
+      "num_layers": 16,
+      "num_shared_experts": 2,
+      "pooled_transport_capacity_factor": 1.15,
+      "qb_estimator": "hist",
+      "qb_hist_bins": 10000,
+      "qk_mult": 1.3,
+      "remat_mode": "recompute_all",
+      "report_capacity_overflow": true,
+      "rope": {
+        "scaling_factor": null,
+        "theta": 10000.0
+      },
+      "rope_fused": true,
+      "sconv": true,
+      "sconv_kernel": 4,
+      "sconv_sites": [
+        "k",
+        "attn",
+        "mlp"
+      ],
+      "shared_expert_intermediate_dim": 768,
+      "sliding_window": 2048,
+      "vocab_size": 128256
+    }
+  },
+  "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/checkpoints/exp582-plantcad2-d1536-pretrained-lrm1-seed0-v1/2026.10.06/checkpoints/short-linear-v2/step-21440",
+  "checkpoint_metadata_digest": "c882f2cedb62266fc33f5dc60d0b83741b72fb506892baee99a70c7cd7efa4d6",
+  "condition": "pretrained",
+  "intrinsic": {
+    "context_sweep": {
+      "128": {
+        "calibration_weights": {
+          "0.0": {
+            "accuracy": 0.53515625,
+            "examples": 256,
+            "mean_true_probability": 0.4066382421860265,
+            "nll": 1.0644846761862916
+          },
+          "0.25": {
+            "accuracy": 0.56640625,
+            "examples": 256,
+            "mean_true_probability": 0.40640774011364317,
+            "nll": 1.058324721586314
+          },
+          "0.5": {
+            "accuracy": 0.578125,
+            "examples": 256,
+            "mean_true_probability": 0.40276468879903593,
+            "nll": 1.0736691810864478
+          },
+          "0.75": {
+            "accuracy": 0.51953125,
+            "examples": 256,
+            "mean_true_probability": 0.3949929067040382,
+            "nll": 1.111627745789948
+          },
+          "1.0": {
+            "accuracy": 0.47265625,
+            "examples": 256,
+            "mean_true_probability": 0.3842512841933625,
+            "nll": 1.1726497613350981
+          }
+        },
+        "left_test": {
+          "accuracy": 0.5078125,
+          "examples": 256,
+          "mean_true_probability": 0.3912450403422554,
+          "nll": 1.1084634943757794
+        },
+        "poe_equal_test": {
+          "accuracy": 0.49609375,
+          "examples": 256,
+          "mean_true_probability": 0.39574307225800026,
+          "nll": 1.0733669974996118
+        },
+        "poe_selected_test": {
+          "accuracy": 0.5,
+          "examples": 256,
+          "mean_true_probability": 0.38721191026676705,
+          "nll": 1.0960447051972446
+        },
+        "right_test": {
+          "accuracy": 0.44140625,
+          "examples": 256,
+          "mean_true_probability": 0.3742157520428009,
+          "nll": 1.1494462401885688
+        },
+        "selected_forward_weight": 0.25,
+        "sequence_length": 129
+      },
+      "2048": {
+        "calibration_weights": {
+          "0.0": {
+            "accuracy": 0.5546875,
+            "examples": 256,
+            "mean_true_probability": 0.4428720193713367,
+            "nll": 1.0014888968496303
+          },
+          "0.25": {
+            "accuracy": 0.58984375,
+            "examples": 256,
+            "mean_true_probability": 0.4464683429182974,
+            "nll": 0.9830800371896604
+          },
+          "0.5": {
+            "accuracy": 0.59765625,
+            "examples": 256,
+            "mean_true_probability": 0.4446222718221322,
+            "nll": 0.9905285876888686
+          },
+          "0.75": {
+            "accuracy": 0.5703125,
+            "examples": 256,
+            "mean_true_probability": 0.4355114553421434,
+            "nll": 1.0262262297514664
+          },
+          "1.0": {
+            "accuracy": 0.54296875,
+            "examples": 256,
+            "mean_true_probability": 0.4224066173558819,
+            "nll": 1.0917313454469353
+          }
+        },
+        "left_test": {
+          "accuracy": 0.5234375,
+          "examples": 256,
+          "mean_true_probability": 0.41477753031904285,
+          "nll": 1.0787038678735388
+        },
+        "poe_equal_test": {
+          "accuracy": 0.5234375,
+          "examples": 256,
+          "mean_true_probability": 0.4222059913620265,
+          "nll": 1.0311909659825356
+        },
+        "poe_selected_test": {
+          "accuracy": 0.50390625,
+          "examples": 256,
+          "mean_true_probability": 0.4157571390250582,
+          "nll": 1.0502864992261733
+        },
+        "right_test": {
+          "accuracy": 0.48828125,
+          "examples": 256,
+          "mean_true_probability": 0.404117312555627,
+          "nll": 1.1005103648106087
+        },
+        "selected_forward_weight": 0.25,
+        "sequence_length": 2049
+      },
+      "4095": {
+        "calibration_weights": {
+          "0.0": {
+            "accuracy": 0.5546875,
+            "examples": 256,
+            "mean_true_probability": 0.4460591829487761,
+            "nll": 0.9943637557893312
+          },
+          "0.25": {
+            "accuracy": 0.60546875,
+            "examples": 256,
+            "mean_true_probability": 0.4500064040760274,
+            "nll": 0.9741959830518199
+          },
+          "0.5": {
+            "accuracy": 0.59765625,
+            "examples": 256,
+            "mean_true_probability": 0.44810777218146214,
+            "nll": 0.9811350505156202
+          },
+          "0.75": {
+            "accuracy": 0.57421875,
+            "examples": 256,
+            "mean_true_probability": 0.4384338438389556,
+            "nll": 1.0172901455362617
+          },
+          "1.0": {
+            "accuracy": 0.53515625,
+            "examples": 256,
+            "mean_true_probability": 0.4246811470795129,
+            "nll": 1.0838362283747787
+          }
+        },
+        "left_test": {
+          "accuracy": 0.5234375,
+          "examples": 256,
+          "mean_true_probability": 0.41902095788464067,
+          "nll": 1.0723730050546403
+        },
+        "poe_equal_test": {
+          "accuracy": 0.5390625,
+          "examples": 256,
+          "mean_true_probability": 0.4276812640301948,
+          "nll": 1.0228595906902394
+        },
+        "poe_selected_test": {
+          "accuracy": 0.5078125,
+          "examples": 256,
+          "mean_true_probability": 0.4197138547999397,
+          "nll": 1.044331849287124
+        },
+        "right_test": {
+          "accuracy": 0.5,
+          "examples": 256,
+          "mean_true_probability": 0.4063341005658003,
+          "nll": 1.1011755105531038
+        },
+        "selected_forward_weight": 0.25,
+        "sequence_length": 4096
+      },
+      "512": {
+        "calibration_weights": {
+          "0.0": {
+            "accuracy": 0.55078125,
+            "examples": 256,
+            "mean_true_probability": 0.43315425912555827,
+            "nll": 1.0186496783886
+          },
+          "0.25": {
+            "accuracy": 0.578125,
+            "examples": 256,
+            "mean_true_probability": 0.43660245869179715,
+            "nll": 1.002640929401084
+          },
+          "0.5": {
+            "accuracy": 0.578125,
+            "examples": 256,
+            "mean_true_probability": 0.43447026716917386,
+            "nll": 1.0128183789571268
+          },
+          "0.75": {
+            "accuracy": 0.546875,
+            "examples": 256,
+            "mean_true_probability": 0.4249249166343616,
+            "nll": 1.0508685985430297
+          },
+          "1.0": {
+            "accuracy": 0.5078125,
+            "examples": 256,
+            "mean_true_probability": 0.41115871873086485,
+            "nll": 1.1186028898213904
+          }
+        },
+        "left_test": {
+          "accuracy": 0.50390625,
+          "examples": 256,
+          "mean_true_probability": 0.4092937893092312,
+          "nll": 1.0837310428826292
+        },
+        "poe_equal_test": {
+          "accuracy": 0.5234375,
+          "examples": 256,
+          "mean_true_probability": 0.4147611545139348,
+          "nll": 1.042981565946278
+        },
+        "poe_selected_test": {
+          "accuracy": 0.48828125,
+          "examples": 256,
+          "mean_true_probability": 0.406894289661146,
+          "nll": 1.0663376783275622
+        },
+        "right_test": {
+          "accuracy": 0.45703125,
+          "examples": 256,
+          "mean_true_probability": 0.3942976979137711,
+          "nll": 1.121863058735206
+        },
+        "selected_forward_weight": 0.25,
+        "sequence_length": 513
+      }
+    },
+    "oriented_examples": 512,
+    "prompt_methods_2048": {
+      "rotated": {
+        "accuracy": 0.5234375,
+        "examples": 256,
+        "mean_true_probability": 0.4158965335427638,
+        "nll": 1.0822697628622717
+      },
+      "sandwich": {
+        "accuracy": 0.3125,
+        "examples": 256,
+        "mean_true_probability": 0.3168873324045762,
+        "nll": 5.295928068130088
+      }
+    },
+    "sample_sha256": "5fa6fa9f94d99414ddb6ec480ca3823196287b63ecac3a470ec1b8db35acd965",
+    "selected_2048_forward_weight": 0.25,
+    "selected_2048_method": "poe_equal",
+    "selected_2048_metrics": {
+      "accuracy": 0.5234375,
+      "examples": 256,
+      "mean_true_probability": 0.4222059913620265,
+      "nll": 1.0311909659825356
+    },
+    "source_windows": 256,
+    "split": "source-index parity; both orientations remain in the same membership"
+  },
+  "schema": 1,
+  "tokenizer_sha256": "d1cf7a63f3e0e0778a7ef137020e6f39d04be1e6da14fe22d6283eb36cddae5e"
+}

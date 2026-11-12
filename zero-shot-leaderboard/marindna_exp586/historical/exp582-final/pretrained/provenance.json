@@ -1,0 +1,18 @@
+{
+  "analysis_prefix": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/analysis/pretrained-lrm1-seed0",
+  "analysis_wheel_sha256": "ae5062da2a55d1631d92dddc8af8e1ab7b8137e96c45fb9d5e4e0561083efb06",
+  "checkpoint_role": "dna-trained",
+  "condition": "pretrained",
+  "probes_included": false,
+  "receipt_sha256": "68c7049c583effb5061c71027ae40bb8a56d7c78edadec045a318d4e0b0a5aad",
+  "receipt_uri": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/analysis/pretrained-lrm1-seed0/receipt.json",
+  "requests_sha256": "4a4b2ed6ad05199ef0185260b51f1a9111582318432596669ec4b25942770557",
+  "schema": 1,
+  "selected_files": {
+    "result.json": {
+      "bytes": 76344,
+      "sha256": "2e891d316119eaff340889282e0390a996a245237831a937082082bc2ba83077"
+    }
+  },
+  "source_artifacts": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/results/pretrained-lrm1-seed0"
+}

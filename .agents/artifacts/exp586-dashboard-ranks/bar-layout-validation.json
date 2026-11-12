@@ -1,0 +1,27 @@
+{
+  "native_top_bar_labels": 32,
+  "rank_top_bar_labels": 8,
+  "all_annotated_labels": 64,
+  "overlapping_value_labels": 0,
+  "top_axis_intervals": [
+    [
+      0,
+      5
+    ],
+    [
+      45.0,
+      100.0
+    ]
+  ],
+  "breaks_marked": true,
+  "underlying_native_values_unchanged": true,
+  "primary_display_multipliers": {
+    "Conservation": 100,
+    "Motifs": 100,
+    "Core/non-core": 100,
+    "SV impact": 100,
+    "Avg Rank": 1
+  },
+  "primary_y_label": "Metric score (\u00d7100) or percentile rank",
+  "Avg_Rank_axis": "Fifth group on the same primary vertical axis; also retained in sorted horizontal chart"
+}

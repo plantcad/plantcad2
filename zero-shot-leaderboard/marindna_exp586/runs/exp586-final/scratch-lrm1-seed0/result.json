@@ -1,0 +1,2120 @@
+{
+  "schema": 1,
+  "preparation": "/tmp/exp586-postprocess-r90r2fpt/inputs/preparation.json",
+  "profiles": {
+    "context-8192": {
+      "tasks": {
+        "sequence_length": 8192,
+        "rows": [
+          {
+            "key": "conservation_andropogoneae",
+            "category": "Conservation",
+            "task": "Andropogoneae, genome-wide",
+            "metric": "auroc",
+            "samples": 38060,
+            "natural": 0.7391171405936198,
+            "natural_context": "right_reverse_complement",
+            "left": 0.7370852008154838,
+            "reverse_complement": 0.7391171405936198,
+            "bidirectional_poe": 0.7554531454469793
+          },
+          {
+            "key": "conservation_poaceae_non_tis",
+            "category": "Conservation",
+            "task": "Poaceae, non-TIS CDS",
+            "metric": "auroc",
+            "samples": 183685,
+            "natural": 0.7243834732504792,
+            "natural_context": "right_reverse_complement",
+            "left": 0.7227539728741278,
+            "reverse_complement": 0.7243834732504792,
+            "bidirectional_poe": 0.7780223991785926
+          },
+          {
+            "key": "conservation_poaceae_tis",
+            "category": "Conservation",
+            "task": "Poaceae, TIS CDS",
+            "metric": "auroc",
+            "samples": 36662,
+            "natural": 0.6240682550545349,
+            "natural_context": "right_reverse_complement",
+            "left": 0.5033712059599775,
+            "reverse_complement": 0.6240682550545349,
+            "bidirectional_poe": 0.612794642676443
+          },
+          {
+            "key": "motif_maize_tis",
+            "category": "Masked motif",
+            "task": "Maize TIS (start)",
+            "metric": "motif_accuracy",
+            "samples": 39035,
+            "natural": 0.5419239144357628,
+            "natural_context": "right_reverse_complement",
+            "left": 0.13257333162546434,
+            "reverse_complement": 0.5419239144357628,
+            "bidirectional_poe": 0.5380299731010632
+          },
+          {
+            "key": "motif_maize_tts",
+            "category": "Masked motif",
+            "task": "Maize TTS (stop)",
+            "metric": "motif_accuracy",
+            "samples": 39035,
+            "natural": 0.43568592288971436,
+            "natural_context": "left",
+            "left": 0.43568592288971436,
+            "reverse_complement": 0.11220699372358141,
+            "bidirectional_poe": 0.46471115665428464
+          },
+          {
+            "key": "motif_maize_donor",
+            "category": "Masked motif",
+            "task": "Maize splice donor",
+            "metric": "motif_accuracy",
+            "samples": 153869,
+            "natural": 0.8278470647108904,
+            "natural_context": "left",
+            "left": 0.8278470647108904,
+            "reverse_complement": 0.39889776368209323,
+            "bidirectional_poe": 0.8479550786708174
+          },
+          {
+            "key": "motif_maize_acceptor",
+            "category": "Masked motif",
+            "task": "Maize splice acceptor",
+            "metric": "motif_accuracy",
+            "samples": 153869,
+            "natural": 0.8291598697593408,
+            "natural_context": "right_reverse_complement",
+            "left": 0.40609869434388995,
+            "reverse_complement": 0.8291598697593408,
+            "bidirectional_poe": 0.8496123325686136
+          },
+          {
+            "key": "motif_tomato_tis",
+            "category": "Masked motif",
+            "task": "Tomato TIS (start)",
+            "metric": "motif_accuracy",
+            "samples": 35484,
+            "natural": 0.39969557741635425,
+            "natural_context": "right_reverse_complement",
+            "left": 0.07204667812949235,
+            "reverse_complement": 0.39969557741635425,
+            "bidirectional_poe": 0.3637568001803986
+          },
+          {
+            "key": "motif_tomato_tts",
+            "category": "Masked motif",
+            "task": "Tomato TTS (stop)",
+            "metric": "motif_accuracy",
+            "samples": 35483,
+            "natural": 0.2117829457364341,
+            "natural_context": "left",
+            "left": 0.2117829457364341,
+            "reverse_complement": 0.05006342494714588,
+            "bidirectional_poe": 0.2159830866807611
+          },
+          {
+            "key": "motif_tomato_donor",
+            "category": "Masked motif",
+            "task": "Tomato splice donor",
+            "metric": "motif_accuracy",
+            "samples": 140456,
+            "natural": 0.7044449665719718,
+            "natural_context": "left",
+            "left": 0.7044449665719718,
+            "reverse_complement": 0.22077450498750453,
+            "bidirectional_poe": 0.7138361421420993
+          },
+          {
+            "key": "motif_tomato_acceptor",
+            "category": "Masked motif",
+            "task": "Tomato splice acceptor",
+            "metric": "motif_accuracy",
+            "samples": 140455,
+            "natural": 0.6984286334735957,
+            "natural_context": "right_reverse_complement",
+            "left": 0.2518885589992239,
+            "reverse_complement": 0.6984286334735957,
+            "bidirectional_poe": 0.7097849071918321
+          },
+          {
+            "key": "core_maize_tis",
+            "category": "Core/non-core",
+            "task": "Maize TIS (start)",
+            "metric": "auroc",
+            "samples": 36409,
+            "natural": 0.6067664343566099,
+            "natural_context": "right_reverse_complement",
+            "left": 0.33935793411744997,
+            "reverse_complement": 0.6067664343566099,
+            "bidirectional_poe": 0.5301365670749711
+          },
+          {
+            "key": "core_maize_tts",
+            "category": "Core/non-core",
+            "task": "Maize TTS (stop)",
+            "metric": "auroc",
+            "samples": 36409,
+            "natural": 0.6250584663391116,
+            "natural_context": "left",
+            "left": 0.6250584663391116,
+            "reverse_complement": 0.3429507157465976,
+            "bidirectional_poe": 0.5641566549469692
+          },
+          {
+            "key": "core_maize_donor",
+            "category": "Core/non-core",
+            "task": "Maize splice donor",
+            "metric": "auroc",
+            "samples": 144550,
+            "natural": 0.7350471005909144,
+            "natural_context": "left",
+            "left": 0.7350471005909144,
+            "reverse_complement": 0.5153368696240171,
+            "bidirectional_poe": 0.6866947287275773
+          },
+          {
+            "key": "core_maize_acceptor",
+            "category": "Core/non-core",
+            "task": "Maize splice acceptor",
+            "metric": "auroc",
+            "samples": 144550,
+            "natural": 0.7789770595572402,
+            "natural_context": "right_reverse_complement",
+            "left": 0.5009067849954304,
+            "reverse_complement": 0.7789770595572402,
+            "bidirectional_poe": 0.7074800591233645
+          },
+          {
+            "key": "core_tomato_tis",
+            "category": "Core/non-core",
+            "task": "Tomato TIS (start)",
+            "metric": "auroc",
+            "samples": 35478,
+            "natural": 0.6158724126246209,
+            "natural_context": "right_reverse_complement",
+            "left": 0.44483176926141654,
+            "reverse_complement": 0.6158724126246209,
+            "bidirectional_poe": 0.5893014922116507
+          },
+          {
+            "key": "core_tomato_tts",
+            "category": "Core/non-core",
+            "task": "Tomato TTS (stop)",
+            "metric": "auroc",
+            "samples": 35477,
+            "natural": 0.6186392039473554,
+            "natural_context": "left",
+            "left": 0.6186392039473554,
+            "reverse_complement": 0.4276953701650264,
+            "bidirectional_poe": 0.5945286011239224
+          },
+          {
+            "key": "core_tomato_donor",
+            "category": "Core/non-core",
+            "task": "Tomato splice donor",
+            "metric": "auroc",
+            "samples": 140451,
+            "natural": 0.7512981432611503,
+            "natural_context": "left",
+            "left": 0.7512981432611503,
+            "reverse_complement": 0.5435099858615685,
+            "bidirectional_poe": 0.7411657102075014
+          },
+          {
+            "key": "core_tomato_acceptor",
+            "category": "Core/non-core",
+            "task": "Tomato splice acceptor",
+            "metric": "auroc",
+            "samples": 140451,
+            "natural": 0.7510729477788656,
+            "natural_context": "right_reverse_complement",
+            "left": 0.522126196472999,
+            "reverse_complement": 0.7510729477788656,
+            "bidirectional_poe": 0.7456655673054804
+          },
+          {
+            "key": "sv_impact",
+            "category": "Structural variant",
+            "task": "Impact prediction",
+            "metric": "auprc",
+            "samples": 18075,
+            "natural": 0.8558546271356129,
+            "natural_context": "left",
+            "left": 0.8558546271356129,
+            "reverse_complement": null,
+            "bidirectional_poe": null
+          }
+        ],
+        "tasks": {
+          "conservation_andropogoneae": {
+            "natural": {
+              "kind": "conservation",
+              "samples": 38060,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.7391171405936198,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.7370852008154838,
+                    "auprc": 0.7578735434746515
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.7391171405936198,
+                    "auprc": 0.7595397420484462
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 38060,
+              "primary_metric": "auroc",
+              "value": 0.7554531454469793,
+              "metrics": {
+                "auroc": 0.7554531454469793,
+                "auprc": 0.7728003965910726
+              }
+            }
+          },
+          "conservation_poaceae_non_tis": {
+            "natural": {
+              "kind": "conservation",
+              "samples": 183685,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.7243834732504792,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.7227539728741278,
+                    "auprc": 0.8106206821528451
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.7243834732504792,
+                    "auprc": 0.8123948669509796
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 183685,
+              "primary_metric": "auroc",
+              "value": 0.7780223991785926,
+              "metrics": {
+                "auroc": 0.7780223991785926,
+                "auprc": 0.8440019188380053
+              }
+            }
+          },
+          "conservation_poaceae_tis": {
+            "natural": {
+              "kind": "conservation",
+              "samples": 36662,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.6240682550545349,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.5033712059599775,
+                    "auprc": 0.7470619406178356
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.6240682550545349,
+                    "auprc": 0.8276986058076258
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 36662,
+              "primary_metric": "auroc",
+              "value": 0.612794642676443,
+              "metrics": {
+                "auroc": 0.612794642676443,
+                "auprc": 0.8208209064471188
+              }
+            }
+          },
+          "motif_maize_tis": {
+            "natural": {
+              "kind": "motif",
+              "samples": 39035,
+              "primary_metric": "motif_accuracy",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.5419239144357628,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.4041757397207634,
+                    "motif_accuracy": 0.13257333162546434
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.7333247939883011,
+                    "motif_accuracy": 0.5419239144357628
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 39035,
+              "primary_metric": "motif_accuracy",
+              "value": 0.5380299731010632,
+              "metrics": {
+                "token_accuracy": 0.7343836727722983,
+                "motif_accuracy": 0.5380299731010632
+              }
+            }
+          },
+          "motif_maize_tts": {
+            "natural": {
+              "kind": "motif",
+              "samples": 39035,
+              "primary_metric": "motif_accuracy",
+              "best_context": "left",
+              "best_value": 0.43568592288971436,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.6708253276973656,
+                    "motif_accuracy": 0.43568592288971436
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.398915503180906,
+                    "motif_accuracy": 0.11220699372358141
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 39035,
+              "primary_metric": "motif_accuracy",
+              "value": 0.46471115665428464,
+              "metrics": {
+                "token_accuracy": 0.700397079543999,
+                "motif_accuracy": 0.46471115665428464
+              }
+            }
+          },
+          "motif_maize_donor": {
+            "natural": {
+              "kind": "motif",
+              "samples": 153869,
+              "primary_metric": "motif_accuracy",
+              "best_context": "left",
+              "best_value": 0.8278470647108904,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.880622477562082,
+                    "motif_accuracy": 0.8278470647108904
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.6076305168682451,
+                    "motif_accuracy": 0.39889776368209323
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 153869,
+              "primary_metric": "motif_accuracy",
+              "value": 0.8479550786708174,
+              "metrics": {
+                "token_accuracy": 0.9002560619747968,
+                "motif_accuracy": 0.8479550786708174
+              }
+            }
+          },
+          "motif_maize_acceptor": {
+            "natural": {
+              "kind": "motif",
+              "samples": 153869,
+              "primary_metric": "motif_accuracy",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.8291598697593408,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.546822296888912,
+                    "motif_accuracy": 0.40609869434388995
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.8745556284891693,
+                    "motif_accuracy": 0.8291598697593408
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 153869,
+              "primary_metric": "motif_accuracy",
+              "value": 0.8496123325686136,
+              "metrics": {
+                "token_accuracy": 0.8909689411122448,
+                "motif_accuracy": 0.8496123325686136
+              }
+            }
+          },
+          "motif_tomato_tis": {
+            "natural": {
+              "kind": "motif",
+              "samples": 35484,
+              "primary_metric": "motif_accuracy",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.39969557741635425,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.3758044967256396,
+                    "motif_accuracy": 0.07204667812949235
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.6579914124378717,
+                    "motif_accuracy": 0.39969557741635425
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 35484,
+              "primary_metric": "motif_accuracy",
+              "value": 0.3637568001803986,
+              "metrics": {
+                "token_accuracy": 0.6464254507530559,
+                "motif_accuracy": 0.3637568001803986
+              }
+            }
+          },
+          "motif_tomato_tts": {
+            "natural": {
+              "kind": "motif",
+              "samples": 35483,
+              "primary_metric": "motif_accuracy",
+              "best_context": "left",
+              "best_value": 0.2117829457364341,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.5103262299394896,
+                    "motif_accuracy": 0.2117829457364341
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.3783402863907994,
+                    "motif_accuracy": 0.05006342494714588
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 35483,
+              "primary_metric": "motif_accuracy",
+              "value": 0.2159830866807611,
+              "metrics": {
+                "token_accuracy": 0.5433720449505769,
+                "motif_accuracy": 0.2159830866807611
+              }
+            }
+          },
+          "motif_tomato_donor": {
+            "natural": {
+              "kind": "motif",
+              "samples": 140456,
+              "primary_metric": "motif_accuracy",
+              "best_context": "left",
+              "best_value": 0.7044449665719718,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.7861389381350079,
+                    "motif_accuracy": 0.7044449665719718
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.46534378537710663,
+                    "motif_accuracy": 0.22077450498750453
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 140456,
+              "primary_metric": "motif_accuracy",
+              "value": 0.7138361421420993,
+              "metrics": {
+                "token_accuracy": 0.8015001673181394,
+                "motif_accuracy": 0.7138361421420993
+              }
+            }
+          },
+          "motif_tomato_acceptor": {
+            "natural": {
+              "kind": "motif",
+              "samples": 140455,
+              "primary_metric": "motif_accuracy",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.6984286334735957,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.3835180952787805,
+                    "motif_accuracy": 0.2518885589992239
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.7753914176474358,
+                    "motif_accuracy": 0.6984286334735957
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 140455,
+              "primary_metric": "motif_accuracy",
+              "value": 0.7097849071918321,
+              "metrics": {
+                "token_accuracy": 0.7828566546340004,
+                "motif_accuracy": 0.7097849071918321
+              }
+            }
+          },
+          "core_maize_tis": {
+            "natural": {
+              "kind": "core",
+              "samples": 36409,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.6067664343566099,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.33935793411744997,
+                    "auprc": 0.6792304733179567
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.6067664343566099,
+                    "auprc": 0.8293969802197991
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 36409,
+              "primary_metric": "auroc",
+              "value": 0.5301365670749711,
+              "metrics": {
+                "auroc": 0.5301365670749711,
+                "auprc": 0.7569951412880938
+              }
+            }
+          },
+          "core_maize_tts": {
+            "natural": {
+              "kind": "core",
+              "samples": 36409,
+              "primary_metric": "auroc",
+              "best_context": "left",
+              "best_value": 0.6250584663391116,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.6250584663391116,
+                    "auprc": 0.8104743127863936
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.3429507157465976,
+                    "auprc": 0.6749835646061586
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 36409,
+              "primary_metric": "auroc",
+              "value": 0.5641566549469692,
+              "metrics": {
+                "auroc": 0.5641566549469692,
+                "auprc": 0.7694517276710882
+              }
+            }
+          },
+          "core_maize_donor": {
+            "natural": {
+              "kind": "core",
+              "samples": 144550,
+              "primary_metric": "auroc",
+              "best_context": "left",
+              "best_value": 0.7350471005909144,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.7350471005909144,
+                    "auprc": 0.938151890244583
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.5153368696240171,
+                    "auprc": 0.8312148311789609
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 144550,
+              "primary_metric": "auroc",
+              "value": 0.6866947287275773,
+              "metrics": {
+                "auroc": 0.6866947287275773,
+                "auprc": 0.897678110745582
+              }
+            }
+          },
+          "core_maize_acceptor": {
+            "natural": {
+              "kind": "core",
+              "samples": 144550,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.7789770595572402,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.5009067849954304,
+                    "auprc": 0.8239607747343148
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.7789770595572402,
+                    "auprc": 0.9551562635349173
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 144550,
+              "primary_metric": "auroc",
+              "value": 0.7074800591233645,
+              "metrics": {
+                "auroc": 0.7074800591233645,
+                "auprc": 0.9096932166360101
+              }
+            }
+          },
+          "core_tomato_tis": {
+            "natural": {
+              "kind": "core",
+              "samples": 35478,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.6158724126246209,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.44483176926141654,
+                    "auprc": 0.8082322714030623
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.6158724126246209,
+                    "auprc": 0.8923510623841204
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 35478,
+              "primary_metric": "auroc",
+              "value": 0.5893014922116507,
+              "metrics": {
+                "auroc": 0.5893014922116507,
+                "auprc": 0.8742143475610961
+              }
+            }
+          },
+          "core_tomato_tts": {
+            "natural": {
+              "kind": "core",
+              "samples": 35477,
+              "primary_metric": "auroc",
+              "best_context": "left",
+              "best_value": 0.6186392039473554,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.6186392039473554,
+                    "auprc": 0.8841129167318746
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.4276953701650264,
+                    "auprc": 0.795368529139026
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 35477,
+              "primary_metric": "auroc",
+              "value": 0.5945286011239224,
+              "metrics": {
+                "auroc": 0.5945286011239224,
+                "auprc": 0.8725409525763745
+              }
+            }
+          },
+          "core_tomato_donor": {
+            "natural": {
+              "kind": "core",
+              "samples": 140451,
+              "primary_metric": "auroc",
+              "best_context": "left",
+              "best_value": 0.7512981432611503,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.7512981432611503,
+                    "auprc": 0.9784113956384735
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.5435099858615685,
+                    "auprc": 0.9402756671778972
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 140451,
+              "primary_metric": "auroc",
+              "value": 0.7411657102075014,
+              "metrics": {
+                "auroc": 0.7411657102075014,
+                "auprc": 0.9763107754522798
+              }
+            }
+          },
+          "core_tomato_acceptor": {
+            "natural": {
+              "kind": "core",
+              "samples": 140451,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.7510729477788656,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.522126196472999,
+                    "auprc": 0.9406560565443769
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.7510729477788656,
+                    "auprc": 0.9798343933425465
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 140451,
+              "primary_metric": "auroc",
+              "value": 0.7456655673054804,
+              "metrics": {
+                "auroc": 0.7456655673054804,
+                "auprc": 0.9785151518023467
+              }
+            }
+          },
+          "sv_impact": {
+            "natural": {
+              "kind": "sv",
+              "samples": 18075,
+              "primary_metric": "auprc",
+              "best_context": "left",
+              "best_value": 0.8558546271356129,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auprc": 0.8558546271356129
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": null
+          }
+        },
+        "groups": {
+          "natural": {
+            "Conservation": 0.695856289632878,
+            "Masked motif": 0.5811211118742581,
+            "Core/non-core": 0.6853414710569836,
+            "Structural variant": 0.8558546271356129,
+            "Composite": 0.7045433749249331
+          },
+          "bidirectional_poe": {
+            "Conservation": 0.7154233957673384,
+            "Masked motif": 0.5879586846487337,
+            "Core/non-core": 0.6448911725901796,
+            "Composite": 0.6494244176687506
+          }
+        }
+      },
+      "allele_frequency": {
+        "rows": 94075,
+        "scores": {
+          "llr_acgt_avg": {
+            "overall": {
+              "pearson": 0.13147713587032583,
+              "spearman": 0.13714564374412616
+            },
+            "by_consequence": {
+              "3_prime_UTR_variant": {
+                "pearson": 0.06910880519555426,
+                "spearman": 0.046561101998557876
+              },
+              "5_prime_UTR_variant": {
+                "pearson": 0.16539103309531852,
+                "spearman": 0.1485341907290914
+              },
+              "downstream_gene_variant": {
+                "pearson": 0.10640083936153776,
+                "spearman": 0.09270376695945631
+              },
+              "grouped_splice_region": {
+                "pearson": 0.10486665302759024,
+                "spearman": 0.1149449030049662
+              },
+              "grouped_start_stop": {
+                "pearson": 0.214741960814825,
+                "spearman": 0.2663816910936509
+              },
+              "intergenic_variant": {
+                "pearson": 0.1023855383791224,
+                "spearman": 0.07899456560430067
+              },
+              "intron_variant": {
+                "pearson": 0.0697206158547251,
+                "spearman": 0.04328063843660354
+              },
+              "missense_variant": {
+                "pearson": 0.25976621761349467,
+                "spearman": 0.2660020074023034
+              },
+              "non_coding_transcript_exon_variant": {
+                "pearson": 0.1682120604658344,
+                "spearman": 0.1477919498855872
+              },
+              "synonymous_variant": {
+                "pearson": 0.23769866682912089,
+                "spearman": 0.20046785069854228
+              },
+              "upstream_gene_variant": {
+                "pearson": 0.1245501585331066,
+                "spearman": 0.10872187960154911
+              }
+            }
+          },
+          "llr_full_vocab_avg": {
+            "overall": {
+              "pearson": 0.13147707094256142,
+              "spearman": 0.13714545606799078
+            },
+            "by_consequence": {
+              "3_prime_UTR_variant": {
+                "pearson": 0.06910849135111392,
+                "spearman": 0.046560647403692125
+              },
+              "5_prime_UTR_variant": {
+                "pearson": 0.1653897372054755,
+                "spearman": 0.148532744740835
+              },
+              "downstream_gene_variant": {
+                "pearson": 0.10640182491779687,
+                "spearman": 0.09270713198755222
+              },
+              "grouped_splice_region": {
+                "pearson": 0.10486596661485124,
+                "spearman": 0.11494320001371346
+              },
+              "grouped_start_stop": {
+                "pearson": 0.21474342040673963,
+                "spearman": 0.26638690525191566
+              },
+              "intergenic_variant": {
+                "pearson": 0.10238434788010524,
+                "spearman": 0.07899400421505544
+              },
+              "intron_variant": {
+                "pearson": 0.06972069129323362,
+                "spearman": 0.04328113542184792
+              },
+              "missense_variant": {
+                "pearson": 0.25976662944827206,
+                "spearman": 0.26600278896139257
+              },
+              "non_coding_transcript_exon_variant": {
+                "pearson": 0.16821129357117043,
+                "spearman": 0.14779228262601166
+              },
+              "synonymous_variant": {
+                "pearson": 0.23769915932196853,
+                "spearman": 0.2004663820709053
+              },
+              "upstream_gene_variant": {
+                "pearson": 0.1245499360763241,
+                "spearman": 0.10871957959132396
+              }
+            }
+          },
+          "llr_target_poe": {
+            "overall": {
+              "pearson": 0.17271401878802176,
+              "spearman": 0.13457864282800186
+            },
+            "by_consequence": {
+              "3_prime_UTR_variant": {
+                "pearson": 0.07175433128928753,
+                "spearman": 0.036139800186146875
+              },
+              "5_prime_UTR_variant": {
+                "pearson": 0.18845829718177454,
+                "spearman": 0.16661861926312443
+              },
+              "downstream_gene_variant": {
+                "pearson": 0.08955466618543802,
+                "spearman": 0.052551161777874285
+              },
+              "grouped_splice_region": {
+                "pearson": 0.14417240437674458,
+                "spearman": 0.11107217761018426
+              },
+              "grouped_start_stop": {
+                "pearson": 0.3051529364537151,
+                "spearman": 0.27976062427454546
+              },
+              "intergenic_variant": {
+                "pearson": 0.1028789637758659,
+                "spearman": 0.0697212312268669
+              },
+              "intron_variant": {
+                "pearson": 0.055457671774490354,
+                "spearman": 0.02999742320179064
+              },
+              "missense_variant": {
+                "pearson": 0.32476364834350513,
+                "spearman": 0.27772709652007166
+              },
+              "non_coding_transcript_exon_variant": {
+                "pearson": 0.19148629038795562,
+                "spearman": 0.1655237774162077
+              },
+              "synonymous_variant": {
+                "pearson": 0.2705566916550341,
+                "spearman": 0.21261216061967256
+              },
+              "upstream_gene_variant": {
+                "pearson": 0.0959503736271617,
+                "spearman": 0.07094568822920483
+              }
+            }
+          }
+        },
+        "predictions": "af-predictions.parquet",
+        "natural_method": "mean forward/reverse-complement full causal suffix LLR",
+        "bidirectional_method": "equal-weight product at the variant target"
+      }
+    },
+    "context-2048": {
+      "tasks": {
+        "sequence_length": 2048,
+        "rows": [
+          {
+            "key": "conservation_andropogoneae",
+            "category": "Conservation",
+            "task": "Andropogoneae, genome-wide",
+            "metric": "auroc",
+            "samples": 38060,
+            "natural": 0.7305592823124922,
+            "natural_context": "right_reverse_complement",
+            "left": 0.7302210962639127,
+            "reverse_complement": 0.7305592823124922,
+            "bidirectional_poe": 0.7494546128316355
+          },
+          {
+            "key": "conservation_poaceae_non_tis",
+            "category": "Conservation",
+            "task": "Poaceae, non-TIS CDS",
+            "metric": "auroc",
+            "samples": 183685,
+            "natural": 0.7245054597800824,
+            "natural_context": "right_reverse_complement",
+            "left": 0.7224422960759536,
+            "reverse_complement": 0.7245054597800824,
+            "bidirectional_poe": 0.77796265958636
+          },
+          {
+            "key": "conservation_poaceae_tis",
+            "category": "Conservation",
+            "task": "Poaceae, TIS CDS",
+            "metric": "auroc",
+            "samples": 36662,
+            "natural": 0.6241736351650065,
+            "natural_context": "right_reverse_complement",
+            "left": 0.5273976312852344,
+            "reverse_complement": 0.6241736351650065,
+            "bidirectional_poe": 0.6224747807321646
+          },
+          {
+            "key": "motif_maize_tis",
+            "category": "Masked motif",
+            "task": "Maize TIS (start)",
+            "metric": "motif_accuracy",
+            "samples": 39035,
+            "natural": 0.5224542077622646,
+            "natural_context": "right_reverse_complement",
+            "left": 0.14074548482131422,
+            "reverse_complement": 0.5224542077622646,
+            "bidirectional_poe": 0.5319841168182401
+          },
+          {
+            "key": "motif_maize_tts",
+            "category": "Masked motif",
+            "task": "Maize TTS (stop)",
+            "metric": "motif_accuracy",
+            "samples": 39035,
+            "natural": 0.42210836428845905,
+            "natural_context": "left",
+            "left": 0.42210836428845905,
+            "reverse_complement": 0.10846676059946202,
+            "bidirectional_poe": 0.4481106699116178
+          },
+          {
+            "key": "motif_maize_donor",
+            "category": "Masked motif",
+            "task": "Maize splice donor",
+            "metric": "motif_accuracy",
+            "samples": 153869,
+            "natural": 0.8189888801512976,
+            "natural_context": "left",
+            "left": 0.8189888801512976,
+            "reverse_complement": 0.3737270015402713,
+            "bidirectional_poe": 0.8383235089589196
+          },
+          {
+            "key": "motif_maize_acceptor",
+            "category": "Masked motif",
+            "task": "Maize splice acceptor",
+            "metric": "motif_accuracy",
+            "samples": 153869,
+            "natural": 0.8217444709460645,
+            "natural_context": "right_reverse_complement",
+            "left": 0.38200027295946554,
+            "reverse_complement": 0.8217444709460645,
+            "bidirectional_poe": 0.8415405312311122
+          },
+          {
+            "key": "motif_tomato_tis",
+            "category": "Masked motif",
+            "task": "Tomato TIS (start)",
+            "metric": "motif_accuracy",
+            "samples": 35484,
+            "natural": 0.36919694449925305,
+            "natural_context": "right_reverse_complement",
+            "left": 0.07565464949121967,
+            "reverse_complement": 0.36919694449925305,
+            "bidirectional_poe": 0.34912760379964486
+          },
+          {
+            "key": "motif_tomato_tts",
+            "category": "Masked motif",
+            "task": "Tomato TTS (stop)",
+            "metric": "motif_accuracy",
+            "samples": 35483,
+            "natural": 0.19540521494009866,
+            "natural_context": "left",
+            "left": 0.19540521494009866,
+            "reverse_complement": 0.04152219873150106,
+            "bidirectional_poe": 0.19884425651867513
+          },
+          {
+            "key": "motif_tomato_donor",
+            "category": "Masked motif",
+            "task": "Tomato splice donor",
+            "metric": "motif_accuracy",
+            "samples": 140456,
+            "natural": 0.6908743974767001,
+            "natural_context": "left",
+            "left": 0.6908743974767001,
+            "reverse_complement": 0.21085645527621732,
+            "bidirectional_poe": 0.69979565827228
+          },
+          {
+            "key": "motif_tomato_acceptor",
+            "category": "Masked motif",
+            "task": "Tomato splice acceptor",
+            "metric": "motif_accuracy",
+            "samples": 140455,
+            "natural": 0.6845234280994795,
+            "natural_context": "right_reverse_complement",
+            "left": 0.232237577518138,
+            "reverse_complement": 0.6845234280994795,
+            "bidirectional_poe": 0.6945269168606845
+          },
+          {
+            "key": "core_maize_tis",
+            "category": "Core/non-core",
+            "task": "Maize TIS (start)",
+            "metric": "auroc",
+            "samples": 36409,
+            "natural": 0.6003583533430137,
+            "natural_context": "right_reverse_complement",
+            "left": 0.3933504438948297,
+            "reverse_complement": 0.6003583533430137,
+            "bidirectional_poe": 0.5366514791558178
+          },
+          {
+            "key": "core_maize_tts",
+            "category": "Core/non-core",
+            "task": "Maize TTS (stop)",
+            "metric": "auroc",
+            "samples": 36409,
+            "natural": 0.6262490587540956,
+            "natural_context": "left",
+            "left": 0.6262490587540956,
+            "reverse_complement": 0.3478199556610686,
+            "bidirectional_poe": 0.5641219306592505
+          },
+          {
+            "key": "core_maize_donor",
+            "category": "Core/non-core",
+            "task": "Maize splice donor",
+            "metric": "auroc",
+            "samples": 144550,
+            "natural": 0.7065391484614839,
+            "natural_context": "left",
+            "left": 0.7065391484614839,
+            "reverse_complement": 0.5109929508319311,
+            "bidirectional_poe": 0.6637713376879151
+          },
+          {
+            "key": "core_maize_acceptor",
+            "category": "Core/non-core",
+            "task": "Maize splice acceptor",
+            "metric": "auroc",
+            "samples": 144550,
+            "natural": 0.7388625575808099,
+            "natural_context": "right_reverse_complement",
+            "left": 0.49708061924712715,
+            "reverse_complement": 0.7388625575808099,
+            "bidirectional_poe": 0.6751692310664777
+          },
+          {
+            "key": "core_tomato_tis",
+            "category": "Core/non-core",
+            "task": "Tomato TIS (start)",
+            "metric": "auroc",
+            "samples": 35478,
+            "natural": 0.6136409687452047,
+            "natural_context": "right_reverse_complement",
+            "left": 0.47695109146744297,
+            "reverse_complement": 0.6136409687452047,
+            "bidirectional_poe": 0.5958712375061781
+          },
+          {
+            "key": "core_tomato_tts",
+            "category": "Core/non-core",
+            "task": "Tomato TTS (stop)",
+            "metric": "auroc",
+            "samples": 35477,
+            "natural": 0.6215821815967556,
+            "natural_context": "left",
+            "left": 0.6215821815967556,
+            "reverse_complement": 0.4349376896359108,
+            "bidirectional_poe": 0.6024963517385388
+          },
+          {
+            "key": "core_tomato_donor",
+            "category": "Core/non-core",
+            "task": "Tomato splice donor",
+            "metric": "auroc",
+            "samples": 140451,
+            "natural": 0.7478147062728044,
+            "natural_context": "left",
+            "left": 0.7478147062728044,
+            "reverse_complement": 0.5519844894164734,
+            "bidirectional_poe": 0.7424311240601654
+          },
+          {
+            "key": "core_tomato_acceptor",
+            "category": "Core/non-core",
+            "task": "Tomato splice acceptor",
+            "metric": "auroc",
+            "samples": 140451,
+            "natural": 0.746257914925115,
+            "natural_context": "right_reverse_complement",
+            "left": 0.5275671804068987,
+            "reverse_complement": 0.746257914925115,
+            "bidirectional_poe": 0.744273642193088
+          }
+        ],
+        "tasks": {
+          "conservation_andropogoneae": {
+            "natural": {
+              "kind": "conservation",
+              "samples": 38060,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.7305592823124922,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.7302210962639127,
+                    "auprc": 0.7463650460958197
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.7305592823124922,
+                    "auprc": 0.7464462776144682
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 38060,
+              "primary_metric": "auroc",
+              "value": 0.7494546128316355,
+              "metrics": {
+                "auroc": 0.7494546128316355,
+                "auprc": 0.7610933965403832
+              }
+            }
+          },
+          "conservation_poaceae_non_tis": {
+            "natural": {
+              "kind": "conservation",
+              "samples": 183685,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.7245054597800824,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.7224422960759536,
+                    "auprc": 0.8101602940157795
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.7245054597800824,
+                    "auprc": 0.8116990034651537
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 183685,
+              "primary_metric": "auroc",
+              "value": 0.77796265958636,
+              "metrics": {
+                "auroc": 0.77796265958636,
+                "auprc": 0.8436334975073467
+              }
+            }
+          },
+          "conservation_poaceae_tis": {
+            "natural": {
+              "kind": "conservation",
+              "samples": 36662,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.6241736351650065,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.5273976312852344,
+                    "auprc": 0.7623909000312427
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.6241736351650065,
+                    "auprc": 0.8273157631275254
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 36662,
+              "primary_metric": "auroc",
+              "value": 0.6224747807321646,
+              "metrics": {
+                "auroc": 0.6224747807321646,
+                "auprc": 0.8252057901345141
+              }
+            }
+          },
+          "motif_maize_tis": {
+            "natural": {
+              "kind": "motif",
+              "samples": 39035,
+              "primary_metric": "motif_accuracy",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.5224542077622646,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.44082660859912043,
+                    "motif_accuracy": 0.14074548482131422
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.7214978011186542,
+                    "motif_accuracy": 0.5224542077622646
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 39035,
+              "primary_metric": "motif_accuracy",
+              "value": 0.5319841168182401,
+              "metrics": {
+                "token_accuracy": 0.7321805217539815,
+                "motif_accuracy": 0.5319841168182401
+              }
+            }
+          },
+          "motif_maize_tts": {
+            "natural": {
+              "kind": "motif",
+              "samples": 39035,
+              "primary_metric": "motif_accuracy",
+              "best_context": "left",
+              "best_value": 0.42210836428845905,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.6567610264292729,
+                    "motif_accuracy": 0.42210836428845905
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.39529482088723794,
+                    "motif_accuracy": 0.10846676059946202
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 39035,
+              "primary_metric": "motif_accuracy",
+              "value": 0.4481106699116178,
+              "metrics": {
+                "token_accuracy": 0.6874770505102259,
+                "motif_accuracy": 0.4481106699116178
+              }
+            }
+          },
+          "motif_maize_donor": {
+            "natural": {
+              "kind": "motif",
+              "samples": 153869,
+              "primary_metric": "motif_accuracy",
+              "best_context": "left",
+              "best_value": 0.8189888801512976,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.8729991096322196,
+                    "motif_accuracy": 0.8189888801512976
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.586417666976454,
+                    "motif_accuracy": 0.3737270015402713
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 153869,
+              "primary_metric": "motif_accuracy",
+              "value": 0.8383235089589196,
+              "metrics": {
+                "token_accuracy": 0.8924182258934549,
+                "motif_accuracy": 0.8383235089589196
+              }
+            }
+          },
+          "motif_maize_acceptor": {
+            "natural": {
+              "kind": "motif",
+              "samples": 153869,
+              "primary_metric": "motif_accuracy",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.8217444709460645,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.5229740883478804,
+                    "motif_accuracy": 0.38200027295946554
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.8691809266323951,
+                    "motif_accuracy": 0.8217444709460645
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 153869,
+              "primary_metric": "motif_accuracy",
+              "value": 0.8415405312311122,
+              "metrics": {
+                "token_accuracy": 0.8850873145337917,
+                "motif_accuracy": 0.8415405312311122
+              }
+            }
+          },
+          "motif_tomato_tis": {
+            "natural": {
+              "kind": "motif",
+              "samples": 35484,
+              "primary_metric": "motif_accuracy",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.36919694449925305,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.39493390207924234,
+                    "motif_accuracy": 0.07565464949121967
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.6379694267755301,
+                    "motif_accuracy": 0.36919694449925305
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 35484,
+              "primary_metric": "motif_accuracy",
+              "value": 0.34912760379964486,
+              "metrics": {
+                "token_accuracy": 0.6337414147867673,
+                "motif_accuracy": 0.34912760379964486
+              }
+            }
+          },
+          "motif_tomato_tts": {
+            "natural": {
+              "kind": "motif",
+              "samples": 35483,
+              "primary_metric": "motif_accuracy",
+              "best_context": "left",
+              "best_value": 0.19540521494009866,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.4906133724207915,
+                    "motif_accuracy": 0.19540521494009866
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.37187582215206527,
+                    "motif_accuracy": 0.04152219873150106
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 35483,
+              "primary_metric": "motif_accuracy",
+              "value": 0.19884425651867513,
+              "metrics": {
+                "token_accuracy": 0.5221746157026347,
+                "motif_accuracy": 0.19884425651867513
+              }
+            }
+          },
+          "motif_tomato_donor": {
+            "natural": {
+              "kind": "motif",
+              "samples": 140456,
+              "primary_metric": "motif_accuracy",
+              "best_context": "left",
+              "best_value": 0.6908743974767001,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.7749108229916484,
+                    "motif_accuracy": 0.6908743974767001
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.45454286548333583,
+                    "motif_accuracy": 0.21085645527621732
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 140456,
+              "primary_metric": "motif_accuracy",
+              "value": 0.69979565827228,
+              "metrics": {
+                "token_accuracy": 0.7898092573210586,
+                "motif_accuracy": 0.69979565827228
+              }
+            }
+          },
+          "motif_tomato_acceptor": {
+            "natural": {
+              "kind": "motif",
+              "samples": 140455,
+              "primary_metric": "motif_accuracy",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.6845234280994795,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "token_accuracy": 0.3682102655018476,
+                    "motif_accuracy": 0.232237577518138
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "token_accuracy": 0.7646866166848225,
+                    "motif_accuracy": 0.6845234280994795
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 140455,
+              "primary_metric": "motif_accuracy",
+              "value": 0.6945269168606845,
+              "metrics": {
+                "token_accuracy": 0.7711977842806388,
+                "motif_accuracy": 0.6945269168606845
+              }
+            }
+          },
+          "core_maize_tis": {
+            "natural": {
+              "kind": "core",
+              "samples": 36409,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.6003583533430137,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.3933504438948297,
+                    "auprc": 0.6988637882582741
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.6003583533430137,
+                    "auprc": 0.820945857877493
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 36409,
+              "primary_metric": "auroc",
+              "value": 0.5366514791558178,
+              "metrics": {
+                "auroc": 0.5366514791558178,
+                "auprc": 0.7589215345027276
+              }
+            }
+          },
+          "core_maize_tts": {
+            "natural": {
+              "kind": "core",
+              "samples": 36409,
+              "primary_metric": "auroc",
+              "best_context": "left",
+              "best_value": 0.6262490587540956,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.6262490587540956,
+                    "auprc": 0.809545764136945
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.3478199556610686,
+                    "auprc": 0.6768996474037327
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 36409,
+              "primary_metric": "auroc",
+              "value": 0.5641219306592505,
+              "metrics": {
+                "auroc": 0.5641219306592505,
+                "auprc": 0.7696023122657341
+              }
+            }
+          },
+          "core_maize_donor": {
+            "natural": {
+              "kind": "core",
+              "samples": 144550,
+              "primary_metric": "auroc",
+              "best_context": "left",
+              "best_value": 0.7065391484614839,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.7065391484614839,
+                    "auprc": 0.9243297977913595
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.5109929508319311,
+                    "auprc": 0.8308364622489703
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 144550,
+              "primary_metric": "auroc",
+              "value": 0.6637713376879151,
+              "metrics": {
+                "auroc": 0.6637713376879151,
+                "auprc": 0.8882524833749881
+              }
+            }
+          },
+          "core_maize_acceptor": {
+            "natural": {
+              "kind": "core",
+              "samples": 144550,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.7388625575808099,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.49708061924712715,
+                    "auprc": 0.8236478633695901
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.7388625575808099,
+                    "auprc": 0.938543838654329
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 144550,
+              "primary_metric": "auroc",
+              "value": 0.6751692310664777,
+              "metrics": {
+                "auroc": 0.6751692310664777,
+                "auprc": 0.896678008858803
+              }
+            }
+          },
+          "core_tomato_tis": {
+            "natural": {
+              "kind": "core",
+              "samples": 35478,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.6136409687452047,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.47695109146744297,
+                    "auprc": 0.8218970807034294
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.6136409687452047,
+                    "auprc": 0.8912775499451293
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 35478,
+              "primary_metric": "auroc",
+              "value": 0.5958712375061781,
+              "metrics": {
+                "auroc": 0.5958712375061781,
+                "auprc": 0.8778648385617109
+              }
+            }
+          },
+          "core_tomato_tts": {
+            "natural": {
+              "kind": "core",
+              "samples": 35477,
+              "primary_metric": "auroc",
+              "best_context": "left",
+              "best_value": 0.6215821815967556,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.6215821815967556,
+                    "auprc": 0.8893964145838364
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.4349376896359108,
+                    "auprc": 0.7992118693954979
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 35477,
+              "primary_metric": "auroc",
+              "value": 0.6024963517385388,
+              "metrics": {
+                "auroc": 0.6024963517385388,
+                "auprc": 0.8789068575690515
+              }
+            }
+          },
+          "core_tomato_donor": {
+            "natural": {
+              "kind": "core",
+              "samples": 140451,
+              "primary_metric": "auroc",
+              "best_context": "left",
+              "best_value": 0.7478147062728044,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.7478147062728044,
+                    "auprc": 0.977861467341065
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.5519844894164734,
+                    "auprc": 0.94299223854381
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 140451,
+              "primary_metric": "auroc",
+              "value": 0.7424311240601654,
+              "metrics": {
+                "auroc": 0.7424311240601654,
+                "auprc": 0.9765988745393268
+              }
+            }
+          },
+          "core_tomato_acceptor": {
+            "natural": {
+              "kind": "core",
+              "samples": 140451,
+              "primary_metric": "auroc",
+              "best_context": "right_reverse_complement",
+              "best_value": 0.746257914925115,
+              "contexts": {
+                "left": {
+                  "metrics": {
+                    "auroc": 0.5275671804068987,
+                    "auprc": 0.9426638126182594
+                  }
+                },
+                "right_reverse_complement": {
+                  "metrics": {
+                    "auroc": 0.746257914925115,
+                    "auprc": 0.9788656115272746
+                  }
+                }
+              }
+            },
+            "bidirectional_poe": {
+              "method": "equal-weight product of forward and aligned reverse-complement A/C/G/T probabilities",
+              "samples": 140451,
+              "primary_metric": "auroc",
+              "value": 0.744273642193088,
+              "metrics": {
+                "auroc": 0.744273642193088,
+                "auprc": 0.9780557421697852
+              }
+            }
+          }
+        },
+        "groups": {
+          "natural": {
+            "Conservation": 0.6930794590858603,
+            "Masked motif": 0.5656619885204521,
+            "Core/non-core": 0.6751631112099103,
+            "Composite": 0.644634852938741
+          },
+          "bidirectional_poe": {
+            "Conservation": 0.7166306843833867,
+            "Masked motif": 0.5752816577963967,
+            "Core/non-core": 0.640598291758429,
+            "Composite": 0.6441702113127376
+          }
+        }
+      },
+      "allele_frequency": {
+        "rows": 94075,
+        "scores": {
+          "llr_acgt_avg": {
+            "overall": {
+              "pearson": 0.13131491155930988,
+              "spearman": 0.14189999936244574
+            },
+            "by_consequence": {
+              "3_prime_UTR_variant": {
+                "pearson": 0.07805737914101697,
+                "spearman": 0.054505376934193196
+              },
+              "5_prime_UTR_variant": {
+                "pearson": 0.16553984817166473,
+                "spearman": 0.15374986128174684
+              },
+              "downstream_gene_variant": {
+                "pearson": 0.10464848830702685,
+                "spearman": 0.08547860593280586
+              },
+              "grouped_splice_region": {
+                "pearson": 0.10193526878254312,
+                "spearman": 0.11956976796868579
+              },
+              "grouped_start_stop": {
+                "pearson": 0.21602756544540816,
+                "spearman": 0.26534390061207347
+              },
+              "intergenic_variant": {
+                "pearson": 0.10781923425819431,
+                "spearman": 0.09816690167795515
+              },
+              "intron_variant": {
+                "pearson": 0.07473149644027581,
+                "spearman": 0.05443217189278282
+              },
+              "missense_variant": {
+                "pearson": 0.2621904017299376,
+                "spearman": 0.2711460964360311
+              },
+              "non_coding_transcript_exon_variant": {
+                "pearson": 0.1680975715342461,
+                "spearman": 0.15415260091884272
+              },
+              "synonymous_variant": {
+                "pearson": 0.23792267419378393,
+                "spearman": 0.1962095577090601
+              },
+              "upstream_gene_variant": {
+                "pearson": 0.12786237021487049,
+                "spearman": 0.11441234943214228
+              }
+            }
+          },
+          "llr_full_vocab_avg": {
+            "overall": {
+              "pearson": 0.1313145668799213,
+              "spearman": 0.14189936220933477
+            },
+            "by_consequence": {
+              "3_prime_UTR_variant": {
+                "pearson": 0.07805672040091508,
+                "spearman": 0.054503265347993886
+              },
+              "5_prime_UTR_variant": {
+                "pearson": 0.16553980944048963,
+                "spearman": 0.15375241956958285
+              },
+              "downstream_gene_variant": {
+                "pearson": 0.10464880910926018,
+                "spearman": 0.08547898608023086
+              },
+              "grouped_splice_region": {
+                "pearson": 0.1019341908381882,
+                "spearman": 0.1195667368199584
+              },
+              "grouped_start_stop": {
+                "pearson": 0.21602777580766694,
+                "spearman": 0.26534350178640986
+              },
+              "intergenic_variant": {
+                "pearson": 0.10781813615168903,
+                "spearman": 0.0981656679451078
+              },
+              "intron_variant": {
+                "pearson": 0.0747317766549205,
+                "spearman": 0.054430155717332625
+              },
+              "missense_variant": {
+                "pearson": 0.2621909999162193,
+                "spearman": 0.27114676261573384
+              },
+              "non_coding_transcript_exon_variant": {
+                "pearson": 0.16809744872676757,
+                "spearman": 0.15415087320573984
+              },
+              "synonymous_variant": {
+                "pearson": 0.23792243647130262,
+                "spearman": 0.19621034045402075
+              },
+              "upstream_gene_variant": {
+                "pearson": 0.12786080716448373,
+                "spearman": 0.11441196683631324
+              }
+            }
+          },
+          "llr_target_poe": {
+            "overall": {
+              "pearson": 0.1694711712884092,
+              "spearman": 0.1310046855043399
+            },
+            "by_consequence": {
+              "3_prime_UTR_variant": {
+                "pearson": 0.06898694640046617,
+                "spearman": 0.033717115735234456
+              },
+              "5_prime_UTR_variant": {
+                "pearson": 0.1872314648574079,
+                "spearman": 0.16662805734040592
+              },
+              "downstream_gene_variant": {
+                "pearson": 0.0833749732642681,
+                "spearman": 0.047954188437066
+              },
+              "grouped_splice_region": {
+                "pearson": 0.1355474658029738,
+                "spearman": 0.10395045874389637
+              },
+              "grouped_start_stop": {
+                "pearson": 0.3051655859983921,
+                "spearman": 0.2782628779758259
+              },
+              "intergenic_variant": {
+                "pearson": 0.09628179505378326,
+                "spearman": 0.06646146224805567
+              },
+              "intron_variant": {
+                "pearson": 0.05035822801445949,
+                "spearman": 0.026421199264149084
+              },
+              "missense_variant": {
+                "pearson": 0.3213317071423648,
+                "spearman": 0.275119868838062
+              },
+              "non_coding_transcript_exon_variant": {
+                "pearson": 0.18930685669685057,
+                "spearman": 0.16495084845137978
+              },
+              "synonymous_variant": {
+                "pearson": 0.2646438572781986,
+                "spearman": 0.20521695326699418
+              },
+              "upstream_gene_variant": {
+                "pearson": 0.09646788131103834,
+                "spearman": 0.06904226329411842
+              }
+            }
+          }
+        },
+        "predictions": "af-predictions.parquet",
+        "natural_method": "mean forward/reverse-complement full causal suffix LLR",
+        "bidirectional_method": "equal-weight product at the variant target"
+      }
+    }
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "rows": [
+    {
+      "family": "Conservation",
+      "metric": "AUROC",
+      "task_id": "conservation_andropogoneae",
+      "task": "Andropogoneae, genome-wide",
+      "216b": 0.9149659483366833,
+      "1t": 0.9096167320509779,
+      "delta_1t_minus_216b": -0.005349216285705394,
+      "winner": "216b"
+    },
+    {
+      "family": "Conservation",
+      "metric": "AUROC",
+      "task_id": "conservation_poaceae_non_tis",
+      "task": "Poaceae, non-TIS CDS",
+      "216b": 0.9114049188054206,
+      "1t": 0.9130128016066168,
+      "delta_1t_minus_216b": 0.0016078828011961699,
+      "winner": "1t"
+    },
+    {
+      "family": "Conservation",
+      "metric": "AUROC",
+      "task_id": "conservation_poaceae_tis",
+      "task": "Poaceae, TIS CDS",
+      "216b": 0.844837111701061,
+      "1t": 0.8462830974986704,
+      "delta_1t_minus_216b": 0.0014459857976093504,
+      "winner": "1t"
+    },
+    {
+      "family": "Motifs",
+      "metric": "Exact-match accuracy",
+      "task_id": "motif_maize_tis",
+      "task": "Maize TIS (start)",
+      "216b": 0.9739645858343338,
+      "1t": 0.9744897959183674,
+      "delta_1t_minus_216b": 0.0005252100840336116,
+      "winner": "1t"
+    },
+    {
+      "family": "Motifs",
+      "metric": "Exact-match accuracy",
+      "task_id": "motif_maize_tts",
+      "task": "Maize TTS (stop)",
+      "216b": 0.5651489010576851,
+      "1t": 0.5833770909909234,
+      "delta_1t_minus_216b": 0.01822818993323827,
+      "winner": "1t"
+    },
+    {
+      "family": "Motifs",
+      "metric": "Exact-match accuracy",
+      "task_id": "motif_maize_donor",
+      "task": "Maize splice donor",
+      "216b": 0.9852723768175609,
+      "1t": 0.986956603102719,
+      "delta_1t_minus_216b": 0.0016842262851581857,
+      "winner": "1t"
+    },
+    {
+      "family": "Motifs",
+      "metric": "Exact-match accuracy",
+      "task_id": "motif_maize_acceptor",
+      "task": "Maize splice acceptor",
+      "216b": 0.9987274020286708,
+      "1t": 0.998708687352622,
+      "delta_1t_minus_216b": -1.871467604885879e-05,
+      "winner": "216b"
+    },
+    {
+      "family": "Motifs",
+      "metric": "Exact-match accuracy",
+      "task_id": "motif_tomato_tis",
+      "task": "Tomato TIS (start)",
+      "216b": 0.967189085578983,
+      "1t": 0.9673018378622167,
+      "delta_1t_minus_216b": 0.000112752283233708,
+      "winner": "1t"
+    },
+    {
+      "family": "Motifs",
+      "metric": "Exact-match accuracy",
+      "task_id": "motif_tomato_tts",
+      "task": "Tomato TTS (stop)",
+      "216b": 0.46465100595706416,
+      "1t": 0.47173204450938516,
+      "delta_1t_minus_216b": 0.007081038552321006,
+      "winner": "1t"
+    },
+    {
+      "family": "Motifs",
+      "metric": "Exact-match accuracy",
+      "task_id": "motif_tomato_donor",
+      "task": "Tomato splice donor",
+      "216b": 0.963210323749151,
+      "1t": 0.9625028299750962,
+      "delta_1t_minus_216b": -0.0007074937740548792,
+      "winner": "216b"
+    },
+    {
+      "family": "Motifs",
+      "metric": "Exact-match accuracy",
+      "task_id": "motif_tomato_acceptor",
+      "task": "Tomato splice acceptor",
+      "216b": 0.9743930733970912,
+      "1t": 0.9741950087714334,
+      "delta_1t_minus_216b": -0.00019806462565785665,
+      "winner": "216b"
+    },
+    {
+      "family": "Core/non-core",
+      "metric": "AUROC",
+      "task_id": "core_maize_tis",
+      "task": "Maize TIS (start)",
+      "216b": 0.9608224731570942,
+      "1t": 0.9564751654517096,
+      "delta_1t_minus_216b": -0.0043473077053846065,
+      "winner": "216b"
+    },
+    {
+      "family": "Core/non-core",
+      "metric": "AUROC",
+      "task_id": "core_maize_tts",
+      "task": "Maize TTS (stop)",
+      "216b": 0.9565782417133537,
+      "1t": 0.9495383903634083,
+      "delta_1t_minus_216b": -0.007039851349945447,
+      "winner": "216b"
+    },
+    {
+      "family": "Core/non-core",
+      "metric": "AUROC",
+      "task_id": "core_maize_donor",
+      "task": "Maize splice donor",
+      "216b": 0.9738153061756758,
+      "1t": 0.9708911336979441,
+      "delta_1t_minus_216b": -0.00292417247773169,
+      "winner": "216b"
+    },
+    {
+      "family": "Core/non-core",
+      "metric": "AUROC",
+      "task_id": "core_maize_acceptor",
+      "task": "Maize splice acceptor",
+      "216b": 0.9744876636855229,
+      "1t": 0.9693341707220116,
+      "delta_1t_minus_216b": -0.005153492963511308,
+      "winner": "216b"
+    },
+    {
+      "family": "Core/non-core",
+      "metric": "AUROC",
+      "task_id": "core_tomato_tis",
+      "task": "Tomato TIS (start)",
+      "216b": 0.8416600915839896,
+      "1t": 0.829696590749829,
+      "delta_1t_minus_216b": -0.011963500834160534,
+      "winner": "216b"
+    },
+    {
+      "family": "Core/non-core",
+      "metric": "AUROC",
+      "task_id": "core_tomato_tts",
+      "task": "Tomato TTS (stop)",
+      "216b": 0.8552823121032592,
+      "1t": 0.8488988399169594,
+      "delta_1t_minus_216b": -0.006383472186299866,
+      "winner": "216b"
+    },
+    {
+      "family": "Core/non-core",
+      "metric": "AUROC",
+      "task_id": "core_tomato_donor",
+      "task": "Tomato splice donor",
+      "216b": 0.8709337682759238,
+      "1t": 0.8658086843982731,
+      "delta_1t_minus_216b": -0.00512508387765076,
+      "winner": "216b"
+    },
+    {
+      "family": "Core/non-core",
+      "metric": "AUROC",
+      "task_id": "core_tomato_acceptor",
+      "task": "Tomato splice acceptor",
+      "216b": 0.8705762136084872,
+      "1t": 0.8705489766816166,
+      "delta_1t_minus_216b": -2.7236926870677358e-05,
+      "winner": "216b"
+    },
+    {
+      "family": "SV impact",
+      "metric": "Average precision",
+      "task_id": "sv_impact",
+      "task": "Impact prediction",
+      "216b": 0.9367569338854964,
+      "1t": 0.9411080566331625,
+      "delta_1t_minus_216b": 0.004351122747666136,
+      "winner": "1t"
+    },
+    {
+      "family": "Allele frequency",
+      "metric": "Spearman correlation",
+      "task_id": "af",
+      "task": "Alternate-allele frequency",
+      "216b": 0.18852680714157333,
+      "1t": 0.19271995089663327,
+      "delta_1t_minus_216b": 0.0041931437550599415,
+      "winner": "1t"
+    }
+  ],
+  "precision": 5,
+  "difference": "1T \u2212 216B, native metric units",
+  "color": "Winning model only; no magnitude encoding",
+  "source_sha256": {
+    "native-task-scores.json": "c342f2ff0327ee51a25afe0322fba80e7ade1e74d21eda1153c6be609a61c14d",
+    "marin-summaries.json": "bab13e314f078a48727d33ab2cf1579b5e13e2ce7b95cd707502a44d4c855fb7",
+    "benchmark-comparison-data.json": "4cb7e31103e17f974c7b2c9524a11ea2d9a10231f9164a2dc289ecef46740641"
+  },
+  "validated": "21 unique tasks, family means match displayed bars, unrounded task wins match summary; no false visible ties"
+}

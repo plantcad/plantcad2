@@ -1,0 +1,146 @@
+The text-pretrained 1T-token MarinMoE model has trained for ~46.3 DNA epochs, with ~1.5B total parameters, ~60M active per token, and a heuristic dense-equivalent size of √(1.5B × 60M) ≈ 300M parameters.[^dense-equivalent]  That 300M estimate is most comparable in size to **PlantCAD2-Medium** (311M parameters).  It is compared below to the previous 216B-token MoE model of the same size that was trained for 10 epochs.
+
+Overall, the 1T model greatly outperforms all other MarinDNA models (dense or sparse) on matched validation loss samples.  It also outperforms all other Marin models on tasks most directly related to next token prediction like conservation estimation and splicing/start/stop motif recognition.  It saturates or regresses on all other zero-shot tasks though, particularly SV prediction (similar to PlantCAD2.5):
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/834a7094a9709fe25c3af105dca84330602b8c55/.agents/artifacts/exp586-dashboard-ranks/figures/benchmark-comparison.png" alt="Zero-shot comparison of eight models. Top: Conservation, Motifs, Core/non-core, SV impact and Avg Rank are grouped together on one Metric score (×100) or percentile rank axis with a marked break and a value on every bar. Task-family AUROC, accuracy and average precision are multiplied by 100 for display; Avg Rank is already a percentile. Bottom: sorted Conservation AUROC, SV average precision and Avg Rank retain their existing native scales and marked horizontal breaks. Avg Rank uses the dashboard's average one-based percentile ranks against the fixed 11-model baseline reference, with each of 20 tasks weighted 5%: Conservation 15%, Motifs 40%, Core/non-core 40% and SV impact 5%." />
+</p>
+
+_Top: AUROC, accuracy and average precision ×100; Avg Rank is a percentile. Higher is better._
+
+Avg Rank uses the leaderboard’s baseline scores and percentile calculation:[^rank-baselines] each of 20 tasks contributes 5%—Conservation 15%, Motifs 40%, Core/non-core 40% and SV impact 5%; AF is excluded.[^rank-weighting]
+
+---
+
+Comparing linear probes on these tasks show that both the 1T and 216B token MoE models converge to roughly equivalent performance, indicating little to no gains from ~4.5x as much compute:
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/0fad866b0dbf715eb49502a8720e7b6a09b7cda7/.agents/artifacts/exp586-rank-composites/figures/loss-comparison.png" alt="Linear probe PlantCAD2 benchmark. Three top-row facets: native family-average scores multiplied by 100; paired bars for family-balanced and pooled task win rates; and one colored tile per task as the detailed breakdown. Family-balanced wins give the five families equal weight; pooled wins give all 21 tasks equal weight. Gold is 216B and plum is 1T. Motif and core/non-core grids use explicit Maize and Tomato row headers with start codon, stop codon, splice donor and splice acceptor columns. Conservation distinguishes sorghum sequences scored for Andropogoneae conservation from Pharus sequences scored for Poaceae conservation. SV uses Arabidopsis and AF uses maize in separate aligned rows. Tile colors show the higher score, regardless of margin. Bottom: unchanged training and validation loss curves, followed by matched final loss versus family-balanced probe win rate (left, solid circles) and Conservation AUROC (right, dashed diamonds). Dense MarinDNA 1B rugs retain their matched losses and training-token labels." />
+</p>
+
+<details>
+<summary>Per-task probe scores</summary>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/probe-scorecard.png" alt="The 21 held-out probe task scores for the final 216B and 1T MoE models, grouped by Conservation, Motifs, Core/non-core, SV impact and Allele frequency. Columns show the two native scores and the signed difference, 1T minus 216B. The difference cell is gold when 216B wins and plum when 1T wins; color indicates the winner, not the margin. Five decimal places preserve the smallest observed differences." />
+</p>
+
+_Native metric units; Δ = 1T − 216B. Colors identify the winning model; win counts use unrounded scores._
+
+</details>
+
+---
+
+The linear probes do preserve monotonicity with scale far better than zero-shot scores though, and demonstrate that at least AF estimation is continuing to improve while others generally saturate. This is, again, despite the comparatively huge improvements on validation loss.  I'm not sure what to make of that:
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/0fad866b0dbf715eb49502a8720e7b6a09b7cda7/.agents/artifacts/exp586-rank-composites/figures/checkpoint-tokens.png" alt="Six paired zero-shot and linear-probe metrics across DNA training. Top: Avg normalized score, Conservation, Motifs; bottom: Core/non-core, SV impact, Allele frequency. Avg normalized score first min–max scales each task family's native mean over all checkpoints from both runs, separately for each readout, then averages the five normalized families including AF. Other panels retain native scores." />
+</p>
+
+_Avg normalized score gives each of five task families equal weight after scaling its observed checkpoint range to 0–1. Other panels retain native scores._
+
+---
+
+My primary takeaways from this are:
+
+1. The 216B token MoE model with ~300M effective dense params is pretty close in performance to `PlantCAD-M` (311M params)
+2. The 1T token MoE model is comparable in performance `PlantCAD-L` by conservation, but barely better or worse than `PlantCAD-S` on every other metric (especially SV)
+3. Linear probes preserve monotonicity with scale unlike zero-shot scores, similar to https://openathena.ai/blog/marin-dna/
+4. The 216B model is probably closest to delivering on something more compelling like "PlantCAD-M performance with 10x+ throughput", as suggested by the results in https://github.com/Open-Athena/marin-dna/pull/590
+5. It's unclear why benchmark scores here aren't tracking better with validation loss
+
+---
+
+<details>
+<summary>Run progress and score definitions</summary>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/0fad866b0dbf715eb49502a8720e7b6a09b7cda7/.agents/artifacts/exp586-rank-composites/figures/checkpoint-progress.png" alt="The same six paired metrics versus actual W&B run progress. Avg normalized score equally averages five min–max normalized task-family means, including AF; individual families retain native units." />
+</p>
+
+_Same scores, using recorded W&B `run_progress`: 100% is each run's final checkpoint, at different token totals.
+Intermediate checkpoints are approximately matched in progress.
+The checkpoint token axis is linear through 10B and logarithmic above it.
+The motif score averages eight recovery tasks: start/stop codons and splice donor/acceptor sites in maize and tomato._
+
+### Aggregate score definitions
+
+Only summaries **across task families** change. Conservation/core AUROC, motif accuracy, SV average precision and AF Spearman correlation retain their definitions and existing means across tasks within each family. The primary bar chart displays task-family scores ×100; other panels retain native units.
+
+- **Avg Rank** equally averages the 20 zero-shot task percentiles (5% each), using the dashboard’s average one-based ranks against the fixed 11-model baseline reference.[^rank-baselines][^rank-weighting] AF is excluded.
+- **Win rate** compares only the two final probe models. For each task, award 1 for a higher score, ½ for an exact tie and 0 for a lower score. **Family-balanced** averages task wins within each family, then gives all five families—including AF—20% each. **Pooled** gives all 21 tasks equal weight instead. Both are percentages of task wins, not correctly predicted examples; win margins do not affect them. The loss scatter retains family-balanced win rate.
+- **Avg normalized score** describes checkpoint progress. First compute each family's existing mean task score, then scale it as `(score − minimum) / (maximum − minimum)` over all nine unique checkpoints from both runs. Use separate bounds for zero-shot and probes, shared across both runs within each readout. Average the five normalized family scores equally, including AF, to obtain a **0–1** score.
+
+The 11-model reference comprises PlantCAD (512 bp), PlantCAD2 Small/Medium/Large, PlantCAD2.5 Large, Evo 2 7B/20B, GPN, Carbon-3B and NTv3 100M/650M; it includes models not drawn in the overview.
+The normalization population contains the shared pre-DNA model once, four checkpoints from the 216B run (2.16B, 30.88B, 123.52B, 216.16B tokens), and four from the 1T run (10B, 181.82B, 545.46B, 1T tokens).
+
+Higher is better for all three summaries, but they have different meanings and should not be compared numerically with each other. The normalized average is descriptive of the checkpoint set shown; adding checkpoints can change its bounds. Its levels are not comparable between zero-shot and probes. Native family panels retain the absolute scores.
+
+</details>
+
+<details>
+<summary>Changes between checkpoints</summary>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/plantcad/plantcad2/95aaac105a279baa79ad2b399261960887c10695/.agents/artifacts/exp586-rank-composites/figures/checkpoint-changes-primary.png" alt="Changes between successive checkpoints for zero-shot and linear probes. Family changes retain native units; the final row shows changes in Avg normalized score on a 0–1 scale. Blue means increase, orange decrease, gray no change; color encodes sign only." />
+</p>
+
+_Family changes use native units; Avg normalized score changes use normalized 0–1 units. Colors show direction, not magnitude._
+
+</details>
+
+<details>
+<summary>Probe inputs and prediction targets</summary>
+
+All features use final-layer activations from the frozen model in forward (F) and reverse-complement (RC) passes.
+Brackets below mean concatenation: keeping vectors side by side so the fitted head can weight them separately.
+
+| Task | Inputs and frozen features | Outcome and fitted head |
+| --- | --- | --- |
+| Conservation | Withhold the target base. Encode the left flank forward and the right flank as RC; concatenate their last-token activations: `[F, RC]`. | Binary conservation label; L2 logistic regression. |
+| Motifs | Withhold the entire 2–3-base motif; use the same two-flank `[F, RC]` features. | Complete motif sequence; L2 multinomial logistic regression, scored by whole-motif exact-match accuracy. |
+| Core/non-core | Withhold the **entire target motif**, then use the same two-flank `[F, RC]` features. | Binary core/non-core label; L2 logistic regression. |
+| SV impact | Encode the observed reference (REF) and deletion (ALT) sequences in both directions. Mean-pool tokens, average F/RC per allele, then concatenate `[REF, ALT−REF]`. | Original binary SV label; L2 logistic regression. |
+| AF | Encode known REF/ALT alleles in both directions. At the variant token, concatenate `[REF_F, ALT_F−REF_F, REF_RC, ALT_RC−REF_RC]`. | Continuous, raw alternate-allele frequency; L2 ridge regression, scored by Spearman correlation. |
+
+</details>
+
+<details>
+<summary>Train/test splits and probe fitting</summary>
+
+- **Conservation, motifs, core/non-core and SV:** fixed whole-chromosome test holdouts, chosen without model scores; remove identical visible inputs, including RC equivalents, across the split. Select regularization with three-fold chromosome-grouped cross-validation on training chromosomes; motif heads use exact-match accuracy for selection.
+- **AF:** reuse the existing approximately 70/30 split by **1 Mb genomic blocks**, balanced by consequence and within-consequence AF decile. Remove training variants within 8,192 bp of test variants to prevent overlapping windows: 65,565 train and 28,378 test. Select ridge regularization with five-fold block-grouped cross-validation inside training data.
+
+Split memberships stay fixed across checkpoints; feature scaling and regularization selection use training folds only, and each checkpoint gets a newly fitted head.
+Zero-shot and probe cohorts can differ, so their absolute score levels are not a paired comparison.
+
+</details>
+
+<details>
+<summary>Motif baselines and controls</summary>
+
+Controls and motif probes use **whole-motif exact-match accuracy on identical held-out examples**, averaged equally across eight tasks.
+The constant predictor emits the most frequent training motif; shuffled-label heads fit permuted training labels, leaving test labels unchanged.
+Shuffled columns show the final 216B and 1T checkpoints.
+The **83.71%** baseline is directly comparable to probe scores; high accuracy alone does not establish context learning.
+Zero-shot scores weight tasks equally but use a different cohort.
+
+| Motif task | Constant prediction | Constant accuracy | Shuffled: 216B | Shuffled: 1T |
+| --- | --- | ---: | ---: | ---: |
+| Maize start codon | ATG | 97.28% | 97.28% | 97.28% |
+| Maize stop codon | TGA | 46.35% | 43.52% | 44.18% |
+| Maize splice donor | GT | 98.31% | 98.31% | 98.30% |
+| Maize splice acceptor | AG | 99.82% | 99.82% | 99.79% |
+| Tomato start codon | ATG | 96.72% | 96.72% | 96.72% |
+| Tomato stop codon | TGA | 38.39% | 36.50% | 37.23% |
+| Tomato splice donor | GT | 95.84% | 95.84% | 95.83% |
+| Tomato splice acceptor | AG | 96.98% | 96.98% | 96.98% |
+| **Equal-task mean** | | **83.71%** | **83.12%** | **83.29%** |
+
+</details>
+
+[^dense-equivalent]: Geometric-mean heuristic using rounded parameter counts, as presented in [Marin’s Scaling Laws Explorer, MoE adjustment](https://marin.community/analysis/scaling-laws-analysis/); see [Clark et al. (2022), *Unified Scaling Laws for Routed Language Models*](https://proceedings.mlr.press/v162/clark22a.html) for effective-parameter scaling. This is an approximate size comparison, not a measured dense-model equivalence on DNA.
+
+
+[^rank-baselines]: [Leaderboard baseline scores](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/data/results.csv) and [task definitions](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/data/tasks.csv), frozen at `f3c4ddb`: 11 models, 220 scores.
+[^rank-weighting]: Dashboard [percentiles](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/app.py#L42) and [equal-task mean](https://huggingface.co/spaces/plantcad/plantcad2-zeroshot-leaderboard/blob/f3c4ddb1978b78ca56fed5d40378f0aa5f19ec29/app.py#L137). All 11 baseline averages match the unfiltered dashboard. Marin models use [rank percentiles](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.percentileofscore.html) against that fixed reference without changing baseline ranks.

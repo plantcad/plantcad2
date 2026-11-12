@@ -1,0 +1,79 @@
+{
+  "repo": "plantcad/marin-dna-exp586-1.5B-60M-216B",
+  "revision": "4130f71edcd117a7375af1ac78723d9a9173533f",
+  "files": [
+    {
+      "source_path": "pretrained-lrm1-seed0/config.json",
+      "destination_path": "config.json",
+      "bytes": 1481,
+      "blob_id": "b08d845afbf66249f44cb0597b85bc7b8aa567b6",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "pretrained-lrm1-seed0/export-receipt.json",
+      "destination_path": "export-receipt.json",
+      "bytes": 1386,
+      "blob_id": "ff179b9105572b42375c5596b36805186c52446f",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "pretrained-lrm1-seed0/model-00001-of-00004.safetensors",
+      "destination_path": "model-00001-of-00004.safetensors",
+      "bytes": 970295296,
+      "blob_id": "8ea66e4e6c8737ae4f0b838d79a5ef0ae819e58e",
+      "lfs_sha256": "83ff373215dee8603cb842988a5b530ec30753d6ceb32ee9cfd01df846f62950"
+    },
+    {
+      "source_path": "pretrained-lrm1-seed0/model-00002-of-00004.safetensors",
+      "destination_path": "model-00002-of-00004.safetensors",
+      "bytes": 932602784,
+      "blob_id": "916868b4585f3bd9088a3ff5b046efbc64a7ad1b",
+      "lfs_sha256": "121263c5daa12da5239c6b6b670bf9a0c274e913d3f1d5feca1786936b0a2132"
+    },
+    {
+      "source_path": "pretrained-lrm1-seed0/model-00003-of-00004.safetensors",
+      "destination_path": "model-00003-of-00004.safetensors",
+      "bytes": 932602784,
+      "blob_id": "4f6835ac1c499df0f9bd0dee5d9cd643b7185533",
+      "lfs_sha256": "08417f57abf8ad42b81336b11c245b57d62dd3923b292540427edc6a65c756b5"
+    },
+    {
+      "source_path": "pretrained-lrm1-seed0/model-00004-of-00004.safetensors",
+      "destination_path": "model-00004-of-00004.safetensors",
+      "bytes": 348222920,
+      "blob_id": "3c04371227267a23c225a5433c68537ae4798bf7",
+      "lfs_sha256": "f6e677f1676c74b62102adb23060680e8e19b41407bab823ff792add6ca010ad"
+    },
+    {
+      "source_path": "pretrained-lrm1-seed0/model.safetensors.index.json",
+      "destination_path": "model.safetensors.index.json",
+      "bytes": 18783,
+      "blob_id": "0c52dbd219a2a5de84cb7a6ea4a029948aa5d4bf",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "pretrained-lrm1-seed0/tokenizer.json",
+      "destination_path": "tokenizer.json",
+      "bytes": 17208623,
+      "blob_id": "b16a7679646e08db45468f845d37b3df1591223a",
+      "lfs_sha256": "551bf24c41f7f0e9181f2b6b8be7781d35b3ec0792affc1bebd4588f6092d67f"
+    },
+    {
+      "source_path": "pretrained-lrm1-seed0/tokenizer_config.json",
+      "destination_path": "tokenizer_config.json",
+      "bytes": 174,
+      "blob_id": "1722b1cf15d534750aea8d25cd36be1083de16bd",
+      "lfs_sha256": null
+    },
+    {
+      "source_path": "pretrained-lrm1-seed0/upload-manifest.json",
+      "destination_path": "upload-manifest.json",
+      "bytes": 1405,
+      "blob_id": "03686fa01cee50fb790177c317864d38361cf3d2",
+      "lfs_sha256": null
+    }
+  ],
+  "hub_added_lfs_rule": "tokenizer.json filter=lfs diff=lfs merge=lfs -text",
+  "copied_model_files": 10,
+  "verified": true
+}

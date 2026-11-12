@@ -1,0 +1,12 @@
+model,display_name,architecture,parameters,params_m,objective,scope,tokenization,model_url,reference,citation
+evo2_7b,evo2_7b,StripedHyena 2,7B,7000.0,CLM,All-domain,single-nt,https://huggingface.co/arcinstitute/evo2_7b,https://www.nature.com/articles/s41586-026-10176-5,"Brixi et al., 2026, Nature"
+evo2_20b,evo2_20b,StripedHyena 2,20B,20000.0,CLM,All-domain,single-nt,https://huggingface.co/arcinstitute/evo2_20b,https://www.nature.com/articles/s41586-026-10176-5,"Brixi et al., 2026, Nature"
+GPN,GPN,Convolutional gLM,65M,65.0,MLM,Plant,single-nt,https://huggingface.co/songlab/gpn-brassicales,https://doi.org/10.1073/pnas.2311219120,"Benegas et al., 2023, PNAS"
+Carbon-3B,Carbon-3B,Decoder-only Transformer,3B,3000.0,CLM,All-domain,6-mer,https://huggingface.co/HuggingFaceBio/Carbon-3B,https://huggingface.co/HuggingFaceBio/Carbon-3B,HuggingFaceBio Carbon-3B model card
+PlantCAD,PlantCAD,Caduceus (Mamba),225M,225.0,MLM,Plant,single-nt,https://huggingface.co/kuleshov-group/PlantCaduceus_l32,https://www.pnas.org/doi/10.1073/pnas.2421738122,"Zhai et al., 2025, PNAS"
+PlantCAD2-L,PlantCAD2-Large,Caduceus2,676M,676.0,MLM,Plant,single-nt,https://huggingface.co/kuleshov-group/PlantCAD2-Large-l48-d1536,https://www.biorxiv.org/content/10.1101/2025.08.27.672609v4,"Zhai et al., 2026, bioRxiv"
+PlantCAD2-M,PlantCAD2-Medium,Caduceus2,311M,311.0,MLM,Plant,single-nt,https://huggingface.co/kuleshov-group/PlantCAD2-Medium-l48-d1024,https://www.biorxiv.org/content/10.1101/2025.08.27.672609v4,"Zhai et al., 2026, bioRxiv"
+PlantCAD2-S,PlantCAD2-Small,Caduceus2,88M,88.0,MLM,Plant,single-nt,https://huggingface.co/kuleshov-group/PlantCAD2-Small-l24-d0768,https://www.biorxiv.org/content/10.1101/2025.08.27.672609v4,"Zhai et al., 2026, bioRxiv"
+PlantCAD2.5-L,PlantCAD2.5 (Large),under dev,761M,761.0,MLM,Plant,single-nt,under dev,under dev
+NTv3-100M,NTv3-100M,U-Net Transformer,100M,100.0,MLM,All-domain,single-nt,https://huggingface.co/InstaDeepAI/NTv3_100M_pre_8kb,https://www.biorxiv.org/content/10.64898/2025.12.22.695963v1,"Boshar et al., 2025, bioRxiv"
+NTv3-650M,NTv3-650M,U-Net Transformer,650M,650.0,MLM,All-domain,single-nt,https://huggingface.co/InstaDeepAI/NTv3_650M_pre_8kb,https://www.biorxiv.org/content/10.64898/2025.12.22.695963v1,"Boshar et al., 2025, bioRxiv"

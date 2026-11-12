@@ -1,0 +1,13 @@
+{
+  "status": "Unpublished draft",
+  "live_post_unchanged": true,
+  "source_updated_at": "2026-11-06T19:12:40Z",
+  "live_body_sha256": "faddd61ed1a89a4a5ed03a4c3d56e14b445013835f9019eb9d0aceddc337bfb1",
+  "preview": "/home/exedev/repos/marin-dna-br/codex-exp586-probes/.agents/artifacts/exp586-two-ranks-preview/preview-9176ed08813d.html",
+  "Unweighted_Avg_Rank": "Mean of four family means, each family weighted 25%",
+  "Weighted_Avg_Rank": "PlantCAD2 leaderboard calculation, each of 20 tasks weighted 5%",
+  "visual_inspection_completed": true,
+  "automated_label_overlap_checks_passed": true,
+  "vertical_bar_value_label_rotation_degrees": 90,
+  "horizontal_bar_value_label_rotation_degrees": 0
+}

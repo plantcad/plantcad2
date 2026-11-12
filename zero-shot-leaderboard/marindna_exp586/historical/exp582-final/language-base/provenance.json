@@ -1,0 +1,18 @@
+{
+  "analysis_prefix": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/analysis/language-base",
+  "analysis_wheel_sha256": "2d553ef338f34f735970ed3f35db6ed345c6482b0f394114d026448b44a60871",
+  "checkpoint_role": "language-base",
+  "condition": "pretrained",
+  "probes_included": false,
+  "receipt_sha256": "bd6c5a8c1a6317920651472c90161043ab2acfdc76c34502a3d2d690c9941760",
+  "receipt_uri": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/analysis/language-base/receipt.json",
+  "requests_sha256": "4a4b2ed6ad05199ef0185260b51f1a9111582318432596669ec4b25942770557",
+  "schema": 1,
+  "selected_files": {
+    "result.json": {
+      "bytes": 76441,
+      "sha256": "c5ffab700d9a3f270b37287a17c1dd4d4b7ff03ea7fcaf940b0f0aa911d3718e"
+    }
+  },
+  "source_artifacts": "s3://marin-us-east-02a/MarinDNA/exp582_plantcad2_moe/evaluations/final-v1/results/language-base"
+}

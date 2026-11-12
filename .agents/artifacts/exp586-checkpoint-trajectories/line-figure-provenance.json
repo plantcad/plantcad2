@@ -1,0 +1,87 @@
+{
+  "source_sha256": "3f350bd6668ba71046f618a4dd44cab8cd86114927b32d551a8e32634d01a6ca",
+  "palette_sha256": "fc45caa09074fb8c14f03143d8f4aeb067578c263e72e7ad8f24ea8142a40648",
+  "run_colors": {
+    "216B-token run": "#c8a229",
+    "1T-token run": "#7e4b6c"
+  },
+  "progress_sha256": "67e93a1dae79ee323c91ec62e8c181f031ed5bf60936a7e51a91dccd0051d681",
+  "panels": 12,
+  "score_points": 120,
+  "card_geometry": [
+    {
+      "metric": "Composite",
+      "left": 0.00923076923076923,
+      "right": 0.3251282051282051,
+      "top": 0.9267629583076998,
+      "bottom": 0.47518183477935494
+    },
+    {
+      "metric": "Conservation",
+      "left": 0.34205128205128205,
+      "right": 0.6579487179487179,
+      "top": 0.9267629583076998,
+      "bottom": 0.47518183477935494
+    },
+    {
+      "metric": "Motifs",
+      "left": 0.6748717948717947,
+      "right": 0.9907692307692307,
+      "top": 0.9267629583076998,
+      "bottom": 0.47518183477935494
+    },
+    {
+      "metric": "Core/non-core",
+      "left": 0.00923076923076923,
+      "right": 0.3251282051282051,
+      "top": 0.45991078632281907,
+      "bottom": 0.008329662794474129
+    },
+    {
+      "metric": "SV impact",
+      "left": 0.34205128205128205,
+      "right": 0.6579487179487179,
+      "top": 0.45991078632281907,
+      "bottom": 0.008329662794474129
+    },
+    {
+      "metric": "Allele frequency",
+      "left": 0.6748717948717947,
+      "right": 0.9907692307692307,
+      "top": 0.45991078632281907,
+      "bottom": 0.008329662794474129
+    }
+  ],
+  "horizontal_gaps": [
+    0.01692307692307693,
+    0.01692307692307682,
+    0.01692307692307693,
+    0.01692307692307682
+  ],
+  "facet_gap_inches": {
+    "horizontal": [
+      0.22000000000000008,
+      0.21999999999999864,
+      0.22000000000000008,
+      0.21999999999999864
+    ],
+    "vertical": 0.21999999999999975
+  },
+  "plot_size_inches": [
+    2.956616320497034,
+    2.2
+  ],
+  "figure_size_inches": [
+    13.0,
+    14.40634548611112
+  ],
+  "header_gaps_inches": {
+    "title_to_legend": 0.08,
+    "legend_to_facets": 0.14
+  },
+  "layout": "Top: Composite, Conservation, Motifs; bottom: Core/non-core, SV, AF; zero-shot above probe in each pair",
+  "composite": "Equal mean of conservation, motifs, core/non-core and SV category scores, independently for each readout; AF excluded",
+  "x_axis": "tokens",
+  "smoothing": false,
+  "y_scales": "Independent per panel"
+}

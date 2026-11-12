@@ -1,0 +1,111 @@
+run,checkpoint,DNA_tokens_B,metric,readout,score
+216B-token run,dna-000b,0.0,Conservation,Zero-shot likelihood,0.5109020504149807
+216B-token run,dna-002b,2.161639424,Conservation,Zero-shot likelihood,0.5194445443404927
+216B-token run,dna-031b,30.880038912,Conservation,Zero-shot likelihood,0.6142920926186571
+216B-token run,dna-124b,123.51963136,Conservation,Zero-shot likelihood,0.6535840097234044
+216B-token run,dna-216b,216.15869952,Conservation,Zero-shot likelihood,0.6890951690966783
+216B-token run,dna-000b,0.0,Conservation,Linear probe,0.6883006621089437
+216B-token run,dna-002b,2.161639424,Conservation,Linear probe,0.8475990225551591
+216B-token run,dna-031b,30.880038912,Conservation,Linear probe,0.8770223893341723
+216B-token run,dna-124b,123.51963136,Conservation,Linear probe,0.8853829642666778
+216B-token run,dna-216b,216.15869952,Conservation,Linear probe,0.8904026596143884
+216B-token run,dna-000b,0.0,Motifs,Zero-shot likelihood,0.009884317805830501
+216B-token run,dna-002b,2.161639424,Motifs,Zero-shot likelihood,0.10982314705044263
+216B-token run,dna-031b,30.880038912,Motifs,Zero-shot likelihood,0.37220474779882595
+216B-token run,dna-124b,123.51963136,Motifs,Zero-shot likelihood,0.4950709764971521
+216B-token run,dna-216b,216.15869952,Motifs,Zero-shot likelihood,0.5834242332292299
+216B-token run,dna-000b,0.0,Core/non-core,Zero-shot likelihood,0.4860943656639233
+216B-token run,dna-002b,2.161639424,Core/non-core,Zero-shot likelihood,0.534664601349515
+216B-token run,dna-031b,30.880038912,Core/non-core,Zero-shot likelihood,0.6189562218528765
+216B-token run,dna-124b,123.51963136,Core/non-core,Zero-shot likelihood,0.6689730043160789
+216B-token run,dna-216b,216.15869952,Core/non-core,Zero-shot likelihood,0.689379989633113
+216B-token run,dna-000b,0.0,Core/non-core,Linear probe,0.7649314855639573
+216B-token run,dna-002b,2.161639424,Core/non-core,Linear probe,0.8800953220013005
+216B-token run,dna-031b,30.880038912,Core/non-core,Linear probe,0.9085915635701878
+216B-token run,dna-124b,123.51963136,Core/non-core,Linear probe,0.9092998170447131
+216B-token run,dna-216b,216.15869952,Core/non-core,Linear probe,0.9130195087879133
+216B-token run,dna-000b,0.0,SV impact,Zero-shot likelihood,0.4147366719608797
+216B-token run,dna-002b,2.161639424,SV impact,Zero-shot likelihood,0.4806769278618218
+216B-token run,dna-031b,30.880038912,SV impact,Zero-shot likelihood,0.7045556701080586
+216B-token run,dna-124b,123.51963136,SV impact,Zero-shot likelihood,0.7962995055798938
+216B-token run,dna-216b,216.15869952,SV impact,Zero-shot likelihood,0.8540951287449496
+216B-token run,dna-000b,0.0,SV impact,Linear probe,0.7786123916869351
+216B-token run,dna-002b,2.161639424,SV impact,Linear probe,0.8753921850032879
+216B-token run,dna-031b,30.880038912,SV impact,Linear probe,0.9220470524846592
+216B-token run,dna-124b,123.51963136,SV impact,Linear probe,0.9306452682125065
+216B-token run,dna-216b,216.15869952,SV impact,Linear probe,0.9367569338854964
+216B-token run,dna-000b,0.0,Allele frequency,Zero-shot likelihood,0.039567182479236095
+216B-token run,dna-002b,2.161639424,Allele frequency,Zero-shot likelihood,0.08231165774990937
+216B-token run,dna-031b,30.880038912,Allele frequency,Zero-shot likelihood,0.1135611292745554
+216B-token run,dna-124b,123.51963136,Allele frequency,Zero-shot likelihood,0.12474469070376434
+216B-token run,dna-216b,216.15869952,Allele frequency,Zero-shot likelihood,0.13852649844038348
+216B-token run,dna-000b,0.0,Allele frequency,Linear probe,0.16298336442746192
+216B-token run,dna-002b,2.161639424,Allele frequency,Linear probe,0.16386931320174397
+216B-token run,dna-031b,30.880038912,Allele frequency,Linear probe,0.1802574415923641
+216B-token run,dna-124b,123.51963136,Allele frequency,Linear probe,0.18219034179133137
+216B-token run,dna-216b,216.15869952,Allele frequency,Linear probe,0.18852680714157333
+216B-token run,dna-000b,0.0,Composite −SV,Zero-shot likelihood,0.3356269112949115
+216B-token run,dna-002b,2.161639424,Composite −SV,Zero-shot likelihood,0.3879774309134834
+216B-token run,dna-031b,30.880038912,Composite −SV,Zero-shot likelihood,0.5351510207567866
+216B-token run,dna-124b,123.51963136,Composite −SV,Zero-shot likelihood,0.605875996845545
+216B-token run,dna-216b,216.15869952,Composite −SV,Zero-shot likelihood,0.6539664639863404
+216B-token run,dna-000b,0.0,Composite +SV,Zero-shot likelihood,0.3554043514614036
+216B-token run,dna-002b,2.161639424,Composite +SV,Zero-shot likelihood,0.411152305150568
+216B-token run,dna-031b,30.880038912,Composite +SV,Zero-shot likelihood,0.5775021830946045
+216B-token run,dna-124b,123.51963136,Composite +SV,Zero-shot likelihood,0.6534818740291323
+216B-token run,dna-216b,216.15869952,Composite +SV,Zero-shot likelihood,0.7039986301759926
+1T-token run,dna-000b,0.0,Conservation,Zero-shot likelihood,0.5109020504149807
+1T-token run,dna-010b,10.000269312,Conservation,Zero-shot likelihood,0.5518516968889023
+1T-token run,dna-182b,181.818359808,Conservation,Zero-shot likelihood,0.6595828786411769
+1T-token run,dna-545b,545.455079424,Conservation,Zero-shot likelihood,0.6850785171022368
+1T-token run,dna-1000b,1000.000192512,Conservation,Zero-shot likelihood,0.6992670021034327
+1T-token run,dna-000b,0.0,Conservation,Linear probe,0.6883006621089437
+1T-token run,dna-010b,10.000269312,Conservation,Linear probe,0.8583153190174058
+1T-token run,dna-182b,181.818359808,Conservation,Linear probe,0.8847429289709036
+1T-token run,dna-545b,545.455079424,Conservation,Linear probe,0.8891353761587397
+1T-token run,dna-1000b,1000.000192512,Conservation,Linear probe,0.889637543718755
+1T-token run,dna-000b,0.0,Motifs,Zero-shot likelihood,0.009884317805830501
+1T-token run,dna-010b,10.000269312,Motifs,Zero-shot likelihood,0.17999357357699203
+1T-token run,dna-182b,181.818359808,Motifs,Zero-shot likelihood,0.5009563415765825
+1T-token run,dna-545b,545.455079424,Motifs,Zero-shot likelihood,0.5684013822808779
+1T-token run,dna-1000b,1000.000192512,Motifs,Zero-shot likelihood,0.6178430913064623
+1T-token run,dna-000b,0.0,Core/non-core,Zero-shot likelihood,0.4860943656639233
+1T-token run,dna-010b,10.000269312,Core/non-core,Zero-shot likelihood,0.5538647822981932
+1T-token run,dna-182b,181.818359808,Core/non-core,Zero-shot likelihood,0.6686362066198039
+1T-token run,dna-545b,545.455079424,Core/non-core,Zero-shot likelihood,0.6865407920967087
+1T-token run,dna-1000b,1000.000192512,Core/non-core,Zero-shot likelihood,0.6792308545001416
+1T-token run,dna-000b,0.0,Core/non-core,Linear probe,0.7649314855639573
+1T-token run,dna-010b,10.000269312,Core/non-core,Linear probe,0.8978988618470007
+1T-token run,dna-182b,181.818359808,Core/non-core,Linear probe,0.9095821288514531
+1T-token run,dna-545b,545.455079424,Core/non-core,Linear probe,0.9071151283385036
+1T-token run,dna-1000b,1000.000192512,Core/non-core,Linear probe,0.9076489939977189
+1T-token run,dna-000b,0.0,SV impact,Zero-shot likelihood,0.4147366719608797
+1T-token run,dna-010b,10.000269312,SV impact,Zero-shot likelihood,0.5618696380828458
+1T-token run,dna-182b,181.818359808,SV impact,Zero-shot likelihood,0.790638648521871
+1T-token run,dna-545b,545.455079424,SV impact,Zero-shot likelihood,0.8366467789390003
+1T-token run,dna-1000b,1000.000192512,SV impact,Zero-shot likelihood,0.7780781605138195
+1T-token run,dna-000b,0.0,SV impact,Linear probe,0.7786123916869351
+1T-token run,dna-010b,10.000269312,SV impact,Linear probe,0.9006728965709034
+1T-token run,dna-182b,181.818359808,SV impact,Linear probe,0.9359636390672216
+1T-token run,dna-545b,545.455079424,SV impact,Linear probe,0.9404899965886397
+1T-token run,dna-1000b,1000.000192512,SV impact,Linear probe,0.9411080566331625
+1T-token run,dna-000b,0.0,Allele frequency,Zero-shot likelihood,0.039567182479236095
+1T-token run,dna-010b,10.000269312,Allele frequency,Zero-shot likelihood,0.09140301468648725
+1T-token run,dna-182b,181.818359808,Allele frequency,Zero-shot likelihood,0.12141439291498665
+1T-token run,dna-545b,545.455079424,Allele frequency,Zero-shot likelihood,0.1395559856053653
+1T-token run,dna-1000b,1000.000192512,Allele frequency,Zero-shot likelihood,0.12785375362741644
+1T-token run,dna-000b,0.0,Allele frequency,Linear probe,0.16298336442746192
+1T-token run,dna-010b,10.000269312,Allele frequency,Linear probe,0.17278034114065027
+1T-token run,dna-182b,181.818359808,Allele frequency,Linear probe,0.18377276299584128
+1T-token run,dna-545b,545.455079424,Allele frequency,Linear probe,0.18940627870704033
+1T-token run,dna-1000b,1000.000192512,Allele frequency,Linear probe,0.19271995089663327
+1T-token run,dna-000b,0.0,Composite −SV,Zero-shot likelihood,0.3356269112949115
+1T-token run,dna-010b,10.000269312,Composite −SV,Zero-shot likelihood,0.4285700175880292
+1T-token run,dna-182b,181.818359808,Composite −SV,Zero-shot likelihood,0.6097251422791878
+1T-token run,dna-545b,545.455079424,Composite −SV,Zero-shot likelihood,0.6466735638266078
+1T-token run,dna-1000b,1000.000192512,Composite −SV,Zero-shot likelihood,0.6654469826366789
+1T-token run,dna-000b,0.0,Composite +SV,Zero-shot likelihood,0.3554043514614036
+1T-token run,dna-010b,10.000269312,Composite +SV,Zero-shot likelihood,0.4618949227117334
+1T-token run,dna-182b,181.818359808,Composite +SV,Zero-shot likelihood,0.6549535188398586
+1T-token run,dna-545b,545.455079424,Composite +SV,Zero-shot likelihood,0.6941668676047059
+1T-token run,dna-1000b,1000.000192512,Composite +SV,Zero-shot likelihood,0.693604777105964
