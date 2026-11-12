@@ -191,6 +191,12 @@ def run(args):
                 else:
                     arrays = sv_fim(adapter, frame.to_dict("records"))
                     arrays["left__scores"] = arrays["forward__scores"]
+            elif variant == "ar-lower-control":
+                # Keep the literal original benchmark path, including its full
+                # source windows and query coordinates, as the TF AR baseline.
+                _, arrays = protocol.tasks._score_standard_task(
+                    spec, frame, ar, ar.tokenizer, options, compute_metrics=False
+                )
             else:
                 arrays = standard(
                     adapter,

@@ -51,7 +51,7 @@ TRIALS = {
 
 VARIANTS = (
     "ar-lower-control",
-    "ar-lower-exact",
     "fim-minimal-control",
+    "ar-lower-exact",
     "fim-minimal-exact",
 )
