@@ -12,7 +12,8 @@ from pathlib import Path
 
 import numpy as np
 
-from exp593_anneal_evals.artifacts import digest, publish, publish_json
+from exp593_anneal_evals.artifacts import publish, publish_json
+from exp593_evals.artifacts import digest
 
 
 def commit(root, chunk, arrays, binding, output):
