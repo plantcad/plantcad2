@@ -1,6 +1,6 @@
 # Final annealing task scores
 
-[scores.csv](scores.csv) contains individual-task zero-shot and frozen linear-probe scores for completed final evaluations. It is updated as the remaining final models finish. Missing models are omitted rather than represented by empty or zero scores. No training-monitor values, task-family averages, shuffled-label controls or majority-predictor baselines are mixed into this file.
+[scores.csv](scores.csv) contains individual-task zero-shot and frozen linear-probe scores for all four final annealing models: 398B FIM, 532B FIM, 665B FIM and 665B AR control. No training-monitor values, task-family averages, shuffled-label controls or majority-predictor baselines are mixed into this file.
 
 Each row identifies a model, task, readout, strand strategy and metric. Scores retain their native scale, without percentage scaling or rounding. `training_input_tokens` includes the source DNA-training stage and the additional annealing inputs, including structural FIM text. `context_length` is the 8192-token budget; prompt overhead and withholding the target reduce visible DNA context.
 
