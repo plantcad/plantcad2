@@ -1,0 +1,354 @@
+{
+  "source_comment": 6810986230,
+  "source_sha256": "134a8f43c36e381089d14160886fab25c064035af4f5ab183cda4c3adb1c3959",
+  "zero_shot": [
+    [
+      "398B FIM",
+      "AR \u00b7 historical TF",
+      "0.6976",
+      "0.5975",
+      "0.6955",
+      "0.8476",
+      "0.1384"
+    ],
+    [
+      "398B FIM",
+      "AR \u00b7 TF \u00d7 RC",
+      "0.7197",
+      "0.6087",
+      "0.6585",
+      "0.8476",
+      "0.1305"
+    ],
+    [
+      "398B FIM",
+      "AR \u00b7 exhaustive \u00d7 RC",
+      "0.7197",
+      "0.6268",
+      "0.6603[^exp593-exhaustive-core]",
+      "n/a",
+      "n/a"
+    ],
+    [
+      "398B FIM",
+      "FIM \u00b7 TF \u00d7 RC",
+      "0.7183",
+      "0.7987",
+      "0.7348",
+      "0.7712",
+      "0.0763"
+    ],
+    [
+      "398B FIM",
+      "FIM \u00b7 exhaustive \u00d7 RC",
+      "0.7183",
+      "0.7919",
+      "0.7289[^exp593-exhaustive-core]",
+      "n/a",
+      "n/a"
+    ],
+    [
+      "532B FIM",
+      "AR \u00b7 historical TF",
+      "0.7009",
+      "0.6054",
+      "0.6959",
+      "0.8470",
+      "0.1423"
+    ],
+    [
+      "532B FIM",
+      "AR \u00b7 TF \u00d7 RC",
+      "0.7217",
+      "0.6163",
+      "0.6558",
+      "0.8470",
+      "0.1371"
+    ],
+    [
+      "532B FIM",
+      "AR \u00b7 exhaustive \u00d7 RC",
+      "0.7217",
+      "0.6332",
+      "0.6577[^exp593-exhaustive-core]",
+      "n/a",
+      "n/a"
+    ],
+    [
+      "532B FIM",
+      "FIM \u00b7 TF \u00d7 RC",
+      "0.7144",
+      "0.8087",
+      "0.7334",
+      "0.7706",
+      "0.0466"
+    ],
+    [
+      "532B FIM",
+      "FIM \u00b7 exhaustive \u00d7 RC",
+      "0.7144",
+      "0.7938",
+      "0.7284[^exp593-exhaustive-core]",
+      "n/a",
+      "n/a"
+    ],
+    [
+      "665B FIM",
+      "AR \u00b7 historical TF",
+      "0.7017",
+      "0.6111",
+      "0.6941",
+      "0.8456",
+      "0.1427"
+    ],
+    [
+      "665B FIM",
+      "AR \u00b7 TF \u00d7 RC",
+      "0.7245",
+      "0.6231",
+      "0.6476",
+      "0.8456",
+      "0.1411"
+    ],
+    [
+      "665B FIM",
+      "AR \u00b7 exhaustive \u00d7 RC",
+      "0.7245",
+      "0.6403",
+      "0.6490[^exp593-exhaustive-core]",
+      "n/a",
+      "n/a"
+    ],
+    [
+      "665B FIM",
+      "FIM \u00b7 TF \u00d7 RC",
+      "0.7133",
+      "0.7999",
+      "0.7305",
+      "0.7757",
+      "0.0655"
+    ],
+    [
+      "665B FIM",
+      "FIM \u00b7 exhaustive \u00d7 RC",
+      "0.7133",
+      "0.7915",
+      "0.7248[^exp593-exhaustive-core]",
+      "n/a",
+      "n/a"
+    ],
+    [
+      "665B AR control",
+      "AR \u00b7 historical TF",
+      "0.7034",
+      "0.6175",
+      "0.6937",
+      "0.8362",
+      "0.1434"
+    ],
+    [
+      "665B AR control",
+      "AR \u00b7 TF \u00d7 RC",
+      "0.7221",
+      "0.6259",
+      "0.6389",
+      "0.8362",
+      "0.1417"
+    ],
+    [
+      "665B AR control",
+      "AR \u00b7 exhaustive \u00d7 RC",
+      "0.7221",
+      "0.6426",
+      "0.6396[^exp593-exhaustive-core]",
+      "n/a",
+      "n/a"
+    ],
+    [
+      "665B AR control",
+      "FIM \u00b7 TF \u00d7 RC",
+      "0.4938",
+      "0.0152",
+      "0.5267",
+      "0.4179",
+      "0.1208"
+    ],
+    [
+      "665B AR control",
+      "FIM \u00b7 exhaustive \u00d7 RC",
+      "0.4938",
+      "0.0075",
+      "0.5280[^exp593-exhaustive-core]",
+      "n/a",
+      "n/a"
+    ]
+  ],
+  "frozen_probes": [
+    [
+      "398B FIM",
+      "0.8870",
+      "0.8631",
+      "0.9067",
+      "0.9411",
+      "0.1833"
+    ],
+    [
+      "532B FIM",
+      "0.8887",
+      "0.8644",
+      "0.9065",
+      "0.9403",
+      "0.1855"
+    ],
+    [
+      "665B FIM",
+      "0.8895",
+      "0.8647",
+      "0.9083",
+      "0.9446",
+      "0.1897"
+    ],
+    [
+      "665B AR control",
+      "0.8908",
+      "0.8651",
+      "0.9100",
+      "0.9432",
+      "0.1903"
+    ]
+  ],
+  "best_zero_shot_cells": [
+    [
+      "398B FIM",
+      "AR \u00b7 historical TF",
+      3,
+      0.8476
+    ],
+    [
+      "398B FIM",
+      "AR \u00b7 TF \u00d7 RC",
+      2,
+      0.6585
+    ],
+    [
+      "398B FIM",
+      "AR \u00b7 TF \u00d7 RC",
+      3,
+      0.8476
+    ],
+    [
+      "398B FIM",
+      "AR \u00b7 exhaustive \u00d7 RC",
+      2,
+      0.6603
+    ],
+    [
+      "398B FIM",
+      "FIM \u00b7 TF \u00d7 RC",
+      0,
+      0.7183
+    ],
+    [
+      "398B FIM",
+      "FIM \u00b7 TF \u00d7 RC",
+      2,
+      0.7348
+    ],
+    [
+      "398B FIM",
+      "FIM \u00b7 exhaustive \u00d7 RC",
+      0,
+      0.7183
+    ],
+    [
+      "398B FIM",
+      "FIM \u00b7 exhaustive \u00d7 RC",
+      2,
+      0.7289
+    ],
+    [
+      "532B FIM",
+      "AR \u00b7 historical TF",
+      2,
+      0.6959
+    ],
+    [
+      "532B FIM",
+      "FIM \u00b7 TF \u00d7 RC",
+      1,
+      0.8087
+    ],
+    [
+      "532B FIM",
+      "FIM \u00b7 exhaustive \u00d7 RC",
+      1,
+      0.7938
+    ],
+    [
+      "665B FIM",
+      "AR \u00b7 TF \u00d7 RC",
+      0,
+      0.7245
+    ],
+    [
+      "665B FIM",
+      "AR \u00b7 exhaustive \u00d7 RC",
+      0,
+      0.7245
+    ],
+    [
+      "665B FIM",
+      "FIM \u00b7 TF \u00d7 RC",
+      3,
+      0.7757
+    ],
+    [
+      "665B AR control",
+      "AR \u00b7 historical TF",
+      0,
+      0.7034
+    ],
+    [
+      "665B AR control",
+      "AR \u00b7 historical TF",
+      1,
+      0.6175
+    ],
+    [
+      "665B AR control",
+      "AR \u00b7 historical TF",
+      4,
+      0.1434
+    ],
+    [
+      "665B AR control",
+      "AR \u00b7 TF \u00d7 RC",
+      1,
+      0.6259
+    ],
+    [
+      "665B AR control",
+      "AR \u00b7 TF \u00d7 RC",
+      4,
+      0.1417
+    ],
+    [
+      "665B AR control",
+      "AR \u00b7 exhaustive \u00d7 RC",
+      1,
+      0.6426
+    ],
+    [
+      "665B AR control",
+      "FIM \u00b7 TF \u00d7 RC",
+      4,
+      0.1208
+    ]
+  ],
+  "value_text_count": 120,
+  "missing_cells": 16,
+  "text_collisions": 0,
+  "color_rule": "linear native-value min/max within metric, independently for zero-shot and probe panels",
+  "winner_rule": "highest displayed native score among models with the identical readout/metric; ties retained",
+  "scores_changed": false
+}
