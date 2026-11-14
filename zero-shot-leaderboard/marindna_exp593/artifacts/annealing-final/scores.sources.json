@@ -1,0 +1,67 @@
+{
+  "schema": "exp593-anneal-final-task-scores-v1",
+  "score_snapshots": {
+    "545b": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/annealing-final-v1/checkpoints/545b/full/v1/final/scientific-results-d71778ef2c8b14c1af068d74f446c113171d4f8d48ef7a06e87c07ad77622f36.json",
+      "sha256": "d71778ef2c8b14c1af068d74f446c113171d4f8d48ef7a06e87c07ad77622f36",
+      "bytes": 306052
+    },
+    "control": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/annealing-final-v1/checkpoints/control/full/v1/final/scientific-results-085f1c99e579e98b356be5a9a67fb288ff9383876ec0162e1e46dd0bcc8ee60b.json",
+      "sha256": "085f1c99e579e98b356be5a9a67fb288ff9383876ec0162e1e46dd0bcc8ee60b",
+      "bytes": 306319
+    },
+    "364b": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/annealing-final-v1/checkpoints/364b/full/v1/final/scientific-results-9bb3327840bbd97af27bcd58f61822ee2c7f209703fa0ac9224739af32e11924.json",
+      "sha256": "9bb3327840bbd97af27bcd58f61822ee2c7f209703fa0ac9224739af32e11924",
+      "bytes": 305952
+    },
+    "181b": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/annealing-final-v1/checkpoints/181b/full/v1/final/scientific-results-b5e35474e213485a6d88b27ee598ac26e06d702f52b2138a751b7a0c797f7d60.json",
+      "sha256": "b5e35474e213485a6d88b27ee598ac26e06d702f52b2138a751b7a0c797f7d60",
+      "bytes": 305887
+    }
+  },
+  "motif_memberships": {
+    "motif_maize_acceptor": {
+      "bytes": 14030871,
+      "sha256": "78b381f8ac98ae92ae880cc8b01d6f9038d87c125def090283ff4a547d97d4c7",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/inputs/memberships/motif_maize_acceptor/78b381f8ac98ae92ae880cc8b01d6f9038d87c125def090283ff4a547d97d4c7/membership.parquet"
+    },
+    "motif_maize_donor": {
+      "bytes": 14081742,
+      "sha256": "a669dff9602f06364cc6d478066204905ed45d17e3d4d9323fa0239407dd0f45",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/inputs/memberships/motif_maize_donor/a669dff9602f06364cc6d478066204905ed45d17e3d4d9323fa0239407dd0f45/membership.parquet"
+    },
+    "motif_maize_tis": {
+      "bytes": 3664636,
+      "sha256": "834365efc5ea5116a5597bae973857669ab7def78a40cc3964da6055e25ce5f8",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/inputs/memberships/motif_maize_tis/834365efc5ea5116a5597bae973857669ab7def78a40cc3964da6055e25ce5f8/membership.parquet"
+    },
+    "motif_maize_tts": {
+      "bytes": 3699340,
+      "sha256": "07172e3db424ebf00f6aff49c46d52e0baf70a79d1d0d051a002aea277efa8a4",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/inputs/memberships/motif_maize_tts/07172e3db424ebf00f6aff49c46d52e0baf70a79d1d0d051a002aea277efa8a4/membership.parquet"
+    },
+    "motif_tomato_acceptor": {
+      "bytes": 12890132,
+      "sha256": "0719ccf30e23d0f83c17a7ef808b1d7b2308376a52ce09fd3118602dab9d0a7d",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/inputs/memberships/motif_tomato_acceptor/0719ccf30e23d0f83c17a7ef808b1d7b2308376a52ce09fd3118602dab9d0a7d/membership.parquet"
+    },
+    "motif_tomato_donor": {
+      "bytes": 12897325,
+      "sha256": "75db28c8babfad7dad1fe5f496b4a962b330524443efb587dcfcaf77b0afa854",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/inputs/memberships/motif_tomato_donor/75db28c8babfad7dad1fe5f496b4a962b330524443efb587dcfcaf77b0afa854/membership.parquet"
+    },
+    "motif_tomato_tis": {
+      "bytes": 3350462,
+      "sha256": "3f120d4a389507da89793d86b9ab46096f2df5a9f7292c9cdca340bee8d338d1",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/inputs/memberships/motif_tomato_tis/3f120d4a389507da89793d86b9ab46096f2df5a9f7292c9cdca340bee8d338d1/membership.parquet"
+    },
+    "motif_tomato_tts": {
+      "bytes": 3371958,
+      "sha256": "30bf0613d8ccde224aac2c4eb5a2cf9bea8a625003c3bd071cdd67b7f61644c8",
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp586_plantcad2_moe/evaluations/frozen-classification-v1/motif-checkpoint-trajectory-v1/inputs/memberships/motif_tomato_tts/30bf0613d8ccde224aac2c4eb5a2cf9bea8a625003c3bd071cdd67b7f61644c8/membership.parquet"
+    }
+  }
+}

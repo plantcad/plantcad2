@@ -1,0 +1,267 @@
+{
+  "scope": "MarinDNA original 65-species corpus, retained in exp586 and exp593 annealing; not baseline species coverage or locus overlap",
+  "verified_train_rows": 2638656,
+  "verified_shards": 44,
+  "species": 65,
+  "benchmark_species": {
+    "Maize": {
+      "scientific_name": "Zea mays",
+      "in_marin_dna_training": true,
+      "assembly_code": "Zmays",
+      "original_training_rows": 43643
+    },
+    "Sorghum": {
+      "scientific_name": "Sorghum bicolor",
+      "in_marin_dna_training": true,
+      "assembly_code": "Sbicolor",
+      "original_training_rows": 39976
+    },
+    "Arabidopsis": {
+      "scientific_name": "Arabidopsis thaliana",
+      "in_marin_dna_training": true,
+      "assembly_code": "Athaliana",
+      "original_training_rows": 35992
+    },
+    "Tomato": {
+      "scientific_name": "Solanum lycopersicum",
+      "in_marin_dna_training": false,
+      "assembly_code": null,
+      "original_training_rows": 0
+    },
+    "Pharus": {
+      "scientific_name": "Pharus latifolius",
+      "in_marin_dna_training": false,
+      "assembly_code": null,
+      "original_training_rows": 0
+    }
+  },
+  "verified_sources": [
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00000-of-00044.parquet",
+      "metadata_sha256": "949331ae1da019b014424a7b8f32f8451915ee985176da846e11fa4fc7fff756",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00001-of-00044.parquet",
+      "metadata_sha256": "844186949ee0734633d76d3a696220c6a9b889a53e3f94a7d3a51dddc4983b0c",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00002-of-00044.parquet",
+      "metadata_sha256": "7dc1f830d7a8cf9cc325244281b296d3cb31d78549c68d972d6c22ff3e638ce3",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00003-of-00044.parquet",
+      "metadata_sha256": "013b433fecdb1673855276e7a8c677ea0eb2b99cfa956e71cb1087eea5b1e514",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00004-of-00044.parquet",
+      "metadata_sha256": "7438cf06f88f9b8efa54e18c621affcdc8936e902b122fb32f43ab4a10b0aa0b",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00005-of-00044.parquet",
+      "metadata_sha256": "d8827825ff8ae725a9032cf74a05a282a261fcb92146b542b51827a692429aa3",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00006-of-00044.parquet",
+      "metadata_sha256": "aeb30ddd08c8dcd137980dfefbb062e34610f2e349cbd581860605d6624c7423",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00007-of-00044.parquet",
+      "metadata_sha256": "f715c2af6d0c8642b6f2a74a4af04092c8f6ea951f928422ae7ef635875e3748",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00008-of-00044.parquet",
+      "metadata_sha256": "37320c5c82916347535055223b429ac365fdd412eded0cab6bca2f1ab489c67f",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00009-of-00044.parquet",
+      "metadata_sha256": "03ae609eeb3ab31e96675665ec9fcd455e482f40a2dcdc5a30193dd9974984f6",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00010-of-00044.parquet",
+      "metadata_sha256": "639d472da6384f8cd79e1c0974b1ca19e7a9d51acd6ccff9096a53369fec7a60",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00011-of-00044.parquet",
+      "metadata_sha256": "23f9c1c6115cdac77255eae8e913bc21000b444736273377d22b9cffadedd95a",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00012-of-00044.parquet",
+      "metadata_sha256": "184034a9720aa8960fc9cd91f4001695cf5e8713fa10c4bab428408ef9d2ae1b",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00013-of-00044.parquet",
+      "metadata_sha256": "fbb52e06d2c8f6b5f2478a8460eb766a0c5b3519dae35dd6eaecde31b04dd3b4",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00014-of-00044.parquet",
+      "metadata_sha256": "05f037f2f1e8e2fd8eb335dc999931ce36cdb0cb137a2c6e254f21ef4ec63fca",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00015-of-00044.parquet",
+      "metadata_sha256": "e829f24ab8e89baab45ccda1dda8d948c8db62547ac18ebcc6abf6d961d48301",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00016-of-00044.parquet",
+      "metadata_sha256": "3c98800678ee8a8b38d9cb250e7f55403ee1d189dc86710f20e68916fc7930da",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00017-of-00044.parquet",
+      "metadata_sha256": "edd35ebe51e3e9c8cb935d5ef201464baff1673cc778eba5ff5b148a0571564a",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00018-of-00044.parquet",
+      "metadata_sha256": "1229f632777a37c00440bf423ad9d73c6daed88283ac4f3a7036eeafa2d92112",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00019-of-00044.parquet",
+      "metadata_sha256": "6c3c92ac774033e3ce09a3d97b2434c637c67a0b3ac8c52349ab59c39ba57a5b",
+      "rows": 59970
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00020-of-00044.parquet",
+      "metadata_sha256": "ac2a15424985fba4e620263cd38fde6f68ed937c1a8fc59b727f189157a00c84",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00021-of-00044.parquet",
+      "metadata_sha256": "f7ed9357d24c47152bfa2775779c7843c53c4c3809c86fb8481c96cd4a7f600b",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00022-of-00044.parquet",
+      "metadata_sha256": "b5785a1d62f328aef67c5e504666acb0d1993224b434a6429318bf35a2c97ea1",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00023-of-00044.parquet",
+      "metadata_sha256": "1e2d3264112c15a5d92b5f4bcef90eb7aa8b00a8b89a096ac7429c92573d10d4",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00024-of-00044.parquet",
+      "metadata_sha256": "282f23d8a29fe9cad0eceb34c6538719a72b51dbe29f20359b6c2718128e6f9d",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00025-of-00044.parquet",
+      "metadata_sha256": "bcecf14b65f40eaaf4a5c4cb34387366b8fcb93e5616e0dce345214b804dabb8",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00026-of-00044.parquet",
+      "metadata_sha256": "a1fd2be7507f6588102595865cca969d88c4831afa0fae13f2a0786e32895015",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00027-of-00044.parquet",
+      "metadata_sha256": "31448e20e08ae03a2699c68547d3fcab71ff25c66080519cb28d819b4f254c32",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00028-of-00044.parquet",
+      "metadata_sha256": "0754d0d11c4d75e4d8f845844505d54edf0ced914650c7e92d2dff41a73bdb1f",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00029-of-00044.parquet",
+      "metadata_sha256": "f937e32dfa0153df00f6c6eb2352fa9643ce51a66c3d834ddd566f1a3d623604",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00030-of-00044.parquet",
+      "metadata_sha256": "0d36866397ee9a3f91267629b8d964a5152a90f721bfb743623decfb6e71f87e",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00031-of-00044.parquet",
+      "metadata_sha256": "4d54e92fbc616f7bc7a96ddb61f766079ca366f2258914a15122cf68829d5990",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00032-of-00044.parquet",
+      "metadata_sha256": "c48e227d8cc0edfe8ad1af576e298860fceb9a9916209668f124822071c48ccf",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00033-of-00044.parquet",
+      "metadata_sha256": "71a0c39c745b9a593f75841e2706d32d1b09580cc122adf14fdbc93695bd1a36",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00034-of-00044.parquet",
+      "metadata_sha256": "e726933c5fb9b610ac69041d56ba1e45e72afbcc2f7a34600c074a773dfc3f39",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00035-of-00044.parquet",
+      "metadata_sha256": "f80f474f802b3a802fb0bc18c3aa13f34e551d19dfdfc80eb88129200387893a",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00036-of-00044.parquet",
+      "metadata_sha256": "53a1e60571ef6ceb3e17df97ad088c521692b5d89dde1e277baedf89fd7d74f1",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00037-of-00044.parquet",
+      "metadata_sha256": "7a8775709671b961e7d7968bbd05adaf37f12627a0baeca9f1e2006029cd63a4",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00038-of-00044.parquet",
+      "metadata_sha256": "47827165ecb63792984cf2c77c2eca4e0d2cad0b061c7349d4d050bda1e85f49",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00039-of-00044.parquet",
+      "metadata_sha256": "4a5db1a0285daed839932b683976de785e0079d97c3542b5374c8a45c83ce009",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00040-of-00044.parquet",
+      "metadata_sha256": "14e1ca5f12534b07340e6149abba75a72069efbfbddb14e0f803077d24e15008",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00041-of-00044.parquet",
+      "metadata_sha256": "fde1b3ba09385694e244d13ddd79797de261b6b468424804e59d052474f73f0a",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00042-of-00044.parquet",
+      "metadata_sha256": "1c5a52604f5389f74e9ee980bc96117b4a148559059cdcae111038e79f1cb731",
+      "rows": 59969
+    },
+    {
+      "uri": "s3://marin-us-east-02a/MarinDNA/data/plantcad/Angiosperm_65_genomes_8192bp/train/data-00043-of-00044.parquet",
+      "metadata_sha256": "020aa6123451a9cda0063eabd3631f02e35ff118ceef9f26d49581bc732bad2b",
+      "rows": 59969
+    }
+  ],
+  "dataset_revision": "4a444fff5520b992aa978d92a5af509a81977098",
+  "source_sha256": {
+    "/home/exedev/repos/marin-dna-br/codex-issue-593-augmentation/experiments/exp593_augmented_dna/src/exp593_dna/assets/species_registry.json": "e9aa29beda8051b1e89f954611092c50892fdb0959dca77a6ae98bde8685a344",
+    "/home/exedev/tmp/mdna-exp593-data-prep/by-species/partition_manifest.json": "83b2c1ffebc4e3449d02fcf7b53c12442f82947617a0b23564e91ebfae335403",
+    "/home/exedev/repos/marin-dna-br/codex-issue-593-augmentation/experiments/exp586_plantcad2_moe/src/exp586_moe/corpus.json": "3246a42f49c0466d9d41deb9dbb452c5e0e34c44f04e6e1133dda27de946eb62",
+    "/home/exedev/repos/marin-dna-br/codex-issue-593-augmentation/experiments/exp593_augmented_dna/artifacts/prep-v2/inputs_manifest.json": "33d8d87b7ee9edbba457504632936cfd7eccb00523a74726ed6a08098047f0e3"
+  }
+}

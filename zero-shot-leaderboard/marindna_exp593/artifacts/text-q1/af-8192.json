@@ -1,0 +1,1033 @@
+{
+  "experiment": 593,
+  "condition": "text",
+  "quarter": 1,
+  "checkpoint": {
+    "quarter": 1,
+    "run_id": "dna-exp593-augmented-d768-pretrained-seed0-v1",
+    "step": 156559,
+    "input_tokens": 54039954011,
+    "target_tokens": 54039674880,
+    "checkpoint": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/training/dna-exp593-augmented-d768-pretrained-seed0-v1/checkpoints/step-156559",
+    "clock": {
+      "input_tokens": 54039954011,
+      "dna_tokens": 53627634730,
+      "text_tokens": 412319281,
+      "loss_targets": 27177981712,
+      "examples": 10019776,
+      "fim_examples": 5009568,
+      "rc_examples": 5012286,
+      "updates": 156559
+    },
+    "metadata_sha256": "40fd5b04572ab299ec5c150923fab8c9db22784664b5cac59011fa9be5dcd891",
+    "metadata_canonical_sha256": "197a1ff5d3a1a2798435bd00419eb42c47d2d3fb51be105d135528965ce0fb73",
+    "bindings": {
+      "augmentation": {
+        "assembly_probability": 0.15,
+        "bucket_probabilities": [
+          0.15,
+          0.25,
+          0.25,
+          0.35
+        ],
+        "case_probabilities": [
+          0.5,
+          0.25,
+          0.25
+        ],
+        "center_gap_probability": 0.2,
+        "chrom_probability": 0.25,
+        "description_probability": 0.8,
+        "gap_length_probability": 0.8,
+        "global_batch_size": 64,
+        "guided_probability": 0.75,
+        "kind_probabilities": [
+          0.4,
+          0.1,
+          0.375,
+          0.125
+        ],
+        "length_buckets": [
+          2048,
+          4096,
+          6144,
+          8192
+        ],
+        "mask_description_probability": 0.85,
+        "minimal_fim_probability": 0.25,
+        "minimum_fill_fraction": 0.875,
+        "orientation_probability": 0.2,
+        "seed": 472,
+        "source_strand_probability": 0.15,
+        "species_probability": 0.7,
+        "taxonomy_probability": 0.35
+      },
+      "inputs_manifest": "33d8d87b7ee9edbba457504632936cfd7eccb00523a74726ed6a08098047f0e3",
+      "model": {
+        "attention_implementation": "gpu_fa4_cute",
+        "capacity_factor": 1.15,
+        "expert_chunks": 1,
+        "global_every": 4,
+        "global_kv_heads": 1,
+        "head_dim": 128,
+        "hidden_dim": 768,
+        "initializer_std": 0.018042195912175808,
+        "intermediate_dim": 384,
+        "latent_dim": 384,
+        "layer_norm_eps": 1e-05,
+        "local_kv_heads": 1,
+        "max_seq_len": 8192,
+        "moe_implementation": "fixed_pooled_wave_all_to_all",
+        "num_expert_waves": 3,
+        "num_experts": 384,
+        "num_experts_per_token": 8,
+        "num_heads": 6,
+        "num_kv_heads": 1,
+        "num_layers": 8,
+        "num_shared_experts": 2,
+        "pooled_transport_capacity_factor": 1.15,
+        "qb_estimator": "hist",
+        "qb_hist_bins": 10000,
+        "qk_mult": 1.3,
+        "remat_mode": "recompute_all",
+        "report_capacity_overflow": true,
+        "rope": {
+          "scaling_factor": null,
+          "theta": 10000.0
+        },
+        "rope_fused": true,
+        "sconv": true,
+        "sconv_kernel": 4,
+        "sconv_sites": [
+          "k",
+          "attn",
+          "mlp"
+        ],
+        "shared_expert_intermediate_dim": 384,
+        "sliding_window": 2048,
+        "vocab_size": 128256
+      },
+      "norm_policy": {
+        "every_updates": 1000,
+        "num_layers": 8
+      },
+      "objective_source_sha256": {
+        "annotations.py": "0ebde87a7b83ad7b89e591c5ac4a09efacf7e880c5735f36d6a7c0ff8df40055",
+        "evaluate.py": "99e45a19ba58e9e667fbffdf04bd8e872f6556d98e47ba1e573a2c1dcc931233",
+        "fim_validation.py": "5ad18953bdee8208ec0964c54213225cd6f6a42fdf03385b741c7464c31ed6c9",
+        "pipeline.py": "839a9da26864dde83c2f61ea4680d0afc55a4e56c59ce832fc41650d7d21fdea",
+        "schedule.py": "746aef1a26ee43ff510a8cc39971ecfbd49489e2e2fef2367abbdafdca50911b",
+        "templates.py": "067359a78348002a1a8ce4c2fda533501aa541bc412a2aae2e2ea4906394fb73",
+        "train_step.py": "237f9367351f16b100e40fd12f751625afcec6a5c2c8470711c6c15ca12c77ba"
+      },
+      "optimized_source_commit": "de5f428fc7b2bac8b6e40697f905c8b99ca3580d",
+      "optimizer": {
+        "adam_lr": 0.000766139548178887,
+        "backend_steps": 5,
+        "beta1": 0.9,
+        "beta2": 0.996005996001,
+        "coefficient_type": "quintic",
+        "cooldown": null,
+        "cycle_length": null,
+        "cycles": null,
+        "decay": null,
+        "default_weight_decay_mask": null,
+        "epsilon": 6.212941441462329e-15,
+        "gate_router_weight_decay": 0.0,
+        "haps": null,
+        "learning_rate": 0.0033199380421085104,
+        "lr_schedule": "linear",
+        "max_grad_norm": null,
+        "min_lr_ratio": 0.05,
+        "momentum": 0.95,
+        "muon_epsilon": 1e-08,
+        "nesterov": true,
+        "rewarmup": 0.0,
+        "use_syrk": true,
+        "warmup": 0.01,
+        "weight_decay": 0.0,
+        "weight_decay_modules": null
+      },
+      "protocol": "exp593-augmented-d768-v1",
+      "reference_tokens_per_update": 524288,
+      "run_id": "dna-exp593-augmented-d768-pretrained-seed0-v1",
+      "schedule": {
+        "min_lr_ratio": 0.05,
+        "training_tokens": 216158699520,
+        "warmup_tokens": 2161115136
+      },
+      "source_checkpoint": "s3://marin-us-east-02a/marin/grug/rav-ladder-d768-v2/2026.08.18/checkpoints/step-11420",
+      "source_metadata": "01cbe71d30793c7a66dd7fe1f54a50e1198490a58cc364a28b5cf27a26e76cf4",
+      "stop_policy": "first_complete_global_batch_at_or_above_nominal_input_budget",
+      "tokenizer": "a43c95c64d7293d06f0c6c4713f95e0036738248f881315910c703307bdd2a2b",
+      "validation_manifests": {
+        "audit/fim_validation_pairs.jsonl": "e19d6352643032252c0855206be2e02aa878498f25490e4ef39f111f03dd7848",
+        "audit/validation_disjoint_512.json": "6fad190f8a5b4552d5bdb17eee3df3e133eb4538a92b1e9ba200dffc991f051e",
+        "validation/primary_validation_512.jsonl": "01348a2df1d2c17efc10e5d925d828e43f7adb50034175ce05481970387a9ca3"
+      },
+      "validation_updates": null
+    }
+  },
+  "species": "Maize",
+  "context_token_budget": 8192,
+  "examples_per_variant": 94075,
+  "inference_configuration": "fast-fa3",
+  "inference_source_commit": "6c07df025a185c6e39278327ba5b678dcfd93c86",
+  "analysis_source_commit": "0a6a9cb467d103063e70f575aba6874e22b00fa8",
+  "source_metric_records": {
+    "ar-lower-control": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q1/v1/analysis/af8192/attempts/c6115c8930cb4ab6a480579f530f184c/results/context-8192/ar-lower-control/af/result.json",
+      "sha256": "29d19bf6eae643bcfd8cdfe3e683cdc00d2369e558755e7927edc0a356f09247",
+      "bytes": 5020
+    },
+    "ar-lower-folded": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q1/v1/analysis/af8192/attempts/c6115c8930cb4ab6a480579f530f184c/results/context-8192/ar-lower-folded/af/result.json",
+      "sha256": "754ae777eab23de6374158ed945fb91747436f4bd9b439adc0b365bdf976690a",
+      "bytes": 5019
+    },
+    "ar-upper-folded": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q1/v1/analysis/af8192/attempts/c6115c8930cb4ab6a480579f530f184c/results/context-8192/ar-upper-folded/af/result.json",
+      "sha256": "fd83ce6400b700a9b9769a1bc28def2f4666b4346639cf4279ff7b0ade8f93d0",
+      "bytes": 5025
+    },
+    "fim-minimal-folded": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q1/v1/analysis/af8192/attempts/c6115c8930cb4ab6a480579f530f184c/results/context-8192/fim-minimal-folded/af/result.json",
+      "sha256": "5549caea1ae29f73a1df179b0700bd67105be5074e68ceee9de496be810defd8",
+      "bytes": 5111
+    },
+    "fim-metadata-folded": {
+      "uri": "s3://marin-us-east-02a/MarinDNA/exp593_augmented_dna/evaluations/plantcad2-v1/checkpoints/text-q1/v1/analysis/af8192/attempts/c6115c8930cb4ab6a480579f530f184c/results/context-8192/fim-metadata-folded/af/result.json",
+      "sha256": "76272c82eef1a2ce8222f7495bc1d2a0652b5d481993234a37e79ed3be6e7b3a",
+      "bytes": 5105
+    }
+  },
+  "phase_receipt_sha256": "76de1483c75befa082f672a853ae1f9e4c02b80c2825bcc7bf0d162e95417a06",
+  "metrics": {
+    "ar-lower-control": {
+      "rows": 94075,
+      "scores": {
+        "llr_acgt_avg": {
+          "overall": {
+            "pearson": 0.10337546575448812,
+            "spearman": 0.07184993729597641
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.04690587214039582,
+              "spearman": 0.0194512051756061
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.1431420428673321,
+              "spearman": 0.1241935360793511
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.05290551719300439,
+              "spearman": 0.026310106501127722
+            },
+            "grouped_splice_region": {
+              "pearson": 0.04542403865887194,
+              "spearman": 0.029778608043455997
+            },
+            "grouped_start_stop": {
+              "pearson": 0.21869490304266717,
+              "spearman": 0.17194797592640615
+            },
+            "intergenic_variant": {
+              "pearson": 0.057569354159238945,
+              "spearman": 0.021726494380265554
+            },
+            "intron_variant": {
+              "pearson": 0.04349245158093233,
+              "spearman": 0.030638814942803974
+            },
+            "missense_variant": {
+              "pearson": 0.0969653790196377,
+              "spearman": 0.062132060412628504
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.1588589572473785,
+              "spearman": 0.11908067076857419
+            },
+            "synonymous_variant": {
+              "pearson": 0.1921967609431501,
+              "spearman": 0.1484340957132833
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.08084445592704255,
+              "spearman": 0.05931697171774757
+            }
+          }
+        },
+        "llr_full_vocab_avg": {
+          "overall": {
+            "pearson": 0.10317281106673036,
+            "spearman": 0.07170408299070447
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.04669481679263222,
+              "spearman": 0.019786733686524373
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.14234506827983645,
+              "spearman": 0.12303508825077243
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.052906801156477355,
+              "spearman": 0.026123512880882716
+            },
+            "grouped_splice_region": {
+              "pearson": 0.045386140087232685,
+              "spearman": 0.029714525934420033
+            },
+            "grouped_start_stop": {
+              "pearson": 0.2182999584515889,
+              "spearman": 0.1709520192207693
+            },
+            "intergenic_variant": {
+              "pearson": 0.05701667717295693,
+              "spearman": 0.021329325955059052
+            },
+            "intron_variant": {
+              "pearson": 0.043283909994466144,
+              "spearman": 0.03000768782855807
+            },
+            "missense_variant": {
+              "pearson": 0.09691952208385327,
+              "spearman": 0.06234800992377406
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.15864289209709487,
+              "spearman": 0.1190460179161088
+            },
+            "synonymous_variant": {
+              "pearson": 0.1922993287670727,
+              "spearman": 0.14859040405196705
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.0811338611111076,
+              "spearman": 0.05973637766813944
+            }
+          }
+        },
+        "llr_target_poe": {
+          "overall": {
+            "pearson": 0.09698451869449962,
+            "spearman": 0.061568163330793506
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.025453631019318752,
+              "spearman": 0.0013576240329051163
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.15118460120119429,
+              "spearman": 0.1328075639663356
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.019364602305273836,
+              "spearman": -0.0013714085873389379
+            },
+            "grouped_splice_region": {
+              "pearson": 0.0324899291248675,
+              "spearman": 0.019332434926875662
+            },
+            "grouped_start_stop": {
+              "pearson": 0.17202869135088827,
+              "spearman": 0.12572046528146022
+            },
+            "intergenic_variant": {
+              "pearson": 0.0247568762995609,
+              "spearman": 0.005047892203539137
+            },
+            "intron_variant": {
+              "pearson": 0.008748721116785424,
+              "spearman": -3.0499990283294542e-05
+            },
+            "missense_variant": {
+              "pearson": 0.12129148516920693,
+              "spearman": 0.08210241611505677
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.1677384941880488,
+              "spearman": 0.13404085612552571
+            },
+            "synonymous_variant": {
+              "pearson": 0.21379129255457907,
+              "spearman": 0.15141428407501137
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.053313265402906936,
+              "spearman": 0.031408551068861305
+            }
+          }
+        }
+      },
+      "predictions": "predictions.parquet",
+      "natural_method": "mean forward/reverse-complement full causal suffix LLR",
+      "bidirectional_method": "equal-weight product at the variant target"
+    },
+    "ar-lower-folded": {
+      "rows": 94075,
+      "scores": {
+        "llr_acgt_avg": {
+          "overall": {
+            "pearson": 0.10341908916671368,
+            "spearman": 0.07187905406772531
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.04692857734119467,
+              "spearman": 0.01947715626287677
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.14316730185808996,
+              "spearman": 0.12421697083814158
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.052916269570222094,
+              "spearman": 0.02633029242628779
+            },
+            "grouped_splice_region": {
+              "pearson": 0.045460394340424384,
+              "spearman": 0.02981076051159291
+            },
+            "grouped_start_stop": {
+              "pearson": 0.21872911183236826,
+              "spearman": 0.17194482524114715
+            },
+            "intergenic_variant": {
+              "pearson": 0.05760111033831456,
+              "spearman": 0.021748967037189388
+            },
+            "intron_variant": {
+              "pearson": 0.0435116820087456,
+              "spearman": 0.030659427555899166
+            },
+            "missense_variant": {
+              "pearson": 0.09703013077143398,
+              "spearman": 0.06219195760932283
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.15888976261430696,
+              "spearman": 0.11911476288333793
+            },
+            "synonymous_variant": {
+              "pearson": 0.1922878472595872,
+              "spearman": 0.14849496354442537
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.08086678530823835,
+              "spearman": 0.05935437616025431
+            }
+          }
+        },
+        "llr_full_vocab_avg": {
+          "overall": {
+            "pearson": 0.1033233603779978,
+            "spearman": 0.0717992972057899
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.0466957503977446,
+              "spearman": 0.019781666553161024
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.14249623497059688,
+              "spearman": 0.12317283687024581
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.05296797947676425,
+              "spearman": 0.02618611660370789
+            },
+            "grouped_splice_region": {
+              "pearson": 0.04540954018929903,
+              "spearman": 0.029718610637674406
+            },
+            "grouped_start_stop": {
+              "pearson": 0.21831853722163494,
+              "spearman": 0.17114621189693452
+            },
+            "intergenic_variant": {
+              "pearson": 0.05715731136527669,
+              "spearman": 0.021433356469886474
+            },
+            "intron_variant": {
+              "pearson": 0.043316003201771786,
+              "spearman": 0.02999263184387837
+            },
+            "missense_variant": {
+              "pearson": 0.09711720870008513,
+              "spearman": 0.06244940906802437
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.1587738900793129,
+              "spearman": 0.11921948708576918
+            },
+            "synonymous_variant": {
+              "pearson": 0.19257801314681058,
+              "spearman": 0.1487386841303168
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.08123575415092435,
+              "spearman": 0.059863980785202026
+            }
+          }
+        },
+        "llr_target_poe": {
+          "overall": {
+            "pearson": 0.09707443935305463,
+            "spearman": 0.06164811035190727
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.025517045222534118,
+              "spearman": 0.0014208023532552047
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.15127099827687793,
+              "spearman": 0.13289118263627347
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.019451897124741126,
+              "spearman": -0.001292743070574214
+            },
+            "grouped_splice_region": {
+              "pearson": 0.032563246524925954,
+              "spearman": 0.019375559431528924
+            },
+            "grouped_start_stop": {
+              "pearson": 0.17213213097939237,
+              "spearman": 0.12577536903169764
+            },
+            "intergenic_variant": {
+              "pearson": 0.02488370112596781,
+              "spearman": 0.005179443830582775
+            },
+            "intron_variant": {
+              "pearson": 0.008817651860353814,
+              "spearman": 1.877952885399422e-05
+            },
+            "missense_variant": {
+              "pearson": 0.12138768028801196,
+              "spearman": 0.08218768989617276
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.1678236518590419,
+              "spearman": 0.1341339388806482
+            },
+            "synonymous_variant": {
+              "pearson": 0.21384479871158676,
+              "spearman": 0.15146120603644767
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.053428905175855315,
+              "spearman": 0.03151087353445131
+            }
+          }
+        }
+      },
+      "predictions": "predictions.parquet",
+      "natural_method": "mean forward/reverse-complement full causal suffix LLR",
+      "bidirectional_method": "equal-weight product at the variant target"
+    },
+    "ar-upper-folded": {
+      "rows": 94075,
+      "scores": {
+        "llr_acgt_avg": {
+          "overall": {
+            "pearson": 0.09938908268389167,
+            "spearman": 0.06944524003777575
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.0520918347530813,
+              "spearman": 0.025219978052150975
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.14677726799303925,
+              "spearman": 0.11809771051407289
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.04861753624232536,
+              "spearman": 0.019706376583400565
+            },
+            "grouped_splice_region": {
+              "pearson": 0.04396475014994164,
+              "spearman": 0.028690835756148912
+            },
+            "grouped_start_stop": {
+              "pearson": 0.23164831222882531,
+              "spearman": 0.17815638520493712
+            },
+            "intergenic_variant": {
+              "pearson": 0.04862866458962402,
+              "spearman": 0.021400747365617947
+            },
+            "intron_variant": {
+              "pearson": 0.03244168174055004,
+              "spearman": 0.019125096809143233
+            },
+            "missense_variant": {
+              "pearson": 0.09609440028786582,
+              "spearman": 0.071149202280842
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.15085689314784223,
+              "spearman": 0.11853389176885465
+            },
+            "synonymous_variant": {
+              "pearson": 0.1848713693021696,
+              "spearman": 0.14174033276363845
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.07363445115471824,
+              "spearman": 0.05433877594471571
+            }
+          }
+        },
+        "llr_full_vocab_avg": {
+          "overall": {
+            "pearson": 0.09949349346227271,
+            "spearman": 0.0696331459358312
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.05117741458034782,
+              "spearman": 0.024562314945563424
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.14690500330913903,
+              "spearman": 0.11851725635844611
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.04889796491049975,
+              "spearman": 0.01938015431829126
+            },
+            "grouped_splice_region": {
+              "pearson": 0.04394423385104456,
+              "spearman": 0.028820844249836643
+            },
+            "grouped_start_stop": {
+              "pearson": 0.23183176454426685,
+              "spearman": 0.17869140964526098
+            },
+            "intergenic_variant": {
+              "pearson": 0.04910640570631781,
+              "spearman": 0.022191966153415007
+            },
+            "intron_variant": {
+              "pearson": 0.03306835455371298,
+              "spearman": 0.020018672505449857
+            },
+            "missense_variant": {
+              "pearson": 0.09559786249943573,
+              "spearman": 0.07084612945596665
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.1509056473174918,
+              "spearman": 0.11864672935830341
+            },
+            "synonymous_variant": {
+              "pearson": 0.1853202369641631,
+              "spearman": 0.14228902939349103
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.07378099339150407,
+              "spearman": 0.05454540303574525
+            }
+          }
+        },
+        "llr_target_poe": {
+          "overall": {
+            "pearson": 0.07058361302202655,
+            "spearman": 0.04040964394922767
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.008315906630671088,
+              "spearman": -0.010681300029675938
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.12918253409493072,
+              "spearman": 0.11085763443429054
+            },
+            "downstream_gene_variant": {
+              "pearson": -0.008203627884668037,
+              "spearman": -0.020965859338608308
+            },
+            "grouped_splice_region": {
+              "pearson": 0.017192102471644075,
+              "spearman": 0.006581167038067562
+            },
+            "grouped_start_stop": {
+              "pearson": 0.16781764889357356,
+              "spearman": 0.12529135810462824
+            },
+            "intergenic_variant": {
+              "pearson": -0.013099146630696572,
+              "spearman": -0.02539856743958569
+            },
+            "intron_variant": {
+              "pearson": -0.005527905150723905,
+              "spearman": -0.010104282777194683
+            },
+            "missense_variant": {
+              "pearson": 0.08170433251946609,
+              "spearman": 0.04985773288924387
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.13777383680957345,
+              "spearman": 0.10731644444051802
+            },
+            "synonymous_variant": {
+              "pearson": 0.19716571588861628,
+              "spearman": 0.13801619776216814
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.02019298274828267,
+              "spearman": 0.006659544193313516
+            }
+          }
+        }
+      },
+      "predictions": "predictions.parquet",
+      "natural_method": "mean forward/reverse-complement full causal suffix LLR",
+      "bidirectional_method": "equal-weight product at the variant target"
+    },
+    "fim-minimal-folded": {
+      "rows": 94075,
+      "scores": {
+        "llr_acgt_avg": {
+          "overall": {
+            "pearson": 0.07811717344480312,
+            "spearman": 0.053175650958070676
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.031223222651794304,
+              "spearman": 0.010825837710700373
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.13421084497165153,
+              "spearman": 0.11775277497949777
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.014612542719683435,
+              "spearman": -0.00636470173313917
+            },
+            "grouped_splice_region": {
+              "pearson": 0.04765968518668285,
+              "spearman": 0.032155925135152134
+            },
+            "grouped_start_stop": {
+              "pearson": 0.09903896085788899,
+              "spearman": 0.060667570768417695
+            },
+            "intergenic_variant": {
+              "pearson": 0.008980064324506116,
+              "spearman": -0.015443620243703481
+            },
+            "intron_variant": {
+              "pearson": -0.000592612726478647,
+              "spearman": -0.004680958584849264
+            },
+            "missense_variant": {
+              "pearson": 0.10783836230504594,
+              "spearman": 0.08599365228753832
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.1449963064752628,
+              "spearman": 0.12296362698638764
+            },
+            "synonymous_variant": {
+              "pearson": 0.17745741937711135,
+              "spearman": 0.13294749022837604
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.049666411992170194,
+              "spearman": 0.023052243637827537
+            }
+          }
+        },
+        "llr_full_vocab_avg": {
+          "overall": {
+            "pearson": 0.07812060404789728,
+            "spearman": 0.05317457287863576
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.031208464707441347,
+              "spearman": 0.010821451714543535
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.13420637808114794,
+              "spearman": 0.1177530232741721
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.014599669378140749,
+              "spearman": -0.006370982031416589
+            },
+            "grouped_splice_region": {
+              "pearson": 0.047671878907796186,
+              "spearman": 0.032162719933670515
+            },
+            "grouped_start_stop": {
+              "pearson": 0.09905036619227313,
+              "spearman": 0.06068996300579329
+            },
+            "intergenic_variant": {
+              "pearson": 0.008983347721278876,
+              "spearman": -0.015453542646563088
+            },
+            "intron_variant": {
+              "pearson": -0.0005831697016199091,
+              "spearman": -0.0046717671157228465
+            },
+            "missense_variant": {
+              "pearson": 0.10785600315453737,
+              "spearman": 0.08599954972159315
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.14500513161453843,
+              "spearman": 0.12295339169384696
+            },
+            "synonymous_variant": {
+              "pearson": 0.17746661248389037,
+              "spearman": 0.1329377148175473
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.04965940654800218,
+              "spearman": 0.02303932282303993
+            }
+          }
+        },
+        "llr_target_poe": {
+          "overall": {
+            "pearson": 0.07811717325419454,
+            "spearman": 0.05317565201225657
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.031223222346069928,
+              "spearman": 0.010825757473616021
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.1342108454579401,
+              "spearman": 0.1177528642964963
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.014612543212640884,
+              "spearman": -0.006364755134055173
+            },
+            "grouped_splice_region": {
+              "pearson": 0.04765968441773359,
+              "spearman": 0.032155896501639684
+            },
+            "grouped_start_stop": {
+              "pearson": 0.0990389607572395,
+              "spearman": 0.06066758153927585
+            },
+            "intergenic_variant": {
+              "pearson": 0.008980064186027304,
+              "spearman": -0.015443620243703481
+            },
+            "intron_variant": {
+              "pearson": -0.000592613301562532,
+              "spearman": -0.004680940071107713
+            },
+            "missense_variant": {
+              "pearson": 0.10783836190207027,
+              "spearman": 0.0859936766087439
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.1449963062231507,
+              "spearman": 0.12296365010286049
+            },
+            "synonymous_variant": {
+              "pearson": 0.17745741886565586,
+              "spearman": 0.1329475380843246
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.04966641229192473,
+              "spearman": 0.023052243637827537
+            }
+          }
+        }
+      },
+      "predictions": "predictions.parquet",
+      "natural_method": "Common target-free FIM prompt; forward/RC mean single-site REF/ALT odds, separate FP32 eight-row projection",
+      "bidirectional_method": "Equal-weight forward/RC product at the FIM variant target"
+    },
+    "fim-metadata-folded": {
+      "rows": 94075,
+      "scores": {
+        "llr_acgt_avg": {
+          "overall": {
+            "pearson": 0.05879830379736555,
+            "spearman": 0.03981680287455496
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.025952480012082318,
+              "spearman": 0.009808997554032306
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.11324345214271368,
+              "spearman": 0.09668511300108974
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.00362684028762585,
+              "spearman": -0.01338048344128103
+            },
+            "grouped_splice_region": {
+              "pearson": 0.04451657897276189,
+              "spearman": 0.02911855900840232
+            },
+            "grouped_start_stop": {
+              "pearson": 0.05213511347456178,
+              "spearman": 0.0207803848266334
+            },
+            "intergenic_variant": {
+              "pearson": -0.008519864308649299,
+              "spearman": -0.03067713722779919
+            },
+            "intron_variant": {
+              "pearson": -0.007557194419146134,
+              "spearman": -0.008930475382701156
+            },
+            "missense_variant": {
+              "pearson": 0.0843716453321749,
+              "spearman": 0.07314594076765996
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.11733913169041417,
+              "spearman": 0.10272876437577837
+            },
+            "synonymous_variant": {
+              "pearson": 0.14944010741874636,
+              "spearman": 0.11382247003995286
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.037847286654952184,
+              "spearman": 0.015165161598913486
+            }
+          }
+        },
+        "llr_full_vocab_avg": {
+          "overall": {
+            "pearson": 0.058799845355217366,
+            "spearman": 0.0398158095337731
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.0259550579588342,
+              "spearman": 0.00981504985776028
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.11324303490405668,
+              "spearman": 0.09669380364817813
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.0036354260133050656,
+              "spearman": -0.01338571905863036
+            },
+            "grouped_splice_region": {
+              "pearson": 0.04451593621443196,
+              "spearman": 0.029116006867426988
+            },
+            "grouped_start_stop": {
+              "pearson": 0.052126758457121114,
+              "spearman": 0.020803361158120922
+            },
+            "intergenic_variant": {
+              "pearson": -0.008513972948701178,
+              "spearman": -0.03069155500840727
+            },
+            "intron_variant": {
+              "pearson": -0.007562117360691733,
+              "spearman": -0.008935365000937754
+            },
+            "missense_variant": {
+              "pearson": 0.08437648097969547,
+              "spearman": 0.07314260575826861
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.1173346060375975,
+              "spearman": 0.10273355194455988
+            },
+            "synonymous_variant": {
+              "pearson": 0.14942917284136764,
+              "spearman": 0.11382170366934093
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.03787469966116488,
+              "spearman": 0.015172973527781432
+            }
+          }
+        },
+        "llr_target_poe": {
+          "overall": {
+            "pearson": 0.05879830385322595,
+            "spearman": 0.03981679445580727
+          },
+          "by_consequence": {
+            "3_prime_UTR_variant": {
+              "pearson": 0.025952480369000802,
+              "spearman": 0.009808997554032306
+            },
+            "5_prime_UTR_variant": {
+              "pearson": 0.11324345251841528,
+              "spearman": 0.09668512659967962
+            },
+            "downstream_gene_variant": {
+              "pearson": 0.0036268397158127825,
+              "spearman": -0.01338049570210235
+            },
+            "grouped_splice_region": {
+              "pearson": 0.04451657946282626,
+              "spearman": 0.02911846957520953
+            },
+            "grouped_start_stop": {
+              "pearson": 0.05213511230747683,
+              "spearman": 0.0207803848266334
+            },
+            "intergenic_variant": {
+              "pearson": -0.008519865452949924,
+              "spearman": -0.030677176372993963
+            },
+            "intron_variant": {
+              "pearson": -0.00755719359780791,
+              "spearman": -0.008930475382701156
+            },
+            "missense_variant": {
+              "pearson": 0.08437164587546889,
+              "spearman": 0.07314594076765996
+            },
+            "non_coding_transcript_exon_variant": {
+              "pearson": 0.117339131726224,
+              "spearman": 0.10272866757183269
+            },
+            "synonymous_variant": {
+              "pearson": 0.1494401076116884,
+              "spearman": 0.11382247003995286
+            },
+            "upstream_gene_variant": {
+              "pearson": 0.03784728587490889,
+              "spearman": 0.015165195901363808
+            }
+          }
+        }
+      },
+      "predictions": "predictions.parquet",
+      "natural_method": "Common target-free FIM prompt; forward/RC mean single-site REF/ALT odds, separate FP32 eight-row projection",
+      "bidirectional_method": "Equal-weight forward/RC product at the FIM variant target"
+    }
+  },
+  "notes": [
+    "Primary AF is llr_acgt_avg; AR uses causal suffix odds, FIM uses variant-only odds with both flanks. These are different readout definitions.",
+    "llr_target_poe is a variant-site-only forward/RC product for both AR and FIM.",
+    "llr_full_vocab_avg is retained as a normalization diagnostic.",
+    "AR suffix AF is sensitive to inference-backend numerical differences; this finding concerns zero-shot scoring, not fitted activation probes."
+  ]
+}

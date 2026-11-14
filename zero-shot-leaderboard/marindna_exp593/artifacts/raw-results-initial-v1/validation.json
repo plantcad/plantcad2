@@ -1,0 +1,20 @@
+{
+  "published_score_rounding_checks": 450,
+  "raw_tables_preserved": true,
+  "raw_table_rows": 264,
+  "source_links_preserved": true,
+  "source_comment_sha256": "a8636b2f7276b6f1e133e58d06d7cfe7e7d798106c8de0c7c40dd0e551ea05e6",
+  "figure_layout": [
+    {
+      "figure": "final-scores",
+      "text_overlap_count": 0,
+      "outside_canvas_count": 0
+    },
+    {
+      "figure": "readout-changes",
+      "text_overlap_count": 0,
+      "outside_canvas_count": 0
+    }
+  ],
+  "github_changes": false
+}

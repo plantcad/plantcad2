@@ -1,0 +1,301 @@
+model,task,family,value,pct_rank
+Carbon-3B,conservation_andropogoneae,Conservation,0.658,33.33333333333333
+GPN,conservation_andropogoneae,Conservation,0.6226,20.0
+MarinDNA 1B 562B,conservation_andropogoneae,Conservation,0.7255664480316916,73.33333333333333
+MarinMoE 1.5B–60M 216B,conservation_andropogoneae,Conservation,0.7368613984225476,86.66666666666667
+MarinMoE 1.5B–60M 665B (FIM),conservation_andropogoneae,Conservation,0.7559745833734881,96.66666666666667
+NTv3-100M,conservation_andropogoneae,Conservation,0.547,6.666666666666667
+NTv3-650M,conservation_andropogoneae,Conservation,0.612,13.333333333333334
+PlantCAD,conservation_andropogoneae,Conservation,0.6902,40.0
+PlantCAD2-L,conservation_andropogoneae,Conservation,0.7245,66.66666666666666
+PlantCAD2-M,conservation_andropogoneae,Conservation,0.7077,53.333333333333336
+PlantCAD2-S,conservation_andropogoneae,Conservation,0.6555,26.666666666666668
+PlantCAD2.5-L,conservation_andropogoneae,Conservation,0.717,60.0
+evo2_20b,conservation_andropogoneae,Conservation,0.732,80.0
+evo2_7b,conservation_andropogoneae,Conservation,0.6912,46.666666666666664
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",conservation_andropogoneae,Conservation,0.7559745833734881,96.66666666666667
+Carbon-3B,conservation_poaceae_non_tis,Conservation,0.7036,46.666666666666664
+GPN,conservation_poaceae_non_tis,Conservation,0.6064,13.333333333333334
+MarinDNA 1B 562B,conservation_poaceae_non_tis,Conservation,0.6976768188054101,40.0
+MarinMoE 1.5B–60M 216B,conservation_poaceae_non_tis,Conservation,0.7165985663103005,60.0
+MarinMoE 1.5B–60M 665B (FIM),conservation_poaceae_non_tis,Conservation,0.7777007228112147,83.33333333333334
+NTv3-100M,conservation_poaceae_non_tis,Conservation,0.533,6.666666666666667
+NTv3-650M,conservation_poaceae_non_tis,Conservation,0.684,26.666666666666668
+PlantCAD,conservation_poaceae_non_tis,Conservation,0.7263,66.66666666666666
+PlantCAD2-L,conservation_poaceae_non_tis,Conservation,0.7125,53.333333333333336
+PlantCAD2-M,conservation_poaceae_non_tis,Conservation,0.6869,33.33333333333333
+PlantCAD2-S,conservation_poaceae_non_tis,Conservation,0.6462,20.0
+PlantCAD2.5-L,conservation_poaceae_non_tis,Conservation,0.729,73.33333333333333
+evo2_20b,conservation_poaceae_non_tis,Conservation,0.862,100.0
+evo2_7b,conservation_poaceae_non_tis,Conservation,0.8216,93.33333333333333
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",conservation_poaceae_non_tis,Conservation,0.7777007228112147,83.33333333333334
+Carbon-3B,conservation_poaceae_tis,Conservation,0.646,73.33333333333333
+GPN,conservation_poaceae_tis,Conservation,0.551,20.0
+MarinDNA 1B 562B,conservation_poaceae_tis,Conservation,0.5847754308338436,26.666666666666668
+MarinMoE 1.5B–60M 216B,conservation_poaceae_tis,Conservation,0.6138255425571866,40.0
+MarinMoE 1.5B–60M 665B (FIM),conservation_poaceae_tis,Conservation,0.6398990929458759,56.666666666666664
+NTv3-100M,conservation_poaceae_tis,Conservation,0.533,6.666666666666667
+NTv3-650M,conservation_poaceae_tis,Conservation,0.613,33.33333333333333
+PlantCAD,conservation_poaceae_tis,Conservation,0.6437,66.66666666666666
+PlantCAD2-L,conservation_poaceae_tis,Conservation,0.6703,86.66666666666667
+PlantCAD2-M,conservation_poaceae_tis,Conservation,0.6647,80.0
+PlantCAD2-S,conservation_poaceae_tis,Conservation,0.6319,46.666666666666664
+PlantCAD2.5-L,conservation_poaceae_tis,Conservation,0.683,93.33333333333333
+evo2_20b,conservation_poaceae_tis,Conservation,0.772,100.0
+evo2_7b,conservation_poaceae_tis,Conservation,0.5335,13.333333333333334
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",conservation_poaceae_tis,Conservation,0.6398990929458759,56.666666666666664
+Carbon-3B,core_maize_acceptor,Core/non-core,0.6557,26.666666666666668
+GPN,core_maize_acceptor,Core/non-core,0.622,13.333333333333334
+MarinDNA 1B 562B,core_maize_acceptor,Core/non-core,0.7927693875856238,73.33333333333333
+MarinMoE 1.5B–60M 216B,core_maize_acceptor,Core/non-core,0.7758067216764104,66.66666666666666
+MarinMoE 1.5B–60M 665B (FIM),core_maize_acceptor,Core/non-core,0.7188901777582127,46.666666666666664
+NTv3-100M,core_maize_acceptor,Core/non-core,0.596,6.666666666666667
+NTv3-650M,core_maize_acceptor,Core/non-core,0.627,20.0
+PlantCAD,core_maize_acceptor,Core/non-core,0.707,33.33333333333333
+PlantCAD2-L,core_maize_acceptor,Core/non-core,0.836,93.33333333333333
+PlantCAD2-M,core_maize_acceptor,Core/non-core,0.829,86.66666666666667
+PlantCAD2-S,core_maize_acceptor,Core/non-core,0.763,60.0
+PlantCAD2.5-L,core_maize_acceptor,Core/non-core,0.873,100.0
+evo2_20b,core_maize_acceptor,Core/non-core,0.804,80.0
+evo2_7b,core_maize_acceptor,Core/non-core,0.761,53.333333333333336
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",core_maize_acceptor,Core/non-core,0.7176399801751422,40.0
+Carbon-3B,core_maize_donor,Core/non-core,0.6446,20.0
+GPN,core_maize_donor,Core/non-core,0.601,13.333333333333334
+MarinDNA 1B 562B,core_maize_donor,Core/non-core,0.76279760353792,66.66666666666666
+MarinMoE 1.5B–60M 216B,core_maize_donor,Core/non-core,0.7407745397924657,53.333333333333336
+MarinMoE 1.5B–60M 665B (FIM),core_maize_donor,Core/non-core,0.6943557093721705,33.33333333333333
+NTv3-100M,core_maize_donor,Core/non-core,0.594,6.666666666666667
+NTv3-650M,core_maize_donor,Core/non-core,0.651,26.666666666666668
+PlantCAD,core_maize_donor,Core/non-core,0.708,46.666666666666664
+PlantCAD2-L,core_maize_donor,Core/non-core,0.808,93.33333333333333
+PlantCAD2-M,core_maize_donor,Core/non-core,0.804,86.66666666666667
+PlantCAD2-S,core_maize_donor,Core/non-core,0.764,73.33333333333333
+PlantCAD2.5-L,core_maize_donor,Core/non-core,0.842,100.0
+evo2_20b,core_maize_donor,Core/non-core,0.776,80.0
+evo2_7b,core_maize_donor,Core/non-core,0.754,60.0
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",core_maize_donor,Core/non-core,0.6958360157042556,40.0
+Carbon-3B,core_maize_tis,Core/non-core,0.5855,20.0
+GPN,core_maize_tis,Core/non-core,0.544,13.333333333333334
+MarinDNA 1B 562B,core_maize_tis,Core/non-core,0.6099221906869086,26.666666666666668
+MarinMoE 1.5B–60M 216B,core_maize_tis,Core/non-core,0.6143774887898461,33.33333333333333
+MarinMoE 1.5B–60M 665B (FIM),core_maize_tis,Core/non-core,0.7805449834794684,100.0
+NTv3-100M,core_maize_tis,Core/non-core,0.531,6.666666666666667
+NTv3-650M,core_maize_tis,Core/non-core,0.656,46.666666666666664
+PlantCAD,core_maize_tis,Core/non-core,0.682,53.333333333333336
+PlantCAD2-L,core_maize_tis,Core/non-core,0.696,66.66666666666666
+PlantCAD2-M,core_maize_tis,Core/non-core,0.71,80.0
+PlantCAD2-S,core_maize_tis,Core/non-core,0.707,73.33333333333333
+PlantCAD2.5-L,core_maize_tis,Core/non-core,0.743,86.66666666666667
+evo2_20b,core_maize_tis,Core/non-core,0.686,60.0
+evo2_7b,core_maize_tis,Core/non-core,0.624,40.0
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",core_maize_tis,Core/non-core,0.7636926923091358,93.33333333333333
+Carbon-3B,core_maize_tts,Core/non-core,0.567,20.0
+GPN,core_maize_tts,Core/non-core,0.444,13.333333333333334
+MarinDNA 1B 562B,core_maize_tts,Core/non-core,0.6430580283820261,80.0
+MarinMoE 1.5B–60M 216B,core_maize_tts,Core/non-core,0.6362736384119122,73.33333333333333
+MarinMoE 1.5B–60M 665B (FIM),core_maize_tts,Core/non-core,0.695284556677174,100.0
+NTv3-100M,core_maize_tts,Core/non-core,0.438,6.666666666666667
+NTv3-650M,core_maize_tts,Core/non-core,0.577,26.666666666666668
+PlantCAD,core_maize_tts,Core/non-core,0.608,43.333333333333336
+PlantCAD2-L,core_maize_tts,Core/non-core,0.608,43.333333333333336
+PlantCAD2-M,core_maize_tts,Core/non-core,0.618,53.333333333333336
+PlantCAD2-S,core_maize_tts,Core/non-core,0.598,33.33333333333333
+PlantCAD2.5-L,core_maize_tts,Core/non-core,0.626,60.0
+evo2_20b,core_maize_tts,Core/non-core,0.686,93.33333333333333
+evo2_7b,core_maize_tts,Core/non-core,0.628,66.66666666666666
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",core_maize_tts,Core/non-core,0.6820145623604622,86.66666666666667
+Carbon-3B,core_tomato_acceptor,Core/non-core,0.5919,20.0
+GPN,core_tomato_acceptor,Core/non-core,0.675,26.666666666666668
+MarinDNA 1B 562B,core_tomato_acceptor,Core/non-core,0.7598210584184925,60.0
+MarinMoE 1.5B–60M 216B,core_tomato_acceptor,Core/non-core,0.7534091603943986,53.333333333333336
+MarinMoE 1.5B–60M 665B (FIM),core_tomato_acceptor,Core/non-core,0.7753199565277973,86.66666666666667
+NTv3-100M,core_tomato_acceptor,Core/non-core,0.572,6.666666666666667
+NTv3-650M,core_tomato_acceptor,Core/non-core,0.584,13.333333333333334
+PlantCAD,core_tomato_acceptor,Core/non-core,0.709,33.33333333333333
+PlantCAD2-L,core_tomato_acceptor,Core/non-core,0.774,73.33333333333333
+PlantCAD2-M,core_tomato_acceptor,Core/non-core,0.766,66.66666666666666
+PlantCAD2-S,core_tomato_acceptor,Core/non-core,0.734,40.0
+PlantCAD2.5-L,core_tomato_acceptor,Core/non-core,0.79,100.0
+evo2_20b,core_tomato_acceptor,Core/non-core,0.778,93.33333333333333
+evo2_7b,core_tomato_acceptor,Core/non-core,0.744,46.666666666666664
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",core_tomato_acceptor,Core/non-core,0.774809973683354,80.0
+Carbon-3B,core_tomato_donor,Core/non-core,0.5854,6.666666666666667
+GPN,core_tomato_donor,Core/non-core,0.698,26.666666666666668
+MarinDNA 1B 562B,core_tomato_donor,Core/non-core,0.7584362857213909,60.0
+MarinMoE 1.5B–60M 216B,core_tomato_donor,Core/non-core,0.7554781092023782,53.333333333333336
+MarinMoE 1.5B–60M 665B (FIM),core_tomato_donor,Core/non-core,0.764768283870156,73.33333333333333
+NTv3-100M,core_tomato_donor,Core/non-core,0.624,13.333333333333334
+NTv3-650M,core_tomato_donor,Core/non-core,0.632,20.0
+PlantCAD,core_tomato_donor,Core/non-core,0.72,33.33333333333333
+PlantCAD2-L,core_tomato_donor,Core/non-core,0.767,93.33333333333333
+PlantCAD2-M,core_tomato_donor,Core/non-core,0.765,80.0
+PlantCAD2-S,core_tomato_donor,Core/non-core,0.735,40.0
+PlantCAD2.5-L,core_tomato_donor,Core/non-core,0.783,100.0
+evo2_20b,core_tomato_donor,Core/non-core,0.766,86.66666666666667
+evo2_7b,core_tomato_donor,Core/non-core,0.745,46.666666666666664
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",core_tomato_donor,Core/non-core,0.7632709687458743,66.66666666666666
+Carbon-3B,core_tomato_tis,Core/non-core,0.5323,13.333333333333334
+GPN,core_tomato_tis,Core/non-core,0.604,40.0
+MarinDNA 1B 562B,core_tomato_tis,Core/non-core,0.6100627011317028,46.666666666666664
+MarinMoE 1.5B–60M 216B,core_tomato_tis,Core/non-core,0.6173517759665389,53.333333333333336
+MarinMoE 1.5B–60M 665B (FIM),core_tomato_tis,Core/non-core,0.7043044840650998,100.0
+NTv3-100M,core_tomato_tis,Core/non-core,0.521,6.666666666666667
+NTv3-650M,core_tomato_tis,Core/non-core,0.579,20.0
+PlantCAD,core_tomato_tis,Core/non-core,0.587,30.0
+PlantCAD2-L,core_tomato_tis,Core/non-core,0.646,80.0
+PlantCAD2-M,core_tomato_tis,Core/non-core,0.645,73.33333333333333
+PlantCAD2-S,core_tomato_tis,Core/non-core,0.622,60.0
+PlantCAD2.5-L,core_tomato_tis,Core/non-core,0.668,86.66666666666667
+evo2_20b,core_tomato_tis,Core/non-core,0.644,66.66666666666666
+evo2_7b,core_tomato_tis,Core/non-core,0.587,30.0
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",core_tomato_tis,Core/non-core,0.6988206196964444,93.33333333333333
+Carbon-3B,core_tomato_tts,Core/non-core,0.5113,26.666666666666668
+GPN,core_tomato_tts,Core/non-core,0.469,13.333333333333334
+MarinDNA 1B 562B,core_tomato_tts,Core/non-core,0.6238980628188069,80.0
+MarinMoE 1.5B–60M 216B,core_tomato_tts,Core/non-core,0.6215684828309531,73.33333333333333
+MarinMoE 1.5B–60M 665B (FIM),core_tomato_tts,Core/non-core,0.7106020981172874,100.0
+NTv3-100M,core_tomato_tts,Core/non-core,0.43,6.666666666666667
+NTv3-650M,core_tomato_tts,Core/non-core,0.502,20.0
+PlantCAD,core_tomato_tts,Core/non-core,0.522,33.33333333333333
+PlantCAD2-L,core_tomato_tts,Core/non-core,0.598,56.666666666666664
+PlantCAD2-M,core_tomato_tts,Core/non-core,0.595,46.666666666666664
+PlantCAD2-S,core_tomato_tts,Core/non-core,0.535,40.0
+PlantCAD2.5-L,core_tomato_tts,Core/non-core,0.606,66.66666666666666
+evo2_20b,core_tomato_tts,Core/non-core,0.639,86.66666666666667
+evo2_7b,core_tomato_tts,Core/non-core,0.598,56.666666666666664
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",core_tomato_tts,Core/non-core,0.7024962091601514,93.33333333333333
+Carbon-3B,motif_maize_acceptor,Motifs,0.6566,26.666666666666668
+GPN,motif_maize_acceptor,Motifs,0.6427,20.0
+MarinDNA 1B 562B,motif_maize_acceptor,Motifs,0.8161617999727041,40.0
+MarinMoE 1.5B–60M 216B,motif_maize_acceptor,Motifs,0.8270671805236922,53.333333333333336
+MarinMoE 1.5B–60M 665B (FIM),motif_maize_acceptor,Motifs,0.96966250511799,93.33333333333333
+NTv3-100M,motif_maize_acceptor,Motifs,0.442,6.666666666666667
+NTv3-650M,motif_maize_acceptor,Motifs,0.56,13.333333333333334
+PlantCAD,motif_maize_acceptor,Motifs,0.8289,60.0
+PlantCAD2-L,motif_maize_acceptor,Motifs,0.8996,80.0
+PlantCAD2-M,motif_maize_acceptor,Motifs,0.8898,73.33333333333333
+PlantCAD2-S,motif_maize_acceptor,Motifs,0.8537,66.66666666666666
+PlantCAD2.5-L,motif_maize_acceptor,Motifs,0.913,86.66666666666667
+evo2_20b,motif_maize_acceptor,Motifs,0.826,46.666666666666664
+evo2_7b,motif_maize_acceptor,Motifs,0.7377,33.33333333333333
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",motif_maize_acceptor,Motifs,0.9717356972489584,100.0
+Carbon-3B,motif_maize_donor,Motifs,0.6366,13.333333333333334
+GPN,motif_maize_donor,Motifs,0.6407,20.0
+MarinDNA 1B 562B,motif_maize_donor,Motifs,0.8205616465954806,40.0
+MarinMoE 1.5B–60M 216B,motif_maize_donor,Motifs,0.8285944537236221,53.333333333333336
+MarinMoE 1.5B–60M 665B (FIM),motif_maize_donor,Motifs,0.9573013407508985,100.0
+NTv3-100M,motif_maize_donor,Motifs,0.549,6.666666666666667
+NTv3-650M,motif_maize_donor,Motifs,0.686,26.666666666666668
+PlantCAD,motif_maize_donor,Motifs,0.8486,60.0
+PlantCAD2-L,motif_maize_donor,Motifs,0.9104,80.0
+PlantCAD2-M,motif_maize_donor,Motifs,0.9031,73.33333333333333
+PlantCAD2-S,motif_maize_donor,Motifs,0.8754,66.66666666666666
+PlantCAD2.5-L,motif_maize_donor,Motifs,0.921,86.66666666666667
+evo2_20b,motif_maize_donor,Motifs,0.822,46.666666666666664
+evo2_7b,motif_maize_donor,Motifs,0.7413,33.33333333333333
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",motif_maize_donor,Motifs,0.9566839324360332,93.33333333333333
+Carbon-3B,motif_maize_tis,Motifs,0.3208,26.666666666666668
+GPN,motif_maize_tis,Motifs,0.1271,13.333333333333334
+MarinDNA 1B 562B,motif_maize_tis,Motifs,0.4804662482387601,40.0
+MarinMoE 1.5B–60M 216B,motif_maize_tis,Motifs,0.5454592032791085,60.0
+MarinMoE 1.5B–60M 665B (FIM),motif_maize_tis,Motifs,0.9039323683873448,93.33333333333333
+NTv3-100M,motif_maize_tis,Motifs,0.055,6.666666666666667
+NTv3-650M,motif_maize_tis,Motifs,0.288,20.0
+PlantCAD,motif_maize_tis,Motifs,0.5204,46.666666666666664
+PlantCAD2-L,motif_maize_tis,Motifs,0.6571,80.0
+PlantCAD2-M,motif_maize_tis,Motifs,0.6325,73.33333333333333
+PlantCAD2-S,motif_maize_tis,Motifs,0.5449,53.333333333333336
+PlantCAD2.5-L,motif_maize_tis,Motifs,0.696,86.66666666666667
+evo2_20b,motif_maize_tis,Motifs,0.602,66.66666666666666
+evo2_7b,motif_maize_tis,Motifs,0.4472,33.33333333333333
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",motif_maize_tis,Motifs,0.9054182144229538,100.0
+Carbon-3B,motif_maize_tts,Motifs,0.2237,26.666666666666668
+GPN,motif_maize_tts,Motifs,0.0333,13.333333333333334
+MarinDNA 1B 562B,motif_maize_tts,Motifs,0.3856539003458434,60.0
+MarinMoE 1.5B–60M 216B,motif_maize_tts,Motifs,0.4396311002946074,73.33333333333333
+MarinMoE 1.5B–60M 665B (FIM),motif_maize_tts,Motifs,0.530933777379275,100.0
+NTv3-100M,motif_maize_tts,Motifs,0.031,6.666666666666667
+NTv3-650M,motif_maize_tts,Motifs,0.114,20.0
+PlantCAD,motif_maize_tts,Motifs,0.2373,40.0
+PlantCAD2-L,motif_maize_tts,Motifs,0.4096,66.66666666666666
+PlantCAD2-M,motif_maize_tts,Motifs,0.3601,53.333333333333336
+PlantCAD2-S,motif_maize_tts,Motifs,0.2302,33.33333333333333
+PlantCAD2.5-L,motif_maize_tts,Motifs,0.446,80.0
+evo2_20b,motif_maize_tts,Motifs,0.453,86.66666666666667
+evo2_7b,motif_maize_tts,Motifs,0.2561,46.666666666666664
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",motif_maize_tts,Motifs,0.4666581273216344,93.33333333333333
+Carbon-3B,motif_tomato_acceptor,Motifs,0.6,20.0
+GPN,motif_tomato_acceptor,Motifs,0.6281,26.666666666666668
+MarinDNA 1B 562B,motif_tomato_acceptor,Motifs,0.7109240945240689,40.0
+MarinMoE 1.5B–60M 216B,motif_tomato_acceptor,Motifs,0.6987775095940933,33.33333333333333
+MarinMoE 1.5B–60M 665B (FIM),motif_tomato_acceptor,Motifs,0.9024570846772184,93.33333333333333
+NTv3-100M,motif_tomato_acceptor,Motifs,0.378,6.666666666666667
+NTv3-650M,motif_tomato_acceptor,Motifs,0.506,13.333333333333334
+PlantCAD,motif_tomato_acceptor,Motifs,0.7266,53.333333333333336
+PlantCAD2-L,motif_tomato_acceptor,Motifs,0.8257,80.0
+PlantCAD2-M,motif_tomato_acceptor,Motifs,0.8214,73.33333333333333
+PlantCAD2-S,motif_tomato_acceptor,Motifs,0.794,66.66666666666666
+PlantCAD2.5-L,motif_tomato_acceptor,Motifs,0.835,86.66666666666667
+evo2_20b,motif_tomato_acceptor,Motifs,0.785,60.0
+evo2_7b,motif_tomato_acceptor,Motifs,0.7222,46.666666666666664
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",motif_tomato_acceptor,Motifs,0.9065083196274858,100.0
+Carbon-3B,motif_tomato_donor,Motifs,0.6025,13.333333333333334
+GPN,motif_tomato_donor,Motifs,0.6799,26.666666666666668
+MarinDNA 1B 562B,motif_tomato_donor,Motifs,0.7184000113918734,40.0
+MarinMoE 1.5B–60M 216B,motif_tomato_donor,Motifs,0.7068301400488427,33.33333333333333
+MarinMoE 1.5B–60M 665B (FIM),motif_tomato_donor,Motifs,0.8923823967077487,100.0
+NTv3-100M,motif_tomato_donor,Motifs,0.529,6.666666666666667
+NTv3-650M,motif_tomato_donor,Motifs,0.645,20.0
+PlantCAD,motif_tomato_donor,Motifs,0.7547,53.333333333333336
+PlantCAD2-L,motif_tomato_donor,Motifs,0.8387,80.0
+PlantCAD2-M,motif_tomato_donor,Motifs,0.8354,73.33333333333333
+PlantCAD2-S,motif_tomato_donor,Motifs,0.8165,66.66666666666666
+PlantCAD2.5-L,motif_tomato_donor,Motifs,0.846,86.66666666666667
+evo2_20b,motif_tomato_donor,Motifs,0.789,60.0
+evo2_7b,motif_tomato_donor,Motifs,0.7307,46.666666666666664
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",motif_tomato_donor,Motifs,0.8921260795579953,93.33333333333333
+Carbon-3B,motif_tomato_tis,Motifs,0.3743,26.666666666666668
+GPN,motif_tomato_tis,Motifs,0.2985,13.333333333333334
+MarinDNA 1B 562B,motif_tomato_tis,Motifs,0.4027398032528116,40.0
+MarinMoE 1.5B–60M 216B,motif_tomato_tis,Motifs,0.4044874143811483,46.666666666666664
+MarinMoE 1.5B–60M 665B (FIM),motif_tomato_tis,Motifs,0.8563576401612312,93.33333333333333
+NTv3-100M,motif_tomato_tis,Motifs,0.107,6.666666666666667
+NTv3-650M,motif_tomato_tis,Motifs,0.342,20.0
+PlantCAD,motif_tomato_tis,Motifs,0.3885,33.33333333333333
+PlantCAD2-L,motif_tomato_tis,Motifs,0.596,80.0
+PlantCAD2-M,motif_tomato_tis,Motifs,0.5846,66.66666666666666
+PlantCAD2-S,motif_tomato_tis,Motifs,0.5274,60.0
+PlantCAD2.5-L,motif_tomato_tis,Motifs,0.612,86.66666666666667
+evo2_20b,motif_tomato_tis,Motifs,0.586,73.33333333333333
+evo2_7b,motif_tomato_tis,Motifs,0.4851,53.333333333333336
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",motif_tomato_tis,Motifs,0.8568650111339742,100.0
+Carbon-3B,motif_tomato_tts,Motifs,0.1895,33.33333333333333
+GPN,motif_tomato_tts,Motifs,0.0569,13.333333333333334
+MarinDNA 1B 562B,motif_tomato_tts,Motifs,0.2215644820295983,53.333333333333336
+MarinMoE 1.5B–60M 216B,motif_tomato_tts,Motifs,0.2165468639887244,46.666666666666664
+MarinMoE 1.5B–60M 665B (FIM),motif_tomato_tts,Motifs,0.3859619450317125,100.0
+NTv3-100M,motif_tomato_tts,Motifs,0.036,6.666666666666667
+NTv3-650M,motif_tomato_tts,Motifs,0.132,20.0
+PlantCAD,motif_tomato_tts,Motifs,0.157,26.666666666666668
+PlantCAD2-L,motif_tomato_tts,Motifs,0.2848,73.33333333333333
+PlantCAD2-M,motif_tomato_tts,Motifs,0.2747,66.66666666666666
+PlantCAD2-S,motif_tomato_tts,Motifs,0.2051,40.0
+PlantCAD2.5-L,motif_tomato_tts,Motifs,0.294,80.0
+evo2_20b,motif_tomato_tts,Motifs,0.379,93.33333333333333
+evo2_7b,motif_tomato_tts,Motifs,0.2681,60.0
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",motif_tomato_tts,Motifs,0.3758421423537703,86.66666666666667
+Carbon-3B,sv_impact,SV impact,0.8314,53.333333333333336
+GPN,sv_impact,SV impact,0.7277,20.0
+MarinDNA 1B 562B,sv_impact,SV impact,0.8525691047089042,86.66666666666667
+MarinMoE 1.5B–60M 216B,sv_impact,SV impact,0.8540951287449496,93.33333333333333
+MarinMoE 1.5B–60M 665B (FIM),sv_impact,SV impact,0.8455626859700207,76.66666666666667
+NTv3-100M,sv_impact,SV impact,0.514,6.666666666666667
+NTv3-650M,sv_impact,SV impact,0.642,13.333333333333334
+PlantCAD,sv_impact,SV impact,0.8233,46.666666666666664
+PlantCAD2-L,sv_impact,SV impact,0.841,66.66666666666666
+PlantCAD2-M,sv_impact,SV impact,0.8334,60.0
+PlantCAD2-S,sv_impact,SV impact,0.7946,40.0
+PlantCAD2.5-L,sv_impact,SV impact,0.745,26.666666666666668
+evo2_20b,sv_impact,SV impact,0.86,100.0
+evo2_7b,sv_impact,SV impact,0.7706,33.33333333333333
+"MarinMoE 1.5B–60M 665B (FIM, All 4^k)",sv_impact,SV impact,0.8455626859700207,76.66666666666667

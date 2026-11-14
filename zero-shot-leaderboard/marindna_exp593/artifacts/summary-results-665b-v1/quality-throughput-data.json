@@ -1,0 +1,164 @@
+{
+  "rank_population": [
+    "Carbon-3B",
+    "GPN",
+    "MarinDNA 1B 562B",
+    "MarinMoE 1.5B\u201360M 216B",
+    "MarinMoE 1.5B\u201360M 665B (FIM)",
+    "NTv3-100M",
+    "NTv3-650M",
+    "PlantCAD",
+    "PlantCAD2-L",
+    "PlantCAD2-M",
+    "PlantCAD2-S",
+    "PlantCAD2.5-L",
+    "evo2_20b",
+    "evo2_7b",
+    "MarinMoE 1.5B\u201360M 665B (FIM, All 4^k)"
+  ],
+  "tasks_per_model": 20,
+  "readouts_ranked_jointly": true,
+  "rank_definition": "Same jointly recomputed percentiles as the draft benchmark; 15/40/40/5 family weighting",
+  "models": {
+    "exp586_216b": {
+      "weighted_avg_rank": 57.0,
+      "color": "#bd862f"
+    },
+    "exp593_665b_fim": {
+      "weighted_avg_rank": 86.33333333333333,
+      "color": "#baa3ad",
+      "quality_backend": "fast-fa3",
+      "throughput_is_projected": true
+    },
+    "exp593_665b_whole_motif": {
+      "weighted_avg_rank": 83.66666666666666,
+      "color": "#b64d61",
+      "quality_backend": "fast-fa3",
+      "throughput_is_projected": true
+    }
+  },
+  "style": {
+    "old_series": "hollow amber",
+    "new_series": "whole-motif filled rose, TF small muted rose",
+    "legend": "inside lower right",
+    "labels_and_arrows": "black",
+    "readout_labels": [
+      "Earlier motif bases given \u00b7 Evo 2\u2013style",
+      "Exact 2\u20133 bp motif \u00b7 PlantCAD-style"
+    ]
+  },
+  "throughputs": {
+    "torch-fa2": 1046883,
+    "vllm-fa3": 1284287,
+    "fast-fa3": 1582373
+  },
+  "exp586_backend_rank_checks": {
+    "torch-fa2": {
+      "all_20_ranks_unchanged": true,
+      "published_rounding_cannot_change_ranks": true
+    },
+    "vllm-fa3": {
+      "all_20_ranks_unchanged": true,
+      "published_rounding_cannot_change_ranks": true
+    },
+    "fast-fa3": {
+      "all_20_ranks_unchanged": true,
+      "published_rounding_cannot_change_ranks": true
+    }
+  },
+  "baselines": [
+    {
+      "model": "PlantCAD2.5-L",
+      "label": "PlantCAD2.5-Large",
+      "throughput_bp_per_s": 135000.0,
+      "weighted_avg_rank": 81.66666666666666,
+      "throughput_is_proxy": false
+    },
+    {
+      "model": "PlantCAD2-L",
+      "label": "PlantCAD2-Large",
+      "throughput_bp_per_s": 38000.0,
+      "weighted_avg_rank": 74.66666666666666,
+      "throughput_is_proxy": false
+    },
+    {
+      "model": "evo2_20b",
+      "label": "Evo 2 20B \u2020",
+      "throughput_bp_per_s": 13000.0,
+      "weighted_avg_rank": 78.0,
+      "throughput_is_proxy": true
+    },
+    {
+      "model": "PlantCAD2-M",
+      "label": "PlantCAD2-Medium",
+      "throughput_bp_per_s": 65000.0,
+      "weighted_avg_rank": 67.66666666666666,
+      "throughput_is_proxy": false
+    },
+    {
+      "model": "PlantCAD2-S",
+      "label": "PlantCAD2-Small",
+      "throughput_bp_per_s": 177000.0,
+      "weighted_avg_rank": 50.33333333333333,
+      "throughput_is_proxy": false
+    },
+    {
+      "model": "evo2_7b",
+      "label": "Evo 2 7B",
+      "throughput_bp_per_s": 13000.0,
+      "weighted_avg_rank": 46.99999999999999,
+      "throughput_is_proxy": false
+    },
+    {
+      "model": "PlantCAD",
+      "label": "PlantCAD1 (32L) \u2021",
+      "throughput_bp_per_s": 77000.0,
+      "weighted_avg_rank": 45.0,
+      "throughput_is_proxy": false
+    },
+    {
+      "model": "Carbon-3B",
+      "label": "Carbon-3B",
+      "throughput_bp_per_s": 265000.0,
+      "weighted_avg_rank": 27.333333333333332,
+      "throughput_is_proxy": false
+    },
+    {
+      "model": "NTv3-650M",
+      "label": "NTv3-650M",
+      "throughput_bp_per_s": 540000.0,
+      "weighted_avg_rank": 21.666666666666664,
+      "throughput_is_proxy": false
+    },
+    {
+      "model": "NTv3-100M",
+      "label": "NTv3-100M",
+      "throughput_bp_per_s": 950000.0,
+      "weighted_avg_rank": 7.0,
+      "throughput_is_proxy": false
+    }
+  ],
+  "exp593_readouts": {
+    "Conservation": "AR TF forward/RC fusion",
+    "Motifs": "FIM all-candidate forward/RC MAP whole-motif exact accuracy",
+    "Core/non-core": "FIM all-candidate forward/RC observed whole-motif probability AUROC",
+    "SV impact": "Historical forward-only AR"
+  },
+  "exp586_readouts": "Historical per-task best strand; SV forward-only AR",
+  "caveats": [
+    "Four-logit forward throughput excludes preparation, repeated decoding and RC passes.",
+    "Only fast-fa3 quality was evaluated for exp593; other configurations are projected placements.",
+    "Arrow compares different token totals, source checkpoints and inference readouts; not an isolated FIM causal effect.",
+    "vllm-fa3 historical quality validation includes an unresolved hidden-feature check; this plot is zero-shot only."
+  ],
+  "label_overlap_count": 0,
+  "text_marker_overlap_count": 0,
+  "published": false,
+  "sources": {
+    "/home/exedev/repos/plantcad2-br/codex-exp593-evals/scratch/exp593-anneal-evals/665b-fim-benchmark-readouts/all-task-scores-and-percentiles.csv": "1283452fc06f8d92f2c534bc0205627a73f8885127e8eb5fc6e2d50b13340555",
+    "/home/exedev/repos/plantcad2-br/codex-exp593-evals/scratch/exp593-pareto-draft/reference/plantcad_pareto_metrics.csv": "42e65484842cca1aaae49599ffcc19c23a1e9349fbf3e5795fe221bcc39db0d7",
+    "/home/exedev/repos/plantcad2-br/codex-exp593-evals/scratch/exp593-pareto-draft/reference/backend-figure-data.json": "8b843f3deb5a926e5cc778616cb9f6465640d87bfcd9cd88d8c07fbe77addfd6",
+    "/home/exedev/repos/plantcad2-br/codex-exp593-evals/scratch/exp593-pareto-draft/reference/backend-validation-comment.json": "47cd16a9451607b202110bfb32638cecd21536ccf01e1f72bc85a99993154e2d",
+    "/home/exedev/repos/plantcad2-br/codex-exp593-evals/scratch/exp593-pareto-draft/reference/throughput-comment.json": "5df06b2f78002c732c205275ca6b43c87fa82c8032d81a93ce71eee467bce317"
+  }
+}
